@@ -8,7 +8,7 @@ public class CoursebuilderApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CoursebuilderApplication.class, args);
-        System.out.println("poop");
+        System.out.println("poopity");
     }
 
 }
