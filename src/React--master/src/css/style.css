@@ -1,0 +1,17 @@
+.center {
+    width: 42% !important;
+    border: 3px solid green;
+    padding: 100px;
+    margin: 250px;
+    text-align: center;
+}
+
+button, input, optgroup, select, textarea {
+    margin: 10px;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+.btn-success {
+    width: 40%;
+}

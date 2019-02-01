@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="EN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign-In Page</title>
+    <link rel="stylesheet" href="../../css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="../../js/react.min.js"></script>
+    <script src="../../js/react-dom.min.js"></script>
+    <script src="../../js/browser.min.js"></script>
+</head>
+<body>
+
+    <div id="container"></div>
+    <script type="text/babel">
+        let Comment = React.createClass({
+            login: function () {
+                alert('hjkhgj');
+
+            },
+            render: function () {
+                return (
+                    <div className="container center">
+                        <form>
+                            <div className="container">
+                                <div className="row">
+                                    <label className="col-12">User Name:<input className="col-12" type="text" name="name" /></label>
+                                    <label className="col-12 password-field">Password:<input className="col-12" type="password" name="password" /></label>
+                                </div>
+                            </div>
+                        </form>
+                        <button className="btn btn-success" type="button" onClick={this.login}>Login</button>
+                    </div>
+                );
+            }
+        });
+        ReactDOM.render(
+            <div>
+                <Comment>Hey now</Comment>
+            </div>,
+            document.getElementById('container'));
+    </script>
+
+
+
+</body>
+</html>
