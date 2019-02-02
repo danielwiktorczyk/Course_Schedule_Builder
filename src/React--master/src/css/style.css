@@ -1,0 +1,38 @@
+.center {
+    width: 42% !important;
+    border: 7px solid green;
+    padding: 100px;
+    margin: 250px;
+    text-align: center;
+}
+
+button, input, optgroup, select, textarea {
+    margin: 10px;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+.btn-success {
+    width: 40%;
+    margin-left: 12px;
+}
+
+
+#inside{
+    background-color: lightcyan;
+    text-align: center;
+}
+
+#header{
+
+    font-family: "Times New Roman", Times, serif;
+    font-size: 30px;
+    font-weight: bold;
+    color: #1f309a;
+    padding:10px;
+    text-align: justify;
+
+}
+#container{
+    color : deepskyblue;
+}
