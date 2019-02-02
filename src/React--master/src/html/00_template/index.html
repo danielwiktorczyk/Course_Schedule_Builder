@@ -12,35 +12,47 @@
 </head>
 <body>
 
-    <div id="container"></div>
-    <script type="text/babel">
-        let Comment = React.createClass({
-            login: function () {
-                alert('hjkhgj');
+<div id="container"></div>
+<script type="text/babel">
+    let Comment = React.createClass({
+        login: function () {
+            alert('you logged in');
 
-            },
-            render: function () {
-                return (
-                    <div className="container center">
-                        <form>
-                            <div className="container">
-                                <div className="row">
-                                    <label className="col-12">User Name:<input className="col-12" type="text" name="name" /></label>
-                                    <label className="col-12 password-field">Password:<input className="col-12" type="password" name="password" /></label>
-                                </div>
-                            </div>
-                        </form>
-                        <button className="btn btn-success" type="button" onClick={this.login}>Login</button>
+        },
+        reset: function () {
+            alert('reset');
+
+        },
+        render: function () {
+            return (
+
+                <div className="container center" id="inside">
+                    <div >
+                        <a href="https://www.concordia.ca//"><img src="concordia_logo.png" alt="concordia logo pic" width="200px" length="100px" /></a>
                     </div>
-                );
-            }
-        });
-        ReactDOM.render(
-            <div>
-                <Comment>Hey now</Comment>
-            </div>,
-            document.getElementById('container'));
-    </script>
+
+                    <h1 id={"header"}>Welcome to Concordia Student Course Planner</h1>
+                    <form >
+                        <div className="container">
+                            <div className="row">
+                                <label className="col-12">User Name:<input className="col-12" type="text" name="name" /></label>
+                                <label className="col-12 password-field">Password:<input className="col-12" type="password" name="password" /></label>
+                            </div>
+                        </div>
+
+                        <button className="btn btn-success" type="submit" value="Submit" onClick={this.login}>Login</button>&nbsp;&nbsp;
+                        <button className="btn btn-success" type="reset" value="Reset" onClick={this.reset}>Clear</button>
+                    </form>
+                </div>
+            );
+        }
+    });
+    ReactDOM.render(
+        <div>
+            <Comment>Hey now</Comment>
+        </div>,
+        document.getElementById('container'));
+</script>
 
 
 
