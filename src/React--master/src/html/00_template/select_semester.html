@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="EN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Choose Semester/ Academic Year</title>
+    <link rel="stylesheet" href="../../css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="../../js/react.min.js"></script>
+    <script src="../../js/react-dom.min.js"></script>
+    <script src="../../js/browser.min.js"></script>
+</head>
+<body>
+
+<div id="container"></div>
+<script type="text/babel">
+    let Semester = React.createClass({
+        render: function () {
+            return (
+                <div className="container">
+                    <h1>Undergraduate Schedule Generator</h1>
+                    <h3>Visualize possible schedules for a selection of courses to quickly plan your semester!</h3>
+
+                    <hr/>
+
+                    <h2>Select a semester to start</h2>
+
+                    <hr/>
+
+                    <div className="row">
+                        <button className="col-5">Fall 2018</button>
+                        <div className="col-2"></div>
+                        <button className="col-5">Winter 2019</button>
+                    </div>
+
+                </div>
+            );
+        }
+    });
+    ReactDOM.render(
+        <div><Semester>show table</Semester></div>,
+        document.getElementById('container'));
+</script>
+
+
+
+</body>
+</html>

@@ -1,3 +1,6 @@
+html{
+    background-color: #C9C7F2;
+}
 .center {
     width: 42% !important;
     border: 7px solid green;
@@ -5,7 +8,6 @@
     margin: 250px;
     text-align: center;
 }
-
 button, input, optgroup, select, textarea {
     margin: 10px;
     font-family: inherit;
@@ -16,13 +18,10 @@ button, input, optgroup, select, textarea {
     width: 40%;
     margin-left: 12px;
 }
-
-
 #inside{
     background-color: lightcyan;
     text-align: center;
 }
-
 #header{
 
     font-family: "Times New Roman", Times, serif;
@@ -34,5 +33,7 @@ button, input, optgroup, select, textarea {
 
 }
 #container{
-    color : deepskyblue;
+    color : black;
+    background-color: #C9C7F2;
+
 }
