@@ -17,8 +17,10 @@
     let Semester = React.createClass({
         render: function () {
             return (
-                <div className="container">
-                    <h1>Undergraduate Schedule Generator</h1>
+                <div className="container select-semester">
+                    <div >
+                        <a href="#"><img  className="ScheduleGen" src="SOEN.JPG" alt="SOEN SCHEDULER BUILDER"/></a>
+                    </div>
                     <h3>Visualize possible schedules for a selection of courses to quickly plan your semester!</h3>
 
                     <hr/>
@@ -27,10 +29,9 @@
 
                     <hr/>
 
-                    <div className="row">
-                        <button className="col-5">Fall 2018</button>
-                        <div className="col-2"></div>
-                        <button className="col-5">Winter 2019</button>
+                    <div className="wrapper row select-semester-button">
+                        <button className="col-5 btn btn-home-log">Fall 2018</button>
+                        <button className="col-5 btn btn-home-log">Winter 2019</button>
                     </div>
 
                 </div>

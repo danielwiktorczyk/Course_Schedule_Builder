@@ -17,21 +17,16 @@
     let Comment = React.createClass({
         login: function () {
             alert('you logged in');
-
         },
         reset: function () {
             alert('reset');
-
         },
         render: function () {
             return (
-
-                <div className="container center" id="inside">
+                <div className="container center card-signin" >
                     <div >
-                        <a href="https://www.concordia.ca//"><img src="concordia_logo.png" alt="concordia logo pic" width="200px" length="100px" /></a>
+                        <a href="#"><img src="SOEN.JPG" alt="SOEN SCHEDULER BUILDER"/></a>
                     </div>
-
-                    <h1 id={"header"}>Welcome to Concordia Student Course Planner</h1>
                     <form >
                         <div className="container">
                             <div className="row">
@@ -39,12 +34,11 @@
                                 <label className="col-12 password-field">Password:<input className="col-12" type="password" name="password" /></label>
                             </div>
                         </div>
-
-                        <button className="btn btn-success" type="submit" value="Submit" onClick={this.login}>Login</button>&nbsp;&nbsp;
-                        <button className="btn btn-success" type="reset" value="Reset" onClick={this.reset}>Clear</button>
+                        <button className="btn btn-home-log" type="submit" value="Submit" onClick={this.login}>Login</button>&nbsp;&nbsp;
+                        <button className="btn btn-home-log" type="reset" value="Reset" onClick={this.reset}>Clear</button>
                     </form>
                 </div>
-            );
+        );
         }
     });
     ReactDOM.render(
@@ -56,5 +50,10 @@
 
 
 
+
 </body>
 </html>
+
+
+
+
