@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="EN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Schedules</title>
+    <link rel="stylesheet" href="../../css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="../../js/react.min.js"></script>
+    <script src="../../js/react-dom.min.js"></script>
+    <script src="../../js/browser.min.js"></script>
+</head>
+<body>
+
+<div id="container"></div>
+<script type="text/babel">
+    let Table= React.createClass({
+        render: function () {
+            return (
+                <div className="container">
+                    <div >
+                        <a href="#"><img  className="ScheduleGen-" src="SOEN.JPG" alt="SOEN SCHEDULER BUILDER"/></a>
+                    </div>
+                    <h1>POSSIBLE SCHEDULES</h1>
+                    <table className="tableSchedule table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Mon</th>
+                            <th scope="col">Tue</th>
+                            <th scope="col">Wed</th>
+                            <th scope="col">Thu</th>
+                            <th scope="col">Fri</th>
+                            <th scope="col">Sat</th>
+                            <th scope="col">Sun</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+
+                            <tr><th>8:00</th></tr>
+
+                            <tr><th>8:15</th></tr>
+                            <tr><th>8:30</th></tr>
+                            <tr><th>8:45</th></tr>
+
+                            <tr>9:00</tr>
+                            <tr>9:15</tr>
+                            <tr>9:30</tr>
+                            <tr>9:45</tr>
+
+                            <tr>10:00</tr>
+                            <tr>10:15</tr>
+                            <tr>10:30</tr>
+                            <tr>10:45</tr>
+                            <tr>11:00</tr>
+                            <tr>11:15</tr>
+                            <tr>11:30</tr>
+                            <tr>11:45</tr>
+                            <tr>12:00</tr>
+                            <tr>12:15</tr>
+                            <tr>12:30</tr>
+                            <tr>12:45</tr>
+                            <tr>13:00</tr>
+                            <tr>13:15</tr>
+                            <tr>13:30</tr>
+                            <tr>13:45</tr>
+                            <tr>14:00</tr>
+                            <tr>14:15</tr>
+                            <tr>14:30</tr>
+                            <tr>14:45</tr>
+                            <tr>15:00</tr>
+                            <tr>15:15</tr>
+                            <tr>15:30</tr>
+                            <tr>15:45</tr>
+                            <tr>16:00</tr>
+                            <tr>16:00</tr>
+                        </tr>
+                        </tbody>
+
+                    </table>
+
+
+
+                </div>
+            );
+        }
+    });
+    ReactDOM.render(
+        <div><Table>show table</Table></div>,
+        document.getElementById('container'));
+</script>
+
+
+
+</body>
+</html>
