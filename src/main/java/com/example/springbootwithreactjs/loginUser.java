@@ -1,7 +1,13 @@
 package com.example.springbootwithreactjs;
 
-public class login {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serializable;
+
+public class loginUser implements Serializable {
+    @JsonProperty
     private String username;
+    @JsonProperty
     private String password;
 
     public String getUsername() {
@@ -20,8 +26,13 @@ public class login {
         this.password = password;
     }
 
-    public login(String username, String password) {
+    public loginUser(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public loginUser(){
+        this.username= "hello";
+        this.password= "world";
     }
 }

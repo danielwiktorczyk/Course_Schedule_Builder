@@ -7,22 +7,26 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {ponged: 'Not yet generated'}
-
-    this.ping = this.ping.bind(this);
+    this.state = {loggedIn: false}
+    this.ping = this.ping.bind(this)
+      this.login = this.login.bind(this)
   }
 
+  //
+  // Tutorial Example
+  //
   ping() {
     axios.get("http://localhost:8080/pong").then(res => {
       alert("Received Successful response from server!");
-      this.setState({ponged: res.data.prereq});
+      this.setState({ponged: res.data.courseId});
     }, err => {
       alert("Server rejected response with: " + err);
     });
   }
 
-
-
-
+//
+//
+//
   render(){
     return(
         <div className="container center" id="inside">
@@ -33,14 +37,18 @@ class Main extends Component {
     <form >
     <div className="container">
         <div className="row">
-        <label className="col-12">User Name:<input className="col-12" type="text" name="name" value="waqar" id={'user'} /></label>
-        <label className="col-12 password-field">Password:<input className="col-12" type="password" name="password" value="password" id={'pass'} /></label>
+        <label className="col-12">User Name:<input className="col-12" type="text" name="name"  id={'user'} /></label>
+        <label className="col-12 password-field">Password:<input className="col-12" type="password" name="password"  id={'pass'} /></label>
         </div>
         </div>
-        <button className="btn btn-success" type="submit" value="Submit" onClick={this.login()}>Login</button>&nbsp;&nbsp;
+        <button className="btn btn-success" type="submit" value="Submit" onClick={this.login}>Login</button>&nbsp;&nbsp;
         <button className="btn btn-success" type="reset" value="Reset" onClick={this.reset}>Clear</button>
+
         </form>
+            <button onClick={this.login}>Generate!</button>
+            <div>Course: {this.state.loggedIn}</div>
         </div>
+
 
 
   );
@@ -66,39 +74,23 @@ class Main extends Component {
     }
 
 
-    alert(pass);
-    axios.post('http://localhost:8080/login/', {
-      username: '$name',
-      password: '$pass'
-    }) /*
-    axios.get("http://localhost:8080/login/").then(res => {
-      alert("Received Successful response from server!");
-      this.setState({ponged: res.data.prereq});
+   // alert(name +" " + pass);
+    axios.post('http://localhost:8080/login', {
+      username: name,
+      password: pass
+    }).then(res => {
+   //   alert("Received Successful response from server!");
+      this.setState({loggedIn: res.data});
+      if (this.state.loggedIn == true)
+        alert("logged in"); // login returns true
+      else
+          alert("invalid password"); //login returns false
     }, err => {
-      alert("Server rejected response DERP: " + err);
+      alert("Server rejected response: " + err);
     });
-    */
+
   }
 
-
-/*
-  render() {
-    return (
-      <div className="Main">
-        <header className="App-header">
-          <h1 className="App-title">Class Schedule Test</h1>
-        </header>
-        <p className="App-intro">
-          <div>
-            <button onClick={this.ping}>Generate!</button>
-            <div>Course: {this.state.ponged}</div>
-          </div>
-        </p>
-      </div>
-    );
-  }
-
-  */
 }
 
 export default Main;
