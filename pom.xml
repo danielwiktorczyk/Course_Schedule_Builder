@@ -4,12 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>spring-boot-with-react-js</artifactId>
+	<artifactId>course-schedule-builder</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
-	<name>spring-boot-with-react-js</name>
-	<description>Demo project for Spring Boot</description>
+	<name>course-schedule-builder</name>
+	<description>Course Schedule Builder Project by the Procrastinators</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
