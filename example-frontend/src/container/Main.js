@@ -81,7 +81,7 @@ class Main extends Component {
     }).then(res => {
    //   alert("Received Successful response from server!");
       this.setState({loggedIn: res.data});
-      if (this.state.loggedIn == true)
+      if (this.state.loggedIn === true)
         alert("logged in"); // login returns true
       else
           alert("invalid password"); //login returns false
