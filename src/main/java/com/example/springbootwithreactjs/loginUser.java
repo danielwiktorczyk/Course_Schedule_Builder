@@ -2,9 +2,9 @@ package com.example.springbootwithreactjs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.Serializable;
 
-public class loginUser implements Serializable {
+
+public class loginUser {
     @JsonProperty
     private String username;
     @JsonProperty

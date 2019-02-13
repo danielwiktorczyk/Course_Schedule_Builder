@@ -6,19 +6,19 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {ponged: 'Not yet generated'}
+    this.state = {courseCheck: 'Not yet generated'}
     this.state = {loggedIn: false}
-    this.ping = this.ping.bind(this)
+    this.coursePull = this.coursePull.bind(this)
       this.login = this.login.bind(this)
   }
 
   //
   // Tutorial Example
   //
-  ping() {
-    axios.get("http://localhost:8080/pong").then(res => {
+  coursePull() {
+    axios.get("http://localhost:8080/course").then(res => {
       alert("Received Successful response from server!");
-      this.setState({ponged: res.data.courseId});
+      this.setState({courseCheck: res.data.courseId});
     }, err => {
       alert("Server rejected response with: " + err);
     });
@@ -45,8 +45,8 @@ class Main extends Component {
         <button className="btn btn-success" type="reset" value="Reset" onClick={this.reset}>Clear</button>
 
         </form>
-            <button onClick={this.login}>Generate!</button>
-            <div>Course: {this.state.loggedIn}</div>
+            <button onClick={this.coursePull}>Generate!</button>
+            <div>Course: {this.state.courseCheck}</div>
         </div>
 
 

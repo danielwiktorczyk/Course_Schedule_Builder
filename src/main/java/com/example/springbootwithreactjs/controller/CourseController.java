@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CourseController {
 
-  @RequestMapping(value = "/pong", method = RequestMethod.GET)
+  @RequestMapping(value = "/course", method = RequestMethod.GET)
   @CrossOrigin(origins = "http://localhost:3000")
-  public Course pong() {
-    Course x = new Course("COMP249", "COMP248");
-    return x;
+  public Course courseTest() {
+    Course testCourse = new Course("COMP249", "COMP248");
+    return testCourse;
   }
 }

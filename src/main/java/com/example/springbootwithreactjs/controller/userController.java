@@ -13,7 +13,8 @@ public class userController {
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     @CrossOrigin(origins = "http://localhost:3000")
     public loginUser user() {
-        loginUser x = new loginUser("waqar", "password");
-        return x;
+        loginUser testUser = new loginUser("waqar", "password");
+        return testUser
+                ;
     }
 }
