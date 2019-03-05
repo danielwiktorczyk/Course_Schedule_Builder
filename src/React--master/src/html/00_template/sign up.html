@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="EN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign-up Page</title>
+    <link rel="stylesheet" href="../../css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="../../js/react.min.js"></script>
+    <script src="../../js/react-dom.min.js"></script>
+    <script src="../../js/browser.min.js"></script>
+</head>
+<body>
+
+<div id="container1"></div>
+<script type="text/babel">
+    let Signupform = React.createClass({
+        signup: function () {
+            alert('you have signed up');
+        },
+        render: function () {
+            return (
+                <div className="container center card-signup" >
+                    <div >
+                        <a href="#"><img src="SOEN.JPG" alt="SOEN SCHEDULER BUILDER"/></a>
+                    </div>
+                    <form >
+                        <div className="container">
+                            <div className="row">
+                                <label className="col-12">User Name:<input className="col-12" type="text" name="name" /></label>
+                                <label className="col-12">Password:<input className="col-12" type="password" name="password" /></label>
+                                <label className="col-12">First Name:<input className="col-12" type="text" name="firstName" /></label>
+                                <label className="col-12">Last Name:<input className="col-12" type="text" name="lastName" /></label>
+                                <label className="col-12">Email:<input className="col-12" type="text" name="email" /></label>
+                            </div>
+                        </div>
+                        <button className="btn btn-home-log" type="submit" value="Submit" onClick={this.signup}>Sign Up</button>
+                    </form>
+
+                </div>
+            );
+        }
+    });
+    ReactDOM.render(
+        <div>
+            <Signupform>c</Signupform>
+        </div>,
+        document.getElementById('container1'));
+</script>
+
+
+
+
+</body>
+</html>
+
+
+
+
