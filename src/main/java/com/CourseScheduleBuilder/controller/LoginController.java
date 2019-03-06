@@ -1,10 +1,7 @@
-package com.example.springbootwithreactjs.controller;
+package com.CourseScheduleBuilder.controller;
 
-import com.example.springbootwithreactjs.loginUser;
-import org.springframework.http.MediaType;
+import com.CourseScheduleBuilder.Model.loginUser;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
 
 /**
  */

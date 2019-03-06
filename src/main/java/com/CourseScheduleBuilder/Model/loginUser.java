@@ -1,4 +1,4 @@
-package com.example.springbootwithreactjs;
+package com.CourseScheduleBuilder.Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

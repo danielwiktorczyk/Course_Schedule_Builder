@@ -1,7 +1,6 @@
-package com.example.springbootwithreactjs.controller;
+package com.CourseScheduleBuilder.controller;
 
-import com.example.springbootwithreactjs.Course;
-import com.example.springbootwithreactjs.loginUser;
+import com.CourseScheduleBuilder.Model.loginUser;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
