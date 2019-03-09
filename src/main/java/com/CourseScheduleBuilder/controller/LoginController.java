@@ -27,9 +27,7 @@ public class LoginController {
         u.setEmail(user.getUsername());
         u.setPassword(user.getPassword());
 
-
         userrepo.save(u);
-
         System.out.println(user.getUsername() + " " + user.getPassword());
         if (user.getUsername().equals("waqar") && user.getPassword().equals("password")) {
             System.out.println("Login true!");

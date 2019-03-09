@@ -95,7 +95,7 @@ public class Application implements CommandLineRunner {
 
         }
 
-        User resultUser = userRepo.findByName("Moataz");
+        User resultUser = userRepo.findByFirstName("Moataz");
         LOG.info("User found by name : " + resultUser.toString());
 
         List<User> results = userRepo.findByEmailAndPassword("SuperMan@live.com", "20BONUSPOINTS");

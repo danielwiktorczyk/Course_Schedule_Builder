@@ -2,17 +2,23 @@ package com.CourseScheduleBuilder.controller;
 
 
 import com.CourseScheduleBuilder.Model.User;
+import com.CourseScheduleBuilder.Repositories.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
  */
 @RestController
 public class RegistrationController {
+
+    @Autowired //needed to point to the same repo database
+    private UserRepo userrepo;
+
     @PostMapping("/registration")
     @CrossOrigin
     @ResponseBody
     public boolean login(@RequestBody User user){
-
+        userrepo.save(user);
         return true;
 
         //
