@@ -26,3 +26,129 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+.center {
+  width: 42% !important;
+  border: 7px solid green;
+  padding: 100px;
+  margin-top: 150px;
+  margin-left: 500px;
+
+  text-align: center;
+}
+button, input, optgroup, select, textarea {
+  margin: 10px;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+.btn-success {
+  width: 40%;
+  margin-left: 12px;
+}
+#container{
+  color : black;
+  /*background-color: #C9C7F2;*/
+
+}
+.card-signup,
+.card-signin {
+  text-align: center;
+  border-radius: 1rem;
+  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
+  border-color: darkred;
+  border-width: 2px;
+}
+.card-signup .card-title,
+.card-signin .card-title {
+  margin-bottom: 2rem;
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+.card-signup .card-body,
+.card-signin .card-body {
+  padding: 2rem;
+}
+input.col-6,
+input.col-12 {
+  border-radius: 10px;
+  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
+  border-color: darkred;
+  border-width: 1px;
+  padding: 9px;
+  margin: 0 0 19px 0;
+}
+label.col-6,
+label.col-12 {
+  text-transform: uppercase;
+  color: darkred;
+}
+.btn-home-log{
+  color: white !important;
+  text-transform: uppercase !important;
+  background-color: darkred !important;
+  border-color:darkred !important;
+  border-radius: 10px !important;
+  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin: 10px;
+  width: 93%;
+}
+.container.center.card-signin {
+  max-width: 15rem;
+  height: 30rem;
+}
+
+.container.select-semester {
+  padding-top: 18rem;
+  text-align: center;
+}
+img.ScheduleGen {
+  padding-bottom: 100px;
+}
+.ScheduleGen-{
+  padding-bottom: 100px;
+  padding-top: 100px;
+}
+hr{
+  color: darkred;
+  background-color: darkred;
+}
+.select-semester-button{
+  padding-top: 1rem;
+
+}
+.wrapper {
+  text-align: center;
+}
+button.col-5.btn.btn-home-log {
+  height: 3.5rem;
+  position: relative;
+  left: 5rem
+}
+input.col-8.course-name {
+  border-radius: 10px;
+  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
+  border-color: darkred;
+  border-width: 1px;
+  padding: 9px;
+  margin: 0 0 19px 0;
+  position: relative;
+  top: 15px;
+  left: 40px;
+}
+button.col-3.btn.btn-home-log {
+  position: relative;
+  left: 50px;
+  top: 6px;
+  height: 3rem;
+}
+.container.center.card-signup {
+  max-width: 15rem;
+  height: 15rem;
+}
+.register{
+  color: darkred;
+}
+.reg{
+  padding-top: 20px;
+}

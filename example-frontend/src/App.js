@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import Main from './container/Main';
+import Signin from './container/Signin';
 import './css/App.css';
+// import Signup from './container/Signup';
 
 class App extends Component {
 
   render() {
     return (
       <div className="App">
-        <Main />
+        <Signin />
+        {/*<Signup />*/}
+
       </div>
     );
   }
 }
-
 export default App;
