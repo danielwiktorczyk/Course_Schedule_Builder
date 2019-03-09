@@ -22,9 +22,11 @@ public class LoginController {
 
         User u = new User();            //parse the object sent by the font end to create a object to store in the database
 
-        u.setName(user.getUsername());
-        u.setEmail(user.getPassword());
-        u.setYear(1);
+        u.setFirstName("wizard");
+        u.setLastName("page");
+        u.setEmail(user.getUsername());
+        u.setPassword(user.getPassword());
+
 
         userrepo.save(u);
 

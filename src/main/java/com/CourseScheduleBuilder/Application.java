@@ -71,17 +71,19 @@ public class Application implements CommandLineRunner {
 
 
         User user1 = new User();
-        user1.setName("Moataz");
-        user1.setYear(3);
+        user1.setFirstName("Moataz");
+        user1.setLastName("Fawzy");
+        user1.setPassword("SOEN341");
         user1.setEmail("moataz_fawzy@live.com");
 
 
         userRepo.save(user1);
 
         User user2 = new User();
-        user2.setName("SuperMan");
-        user2.setYear(3);
+        user2.setFirstName("Terrill");
+        user2.setLastName("Fancott");
         user2.setEmail("SuperMan@live.com");
+        user2.setPassword("20BONUSPOINTS");
 
 
         userRepo.save(user2);
@@ -96,7 +98,7 @@ public class Application implements CommandLineRunner {
         User resultUser = userRepo.findByName("Moataz");
         LOG.info("User found by name : " + resultUser.toString());
 
-        List<User> results = userRepo.findByEmailAndYear("SuperMan@live.com", 3);
+        List<User> results = userRepo.findByEmailAndPassword("SuperMan@live.com", "20BONUSPOINTS");
 
         for (User User : results) {
             LOG.info("Matching results are : " + User.toString());
