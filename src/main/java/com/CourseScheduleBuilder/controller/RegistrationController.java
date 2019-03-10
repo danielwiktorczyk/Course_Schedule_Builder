@@ -17,7 +17,7 @@ public class RegistrationController {
     @PostMapping("/registration")
     @CrossOrigin
     @ResponseBody
-    public boolean login(@RequestBody User user){
+    public boolean validateAndRegisterNewUserRequest(@RequestBody User user){
 
         if (userrepo.findByEmail(user.getEmail()) == null ){
             userrepo.save(user);
