@@ -18,8 +18,17 @@ public class RegistrationController {
     @CrossOrigin
     @ResponseBody
     public boolean login(@RequestBody User user){
-        userrepo.save(user);
-        return true;
+
+        if (userrepo.findByEmail(user.getEmail()) == null ){
+            userrepo.save(user);
+             return true;
+        }
+            else {
+                System.out.println("DUPLICATE ACCOUNT CREATION ATTEMPTED");
+                System.out.println(user.getEmail());
+                 return false;
+        }
+
 
         //
         // Verification of login info against database to be added.

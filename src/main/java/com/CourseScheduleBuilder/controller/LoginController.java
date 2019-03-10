@@ -1,6 +1,5 @@
 package com.CourseScheduleBuilder.controller;
 
-import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Model.loginUser;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +19,6 @@ public class LoginController {
     public boolean login(@RequestBody loginUser user){
 
 
-        User u = new User();            //parse the object sent by the font end to create a object to store in the database
-
-        u.setFirstName("wizard");
-        u.setLastName("page");
-        u.setEmail(user.getUsername());
-        u.setPassword(user.getPassword());
-
-        userrepo.save(u);
         System.out.println(user.getUsername() + " " + user.getPassword());
         if (user.getUsername().equals("waqar") && user.getPassword().equals("password")) {
             System.out.println("Login true!");

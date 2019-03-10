@@ -103,5 +103,6 @@ public class Application implements CommandLineRunner {
         for (User User : results) {
             LOG.info("Matching results are : " + User.toString());
         }
+
     }
 }
