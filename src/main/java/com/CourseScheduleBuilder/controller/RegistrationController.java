@@ -36,8 +36,8 @@ public class RegistrationController {
         // true boolean returned if registration successfully completed
         // false boolean if registration failure (username already exists)
         // FE should declare error if communication failure
-        // Currently printing all information received to terminal to provide proof of communications
-        // No FE interface exists for testing currently, use POSTMAN.
+        // Prints message to console if duplicated attempted
+        // Repository find method returns a null value if the search returns no result
         //
 
     }
