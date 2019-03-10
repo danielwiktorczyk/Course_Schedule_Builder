@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../css/App.css';
 import axios from 'axios';
 
+
 class Signin extends Component {
 
   constructor(props) {
@@ -30,7 +31,8 @@ class Signin extends Component {
               </div>
             </div>
             <button className="btn btn-home-log" type="submit" value="Submit" onClick={this.login}>Sign in</button>
-            <div className="reg"><a className="register" href="">New Student? Register Now.</a></div>
+
+
 
 
           </form>
