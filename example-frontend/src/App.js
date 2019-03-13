@@ -4,7 +4,7 @@ import './css/App.css';
 
 import Signup from './container/Signup';
 import Signin from './container/Signin';
-import SelectCourse from './container/SelectCourse';
+
 
 import Header from "./container/Header";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -25,7 +25,6 @@ class App extends Component {
           </React.Fragment>
       )} />
       <Route path="/Signup" component={Signup} />
-      <Route path="/Selectcourse" component={SelectCourse} />
       </div>
   </div>
   </Router>
