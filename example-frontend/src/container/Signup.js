@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import axios from 'axios';
+import Signin from "./Signin";
+import { Redirect } from 'react-router-dom'
 
 
 class Signup extends Component {
@@ -20,7 +22,7 @@ class Signup extends Component {
                     <img src="../assets/SOEN.jpg" alt="SOEN SCHEDULER BUILDER"/>
                     {/*<h1 id={"header"}>Welcome to Concordia Student Course Planner</h1>*/}
                 </div>
-                <form >
+                <form>
                     <div className="container">
                         <div className="row">
                             <label className="col-6">First Name:<input className="col-6" type="text" name="firstname" id={'firstname'}/></label>
@@ -40,19 +42,36 @@ class Signup extends Component {
                 </form>
             </div>
 
+
         );
     }
 
     login() {
-        var name;
+        var firstName;
+        var lastName;
+        var email;
         var pass;
         var element;
-        element = document.getElementById('user');
+        element = document.getElementById('firstname');
         if (element != null) {
-            name = element.value;
+            firstName = element.value;
         }
         else {
-            name = null;
+            firstName = null;
+        }
+        element = document.getElementById('lastname');
+        if (element != null) {
+            lastName = element.value;
+        }
+        else {
+            lastName = null;
+        }
+        element = document.getElementById('email');
+        if (element != null) {
+            email = element.value;
+        }
+        else {
+            email = null;
         }
         element = document.getElementById('pass');
         if (element != null) {
@@ -64,21 +83,26 @@ class Signup extends Component {
 
 
         // alert(name +" " + pass);
-        axios.post('http://localhost:8080/login', {
-            username: name,
+        axios.post('http://localhost:8080/registration', {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
             password: pass
         }).then(res => {
             //   alert("Received Successful response from server!");
             this.setState({loggedIn: res.data});
-            if (this.state.loggedIn === true)
-                alert("logged in"); // login returns true
+            if (this.state.loggedIn === true) {
+                alert("Registration complete"); // login returns true
+            }
             else
-                alert("invalid password"); //login returns false
+                alert("An account is already associated to that email"); //login returns false
         }, err => {
-            alert("Server rejected response: " + err);
+            alert("Server rejected response: REGISTRATION RESPONSE NOT RECEIVED");
         });
 
     }
+
+
 
 }
 
