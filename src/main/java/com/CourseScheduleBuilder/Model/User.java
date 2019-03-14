@@ -16,6 +16,7 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    private boolean EWT;
 
     public Integer getId() {
         return id;
@@ -55,6 +56,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean getEWT() {
+        return EWT;
+    }
+
+    public void setEWT(boolean EWT) {
+        this.EWT = EWT;
     }
 
     @Override
