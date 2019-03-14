@@ -20,6 +20,7 @@ public class RegistrationController {
     public boolean validateAndRegisterNewUserRequest(@RequestBody User user){
 
         if (userrepo.findByEmail(user.getEmail()) == null ){
+            user.setEWT(false);
             userrepo.save(user);
              return true;
         }

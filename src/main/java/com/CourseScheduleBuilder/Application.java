@@ -75,6 +75,7 @@ public class Application implements CommandLineRunner {
         user1.setLastName("Fawzy");
         user1.setPassword("SOEN341");
         user1.setEmail("moataz_fawzy@live.com");
+        user1.setEWT(false);
 
 
         userRepo.save(user1);
@@ -84,6 +85,7 @@ public class Application implements CommandLineRunner {
         user2.setLastName("Fancott");
         user2.setEmail("SuperMan@live.com");
         user2.setPassword("20BONUSPOINTS");
+        user2.setEWT(false);
 
 
         userRepo.save(user2);

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../css/App.css';
 import axios from 'axios';
 
-
 class Signin extends Component {
 
   constructor(props) {
@@ -30,7 +29,7 @@ class Signin extends Component {
                 {/*<label className="col-12">Email:<input className="col-12" type="text" name="email" id={'email'}/></label>*/}
               </div>
             </div>
-            <button className="btn btn-home-log" type="submit" value="Submit" onClick={this.login}>Sign in</button>
+            <button className="btn btn-home-log" type="button" value="Submit" onClick={this.login}>Sign in</button>
 
 
 
@@ -68,8 +67,9 @@ class Signin extends Component {
     }).then(res => {
       //   alert("Received Successful response from server!");
       this.setState({loggedIn: res.data});
-      if (this.state.loggedIn === true)
+      if (this.state.loggedIn === true) {
         alert("logged in"); // login returns true
+      }
       else
         alert("invalid password"); //login returns false
     }, err => {

@@ -11,7 +11,7 @@ class Signup extends Component {
         super(props);
         this.state = {courseCheck: 'Not yet generated'}
         this.state = {loggedIn: false}
-        this.login = this.login.bind(this)
+        this.register = this.register.bind(this)
     }
 //
     render(){
@@ -34,7 +34,7 @@ class Signup extends Component {
                             {/*<label className="col-12">Email:<input className="col-12" type="text" name="email" id={'email'}/></label>*/}
                         </div>
                     </div>
-                    <button className="btn btn-home-log" type="submit" value="Submit" onClick={this.login}>Sign up</button>
+                    <button className="btn btn-home-log" type="button" value="Submit" onClick={this.register}>Sign up</button>
 
 
 
@@ -46,7 +46,7 @@ class Signup extends Component {
         );
     }
 
-    login() {
+    register() {
         var firstName;
         var lastName;
         var email;
@@ -93,6 +93,7 @@ class Signup extends Component {
             this.setState({loggedIn: res.data});
             if (this.state.loggedIn === true) {
                 alert("Registration complete"); // login returns true
+                this.props.history.push("/");
             }
             else
                 alert("An account is already associated to that email"); //login returns false
