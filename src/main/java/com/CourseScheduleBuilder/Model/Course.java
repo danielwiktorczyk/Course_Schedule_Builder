@@ -15,7 +15,43 @@ public class Course {
     private String name;
     private String preReq;
     private String coReq;
+    private String neverTaken;
+    private String equivalent;
     private Integer credit;
+    private String term;
+    private String section;
+    private String subject;
+    private Integer courseNumber;
+    private String component;
+    private String location;
+    //check of best format for start and end times
+    private String startTime;
+    private String endTime;
+    private String day;
+    private Integer enrolmentCap;
+    private Integer numberCurrentlyEnrolled;
+    private String associatedLecture;
+    private String associatedTutorial;
+    private String associatedLab;
+    private String requireEngineer;
+
+
+
+    //the term must be summer, fall or winter
+    //
+    //subject is the general subject category, SOEN, ENCS, ENGR, etc...
+    //courseNumber is the number that identifies a course --> eg. 248 in COMP248
+    //component of the course indicates LEC, LAB, TUT
+    //
+    //section identifier is used to identify associated course components, not unique,
+    //must be used with other identifiers such as subject, course number, term
+    //associated lab/tutorial/lecture indicate which labs and tutorials belong to which lecture
+    //
+    //the if a course must be taught by an engineer, the requireEngineer attribute contains the section(s)
+    //suitable for SOEN students, if the course does not have to be taught by an engineer, the flag NOENG is used.
+
+
+
 
 
 
@@ -63,11 +99,15 @@ public class Course {
     @Override
     public String toString() {
         return "CourseDb{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", preReq='" + preReq + '\'' +
-                ", coReq='" + coReq + '\'' +
-                ", credit=" + credit +
+                term + " " + " " + section + " " + subject + courseNumber + " " + component + "\n" +
+                name + "\n" +
+                "prequsite(s): " + preReq + "\n" +
+                "corequsite(s): " + coReq + "\n" +
+                "course location: " + location + '\'' +
+                ", day: " + day + '\'' +
+                ", start time='" + startTime + '\'' +
+                ", end time='" + endTime + "\n" +
+                "enrollment status: " + numberCurrentlyEnrolled + "/" + enrolmentCap + '\'' +
                 '}';
     }
 }
