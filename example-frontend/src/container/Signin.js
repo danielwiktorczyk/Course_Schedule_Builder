@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import axios from 'axios';
+import context from 'react-router';
+import { withRouter } from "react-router-dom";
 
 class Signin extends Component {
 
@@ -69,6 +71,8 @@ class Signin extends Component {
       this.setState({loggedIn: res.data});
       if (this.state.loggedIn === true) {
         alert("logged in"); // login returns true
+        this.props.history.push("/");
+
       }
       else
         alert("invalid password"); //login returns false
@@ -80,4 +84,4 @@ class Signin extends Component {
 
 }
 
-export default Signin;
+export default withRouter(Signin);
