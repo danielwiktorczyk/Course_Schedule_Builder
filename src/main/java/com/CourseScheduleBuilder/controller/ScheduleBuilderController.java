@@ -1,11 +1,10 @@
 package com.CourseScheduleBuilder.controller;
 
+import com.CourseScheduleBuilder.Model.Course;
+import com.CourseScheduleBuilder.Model.InfoSession;
 import com.CourseScheduleBuilder.Services.ScheduleBuilderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ScheduleBuilderController {
@@ -21,6 +20,17 @@ public class ScheduleBuilderController {
         return true;
         // using scheduleBuilder here for logic
     }
+    @PostMapping("/addCourseToWishList")
+
+    @CrossOrigin
+    @ResponseBody
+    public boolean addCourseToWishList(@RequestBody String course)
+    {
+        return scheduleBuilderService.validatePrerequisites( course);
+
+    }
+
+
 
 
 

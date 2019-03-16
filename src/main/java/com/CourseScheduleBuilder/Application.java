@@ -37,38 +37,6 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Course course1 = new Course();
-        course1.setName("SOen 341");
-        course1.setCredit(3);
-        course1.setPreReq("comp346");
-        course1.setCoReq("ENGR 301");
-
-        courseRepo.save(course1);
-
-        Course course2 = new Course();
-        course2.setName("ENGR 233");
-        course2.setCredit(3);
-        course2.setPreReq("MATH 205");
-        course2.setCoReq("ENGR 213");
-
-        courseRepo.save(course2);
-
-        List<Course> courseData = courseRepo.findAll();
-
-        for (Course Course : courseData) {
-            LOG.info("Course found :" + Course.toString());
-
-        }
-
-        Course resultCourse = courseRepo.findByName("ENGR 233");
-        LOG.info("course found by name : " + resultCourse.toString());
-
-        List<Course> result = courseRepo.findByCreditAndPreReq(4, "MATH 205");
-
-        for (Course Course : result) {
-            LOG.info("Matching results are " + Course.toString());
-        }
-
 
         User user1 = new User();
         user1.setFirstName("Moataz");

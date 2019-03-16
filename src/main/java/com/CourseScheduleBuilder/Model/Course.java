@@ -17,6 +17,11 @@ public class Course {
     private String coReq;
     private Integer credit;
 
+    String term,section,component,title,Room, Code,startTime,endTime,monday,tuesday,wednesday,thursday,friday,online,association,labRequired,requireEngineer;
+
+
+
+
 
 
 
