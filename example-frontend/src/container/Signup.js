@@ -16,17 +16,17 @@ class Signup extends Component {
 //
     render(){
         return(
-            <div className="container center card-signin" id="inside">
+            <div className="container center- card-signin" id="inside">
                 <div >
                     <img className="logo" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>
                 </div>
                 <form>
-                    <div className="container">
+                    <div>
                         <div className="row">
-                            <div><label className="col-6">First Name:<input className="col-6" type="text" name="firstname" id={'firstname'}/></label></div>
-                            <div><label className="col-6">Last Name:<input className="col-6" type="text" name="lastname" id={'lastname'}/></label></div>
-                            <div><label className="col-6">Email:<input className="col-6" type="text" name="email" id={'email'}/></label></div>
-                            <div></div><label className="col-6">Password:<input className="col-6" type="password" name="password" id={'pass'} /></label>
+                            <div><label className="col-12">First Name:<input className="col-12" type="text" name="firstname" id={'firstname'}/></label></div>
+                            <div><label className="col-12">Last Name:<input className="col-12" type="text" name="lastname" id={'lastname'}/></label></div>
+                            <div><label className="col-12">Email:<input className="col-12" type="text" name="email" id={'email'}/></label></div>
+                            <div><label className="col-12">Password:<input className="col-12" type="password" name="password" id={'pass'} /></label></div>
                         </div>
                     </div>
                     <button className="btn btn-home-log" type="button" value="Submit" onClick={this.register}>Sign up</button>

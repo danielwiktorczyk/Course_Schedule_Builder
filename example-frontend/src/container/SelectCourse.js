@@ -18,12 +18,10 @@ class SelectCourse extends Component {
 
                 <h2>Please enter Course number</h2><hr/>
                 <div className="row">
-                    <input className="col-8 course-name" type="text" name="coursename" value="Ex: SOEN 341"/>
+                    <input className="col-8 course-name" type="text" name="coursename" placeholder="Ex: SOEN 341"/>
                     <label></label>
                     <button className="col-3 btn btn-home-log">ADD</button>
                 </div>
-
-
             </div>
         );
     }

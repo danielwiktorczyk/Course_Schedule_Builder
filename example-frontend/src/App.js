@@ -14,8 +14,10 @@ class App extends Component {
     return (
         <Router>
         <div className="App">
-          <div className="container">
+          <div>
             <Header />
+          </div>
+            <div className="container">
             <Route exact path="/" render={props => (<React.Fragment><Signin /></React.Fragment>)} />
             <Route path="/Signup" component={Signup} />
             <Route path="/SelectSemester" component={SelectSemester} />

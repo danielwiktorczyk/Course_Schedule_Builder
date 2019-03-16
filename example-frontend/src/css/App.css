@@ -29,8 +29,15 @@
 .center {
   width: 42% !important;
   border: 7px solid green;
-  padding: 50px 100px 100px 100px;
-  margin: 80px 500px 150px 540px;
+  padding: 73px 57px 75px 63px;
+  margin: 79px 47px 150px 310px;
+  text-align: center;
+}
+.center- {
+  width: 42% !important;
+  border: 7px solid green;
+  padding: 50px 126px 51px 93px;
+  margin: 70px 0 31px 306px;
   text-align: center;
 }
 button, input, optgroup, select, textarea {
@@ -74,12 +81,10 @@ input.col-12 {
   border-width: 1px;
   padding: 9px;
   margin: 0 0 19px 0;
-}
-label.col-6,
-label.col-12 {
   text-transform: uppercase;
   color: darkred;
 }
+
 .btn-home-log{
   color: white !important;
   text-transform: uppercase !important;
@@ -91,10 +96,10 @@ label.col-12 {
   margin: 10px;
   width: 93%;
 }
-.container.center.card-signin {
-  max-width: 15rem;
-  height: 28rem;
-}
+/*.container.center.card-signin {*/
+  /*max-width: 15rem;*/
+  /*height: 28rem;*/
+/*}*/
 
 .container.select-semester {
   padding-top: 10rem;
@@ -135,10 +140,10 @@ button.col-3.btn.btn-home-log {
   top: 6px;
   height: 3rem;
 }
-.container.center.card-signup {
-  max-width: 15rem;
-  height: 18rem;
-}
+/*.container.center.card-signup {*/
+  /*max-width: 15rem;*/
+  /*height: 18rem;*/
+/*}*/
 .register{
   color: darkred;
 }
@@ -149,6 +154,7 @@ button.col-3.btn.btn-home-log {
   position: relative;
   left: -40px;
 }
+headerStyle:hover,
 .headerStyle{
   background: darkred;
   color: #fff;
@@ -156,6 +162,18 @@ button.col-3.btn.btn-home-log {
   padding: 10px;
 }
 
-.linkStyle{
+.linkStyle,
+.linkStyle:hover{
+  text-decoration: none;
   color: #fff;
+}
+.container- {
+  width:100%;
+  padding-right:15px;
+  padding-left:15px;
+  margin-right:auto;
+  margin-left:auto
+}
+.semester{
+  padding: 100px 0 50px 0;
 }
