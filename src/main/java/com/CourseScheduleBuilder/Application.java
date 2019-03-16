@@ -76,6 +76,9 @@ public class Application implements CommandLineRunner {
         user1.setPassword("SOEN341");
         user1.setEmail("moataz_fawzy@live.com");
         user1.setEWT(false);
+        user1.addToPrereqs("COMP348");
+        user1.addToPrereqs("COMP352");
+        user1.addToPrereqs("SOEN391");
 
 
         userRepo.save(user1);
@@ -86,11 +89,19 @@ public class Application implements CommandLineRunner {
         user2.setEmail("SuperMan@live.com");
         user2.setPassword("20BONUSPOINTS");
         user2.setEWT(false);
+        user2.addToPrereqs("ENGR233");
+
 
 
         userRepo.save(user2);
 
         List<User> userData = userRepo.findAll();
+        System.out.println("--------------");
+        for(int i=0; i<userData.size();i++) {
+            for (int j=0; j<userData.get(i).getPrereqs().size(); j++)
+            System.out.println(userData.get(i).getPrereqs().get(j));
+        }
+        System.out.println("--------------");
 
         for (User User : userData) {
             LOG.info("Course found :" + User.toString());

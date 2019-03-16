@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.ArrayList;
 
 @Entity
 public class User {
@@ -17,6 +18,7 @@ public class User {
     private String email;
     private String password;
     private boolean EWT;
+    private ArrayList<String> prereqs = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -64,6 +66,14 @@ public class User {
 
     public void setEWT(boolean EWT) {
         this.EWT = EWT;
+    }
+
+    public void addToPrereqs(String prereq){
+        this.prereqs.add(prereq);
+    }
+
+    public ArrayList<String> getPrereqs() {
+        return prereqs;
     }
 
     @Override
