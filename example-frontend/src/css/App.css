@@ -29,10 +29,8 @@
 .center {
   width: 42% !important;
   border: 7px solid green;
-  padding: 100px;
-  margin-top: 150px;
-  margin-left: 500px;
-
+  padding: 50px 100px 100px 100px;
+  margin: 80px 500px 150px 540px;
   text-align: center;
 }
 button, input, optgroup, select, textarea {
@@ -95,11 +93,11 @@ label.col-12 {
 }
 .container.center.card-signin {
   max-width: 15rem;
-  height: 30rem;
+  height: 28rem;
 }
 
 .container.select-semester {
-  padding-top: 18rem;
+  padding-top: 10rem;
   text-align: center;
 }
 img.ScheduleGen {
@@ -120,11 +118,6 @@ hr{
 .wrapper {
   text-align: center;
 }
-button.col-5.btn.btn-home-log {
-  height: 3.5rem;
-  position: relative;
-  left: 5rem
-}
 input.col-8.course-name {
   border-radius: 10px;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
@@ -144,11 +137,25 @@ button.col-3.btn.btn-home-log {
 }
 .container.center.card-signup {
   max-width: 15rem;
-  height: 15rem;
+  height: 18rem;
 }
 .register{
   color: darkred;
 }
 .reg{
   padding-top: 20px;
+}
+.logo{
+  position: relative;
+  left: -40px;
+}
+.headerStyle{
+  background: darkred;
+  color: #fff;
+  textAlign: center;
+  padding: 10px;
+}
+
+.linkStyle{
+  color: #fff;
 }
