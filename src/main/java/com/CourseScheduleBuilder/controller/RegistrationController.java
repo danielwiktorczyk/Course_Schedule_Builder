@@ -2,7 +2,6 @@ package com.CourseScheduleBuilder.controller;
 
 
 import com.CourseScheduleBuilder.Model.User;
-import com.CourseScheduleBuilder.Repositories.UserRepo;
 import com.CourseScheduleBuilder.Services.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +21,7 @@ public class RegistrationController {
 
         return registrationService.validateAndRegisterNewUserRequest(user);
 
-        }
+
 
 
         //
