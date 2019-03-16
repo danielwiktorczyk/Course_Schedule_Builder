@@ -1,41 +1,18 @@
-# Spring Boot with ReactJS using WebPack and Yarn. #
+The courseData.csv file should be used to populate the Course repository with SOEN, ENGR, ENCS, COMP and ELEC 275 classes.
 
-### Summary ###
+Most of the data is pretty self explainatory just a couple of notes:
+association is a unique 4 digit integer that a course shares with it's associated tutorials, labs are not associated with particular classes so any lad for that class in that semester will do
+requireEngineer has three possible values "NOENG" indicates a course that does not have to be taught by an engineer, 
+"Y" indicates a course that does have to be taught by an engineer and is taught by one, 
+"N" indicates a course that does have to be taught by an engineer and is not. 
 
-This a simple skeleton project that I've found useful that just
-creates a simple spring-boot application that has a react front end as well.
-
-### Running ###
-
-To run the front end, cd into ./example-frontend and run
-
-```yarn start```
-
-By default, this will start the front end at http://localhost:3000. If you want to
-change the default port, modify package.json and change the start script section to
-
-``` start: export PORT=3006 && react-scripts start```
-
-To run the back end, from the project root directory, run
-
-```mvn spring-boot:run```
-
-By default, this will start the backend server at http://localhost:8080.
-
-To change the port, modify src/main/resources/application.properties to include server.port=xxxx where xxxx is your desired port number.
-
-### Installation ###
-
-In the source directory, run
-
-```mvn install -DskipTests```
-
-In the example-frontend directory run
-
-``` yarn install```
-
-You might have to install the appropriate versions of npm or mvn.
-
-As of writing this tutorial, I am using npm 4.6.1 and I am using maven 3.3.9 with JDK version 1.8.0_92 for building
-ReactJS and Java code respectively.
+To add the data:
+Download the courseData.csv file and save it to your computer
+Launch the backend of the project from intellij
+got to localhost:8080/h2
+in the JDBC URL box, go to jdbc:h2:~/db and then connect
+because we have an existing COURSE database, you won't be able to add the data there so type the command DROP TABLE COURSE.  This removes the existing database
+run command CREATE TABLE COURSE AS SELECT * DROM CSVREAD('C:/pathToYourFile/CourseData.csv');
+click the "Run" button
+to view the data, click on COURSE where it appears in the menu and click run again (you may need to clear previous command input)
 
