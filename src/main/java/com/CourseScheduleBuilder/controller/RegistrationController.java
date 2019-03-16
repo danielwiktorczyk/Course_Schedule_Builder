@@ -2,7 +2,7 @@ package com.CourseScheduleBuilder.controller;
 
 
 import com.CourseScheduleBuilder.Model.User;
-import com.CourseScheduleBuilder.Repositories.UserRepo;
+import com.CourseScheduleBuilder.Services.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,24 +11,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class RegistrationController {
 
-    @Autowired //needed to point to the same repo database
-    private UserRepo userrepo;
+    @Autowired
+    private RegistrationService registrationService;
 
     @PostMapping("/registration")
     @CrossOrigin
     @ResponseBody
     public boolean validateAndRegisterNewUserRequest(@RequestBody User user){
 
-        if (userrepo.findByEmail(user.getEmail()) == null ){
-            user.setEWT(false);
-            userrepo.save(user);
-             return true;
-        }
-            else {
-                System.out.println("DUPLICATE ACCOUNT CREATION ATTEMPTED");
-                System.out.println(user.getEmail());
-                 return false;
-        }
+        return registrationService.validateAndRegisterNewUserRequest(user);
+
+
 
 
         //
@@ -40,6 +33,7 @@ public class RegistrationController {
         // Prints message to console if duplicated attempted
         // Repository find method returns a null value if the search returns no result
         //
+
 
     }
 }

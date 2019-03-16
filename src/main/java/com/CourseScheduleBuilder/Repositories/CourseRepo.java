@@ -13,7 +13,6 @@ public interface CourseRepo extends JpaRepository <Course, String> {
 
     Course findByName(String name);
     Course findByTerm(String term);
-    Course findBySubjectAndCourseNumber(String courseSubject, Integer courseNum);
     Course findBySection(String section);
 
     List<Course> findByCreditAndPreReq(int x , String preReq);

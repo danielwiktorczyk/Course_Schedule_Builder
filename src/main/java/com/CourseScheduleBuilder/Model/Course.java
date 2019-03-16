@@ -13,28 +13,22 @@ public class Course {
     @GeneratedValue (strategy = GenerationType.AUTO )
     private Integer id;
     private String name;
+    private String title;
     private String preReq;
     private String coReq;
-    private String equivalent;
-    private Integer credit;
     private String term;
     private String section;
-    private String subject;
-    private Integer courseNumber;
     private String component;
-    private String location;
-    //check of best format for start and end times
-    private String startTime;
-    private String endTime;
+    private Integer startTime;
+    private Integer endTime;
     private boolean monday;
     private boolean tuesday;
     private boolean wednesday;
     private boolean thursday;
     private boolean friday;
     private boolean online;
-    private Integer enrolmentCap;
-    private Integer numberCurrentlyEnrolled;
     private Integer association;
+    private boolean labRequired;
     private String requireEngineer;
 
     public Course(){
@@ -42,12 +36,29 @@ public class Course {
     }
 
     //getter and setter methods for all attributes
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getPreReq() {
@@ -66,22 +77,6 @@ public class Course {
         this.coReq = coReq;
     }
 
-    public Integer getCredit() {
-        return credit;
-    }
-
-    public void setCredit(Integer credit) {
-        this.credit = credit;
-    }
-
-    public String getEquivalent() {
-        return equivalent;
-    }
-
-    public void setEquivalent(String equivalent) {
-        this.equivalent = equivalent;
-    }
-
     public String getTerm() {
         return term;
     }
@@ -98,22 +93,6 @@ public class Course {
         this.section = section;
     }
 
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public Integer getCourseNumber() {
-        return courseNumber;
-    }
-
-    public void setCourseNumber(Integer courseNumber) {
-        this.courseNumber = courseNumber;
-    }
-
     public String getComponent() {
         return component;
     }
@@ -122,27 +101,19 @@ public class Course {
         this.component = component;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getStartTime() {
+    public Integer getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Integer startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public Integer getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(Integer endTime) {
         this.endTime = endTime;
     }
 
@@ -194,28 +165,20 @@ public class Course {
         this.online = online;
     }
 
-    public Integer getEnrolmentCap() {
-        return enrolmentCap;
-    }
-
-    public void setEnrolmentCap(Integer enrolmentCap) {
-        this.enrolmentCap = enrolmentCap;
-    }
-
-    public Integer getNumberCurrentlyEnrolled() {
-        return numberCurrentlyEnrolled;
-    }
-
-    public void setNumberCurrentlyEnrolled(Integer numberCurrentlyEnrolled) {
-        this.numberCurrentlyEnrolled = numberCurrentlyEnrolled;
-    }
-
     public Integer getAssociation() {
         return association;
     }
 
     public void setAssociation(Integer association) {
         this.association = association;
+    }
+
+    public boolean isLabRequired() {
+        return labRequired;
+    }
+
+    public void setLabRequired(boolean labRequired) {
+        this.labRequired = labRequired;
     }
 
     public String getRequireEngineer() {
@@ -229,6 +192,23 @@ public class Course {
     //method to verify that a particular lab goes with a particular course,
     //labs are not associated with specific sections so it is sufficient that the lab
     // be in the same term and have the same courseNumber, returns true if the lab is appropriate and false if not
+    public boolean affiliatedLab(Course labTobeChecked){
+        return labTobeChecked.component.equalsIgnoreCase("lab") && term.equalsIgnoreCase(labTobeChecked.term) && courseNumber.equals(labTobeChecked.courseNumber);
+    }
+
+    //method to verify if a course course requires a lab component
+    //labs are not associated with specific sections so if required the lab, must just be in the same term as the course
+    //and match it's name
+
+    public boolean doesCourseHaveLab(){
+        if (labRequired == true){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public boolean affiliatedLab(Course labTobeChecked){
         return labTobeChecked.component.equalsIgnoreCase("lab") && term.equalsIgnoreCase(labTobeChecked.term) && courseNumber.equals(labTobeChecked.courseNumber);
     }
@@ -263,15 +243,13 @@ public class Course {
     @Override
     public String toString() {
         return "CourseDb{" +
-                term + " " + " " + section + " " + subject + courseNumber + " " + component + "\n" +
-                name + "\n" +
+                term + " " + " " + section + " " + name + " " + component + "\n" +
+                title + "\n" +
                 "prequsite(s): " + preReq + "\n" +
                 "corequsite(s): " + coReq + "\n" +
-                "course location: " + location + '\'' +
                 ", start time='" + startTime + '\'' +
                 ", end time='" + endTime + "\n" +
                 ", " + getDays() + "\n" +
-                "enrollment status: " + numberCurrentlyEnrolled + "/" + enrolmentCap + '\'' +
                 '}';
     }
 }

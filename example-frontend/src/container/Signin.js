@@ -1,43 +1,35 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import axios from 'axios';
+import {withRouter} from "react-router-dom";
 
 class Signin extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {courseCheck: 'Not yet generated'};
-    this.state = {loggedIn: false};
+    this.state = {courseCheck: 'Not yet generated'}
+    this.state = {loggedIn: false}
     this.login = this.login.bind(this)
   }
 //
   render(){
     return(
 
-        <div; className="container center card-signup"; id="inside">
+        <div className="container center card-signup" id="inside">
           <div >
-            <img; src="../assets/SOEN.jpg"; alt="SOEN SCHEDULER BUILDER"/>
-            {/*<h1 id={"header"}>Welcome to Concordia Student Course Planner</h1>*/}
+            <img className="logo" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>
           </div>
           <form >
-            <div; className="container">
-              <div; className="row">
-                <label; className="col-6">User; Name:<input; className="col-6"; type="text"; name="name"; id={'user'};/></;label>
-                <label; className="col-6">Password;:<input; className="col-6"; type="password"; name="password"; id={'pass'}; /></;label>
-                {/*<label className="col-12">First Name:<input className="col-12" type="text" name="firstName"  id={'firstname'}/></label>*/};
-                {/*<label className="col-12">Last Name:<input className="col-12" type="text" name="lastName" id={'lastname'} /></label>*/}
-                {/*<label className="col-12">Email:<input className="col-12" type="text" name="email" id={'email'}/></label>*/}
+            <div className="container">
+              <div className="row">
+                <label className="col-6">User Name:<input className="col-6" type="text" name="name" id={'user'}/></label>
+                <label className="col-6">Password:<input className="col-6" type="password" name="password" id={'pass'} /></label>
               </div>
             </div>
-            <button; className="btn btn-home-log"; type="button"; value="Submit"; onClick={this.login}>Sign in</button>
-
-
-
-
+            <button className="btn btn-home-log" type="button" value="Submit" onClick={this.login}>Sign in</button>
           </form>
-        </div>;
-
-  )
+        </div>
+    );
   }
 
   login() {
@@ -58,8 +50,6 @@ class Signin extends Component {
     else {
       pass = null;
     }
-
-
     // alert(name +" " + pass);
     axios.post('http://localhost:8080/login', {
       username: name,
@@ -69,15 +59,16 @@ class Signin extends Component {
       this.setState({loggedIn: res.data});
       if (this.state.loggedIn === true) {
         alert("logged in"); // login returns true
+        this.props.history.push("/SelectSemester");
       }
       else
         alert("invalid password"); //login returns false
-    }, err =;> {
+    }, err => {
       alert("Server rejected response: " + err);
-      }
-  )
+    });
+
   }
 
 }
+export default withRouter(Signin);
 
-export default Signin;
