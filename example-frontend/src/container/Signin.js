@@ -6,38 +6,38 @@ class Signin extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {courseCheck: 'Not yet generated'}
-    this.state = {loggedIn: false}
+    this.state = {courseCheck: 'Not yet generated'};
+    this.state = {loggedIn: false};
     this.login = this.login.bind(this)
   }
 //
   render(){
     return(
 
-        <div className="container center card-signup" id="inside">
+        <div; className="container center card-signup"; id="inside">
           <div >
-            <img src="../assets/SOEN.jpg" alt="SOEN SCHEDULER BUILDER"/>
+            <img; src="../assets/SOEN.jpg"; alt="SOEN SCHEDULER BUILDER"/>
             {/*<h1 id={"header"}>Welcome to Concordia Student Course Planner</h1>*/}
           </div>
           <form >
-            <div className="container">
-              <div className="row">
-                <label className="col-6">User Name:<input className="col-6" type="text" name="name" id={'user'}/></label>
-                <label className="col-6">Password:<input className="col-6" type="password" name="password" id={'pass'} /></label>
-                {/*<label className="col-12">First Name:<input className="col-12" type="text" name="firstName"  id={'firstname'}/></label>*/}
+            <div; className="container">
+              <div; className="row">
+                <label; className="col-6">User; Name:<input; className="col-6"; type="text"; name="name"; id={'user'};/></;label>
+                <label; className="col-6">Password;:<input; className="col-6"; type="password"; name="password"; id={'pass'}; /></;label>
+                {/*<label className="col-12">First Name:<input className="col-12" type="text" name="firstName"  id={'firstname'}/></label>*/};
                 {/*<label className="col-12">Last Name:<input className="col-12" type="text" name="lastName" id={'lastname'} /></label>*/}
                 {/*<label className="col-12">Email:<input className="col-12" type="text" name="email" id={'email'}/></label>*/}
               </div>
             </div>
-            <button className="btn btn-home-log" type="button" value="Submit" onClick={this.login}>Sign in</button>
+            <button; className="btn btn-home-log"; type="button"; value="Submit"; onClick={this.login}>Sign in</button>
 
 
 
 
           </form>
-        </div>
+        </div>;
 
-    );
+  )
   }
 
   login() {
@@ -72,10 +72,10 @@ class Signin extends Component {
       }
       else
         alert("invalid password"); //login returns false
-    }, err => {
+    }, err =;> {
       alert("Server rejected response: " + err);
-    });
-
+      }
+  )
   }
 
 }

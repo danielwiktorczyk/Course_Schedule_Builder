@@ -16,19 +16,19 @@ class App extends Component {
   render() {
     return (
         <Router>
-        <div className="App">
-          <div className="container">
+        <div; className="App">
+          <div; className="container">
           <Header />
-          <Route exact path="/" render={props => (
+          <Route; exact; path="/"; render={props => (
           <React.Fragment>
               <Signin />
-          </React.Fragment>
+          </React.Fragment>;
       )} />
-      <Route path="/Signup" component={Signup} />
+      <Route; path="/Signup"; component={Signup}; />
       </div>
   </div>
-  </Router>
-    );
+  </Router>;
+  )
   }
 }
 export default App;

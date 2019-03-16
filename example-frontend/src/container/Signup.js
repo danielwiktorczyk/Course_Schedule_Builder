@@ -9,41 +9,41 @@ class Signup extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {courseCheck: 'Not yet generated'}
-        this.state = {loggedIn: false}
+        this.state = {courseCheck: 'Not yet generated'};
+        this.state = {loggedIn: false};
         this.register = this.register.bind(this)
     }
 //
     render(){
         return(
 
-            <div className="container center card-signup" id="inside">
+            <div; className="container center card-signup"; id="inside">
                 <div >
-                    <img src="../assets/SOEN.jpg" alt="SOEN SCHEDULER BUILDER"/>
+                    <img; src="../assets/SOEN.jpg"; alt="SOEN SCHEDULER BUILDER"/>
                     {/*<h1 id={"header"}>Welcome to Concordia Student Course Planner</h1>*/}
                 </div>
                 <form>
-                    <div className="container">
-                        <div className="row">
-                            <label className="col-6">First Name:<input className="col-6" type="text" name="firstname" id={'firstname'}/></label>
-                            <label className="col-6">Last Name:<input className="col-6" type="text" name="lastname" id={'lastname'}/></label>
-                            <label className="col-6">Email:<input className="col-6" type="text" name="email" id={'email'}/></label>
-                            <label className="col-6">Password:<input className="col-6" type="password" name="password" id={'pass'} /></label>
-                            {/*<label className="col-12">First Name:<input className="col-12" type="text" name="firstName"  id={'firstname'}/></label>*/}
+                    <div; className="container">
+                        <div; className="row">
+                            <label; className="col-6">First; Name:<input; className="col-6"; type="text"; name="firstname"; id={'firstname'};/></;label>
+                            <label; className="col-6">Last; Name:<input; className="col-6"; type="text"; name="lastname"; id={'lastname'};/></;label>
+                            <label; className="col-6">Email;:<input; className="col-6"; type="text"; name="email"; id={'email'};/></;label>
+                            <label; className="col-6">Password;:<input; className="col-6"; type="password"; name="password"; id={'pass'}; /></;label>
+                            {/*<label className="col-12">First Name:<input className="col-12" type="text" name="firstName"  id={'firstname'}/></label>*/};
                             {/*<label className="col-12">Last Name:<input className="col-12" type="text" name="lastName" id={'lastname'} /></label>*/}
                             {/*<label className="col-12">Email:<input className="col-12" type="text" name="email" id={'email'}/></label>*/}
                         </div>
                     </div>
-                    <button className="btn btn-home-log" type="button" value="Submit" onClick={this.register}>Sign up</button>
+                    <button; className="btn btn-home-log"; type="button"; value="Submit"; onClick={this.register}>Sign; up</button>
 
 
 
 
                 </form>
-            </div>
+            </div>;
 
 
-        );
+    )
     }
 
     register() {
@@ -97,10 +97,10 @@ class Signup extends Component {
             }
             else
                 alert("An account is already associated to that email"); //login returns false
-        }, err => {
+        }, err =;> {
             alert("Server rejected response: REGISTRATION RESPONSE NOT RECEIVED");
-        });
-
+        }
+    )
     }
 
 

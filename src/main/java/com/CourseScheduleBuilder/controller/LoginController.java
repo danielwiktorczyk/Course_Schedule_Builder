@@ -21,13 +21,7 @@ public class LoginController {
         if (userrepo.findByEmail(user.getUsername()) == null){
             return false;
         }
-        if (userrepo.findByEmail(user.getUsername()).getPassword().equals(user.getPassword())){
-            return true;
-        }
-        else {
-            return false;
-
-        }
+        return userrepo.findByEmail(user.getUsername()).getPassword().equals(user.getPassword());
         /*
         This code validates if a user has entered a valid login. If the account doesn't exist
         or the password is invalid, the method will return a false value to the front-end. The
