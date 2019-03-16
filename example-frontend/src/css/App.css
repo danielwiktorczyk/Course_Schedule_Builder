@@ -123,6 +123,8 @@ hr{
 .wrapper {
   text-align: center;
 }
+
+div.selected-courses,
 input.col-8.course-name {
   border-radius: 10px;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
@@ -134,16 +136,15 @@ input.col-8.course-name {
   top: 15px;
   left: 40px;
 }
+div.selected-courses{
+  border-color: darkred;
+}
 button.col-3.btn.btn-home-log {
   position: relative;
   left: 50px;
   top: 6px;
   height: 3rem;
 }
-/*.container.center.card-signup {*/
-  /*max-width: 15rem;*/
-  /*height: 18rem;*/
-/*}*/
 .register{
   color: darkred;
 }
@@ -176,4 +177,7 @@ headerStyle:hover,
 }
 .semester{
   padding: 100px 0 50px 0;
+}
+.s-course{
+  padding-bottom: 5rem;
 }
