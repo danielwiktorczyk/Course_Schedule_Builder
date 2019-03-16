@@ -1,27 +1,26 @@
-package com.CourseScheduleBuilder.controller;
-
+package com.CourseScheduleBuilder.Services;
 
 import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
-import com.CourseScheduleBuilder.Services.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
-/**
- */
-@RestController
-public class RegistrationController {
+@Service
+public class RegistrationServiceImpl implements RegistrationService {
 
-    @Autowired
-    private RegistrationService registrationService;
+    @Autowired //needed to point to the same repo database
+    private UserRepo userrepo;
 
-    @PostMapping("/registration")
-    @CrossOrigin
-    @ResponseBody
-    public boolean validateAndRegisterNewUserRequest(@RequestBody User user){
-
-        return registrationService.validateAndRegisterNewUserRequest(user);
-
+    public boolean validateAndRegisterNewUserRequest(User user){
+        if (userrepo.findByEmail(user.getEmail()) == null ){
+            user.setEWT(false);
+            userrepo.save(user);
+            return true;
+        }
+        else {
+            System.out.println("DUPLICATE ACCOUNT CREATION ATTEMPTED");
+            System.out.println(user.getEmail());
+            return false;
         }
 
 
@@ -37,5 +36,5 @@ public class RegistrationController {
 
 
     }
-}
 
+}
