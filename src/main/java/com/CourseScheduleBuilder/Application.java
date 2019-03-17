@@ -1,6 +1,5 @@
 package com.CourseScheduleBuilder;
 
-import com.CourseScheduleBuilder.Model.Course;
 import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
@@ -47,6 +46,7 @@ public class Application implements CommandLineRunner {
         user1.addToPrereqs("COMP348");
         user1.addToPrereqs("COMP352");
         user1.addToPrereqs("SOEN391");
+        user1.addToPrereqs("COMP248");
 
 
         userRepo.save(user1);

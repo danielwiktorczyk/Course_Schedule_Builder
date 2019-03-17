@@ -9,15 +9,30 @@ import javax.persistence.Id;
 @Entity
 public class Course {
 
+
+    private String term;
+    private String name;
+    private String section;
+    private String component;
+    private String title;
+    private String roomCode;
+    private String startTime;
+    private String endTime;
+    private String monday;
+    private String tuesday;
+    private String wednesday;
+    private String thursday;
+    private String friday;
+    private String online;
+    private String preReq;
+    private String coReq;
+    private String association;
+    private String labRequired;
+    private String requireEngineer;
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO )
     private Integer id;
-    private String name;
-    private String preReq;
-    private String coReq;
-    private Integer credit;
 
-    String term,section,component,title,Room, Code,startTime,endTime,monday,tuesday,wednesday,thursday,friday,online,association,labRequired,requireEngineer;
 
 
 
@@ -57,13 +72,6 @@ public class Course {
         this.coReq = coReq;
     }
 
-    public Integer getCredit() {
-        return credit;
-    }
-
-    public void setCredit(Integer credit) {
-        this.credit = credit;
-    }
 
     @Override
     public String toString() {
@@ -72,7 +80,6 @@ public class Course {
                 ", name='" + name + '\'' +
                 ", preReq='" + preReq + '\'' +
                 ", coReq='" + coReq + '\'' +
-                ", credit=" + credit +
                 '}';
     }
 }

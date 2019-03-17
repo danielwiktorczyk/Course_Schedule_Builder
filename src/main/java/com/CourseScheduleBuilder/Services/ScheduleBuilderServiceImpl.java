@@ -1,7 +1,6 @@
 package com.CourseScheduleBuilder.Services;
 
 import com.CourseScheduleBuilder.Model.Course;
-import com.CourseScheduleBuilder.Model.InfoSession;
 import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Model.loggedInUser;
 import com.CourseScheduleBuilder.Repositories.CourseRepo;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
@@ -29,7 +27,21 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     @Override
     public boolean validatePrerequisites(String courseToValidate) {
 
-        Course courseInDB = courseRepo.findByName(courseToValidate);
+
+       Course courseInDB = courseRepo.findByNameAndComponent(courseToValidate,"LEC").get(0);
+       String coursePrereq = courseInDB.getPreReq();
+
+       if(coursePrereq == null)
+            return true;
+       user = retriveUserInfo();
+        prereqs = user.getPrereqs();
+        for(int i=0; i<prereqs.size();i++){
+            System.out.println(coursePrereq + " " + prereqs.get(i));
+            if (coursePrereq.equals(prereqs.get(i)))
+                return true;
+        }
+        return false;
+
 
 
 
@@ -37,10 +49,10 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     //    List<String> course = courseRepo.findByName(info.getCourses());
 
 
-        return false;
+      //  return false;
     }
 
-    private void retriveUserInfo()
+    private User retriveUserInfo()
     {
 
         loginUser = login.findByUser("user");
@@ -50,6 +62,6 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
   //       nameOfCourseToTake = info.getCourses().get(0);
 
         //retrieves all the users course already taken
-        prereqs = user.getPrereqs();
+        return user;
     }
 }

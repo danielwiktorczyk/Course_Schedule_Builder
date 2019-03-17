@@ -50,5 +50,6 @@ public class loggedInUser {
         this.email = email;
     }
 
-
+    public loggedInUser() {
+    }
 }

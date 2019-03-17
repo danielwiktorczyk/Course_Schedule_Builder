@@ -1,7 +1,5 @@
 package com.CourseScheduleBuilder.controller;
 
-import com.CourseScheduleBuilder.Model.Course;
-import com.CourseScheduleBuilder.Model.InfoSession;
 import com.CourseScheduleBuilder.Services.ScheduleBuilderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +24,9 @@ public class ScheduleBuilderController {
     @ResponseBody
     public boolean addCourseToWishList(@RequestBody String course)
     {
-        return scheduleBuilderService.validatePrerequisites( course);
+        course = course.substring(9,course.length()-2);
+        System.out.println(course);
+        return scheduleBuilderService.validatePrerequisites(course);
 
     }
 
