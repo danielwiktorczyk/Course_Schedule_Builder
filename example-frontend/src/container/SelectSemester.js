@@ -16,9 +16,9 @@ class SelectSemester extends Component {
 
     render() {
         return (
-            <div className="container select-semester">
-                <div className="container">
-                    <a href="#"><img className="logo" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/></a>
+            <div className="container-  select-semester">
+                <div className="container-">
+                    <a href="#"><img className="logo semester" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/></a>
                 </div>
                 <h3>Visualize possible schedules for a selection of courses to quickly plan your semester!</h3>
                 <hr/>

@@ -22,8 +22,8 @@ class Signin extends Component {
           <form >
             <div className="container">
               <div className="row">
-                <label className="col-6">User Name:<input className="col-6" type="text" name="name" id={'user'}/></label>
-                <label className="col-6">Password:<input className="col-6" type="password" name="password" id={'pass'} /></label>
+                <label className="col-12">User Name:<input className="col-12" type="text" name="name" id={'user'}/></label>
+                <label className="col-12">Password:<input className="col-12" type="password" name="password" id={'pass'} /></label>
               </div>
             </div>
             <button className="btn btn-home-log" type="button" value="Submit" onClick={this.login}>Sign in</button>
