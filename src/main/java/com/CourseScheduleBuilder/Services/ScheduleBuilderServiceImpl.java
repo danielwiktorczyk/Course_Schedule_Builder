@@ -21,12 +21,11 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         @Autowired
         loggedInUserRepo login;
 
-        private static User user;
-        private static loggedInUser loginUser;
-        private static ArrayList prereqs;
+
     @Override
     public boolean validatePrerequisites(String courseToValidate) {
-
+        User user;
+        ArrayList prereqs;
 
        Course courseInDB = courseRepo.findByNameAndComponent(courseToValidate,"LEC").get(0);
        String coursePrereq = courseInDB.getPreReq();
@@ -53,6 +52,8 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
     private User retriveUserInfo()
     {
+        loggedInUser loginUser;
+        User user;
 
         loginUser = login.findByUser("user");
 
