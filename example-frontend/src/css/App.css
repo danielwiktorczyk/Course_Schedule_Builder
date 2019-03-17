@@ -123,7 +123,7 @@ hr{
 .wrapper {
   text-align: center;
 }
-
+.theList,
 div.selected-courses,
 input.col-8.course-name {
   border-radius: 10px;
@@ -136,6 +136,7 @@ input.col-8.course-name {
   top: 15px;
   left: 40px;
 }
+.theList,
 div.selected-courses{
   border-color: darkred;
 }

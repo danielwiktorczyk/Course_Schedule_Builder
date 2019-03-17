@@ -9,6 +9,7 @@ class SelectSemester extends Component {
             this.routeChange = this.routeChange.bind(this);
 
     };
+
     routeChange() {
         let path = '/SelectCourse';
         this.props.history.push(path);
