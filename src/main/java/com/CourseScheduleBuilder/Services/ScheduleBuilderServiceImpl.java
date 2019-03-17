@@ -36,7 +36,6 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
        user = retriveUserInfo();
         prereqs = user.getPrereqs();
         for(int i=0; i<prereqs.size();i++){
-            System.out.println(coursePrereq + " " + prereqs.get(i));
             if (coursePrereq.equals(prereqs.get(i)))
                 return true;
         }

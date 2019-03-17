@@ -25,7 +25,6 @@ public class ScheduleBuilderController {
     public boolean addCourseToWishList(@RequestBody String course)
     {
         course = course.substring(9,course.length()-2);
-        System.out.println(course);
         return scheduleBuilderService.validatePrerequisites(course);
 
     }
