@@ -7,9 +7,15 @@ class Signin extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {courseCheck: 'Not yet generated'}
-    this.state = {loggedIn: false}
-    this.login = this.login.bind(this)
+    this.state = {courseCheck: 'Not yet generated'};
+    this.state = {loggedIn: false};
+    this.login = this.login.bind(this);
+    this.routeChange = this.routeChange.bind(this);
+  };
+
+  routeChange() {
+    let path = '/Signup';
+    this.props.history.push(path);
   }
 //
   render(){
@@ -27,6 +33,7 @@ class Signin extends Component {
               </div>
             </div>
             <button className="btn btn-home-log" type="button" value="Submit" onClick={this.login}>Sign in</button>
+            <button className="btn btn-home-log" type="button" value="Submit" onClick={this.routeChange}>Sign up</button>
           </form>
         </div>
     );
@@ -71,4 +78,3 @@ class Signin extends Component {
 
 }
 export default withRouter(Signin);
-

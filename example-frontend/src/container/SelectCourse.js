@@ -19,14 +19,13 @@ class SelectCourse extends Component {
                 <h2>Please enter Course number</h2><hr/>
                 <div className="row">
                     <input className="col-8 course-name" type="text" name="coursename" placeholder="Ex: SOEN 341"/>
-                    <label></label>
                     <button className="col-3 btn btn-home-log">ADD</button>
                 </div>
-                    <br /><br />
-                    <h3>Selected Courses:</h3>
-                    <div className="selected-courses">
-                        <p>T0-do: display user input here: (classes/sections)</p>
-                    </div>
+                <br /><br />
+                <h3>Selected Courses:</h3>
+                <div className="selected-courses">
+                    <p>T0-do: display user input here: (classes/sections)</p>
+                </div>
 
                 <div>
                     <button className="col-3 btn btn-home-log">GENERATE</button>

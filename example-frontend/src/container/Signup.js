@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import axios from 'axios';
-import Signin from "./Signin";
-import { Redirect } from 'react-router-dom'
+import {withRouter} from "react-router-dom";
+
 
 
 class Signup extends Component {
@@ -12,7 +12,13 @@ class Signup extends Component {
         this.state = {courseCheck: 'Not yet generated'};
         this.state = {loggedIn: false};
         this.register = this.register.bind(this);
+        this.routeChange = this.routeChange.bind(this);
     };
+
+    routeChange() {
+        let path = '/';
+        this.props.history.push(path);
+    }
 //
     render(){
         return(
@@ -30,6 +36,7 @@ class Signup extends Component {
                         </div>
                     </div>
                     <button className="btn btn-home-log" type="button" value="Submit" onClick={this.register}>Sign up</button>
+                    <button className="btn btn-home-log" type="button" value="Submit" onClick={this.routeChange}>Already a memeber</button>
                 </form>
             </div>
         );
@@ -89,4 +96,4 @@ class Signup extends Component {
         });
     }
 }
-export default Signup;
+export default withRouter(Signup);
