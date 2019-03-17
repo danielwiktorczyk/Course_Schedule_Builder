@@ -11,6 +11,7 @@ class SelectCourse extends Component {
         this.state = {loggedIn: true};
         this.routeChange = this.routeChange.bind(this);
         this.addItem = this.addItem.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
         this.state = {
             items: []
         };
@@ -19,6 +20,16 @@ class SelectCourse extends Component {
     routeChange() {
         let path = '/SelectSemester';
         this.props.history.push(path);
+    }
+
+    deleteItem(key) {
+        var filteredItems = this.state.items.filter(function (item) {
+            return (item.key !== key);
+        });
+
+        this.setState({
+            items: filteredItems
+        });
     }
 
     addItem(e) {
@@ -58,7 +69,7 @@ class SelectCourse extends Component {
                     <button className="col-3 btn btn-home-log">ADD</button>
                 </div>
                 </form>
-                <AddedCourseList entries={this.state.items}/>
+                <AddedCourseList entries={this.state.items}  delete={this.deleteItem}/>
                 </div>
 
 
