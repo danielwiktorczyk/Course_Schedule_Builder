@@ -21,6 +21,14 @@ public class User {
     private ArrayList<String> prereqs = new ArrayList<>();
     private ArrayList<UserPreferences> userPrefs = new ArrayList();
 
+    public ArrayList<UserPreferences> getUserPrefs() {
+        return userPrefs;
+    }
+
+    public void setUserPrefs(ArrayList<UserPreferences> userPrefs) {
+        this.userPrefs = userPrefs;
+    }
+
     public Integer getId() {
         return id;
     }
