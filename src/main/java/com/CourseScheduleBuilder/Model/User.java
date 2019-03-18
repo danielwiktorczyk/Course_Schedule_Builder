@@ -63,6 +63,7 @@ public class User {
                 }
                 if(userPrefs.get(i).getStartTime() > newPreference.getStartTime() && userPrefs.get(i).getEndTime() < newPreference.getEndTime()){
                     userPrefs.remove(i);
+                    i--;
                 }
 
             }
