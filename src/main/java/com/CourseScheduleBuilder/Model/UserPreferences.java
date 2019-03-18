@@ -25,19 +25,19 @@ private Integer endTime;
     method that compares the day booleans of two UserPreference Objects to determine if they are the same
      */
     public boolean compareDays(UserPreferences prefToCompare){
-        if(monday == true && prefToCompare.monday == true){
+        if(monday && prefToCompare.monday){
             return true;
         }
-        else if(tuesday == true && prefToCompare.tuesday == true){
+        else if(tuesday && prefToCompare.tuesday){
             return true;
         }
-        else if(wednesday == true && prefToCompare.wednesday == true){
+        else if(wednesday && prefToCompare.wednesday){
             return true;
         }
-        else if(thursday == true && prefToCompare.thursday == true){
+        else if(thursday && prefToCompare.thursday){
             return true;
         }
-        else if(friday == true && prefToCompare.friday == true){
+        else if(friday && prefToCompare.friday){
             return true;
         }
         else{
@@ -54,7 +54,7 @@ private Integer endTime;
         if(startTime == prefToCompare.getStartTime() && endTime == prefToCompare.getEndTime()){
             return true;
         }
-        else if(startTime > prefToCompare.getStartTime() && endTime < prefToCompare.getEndTime()){
+        else if(startTime > prefToCompare.getStartTime() && endTime > prefToCompare.getEndTime()){
             return true;
         }
         else if(startTime < prefToCompare.getStartTime() && prefToCompare.getEndTime() > endTime){
