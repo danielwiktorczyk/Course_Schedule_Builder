@@ -19,8 +19,59 @@ private Integer endTime;
     provides a way to know if the UserPreference Object created should be added or removed
     from the User userPrefs array
     */
-    public boolean addOrRemovePreference() {
+    public boolean isAdd() {
         return add;
+    }
+
+    /*
+    method that compares the day booleans of two UserPreference Objects to determine if they are the same
+     */
+    public boolean compareDays(UserPreferences prefToCompare){
+        if(monday == true && prefToCompare.monday == true){
+            return true;
+        }
+        else if(tuesday == true && prefToCompare.tuesday == true){
+            return true;
+        }
+        else if(wednesday == true && prefToCompare.wednesday == true){
+            return true;
+        }
+        else if(thursday == true && prefToCompare.thursday == true){
+            return true;
+        }
+        else if(friday == true && prefToCompare.friday == true){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    /*
+    method to determines if two userPreferences Objects overlap in time
+     */
+
+    public boolean timeOverlap(UserPreferences prefToCompare){
+        if(startTime == prefToCompare.getStartTime() && endTime == prefToCompare.getEndTime()){
+            return true;
+        }
+        else if(startTime > prefToCompare.getStartTime() && endTime < prefToCompare.getEndTime()){
+            return true;
+        }
+        else if(startTime < prefToCompare.getStartTime() && prefToCompare.getEndTime() > endTime){
+            return true;
+        }
+        else if(startTime > prefToCompare.getStartTime() && endTime < prefToCompare.getEndTime()){
+            return true;
+        }
+        else if(startTime < prefToCompare.getStartTime() && endTime > prefToCompare.getEndTime()){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 
     public void setAdd(boolean add) {

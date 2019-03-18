@@ -21,14 +21,39 @@ public class User {
     private ArrayList<String> prereqs = new ArrayList<>();
     private ArrayList<UserPreferences> userPrefs = new ArrayList();
 
-    public void modifyUserPrefs() {
-        ;
+    public void modifyUserPrefs(UserPreferences newPreference) {
+        if(newPreference.isAdd()){
+            addPref(newPreference);
+        }
+        else{
+            removePref(newPreference);
+        }
     }
     /*
     Method that modifies userPrefs when they are updated by the user
+    uses helper methods addPref() and removePref() defined below
      */
 
-    public Integer getId() {
+    public void addPref(UserPreferences newPreference) {
+        if (userPrefs.size() == 0) {
+            userPrefs.add(newPreference);
+        } else {
+            for (int i = 0; i < userPrefs.size(); i++) {
+                if (userPrefs.get(i).compareDays(newPreference) && userPrefs.get(i).timeOverlap(newPreference)) {
+                    if (userPrefs.get(i).getStartTime() < newPreference.getStartTime()) {
+                        newPreference.setStartTime(userPrefs.get(i).getStartTime());
+                    }
+                    if (userPrefs.get(i).getEndTime() > newPreference.getEndTime()) {
+                        newPreference.setEndTime(userPrefs.get(i).getEndTime());
+                    }
+                    userPrefs.add(newPreference);
+                }
+            }
+        }
+    }
+
+
+    public Integer getId(){
         return id;
     }
 
