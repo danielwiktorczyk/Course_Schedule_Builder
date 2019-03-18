@@ -21,13 +21,12 @@ public class User {
     private ArrayList<String> prereqs = new ArrayList<>();
     private ArrayList<UserPreferences> userPrefs = new ArrayList();
 
-    public ArrayList<UserPreferences> getUserPrefs() {
-        return userPrefs;
+    public void modifyUserPrefs() {
+        ;
     }
-
-    public void setUserPrefs(ArrayList<UserPreferences> userPrefs) {
-        this.userPrefs = userPrefs;
-    }
+    /*
+    Method that modifies userPrefs when they are updated by the user
+     */
 
     public Integer getId() {
         return id;
