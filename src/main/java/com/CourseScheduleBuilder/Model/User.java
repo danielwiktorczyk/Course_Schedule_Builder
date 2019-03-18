@@ -52,6 +52,24 @@ public class User {
         }
     }
 
+    public void removePref(UserPreferences newPreference) {
+        for (int i = 0; i < userPrefs.size(); i++) {
+            if (userPrefs.get(i).compareDays(newPreference) && userPrefs.get(i).timeOverlap(newPreference)) {
+                if (userPrefs.get(i).getStartTime() < newPreference.getEndTime()) {
+                    userPrefs.get(i).setStartTime(newPreference.getEndTime());
+                }
+                if (userPrefs.get(i).getEndTime() < newPreference.getStartTime()) {
+                    userPrefs.get(i).setEndTime(userPrefs.get(i).getStartTime());
+                }
+                if(userPrefs.get(i).getStartTime() > newPreference.getStartTime() && userPrefs.get(i).getEndTime() < newPreference.getEndTime()){
+                    userPrefs.remove(i);
+                }
+
+            }
+        }
+    }
+
+
 
     public Integer getId(){
         return id;
