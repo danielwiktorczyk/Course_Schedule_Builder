@@ -19,8 +19,9 @@ public class User {
     private String password;
     private boolean EWT;
     private ArrayList<String> prereqs = new ArrayList<>();
-    private ArrayList<UserPreferences> userPrefs = new ArrayList();
+    private ArrayList<UserPreferences> userPrefs = new ArrayList<>();
 
+    // TODO: 2019-03-18 the methods modifyUserPrefs(), addPref() and removePref() belong in Class LogedInUser when it is merged
     public void modifyUserPrefs(UserPreferences newPreference) {
         if(newPreference.isAdd()){
             addPref(newPreference);
