@@ -19,6 +19,7 @@ public class User {
     private String password;
     private boolean EWT;
     private ArrayList<String> prereqs = new ArrayList<>();
+    private ArrayList<UserPreferences> userPrefs = new ArrayList();
 
     public Integer getId() {
         return id;
