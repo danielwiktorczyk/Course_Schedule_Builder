@@ -36,9 +36,11 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
 
     public void addPref(UserPreferences newPreference, String userEmail) {
         ArrayList<UserPreferences>  currentPrefs = getUserPreferenceData(userEmail);
-        if (currentPrefs.size() == 0) {
+        if (currentPrefs.size() < 1) {
             currentPrefs.add(newPreference);
-        } else {
+            System.out.println(userRepo.findByEmail(userEmail).getUserPrefs().get(0).getStartTime());
+        }
+        else {
             for (int i = 0; i < currentPrefs.size(); i++) {
                 if (currentPrefs.get(i).compareDays(newPreference) && currentPrefs.get(i).timeOverlap(newPreference)) {
                     if (currentPrefs.get(i).getStartTime() < newPreference.getStartTime()) {

@@ -1,6 +1,8 @@
 package com.CourseScheduleBuilder.controller;
 
+import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Model.UserPreferences;
+import com.CourseScheduleBuilder.Repositories.UserRepo;
 import com.CourseScheduleBuilder.Services.UserPreferencesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +21,7 @@ public class UserPreferencesController {
     @PostMapping("/userPreferences")
     @CrossOrigin
     @ResponseBody
-    public boolean requestUserPreferences(String email, String day, Integer prefStartTime, Integer prefEndTime) {
+    public boolean requestUserPreferences(String email, String day, Integer prefStartTime, Integer prefEndTime, boolean add) {
         if(day.equalsIgnoreCase("monday")){
             newPreference.setMonday(true);
             newPreference.setTuesday(false);
@@ -60,10 +62,19 @@ public class UserPreferencesController {
             return false;
         }
 
+
+
         newPreference.setStartTime(prefStartTime);
         newPreference.setEndTime(prefEndTime);
+        if (add){
+            newPreference.setAdd(true);
+        }
+        else{
+            newPreference.setAdd(false);
+        }
 
         userPreferencesService.modifyUserPrefs(newPreference, email);
+        System.out.println(newPreference.isAdd());
         return true;
     }
 }
