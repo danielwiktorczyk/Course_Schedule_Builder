@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class UserPreferencesController {
@@ -20,7 +20,7 @@ public class UserPreferencesController {
     @PostMapping("/userPreferences")
     @CrossOrigin
     @ResponseBody
-    public boolean requestUserPreferences(String email, String day, Integer prefStartTime, Integer prefEndTime, boolean add) {
+    public boolean requestUserPreferences(@RequestBody String email, String day, Integer prefStartTime, Integer prefEndTime, boolean add) {
         if(day.equalsIgnoreCase("monday")){
             newPreference.setMonday(true);
             newPreference.setTuesday(false);
