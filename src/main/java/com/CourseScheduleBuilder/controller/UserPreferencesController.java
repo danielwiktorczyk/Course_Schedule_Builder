@@ -1,8 +1,6 @@
 package com.CourseScheduleBuilder.controller;
 
-import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Model.UserPreferences;
-import com.CourseScheduleBuilder.Repositories.UserRepo;
 import com.CourseScheduleBuilder.Services.UserPreferencesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

@@ -33,6 +33,7 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
             removePref(newPreference, userEmail);
         }
         User updatedUser = userRepo.findByEmail(userEmail);
+        System.out.println(updatedUser.getUserPrefs().get(0).getStartTime());
         userRepo.save(updatedUser);
     }
 
@@ -40,7 +41,6 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
         ArrayList<UserPreferences>  currentPrefs = getUserPreferenceData(userEmail);
         if (currentPrefs.size() < 1) {
             currentPrefs.add(newPreference);
-            System.out.println(userRepo.findByEmail(userEmail).getUserPrefs().get(0).getStartTime());
         }
         else {
             for (int i = 0; i < currentPrefs.size(); i++) {
