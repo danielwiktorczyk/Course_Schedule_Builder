@@ -33,8 +33,11 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
             removePref(newPreference, userEmail);
         }
         User updatedUser = userRepo.findByEmail(userEmail);
-        System.out.println(updatedUser.getUserPrefs().get(0).getStartTime());
+        System.out.println("Updated User: " + updatedUser.getFirstName() + " new param components: " + updatedUser.getUserPrefs().get(0).getStartTime() + " size of prefs array: " +  updatedUser.getUserPrefs().size());
+        System.out.println("going to save user to repo: ");
         userRepo.save(updatedUser);
+        System.out.println("User saved!!!!!!");
+
     }
 
     public void addPref(UserPreferences newPreference, String userEmail) {
@@ -79,9 +82,9 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
     /*
     Method created a new preference object based on data sent from fe
      */
-    public UserPreferences createNewPreferenceFromRequestData(String day, Integer prefStartTime, Integer prefEndTime, boolean add) {
+    public UserPreferences createNewPreferenceFromRequestData(String day, Integer prefStartTime, Integer prefEndTime, Boolean add) {
         UserPreferences newPreference = new UserPreferences();
-        System.out.println("params: " + day + "AFTERDAY");
+        System.out.println("params: " + day + " " + prefStartTime + " " + prefEndTime + " " + add);
         if (day.equalsIgnoreCase("monday")) {
             newPreference.setMonday(true);
             newPreference.setTuesday(false);
@@ -123,6 +126,7 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
         } else {
             newPreference.setAdd(false);
         }
+        System.out.println("made a new preference: " + newPreference.getStartTime() + ", " + newPreference.getEndTime() + " " + " No Friday: " + newPreference.isFriday());
         return newPreference;
 
     }

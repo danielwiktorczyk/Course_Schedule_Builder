@@ -20,6 +20,7 @@ public class UserPreferencesController {
     public boolean requestUserPreferences(@RequestBody UpdateUserPrefsRequestFromFrontEnd updateParams) {
         System.out.println("made it in, recieved " + updateParams);
         UserPreferences newPreference = userPreferencesService.createNewPreferenceFromRequestData(updateParams.getDay(), updateParams.getPrefStartTime(), updateParams.getPrefEndTime(), updateParams.isAdd());
+        System.out.println("going into modifyUserPrefs()...");
         userPreferencesService.modifyUserPrefs(newPreference, updateParams.getEmail());
         System.out.println(newPreference.isAdd());
         return true;

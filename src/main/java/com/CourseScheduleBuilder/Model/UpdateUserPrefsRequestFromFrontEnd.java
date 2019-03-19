@@ -13,6 +13,17 @@ public class UpdateUserPrefsRequestFromFrontEnd {
     @JsonProperty
     private boolean add;
 
+    @Override
+    public String toString() {
+        return "UpdateUserPrefsRequestFromFrontEnd{" +
+                "email='" + email + '\'' +
+                ", day='" + day + '\'' +
+                ", prefStartTime=" + prefStartTime +
+                ", prefEndTime=" + prefEndTime +
+                ", add=" + add +
+                '}';
+    }
+
     public String getEmail() {
         return email;
     }
