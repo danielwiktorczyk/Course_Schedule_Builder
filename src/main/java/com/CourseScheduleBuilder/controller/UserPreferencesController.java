@@ -14,10 +14,11 @@ public class UserPreferencesController {
     UserPreferences newPreference = new UserPreferences();
 
     @PostMapping("/userPreferences")
-
     @CrossOrigin
     @ResponseBody
     public boolean requestUserPreferences(@RequestBody String email, String day, Integer prefStartTime, Integer prefEndTime, boolean add) {
+        System.out.print("made it in ");
+
         if(day.equalsIgnoreCase("monday")){
             newPreference.setMonday(true);
             newPreference.setTuesday(false);
