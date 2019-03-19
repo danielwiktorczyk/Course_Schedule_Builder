@@ -2,7 +2,12 @@ package com.CourseScheduleBuilder.Services;
 import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Model.UserPreferences;
 
+import java.util.ArrayList;
+
 
 public interface UserPreferencesService {
-    public void updateUserPreferences(User user, UserPreferences newPreference);
-}
+    public void modifyUserPrefs(UserPreferences newPreference, String userEmail);
+    public void addPref(UserPreferences newPreference, String userEmail);
+    public void removePref(UserPreferences newPreference, String userEmail);
+
+    }

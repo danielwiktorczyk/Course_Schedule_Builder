@@ -14,31 +14,28 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
     @Autowired
     private UserRepo userRepo;
 
-
-    private ArrayList<UserPreferences> getUserPreferenceData()
+    // TODO: 2019-03-18 update to work with LoggedInUser when merged
+    private ArrayList<UserPreferences> getUserPreferenceData(String email)
     {
-        User user;
-
-        user = userRepo.findByEmail(.getEmail());
-
+        User user = userRepo.findByEmail(email);
         return user.getUserPrefs();
     }
 
-    public void modifyUserPrefs(UserPreferences newPreference) {
+    /*
+   Method that modifies userPrefs when they are updated by the user
+   uses helper methods addPref() and removePref() defined below
+    */
+    public void modifyUserPrefs(UserPreferences newPreference, String userEmail) {
         if(newPreference.isAdd()){
-            addPref(newPreference);
+            addPref(newPreference, userEmail);
         }
         else{
-            removePref(newPreference);
+            removePref(newPreference, userEmail);
         }
     }
-    /*
-    Method that modifies userPrefs when they are updated by the user
-    uses helper methods addPref() and removePref() defined below
-     */
 
-    public void addPref(UserPreferences newPreference) {
-        ArrayList<UserPreferences>  currentPrefs = getUserPreferenceData();
+    public void addPref(UserPreferences newPreference, String userEmail) {
+        ArrayList<UserPreferences>  currentPrefs = getUserPreferenceData(userEmail);
         if (currentPrefs.size() == 0) {
             currentPrefs.add(newPreference);
         } else {
@@ -56,8 +53,8 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
         }
     }
 
-    public void removePref(UserPreferences newPreference) {
-        ArrayList<UserPreferences>  currentPrefs = getUserPreferenceData();
+    public void removePref(UserPreferences newPreference, String email) {
+        ArrayList<UserPreferences>  currentPrefs = getUserPreferenceData(email);
         for (int i = 0; i < currentPrefs.size(); i++) {
             if (currentPrefs.get(i).compareDays(newPreference) && currentPrefs.get(i).timeOverlap(newPreference)) {
                 if (currentPrefs.get(i).getStartTime() < newPreference.getEndTime()) {
