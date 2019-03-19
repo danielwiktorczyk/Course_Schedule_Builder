@@ -76,5 +76,56 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
         }
     }
 
+    /*
+    Method created a new preference object based on data sent from fe
+     */
+    public UserPreferences createNewPreferenceFromRequestData(String day, Integer prefStartTime, Integer prefEndTime, boolean add) {
+        UserPreferences newPreference = new UserPreferences();
+        System.out.println("params: " + day + "AFTERDAY");
+        if (day.equalsIgnoreCase("monday")) {
+            newPreference.setMonday(true);
+            newPreference.setTuesday(false);
+            newPreference.setWednesday(false);
+            newPreference.setThursday(false);
+            newPreference.setFriday(false);
+        } else if (day.equalsIgnoreCase("tuesday")) {
+            newPreference.setTuesday(true);
+            newPreference.setMonday(false);
+            newPreference.setWednesday(false);
+            newPreference.setThursday(false);
+            newPreference.setFriday(false);
+        } else if (day.equalsIgnoreCase("wednesday")) {
+            newPreference.setWednesday(true);
+            newPreference.setTuesday(false);
+            newPreference.setMonday(false);
+            newPreference.setThursday(false);
+            newPreference.setFriday(false);
+        } else if (day.equalsIgnoreCase("thursday")) {
+            newPreference.setThursday(true);
+            newPreference.setTuesday(false);
+            newPreference.setWednesday(false);
+            newPreference.setMonday(false);
+            newPreference.setFriday(false);
+        } else if (day.equalsIgnoreCase("friday")) {
+            newPreference.setFriday(true);
+            newPreference.setTuesday(false);
+            newPreference.setWednesday(false);
+            newPreference.setThursday(false);
+            newPreference.setMonday(false);
+        } else {
+            System.out.println("A day for this preference option was not specified, preferences not updated");
+        }
+
+        newPreference.setStartTime(prefStartTime);
+        newPreference.setEndTime(prefEndTime);
+        if (add) {
+            newPreference.setAdd(true);
+        } else {
+            newPreference.setAdd(false);
+        }
+        return newPreference;
+
+    }
+
 
 }

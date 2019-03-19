@@ -16,59 +16,9 @@ public class UserPreferencesController {
     @PostMapping("/userPreferences")
     @CrossOrigin
     @ResponseBody
-    public boolean requestUserPreferences(@RequestBody String email, String day, Integer prefStartTime, Integer prefEndTime, boolean add) {
-        System.out.print("made it in ");
-
-        if(day.equalsIgnoreCase("monday")){
-            newPreference.setMonday(true);
-            newPreference.setTuesday(false);
-            newPreference.setWednesday(false);
-            newPreference.setThursday(false);
-            newPreference.setFriday(false);
-        }
-        else if(day.equalsIgnoreCase("tuesday")){
-            newPreference.setTuesday(true);
-            newPreference.setMonday(false);
-            newPreference.setWednesday(false);
-            newPreference.setThursday(false);
-            newPreference.setFriday(false);
-        }
-        else if(day.equalsIgnoreCase("wednesday")){
-            newPreference.setWednesday(true);
-            newPreference.setTuesday(false);
-            newPreference.setMonday(false);
-            newPreference.setThursday(false);
-            newPreference.setFriday(false);
-        }
-        else if(day.equalsIgnoreCase("thursday")){
-            newPreference.setThursday(true);
-            newPreference.setTuesday(false);
-            newPreference.setWednesday(false);
-            newPreference.setMonday(false);
-            newPreference.setFriday(false);
-        }
-        else if(day.equalsIgnoreCase("friday")){
-            newPreference.setFriday(true);
-            newPreference.setTuesday(false);
-            newPreference.setWednesday(false);
-            newPreference.setThursday(false);
-            newPreference.setMonday(false);
-        }
-        else{
-            System.out.println("A day for this preference option was not specified, preferences not updated");
-            return false;
-        }
-
-
-
-        newPreference.setStartTime(prefStartTime);
-        newPreference.setEndTime(prefEndTime);
-        if (add){
-            newPreference.setAdd(true);
-        }
-        else{
-            newPreference.setAdd(false);
-        }
+    public boolean requestUserPreferences(@RequestBody String day, Integer prefStartTime, Integer prefEndTime, boolean add, String email) {
+        System.out.println("made it in, recieved " + day + " " + prefStartTime + ", " + prefEndTime + ", " + add + " email: " + email);
+        UserPreferences newPreference = userPreferencesService.createNewPreferenceFromRequestData(day, prefStartTime, prefEndTime, add);
 
         userPreferencesService.modifyUserPrefs(newPreference, email);
         System.out.println(newPreference.isAdd());
