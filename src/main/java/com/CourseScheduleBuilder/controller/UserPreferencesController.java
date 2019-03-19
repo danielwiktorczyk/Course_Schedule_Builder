@@ -14,7 +14,7 @@ public class UserPreferencesController {
     @Autowired
     UserPreferencesService userPreferencesService;
 
-    UserPreferences newPreference;
+    UserPreferences newPreference = new UserPreferences();
 
     @PostMapping("/userPreferences")
     @CrossOrigin
