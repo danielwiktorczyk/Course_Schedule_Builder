@@ -32,6 +32,7 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
         else{
             removePref(newPreference, userEmail);
         }
+        System.out.println("the user email is: " + userEmail);
         User updatedUser = userRepo.findByEmail(userEmail);
         System.out.println("Updated User: " + updatedUser.getFirstName() + " new param components: " + updatedUser.getUserPrefs().get(0).getStartTime() + " size of prefs array: " +  updatedUser.getUserPrefs().size());
         System.out.println("going to save user to repo: ");
