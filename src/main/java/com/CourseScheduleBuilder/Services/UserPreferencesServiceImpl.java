@@ -32,6 +32,8 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
         else{
             removePref(newPreference, userEmail);
         }
+        User updatedUser = userRepo.findByEmail(userEmail);
+        userRepo.save(updatedUser);
     }
 
     public void addPref(UserPreferences newPreference, String userEmail) {
