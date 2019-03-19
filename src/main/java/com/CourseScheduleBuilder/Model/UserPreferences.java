@@ -1,7 +1,5 @@
 package com.CourseScheduleBuilder.Model;
 
-import java.util.ArrayList;
-
 public class UserPreferences {
 private boolean monday;
 private boolean tuesday;
