@@ -3,11 +3,7 @@ package com.CourseScheduleBuilder.controller;
 import com.CourseScheduleBuilder.Model.UserPreferences;
 import com.CourseScheduleBuilder.Services.UserPreferencesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserPreferencesController {
@@ -18,6 +14,7 @@ public class UserPreferencesController {
     UserPreferences newPreference = new UserPreferences();
 
     @PostMapping("/userPreferences")
+
     @CrossOrigin
     @ResponseBody
     public boolean requestUserPreferences(@RequestBody String email, String day, Integer prefStartTime, Integer prefEndTime, boolean add) {
