@@ -49,7 +49,7 @@ public class UserPreferencesController {
             newPreference.setFriday(false);
         }
         else if(day.equalsIgnoreCase("friday")){
-            newPreference.setMonday(true);
+            newPreference.setFriday(true);
             newPreference.setTuesday(false);
             newPreference.setWednesday(false);
             newPreference.setThursday(false);
