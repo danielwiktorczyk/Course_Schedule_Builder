@@ -17,7 +17,7 @@ public class UpdateUserPrefsRequestFromFrontEnd {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail() {
         this.email = email;
     }
 
