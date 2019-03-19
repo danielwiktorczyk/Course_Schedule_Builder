@@ -14,12 +14,12 @@ public class UserPreferencesController {
     @Autowired
     UserPreferencesService userPreferencesService;
 
+    UserPreferences newPreference;
+
     @PostMapping("/userPreferences")
     @CrossOrigin
     @ResponseBody
     public boolean requestUserPreferences(String email, String day, Integer prefStartTime, Integer prefEndTime) {
-        UserPreferences newPreference;
-
         if(day.equalsIgnoreCase("monday")){
             newPreference.setMonday(true);
             newPreference.setTuesday(false);
@@ -63,8 +63,7 @@ public class UserPreferencesController {
         newPreference.setStartTime(prefStartTime);
         newPreference.setEndTime(prefEndTime);
 
-        modifyUserPrefs(email, newPreference);
-
-        // using userPreferences for logic
+        userPreferencesService.modifyUserPrefs(newPreference, email);
+        return true;
     }
 }
