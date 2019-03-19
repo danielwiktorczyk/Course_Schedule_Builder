@@ -22,7 +22,7 @@ public class UserPreferencesController {
         UserPreferences newPreference = userPreferencesService.createNewPreferenceFromRequestData(updateParams.getDay(), updateParams.getPrefStartTime(), updateParams.getPrefEndTime(), updateParams.isAdd());
         System.out.println("going into modifyUserPrefs()...");
         userPreferencesService.modifyUserPrefs(newPreference, updateParams.getEmail());
-        System.out.println(newPreference.isAdd());
+        System.out.println("returning from modifyUserPrefs()");
         return true;
     }
 }

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 
 public interface UserPreferencesService {
-    public void modifyUserPrefs(UserPreferences newPreference, String userEmail);
-    public void addPref(UserPreferences newPreference, String userEmail);
-    public void removePref(UserPreferences newPreference, String userEmail);
-    public UserPreferences createNewPreferenceFromRequestData(String day, Integer prefStartTime, Integer prefEndTime, Boolean add);
+   void modifyUserPrefs(UserPreferences newPreference, String email);
+   User addPref(UserPreferences newPreference, User user);
+   User removePref(UserPreferences newPreference, User user);
+   UserPreferences createNewPreferenceFromRequestData(String day, Integer prefStartTime, Integer prefEndTime, Boolean add);
 
     }

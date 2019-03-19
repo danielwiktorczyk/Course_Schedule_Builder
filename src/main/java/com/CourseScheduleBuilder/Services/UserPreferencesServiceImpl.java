@@ -15,9 +15,8 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
     private UserRepo userRepo;
 
     // TODO: 2019-03-18 update to work with LoggedInUser when merged
-    private ArrayList<UserPreferences> getUserPreferenceData(String email)
+    private ArrayList<UserPreferences> getUserPreferenceData(User user)
     {
-        User user = userRepo.findByEmail(email);
         return user.getUserPrefs();
     }
 
@@ -26,14 +25,16 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
    uses helper methods addPref() and removePref() defined below
     */
     public void modifyUserPrefs(UserPreferences newPreference, String userEmail) {
+        User userToUpdate = userRepo.findByEmail(userEmail);
+        User updatedUser;
+        System.out.println("the user email is: " + userEmail + " the name of the user found by this email is " + userToUpdate.getFirstName());
+
         if(newPreference.isAdd()){
-            addPref(newPreference, userEmail);
+            updatedUser = addPref(newPreference, userToUpdate);
         }
         else{
-            removePref(newPreference, userEmail);
+           updatedUser = removePref(newPreference, userToUpdate);
         }
-        System.out.println("the user email is: " + userEmail);
-        User updatedUser = userRepo.findByEmail(userEmail);
         System.out.println("Updated User: " + updatedUser.getFirstName() + " new param components: " + updatedUser.getUserPrefs().get(0).getStartTime() + " size of prefs array: " +  updatedUser.getUserPrefs().size());
         System.out.println("going to save user to repo: ");
         userRepo.save(updatedUser);
@@ -41,8 +42,8 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
 
     }
 
-    public void addPref(UserPreferences newPreference, String userEmail) {
-        ArrayList<UserPreferences>  currentPrefs = getUserPreferenceData(userEmail);
+    public User addPref(UserPreferences newPreference, User user) {
+        ArrayList<UserPreferences>  currentPrefs = getUserPreferenceData(user);
         if (currentPrefs.size() < 1) {
             currentPrefs.add(newPreference);
         }
@@ -59,10 +60,11 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
                 }
             }
         }
+        return user;
     }
 
-    public void removePref(UserPreferences newPreference, String email) {
-        ArrayList<UserPreferences>  currentPrefs = getUserPreferenceData(email);
+    public User removePref(UserPreferences newPreference, User user) {
+        ArrayList<UserPreferences>  currentPrefs = getUserPreferenceData(user);
         for (int i = 0; i < currentPrefs.size(); i++) {
             if (currentPrefs.get(i).compareDays(newPreference) && currentPrefs.get(i).timeOverlap(newPreference)) {
                 if (currentPrefs.get(i).getStartTime() < newPreference.getEndTime()) {
@@ -78,6 +80,7 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
 
             }
         }
+        return user;
     }
 
     /*
