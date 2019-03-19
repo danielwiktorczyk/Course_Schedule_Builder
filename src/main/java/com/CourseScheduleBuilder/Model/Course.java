@@ -26,6 +26,7 @@ public class Course {
     private String online;
     private String preReq;
     private String coReq;
+    private String equivalent;
     private String association;
     private String labRequired;
     private String requireEngineer;
@@ -34,11 +35,21 @@ public class Course {
     private Integer id;
 
 
+    public String getStartTime() {
+        return startTime;
+    }
 
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
 
+    public String getEndTime() {
+        return endTime;
+    }
 
-
-
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
     public Integer getId() {
         return id;
@@ -72,6 +83,37 @@ public class Course {
         this.coReq = coReq;
     }
 
+    public String getComponent() {
+        return component;
+    }
+
+    public void setComponent(String component) {
+        this.component = component;
+    }
+
+    public String getEquivalent() {
+        return equivalent;
+    }
+
+    public void setEquivalent(String equivalent) {
+        this.equivalent = equivalent;
+    }
+
+    public String getAssociation() {
+        return association;
+    }
+
+    public void setAssociation(String association) {
+        this.association = association;
+    }
+
+    public String getLabRequired() {
+        return labRequired;
+    }
+
+    public void setLabRequired(String labRequired) {
+        this.labRequired = labRequired;
+    }
 
     @Override
     public String toString() {

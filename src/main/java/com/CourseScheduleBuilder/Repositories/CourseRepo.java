@@ -11,7 +11,7 @@ public interface CourseRepo extends JpaRepository <Course, String> {
 
 
 
-    Course findByName(String name);
+   List<Course> findByName(String name);
    List<Course> findByNameAndComponent(String name, String component);
 
 
