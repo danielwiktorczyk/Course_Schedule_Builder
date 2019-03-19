@@ -21,57 +21,13 @@ public class User {
     private ArrayList<String> prereqs = new ArrayList<>();
     private ArrayList<UserPreferences> userPrefs = new ArrayList<>();
 
-    // TODO: 2019-03-18 the methods modifyUserPrefs(), addPref() and removePref() belong in Class LogedInUser when it is merged
-    public void modifyUserPrefs(UserPreferences newPreference) {
-        if(newPreference.isAdd()){
-            addPref(newPreference);
-        }
-        else{
-            removePref(newPreference);
-        }
-    }
-    /*
-    Method that modifies userPrefs when they are updated by the user
-    uses helper methods addPref() and removePref() defined below
-     */
-
-    public void addPref(UserPreferences newPreference) {
-        if (userPrefs.size() == 0) {
-            userPrefs.add(newPreference);
-        } else {
-            for (int i = 0; i < userPrefs.size(); i++) {
-                if (userPrefs.get(i).compareDays(newPreference) && userPrefs.get(i).timeOverlap(newPreference)) {
-                    if (userPrefs.get(i).getStartTime() < newPreference.getStartTime()) {
-                        newPreference.setStartTime(userPrefs.get(i).getStartTime());
-                    }
-                    if (userPrefs.get(i).getEndTime() > newPreference.getEndTime()) {
-                        newPreference.setEndTime(userPrefs.get(i).getEndTime());
-                    }
-                    userPrefs.add(newPreference);
-                }
-            }
-        }
+    public ArrayList<UserPreferences> getUserPrefs() {
+        return userPrefs;
     }
 
-    public void removePref(UserPreferences newPreference) {
-        for (int i = 0; i < userPrefs.size(); i++) {
-            if (userPrefs.get(i).compareDays(newPreference) && userPrefs.get(i).timeOverlap(newPreference)) {
-                if (userPrefs.get(i).getStartTime() < newPreference.getEndTime()) {
-                    userPrefs.get(i).setStartTime(newPreference.getEndTime());
-                }
-                if (userPrefs.get(i).getEndTime() < newPreference.getStartTime()) {
-                    userPrefs.get(i).setEndTime(userPrefs.get(i).getStartTime());
-                }
-                if(userPrefs.get(i).getStartTime() > newPreference.getStartTime() && userPrefs.get(i).getEndTime() < newPreference.getEndTime()){
-                    userPrefs.remove(i);
-                    i--;
-                }
-
-            }
-        }
+    public void setUserPrefs(ArrayList<UserPreferences> userPrefs) {
+        this.userPrefs = userPrefs;
     }
-
-
 
     public Integer getId(){
         return id;

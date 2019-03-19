@@ -6,28 +6,74 @@ import com.CourseScheduleBuilder.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class UserPreferencesServiceImpl implements UserPreferencesService{
 
     @Autowired
-    private UserRepo userrepo;
+    private UserRepo userRepo;
 
-    // TODO: 2019-03-18  when the loggedInUser branch is merged this method will be updated to take argument LoggedInUser user
-    public void updateUserPreferences(User user, UserPreferences newPreference) {
-        user.modifyUserPrefs(newPreference);
-        userrepo.save(user);
-        System.out.println("User Preferences Updated Successfully");
+
+    private ArrayList<UserPreferences> getUserPreferenceData()
+    {
+        User user;
+
+        user = userRepo.findByEmail(.getEmail());
+
+        return user.getUserPrefs();
+    }
+
+    public void modifyUserPrefs(UserPreferences newPreference) {
+        if(newPreference.isAdd()){
+            addPref(newPreference);
+        }
+        else{
+            removePref(newPreference);
+        }
+    }
+    /*
+    Method that modifies userPrefs when they are updated by the user
+    uses helper methods addPref() and removePref() defined below
+     */
+
+    public void addPref(UserPreferences newPreference) {
+        ArrayList<UserPreferences>  currentPrefs = getUserPreferenceData();
+        if (currentPrefs.size() == 0) {
+            currentPrefs.add(newPreference);
+        } else {
+            for (int i = 0; i < currentPrefs.size(); i++) {
+                if (currentPrefs.get(i).compareDays(newPreference) && currentPrefs.get(i).timeOverlap(newPreference)) {
+                    if (currentPrefs.get(i).getStartTime() < newPreference.getStartTime()) {
+                        newPreference.setStartTime(currentPrefs.get(i).getStartTime());
+                    }
+                    if (currentPrefs.get(i).getEndTime() > newPreference.getEndTime()) {
+                        newPreference.setEndTime(currentPrefs.get(i).getEndTime());
+                    }
+                    currentPrefs.add(newPreference);
+                }
+            }
+        }
+    }
+
+    public void removePref(UserPreferences newPreference) {
+        ArrayList<UserPreferences>  currentPrefs = getUserPreferenceData();
+        for (int i = 0; i < currentPrefs.size(); i++) {
+            if (currentPrefs.get(i).compareDays(newPreference) && currentPrefs.get(i).timeOverlap(newPreference)) {
+                if (currentPrefs.get(i).getStartTime() < newPreference.getEndTime()) {
+                    currentPrefs.get(i).setStartTime(newPreference.getEndTime());
+                }
+                if (currentPrefs.get(i).getEndTime() < newPreference.getStartTime()) {
+                    currentPrefs.get(i).setEndTime(currentPrefs.get(i).getStartTime());
+                }
+                if(currentPrefs.get(i).getStartTime() > newPreference.getStartTime() && currentPrefs.get(i).getEndTime() < newPreference.getEndTime()){
+                    currentPrefs.remove(i);
+                    i--;
+                }
+
+            }
+        }
     }
 
 
-        //
-        // Verification of login info against database to be added.
-        // Checks include if username already exists in database.
-        // true boolean returned if registration successfully completed
-        // false boolean if registration failure (username already exists)
-        // FE should declare error if communication failure
-        // Prints message to console if duplicated attempted
-        // Repository find method returns a null value if the search returns no result
-        //
-
-    }
+}
