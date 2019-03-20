@@ -60,7 +60,7 @@ button, input, optgroup, select, textarea {
   text-align: center;
   border-radius: 1rem;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
-  border-color: darkred;
+  border-color: #A52A2A;
   border-width: 2px;
 }
 .card-signup .card-title,
@@ -77,19 +77,19 @@ input.col-6,
 input.col-12 {
   border-radius: 10px;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
-  border-color: darkred;
+  border-color: #A52A2A;
   border-width: 1px;
   padding: 9px;
   margin: 0 0 19px 0;
   text-transform: uppercase;
-  color: darkred;
+  color: #A52A2A;
 }
 
 .btn-home-log{
   color: white !important;
   text-transform: uppercase !important;
-  background-color: darkred !important;
-  border-color:darkred !important;
+  background-color: #A52A2A !important;
+  border-color:#A52A2A !important;
   border-radius: 10px !important;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
   padding: 10px;
@@ -113,8 +113,8 @@ img.ScheduleGen {
   padding-top: 100px;
 }
 hr{
-  color: darkred;
-  background-color: darkred;
+  color: #A52A2A;
+  background-color: #A52A2A;
 }
 .select-semester-button{
   padding-top: 1rem;
@@ -128,7 +128,7 @@ div.selected-courses,
 input.col-8.course-name {
   border-radius: 10px;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
-  border-color: darkred;
+  border-color: #A52A2A;
   border-width: 1px;
   padding: 9px;
   margin: 0 0 19px 0;
@@ -138,7 +138,7 @@ input.col-8.course-name {
 }
 .theList,
 div.selected-courses{
-  border-color: darkred;
+  border-color: #A52A2A;
 }
 button.col-3.btn.btn-home-log {
   position: relative;
@@ -147,7 +147,7 @@ button.col-3.btn.btn-home-log {
   height: 3rem;
 }
 .register{
-  color: darkred;
+  color: #A52A2A;
 }
 .reg{
   padding-top: 20px;
@@ -158,7 +158,7 @@ button.col-3.btn.btn-home-log {
 }
 headerStyle:hover,
 .headerStyle{
-  background: darkred;
+  background: #A52A2A;
   color: #fff;
   textAlign: center;
   padding: 10px;
@@ -199,7 +199,7 @@ headerStyle:hover,
   content: ' ';
   height: 20px;
   width: 2px;
-  background-color: darkred;
+  background-color: #A52A2A;
 }
 .close:before {
   transform: rotate(45deg);
@@ -208,13 +208,20 @@ headerStyle:hover,
   transform: rotate(-45deg);
 }
 button.close {
-  padding: 0px;
+  padding: 0;
   margin: 0;
   background-color: transparent;
   border: 0;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
-.row:focus {
-  outline: none;
+.row:focus,
+input:focus,
+.btn:focus {
+  outline: 0;
+   box-shadow: 0 0 0 0 rgba(0,0,0,0);
+}
+
+button.btn.btn-home-log:hover {
+  background-color: maroon !important;
 }
