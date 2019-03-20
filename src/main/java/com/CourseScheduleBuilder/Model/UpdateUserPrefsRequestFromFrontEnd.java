@@ -7,9 +7,9 @@ public class UpdateUserPrefsRequestFromFrontEnd {
     @JsonProperty
     private String day;
     @JsonProperty
-    private Integer prefStartTime;
+    private int prefStartTime;
     @JsonProperty
-    private Integer prefEndTime;
+    private int prefEndTime;
     @JsonProperty
     private boolean add;
 
@@ -40,7 +40,7 @@ public class UpdateUserPrefsRequestFromFrontEnd {
         this.day = day;
     }
 
-    public Integer getPrefStartTime() {
+    public int getPrefStartTime() {
         return prefStartTime;
     }
 
@@ -48,7 +48,7 @@ public class UpdateUserPrefsRequestFromFrontEnd {
         this.prefStartTime = prefStartTime;
     }
 
-    public Integer getPrefEndTime() {
+    public int getPrefEndTime() {
         return prefEndTime;
     }
 

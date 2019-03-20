@@ -1,14 +1,16 @@
 package com.CourseScheduleBuilder.Model;
 
-public class UserPreferences {
+import java.io.Serializable;
+
+public class UserPreferences implements Serializable {
 private boolean monday;
 private boolean tuesday;
 private boolean wednesday;
 private boolean thursday;
 private boolean friday;
 private boolean add;
-private Integer startTime;
-private Integer endTime;
+private int startTime;
+private int endTime;
 
     /*
     UserPreferences can be added or removed using the same object, the boolean "add"
@@ -114,7 +116,7 @@ private Integer endTime;
         this.friday = friday;
     }
 
-    public Integer getStartTime() {
+    public int getStartTime() {
         return startTime;
     }
 
@@ -122,7 +124,7 @@ private Integer endTime;
         this.startTime = startTime;
     }
 
-    public Integer getEndTime() {
+    public int getEndTime() {
         return endTime;
     }
 

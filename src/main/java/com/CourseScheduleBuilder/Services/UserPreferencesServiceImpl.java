@@ -1,10 +1,13 @@
 package com.CourseScheduleBuilder.Services;
 
+import com.CourseScheduleBuilder.Model.UpdateUserPrefsRequestFromFrontEnd;
 import com.CourseScheduleBuilder.Model.User;
+import com.CourseScheduleBuilder.Model.UserFromFrontEnd;
 import com.CourseScheduleBuilder.Model.UserPreferences;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.io.*;
 
 import java.util.ArrayList;
 
@@ -13,6 +16,29 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
 
     @Autowired
     private UserRepo userRepo;
+
+    /*
+    Test to see if I can add a user
+     */
+
+    public boolean addAUser(String email, String day, int end, int start, boolean add){
+        User userToAdd = new User();
+        userToAdd.setEWT(true);
+        userToAdd.setEmail(email);
+        userToAdd.setFirstName("Albert");
+        userToAdd.setLastName("Einstein");
+        userToAdd.setPassword("F=MA");
+        userRepo.save(userToAdd);
+        UserPreferences newPref = createNewPreferenceFromRequestData(day, start, end, add);
+        ArrayList<UserPreferences> einsteinsPrefs = new ArrayList<>();
+        einsteinsPrefs.add(newPref);
+
+        userToAdd.setEmail("iLikeForces@smart.com");
+        userToAdd.setUserPrefs(einsteinsPrefs);
+        userRepo.save(userToAdd);
+
+        return true;
+    }
 
     // TODO: 2019-03-18 update to work with LoggedInUser when merged
     private ArrayList<UserPreferences> getUserPreferenceData(User user)

@@ -1,5 +1,6 @@
 package com.CourseScheduleBuilder.Services;
 import com.CourseScheduleBuilder.Model.User;
+import com.CourseScheduleBuilder.Model.UserFromFrontEnd;
 import com.CourseScheduleBuilder.Model.UserPreferences;
 
 import java.util.ArrayList;
@@ -10,5 +11,5 @@ public interface UserPreferencesService {
    User addPref(UserPreferences newPreference, User user);
    User removePref(UserPreferences newPreference, User user);
    UserPreferences createNewPreferenceFromRequestData(String day, Integer prefStartTime, Integer prefEndTime, Boolean add);
-
+   boolean addAUser(String email, String day, int end, int start, boolean add);
     }
