@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import axios from 'axios';
-import Signin from "./Signin";
-import { Redirect } from 'react-router-dom'
+import {withRouter} from "react-router-dom";
 
+function validate(firstname, lastname, email, pass) {
+    // true means invalid, so our conditions got reversed
+    return {
+        firstname: firstname.length === 0,
+        lastname: lastname.length === 0,
+        email: email.length === 0,
+        password: pass.length === 0
+    };
+}
 
 class Signup extends Component {
 
@@ -12,24 +20,77 @@ class Signup extends Component {
         this.state = {courseCheck: 'Not yet generated'};
         this.state = {loggedIn: false};
         this.register = this.register.bind(this);
+        this.routeChange = this.routeChange.bind(this);
+        this.state = {
+            firstname: "",
+            lastname: "",
+            email: "",
+            password: "",
+            everFocusedFirstName: false,
+            everFocusedLastName: false,
+            everFocusedEmail: false,
+            everFocusedPassword: false,
+            inFocus: ""
+        };
+    }
+
+    routeChange() {
+        let path = '/';
+        this.props.history.push(path);
+    }
+
+    handlFirstnameChange = evt => {
+        this.setState({ firstname: evt.target.value });
     };
+
+    handlLastnameChange = evt => {
+        this.setState({ lastname: evt.target.value });
+    };
+
+    handEmailChange = evt => {
+        this.setState({ email: evt.target.value });
+    };
+
+    handlePasswordChange = evt => {
+        this.setState({ password: evt.target.value });
+    };
+
+    handleSubmit = evt => {
+        if (!this.canBeSubmitted()) {
+            evt.preventDefault();
+            return;
+        }
+        const { firstname, lastname, email, password} = this.state;
+        alert(`Signed up with firstname: ${firstname} lastname: ${lastname}  email: ${email} password: ${password}`);
+    };
+
+    canBeSubmitted() {
+        const errors = validate(this.state.firstname, this.state.lastname, this.state.email, this.state.password);
+        const isDisabled = Object.keys(errors).some(x => errors[x]);
+        return !isDisabled;
+    }
+
+
 //
     render(){
+        const errors = validate(this.state.firstname, this.state.lastname, this.state.email, this.state.password);
+        const isDisabled = Object.keys(errors).some(x => errors[x]);
         return(
             <div className="container center- card-signin" id="inside">
                 <div >
                     <img className="logo" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>
                 </div>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <div>
                         <div className="row">
-                            <div><label className="col-12">First Name:<input className="col-12" type="text" name="firstname" id={'firstname'}/></label></div>
-                            <div><label className="col-12">Last Name:<input className="col-12" type="text" name="lastname" id={'lastname'}/></label></div>
-                            <div><label className="col-12">Email:<input className="col-12" type="text" name="email" id={'email'}/></label></div>
-                            <div><label className="col-12">Password:<input className="col-12" type="password" name="password" id={'pass'} /></label></div>
+                            <div><label className="col-12">First Name:<input className="col-12"  type="text" name="firstname" id={'firstname'}  value={this.state.firstname} onChange={this.handlFirstnameChange} /></label></div>
+                            <div><label className="col-12">Last Name:<input className="col-12" type="text" name="lastname" id={'lastname'} value={this.state.lastname} onChange={this.handlLastnameChange} /></label></div>
+                            <div><label className="col-12">Email:<input className="col-12" type="text" name="email" id={'email'} value={this.state.email} onChange={this.handEmailChange}/></label></div>
+                            <div><label className="col-12">Password:<input className="col-12" type="password" name="password" id={'pass'} value={this.state.password} onChange={this.handlePasswordChange} /></label></div>
                         </div>
                     </div>
-                    <button className="btn btn-home-log" type="button" value="Submit" onClick={this.register}>Sign up</button>
+                    <button disabled={isDisabled} className="btn btn-home-log" type="button" value="Submit" onClick={this.register}>Sign up</button>
+                    <button className="btn btn-home-log" type="button" value="Submit" onClick={this.routeChange}>Already a memeber</button>
                 </form>
             </div>
         );
@@ -69,6 +130,7 @@ class Signup extends Component {
         else {
             pass = null;
         }
+
         // alert(name +" " + pass);
         axios.post('http://localhost:8080/registration', {
             firstName: firstName,
@@ -89,4 +151,4 @@ class Signup extends Component {
         });
     }
 }
-export default Signup;
+export default withRouter(Signup);
