@@ -182,3 +182,39 @@ headerStyle:hover,
 .s-course{
   padding-bottom: 5rem;
 }
+.close {
+  width: 32px;
+  /*opacity: 0.3;*/
+  -webkit-box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
+  opacity: 1;
+
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 20px;
+  width: 2px;
+  background-color: darkred;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
+button.close {
+  padding: 0px;
+  margin: 0;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.row:focus {
+  outline: none;
+}

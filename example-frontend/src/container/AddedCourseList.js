@@ -14,7 +14,7 @@ class AddedCourseList extends Component {
     createTasks(item) {
 
         return<p className="theList" key={item.key}>Selected Courses: {item.text}
-            <button onClick={() => this.delete(item.key)} className="col-3 btn btn-home-log">X</button></p>
+            <button onClick={() => this.delete(item.key)} className="col-1 close btn btn-home-log"> </button></p>
 
 
     }
