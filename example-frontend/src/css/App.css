@@ -28,14 +28,12 @@
 }
 .center {
   width: 42% !important;
-  /*border: 7px solid green;*/
   padding: 73px 57px 75px 63px;
   margin: 79px 47px 150px 310px;
   text-align: center;
 }
 .center- {
   width: 42% !important;
-  /*border: 7px solid green;*/
   padding: 50px 126px 51px 93px;
   margin: 70px 0 31px 306px;
   text-align: center;
@@ -52,7 +50,6 @@ button, input, optgroup, select, textarea {
 }
 #container{
   color : black;
-  /*background-color: #C9C7F2;*/
 
 }
 .card-signup,
@@ -96,10 +93,6 @@ input.col-12 {
   margin: 10px;
   width: 93%;
 }
-/*.container.center.card-signin {*/
-  /*max-width: 15rem;*/
-  /*height: 28rem;*/
-/*}*/
 
 .container.select-semester {
   padding-top: 10rem;
@@ -156,13 +149,6 @@ button.col-3.btn.btn-home-log {
   position: relative;
   left: -40px;
 }
-headerStyle:hover,
-.headerStyle{
-  background: #A52A2A;
-  color: #fff;
-  textAlign: center;
-  padding: 10px;
-}
 
 .linkStyle,
 .linkStyle:hover{
@@ -184,7 +170,6 @@ headerStyle:hover,
 }
 .close {
   width: 32px;
-  /*opacity: 0.3;*/
   -webkit-box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
   opacity: 1;

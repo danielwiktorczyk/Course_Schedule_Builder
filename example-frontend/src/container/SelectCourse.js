@@ -28,7 +28,7 @@ class SelectCourse extends Component {
     }
 
     deleteItem(key) {
-        var filteredItems = this.state.items.filter(function (item) {
+        let filteredItems = this.state.items.filter(function (item) {
             return (item.key !== key);
         });
 
@@ -39,7 +39,7 @@ class SelectCourse extends Component {
 
     addItem(e) {
         if (this._inputElement.value !== "") {
-            var newItem = {
+            let newItem = {
                 text: this._inputElement.value,
                 key: Date.now()
             };
@@ -54,8 +54,6 @@ class SelectCourse extends Component {
             e.preventDefault();
         }
     }
-
-
     render(){
         return (
             <div className="container s-course">
@@ -81,8 +79,6 @@ class SelectCourse extends Component {
                     <button className="col-3 btn btn-home-log" onClick={this.generateSchedule}>GENERATE</button>
                     <button className="col-3 btn btn-home-log" onClick={this.routeChange}>CHANGE SEMESTER</button>
                 </div>
-
-
             </div>
         );
     }
