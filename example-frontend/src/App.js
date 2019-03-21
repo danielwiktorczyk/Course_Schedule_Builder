@@ -7,6 +7,8 @@ import Signin from './container/Signin';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import SelectSemester from "./container/SelectSemester";
 import SelectCourse from "./container/SelectCourse";
+import PossibleSchedules from "./container/PossibleSchedules";
+
 
 class App extends Component {
 
@@ -19,6 +21,8 @@ class App extends Component {
               <Route path="/Signup" component={Signup} />
               <Route path="/SelectSemester" component={SelectSemester} />
               <Route path="/SelectCourse" component={SelectCourse} />
+              <Route path="/PossibleSchedules" component={PossibleSchedules} />
+
             </div>
           </div>
         </Router>

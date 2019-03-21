@@ -10,6 +10,7 @@ class SelectCourse extends Component {
         super(props);
         this.state = {loggedIn: true};
         this.routeChange = this.routeChange.bind(this);
+        this. generateSchedule = this. generateSchedule.bind(this);
         this.addItem = this.addItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.state = {
@@ -19,6 +20,10 @@ class SelectCourse extends Component {
 
     routeChange() {
         let path = '/SelectSemester';
+        this.props.history.push(path);
+    }
+    generateSchedule() {
+        let path = '/PossibleSchedules';
         this.props.history.push(path);
     }
 
@@ -72,7 +77,6 @@ class SelectCourse extends Component {
                 <AddedCourseList entries={this.state.items}  delete={this.deleteItem}/>
                 </div>
 
-
                 {/*<br /><br />*/}
                 {/*<h3>Selected Courses:</h3>*/}
                 {/*<div className="selected-courses">*/}
@@ -80,7 +84,7 @@ class SelectCourse extends Component {
                 {/*</div>*/}
 
                 <div>
-                    <button className="col-3 btn btn-home-log">GENERATE</button>
+                    <button className="col-3 btn btn-home-log" onClick={this.generateSchedule}>GENERATE</button>
                     <button className="col-3 btn btn-home-log" onClick={this.routeChange}>CHANGE SEMESTER</button>
                 </div>
 

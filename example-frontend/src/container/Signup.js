@@ -39,15 +39,15 @@ class Signup extends Component {
         this.props.history.push(path);
     }
 
-    handlFirstnameChange = evt => {
+    handleFirstNameChange = evt => {
         this.setState({ firstname: evt.target.value });
     };
 
-    handlLastnameChange = evt => {
+    handleLastNameChange = evt => {
         this.setState({ lastname: evt.target.value });
     };
 
-    handEmailChange = evt => {
+    handleEmailChange = evt => {
         this.setState({ email: evt.target.value });
     };
 
@@ -83,9 +83,9 @@ class Signup extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <div className="row">
-                            <div><label className="col-12">First Name:<input className="col-12"  type="text" name="firstname" id={'firstname'}  value={this.state.firstname} onChange={this.handlFirstnameChange} /></label></div>
-                            <div><label className="col-12">Last Name:<input className="col-12" type="text" name="lastname" id={'lastname'} value={this.state.lastname} onChange={this.handlLastnameChange} /></label></div>
-                            <div><label className="col-12">Email:<input className="col-12" type="text" name="email" id={'email'} value={this.state.email} onChange={this.handEmailChange}/></label></div>
+                            <div><label className="col-12">First Name:<input className="col-12"  type="text" name="firstname" id={'firstname'}  value={this.state.firstname} onChange={this.handleFirstNameChange} /></label></div>
+                            <div><label className="col-12">Last Name:<input className="col-12" type="text" name="lastname" id={'lastname'} value={this.state.lastname} onChange={this.handleLastNameChange} /></label></div>
+                            <div><label className="col-12">Email:<input className="col-12" type="text" name="email" id={'email'} value={this.state.email} onChange={this.handleEmailChange}/></label></div>
                             <div><label className="col-12">Password:<input className="col-12" type="password" name="password" id={'pass'} value={this.state.password} onChange={this.handlePasswordChange} /></label></div>
                         </div>
                     </div>

@@ -33,7 +33,7 @@ class Signin extends Component {
     this.props.history.push(path);
   }
 
-  handlnameChange = evt => {
+  handleNameChange = evt => {
     this.setState({ name: evt.target.value });
   };
 
@@ -56,8 +56,6 @@ class Signin extends Component {
     return !isDisabled;
   }
 
-
-//
   render(){
     const errors = validate(this.state.name, this.state.password);
     const isDisabled = Object.keys(errors).some(x => errors[x]);
@@ -70,7 +68,7 @@ class Signin extends Component {
           <form onSubmit={this.handleSubmit}>
 
               <div className="row">
-                <div> <label className="col-12">User Name:<input className="col-12" type="text" name="name" id={'user'} value={this.state.name} onChange={this.handlnameChange} /></label></div>
+                <div> <label className="col-12">User Name:<input className="col-12" type="text" name="name" id={'user'} value={this.state.name} onChange={this.handleNameChange} /></label></div>
                 <div> <label className="col-12">Password:<input className="col-12" type="password" name="password" id={'pass'} value={this.state.password} onChange={this.handlePasswordChange}  /></label></div>
               </div>
 
