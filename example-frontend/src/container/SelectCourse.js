@@ -10,7 +10,7 @@ class SelectCourse extends Component {
         super(props);
         this.state = {loggedIn: true};
         this.routeChange = this.routeChange.bind(this);
-        this. generateSchedule = this. generateSchedule.bind(this);
+        this.generateSchedule = this. generateSchedule.bind(this);
         this.addItem = this.addItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.state = {
@@ -61,7 +61,7 @@ class SelectCourse extends Component {
             <div className="container s-course">
 
                 <div >
-                    <a href="#"><img  className="ScheduleGen-" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/></a>
+                    <img  className="ScheduleGen-" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>
                 </div>
                 <h1>COURSE SELECTION</h1><hr/>
 
@@ -76,12 +76,6 @@ class SelectCourse extends Component {
                 </form>
                 <AddedCourseList entries={this.state.items}  delete={this.deleteItem}/>
                 </div>
-
-                {/*<br /><br />*/}
-                {/*<h3>Selected Courses:</h3>*/}
-                {/*<div className="selected-courses">*/}
-                    {/*<p>T0-do: display user input here: (classes/sections)</p>*/}
-                {/*</div>*/}
 
                 <div>
                     <button className="col-3 btn btn-home-log" onClick={this.generateSchedule}>GENERATE</button>

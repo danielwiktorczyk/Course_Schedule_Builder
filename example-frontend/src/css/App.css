@@ -28,14 +28,14 @@
 }
 .center {
   width: 42% !important;
-  border: 7px solid green;
+  /*border: 7px solid green;*/
   padding: 73px 57px 75px 63px;
   margin: 79px 47px 150px 310px;
   text-align: center;
 }
 .center- {
   width: 42% !important;
-  border: 7px solid green;
+  /*border: 7px solid green;*/
   padding: 50px 126px 51px 93px;
   margin: 70px 0 31px 306px;
   text-align: center;
@@ -224,4 +224,30 @@ input:focus,
 
 button.btn.btn-home-log:hover {
   background-color: maroon !important;
+}
+.table td, .table th {
+  padding: 0;
+  margin: 0;
+
+}
+table {
+  border-collapse: collapse;
+  font-size: 10px;
+  /*border: 1px solid #A52A2A;*/
+
+}
+
+table, td, th {
+  /*border-color: #A52A2A;*/
+  /*border-width: 2px;*/
+}
+.table.possible{
+  width: 50%;
+  float: right;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+.logo- {
+  position: relative;
+  left: 0px;
 }
