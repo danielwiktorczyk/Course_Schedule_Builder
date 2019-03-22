@@ -236,3 +236,6 @@ table, td, th {
   position: relative;
   left: 0px;
 }
+.table {
+   margin-bottom: 0rem;
+}

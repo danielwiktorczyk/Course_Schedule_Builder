@@ -25,6 +25,7 @@ class PossibleSchedules extends Component {
         return options;
     }
 
+
         createTable(){
             let table = [];
             let quarterHours = ["00", "15", "30", "45"];
@@ -45,9 +46,6 @@ class PossibleSchedules extends Component {
                     // 15-min 4 times/ hour
                     for(let k = 0; k < 4; k++){
                         let time = i + ":" + quarterHours[k];
-                        if(i < 10){
-                            time = "0" + time;
-                        }
                         times.push(time);
                         table.push(
                             <table className="table table-striped">
@@ -88,11 +86,12 @@ class PossibleSchedules extends Component {
                     <a href="/"><img className="logo- semester" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/></a>
                     <h1>Possible schedules</h1>
                     <hr/>
+
                     <table className=" container table possible table-striped">
                         <tbody className="container">
                         <thead>
                         <tr>
-                            <th scope="col"></th>
+                            <th scope="col">#</th>
                             <th scope="col">Monday</th>
                             <th scope="col">Tuesday</th>
                             <th scope="col">Wednesday</th>
