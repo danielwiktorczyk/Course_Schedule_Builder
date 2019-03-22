@@ -2,7 +2,7 @@ package com.CourseScheduleBuilder.Model;
 
 import java.io.Serializable;
 
-public class UserPreferences implements Serializable {
+public class UserPreferences {
 private boolean monday;
 private boolean tuesday;
 private boolean wednesday;

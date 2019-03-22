@@ -19,16 +19,6 @@ public class User {
     private String password;
     private boolean EWT;
     private ArrayList<String> prereqs = new ArrayList<>();
-    private ArrayList<UserPreferences> user_prefs = new ArrayList<>();
-
-
-    public ArrayList<UserPreferences> getUserPrefs() {
-        return user_prefs;
-    }
-
-    public void setUserPrefs(ArrayList<UserPreferences> userPrefs) {
-        this.user_prefs = userPrefs;
-    }
 
     public Integer getId(){
         return id;

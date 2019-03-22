@@ -3,8 +3,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UpdateUserPrefsRequestFromFrontEnd {
     @JsonProperty
-    private String email;
-    @JsonProperty
     private String day;
     @JsonProperty
     private int prefStartTime;
@@ -16,22 +14,12 @@ public class UpdateUserPrefsRequestFromFrontEnd {
     @Override
     public String toString() {
         return "UpdateUserPrefsRequestFromFrontEnd{" +
-                "email='" + email + '\'' +
                 ", day='" + day + '\'' +
                 ", prefStartTime=" + prefStartTime +
                 ", prefEndTime=" + prefEndTime +
                 ", add=" + add +
                 '}';
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail() {
-        this.email = email;
-    }
-
     public String getDay() {
         return day;
     }

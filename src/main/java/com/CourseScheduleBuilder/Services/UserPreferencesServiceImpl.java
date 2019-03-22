@@ -1,13 +1,9 @@
 package com.CourseScheduleBuilder.Services;
 
-import com.CourseScheduleBuilder.Model.UpdateUserPrefsRequestFromFrontEnd;
-import com.CourseScheduleBuilder.Model.User;
-import com.CourseScheduleBuilder.Model.UserFromFrontEnd;
 import com.CourseScheduleBuilder.Model.UserPreferences;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.io.*;
 
 import java.util.ArrayList;
 
@@ -17,59 +13,28 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
     @Autowired
     private UserRepo userRepo;
 
-    /*
-    Test to see if I can add a user
-     */
+    private ArrayList<UserPreferences> sessionPreferences;
 
-    public boolean addAUser(String email, String day, int end, int start, boolean add){
-        User userToAdd = new User();
-        userToAdd.setEWT(true);
-        userToAdd.setEmail(email);
-        userToAdd.setFirstName("Albert");
-        userToAdd.setLastName("Einstein");
-        userToAdd.setPassword("F=MA");
-        userRepo.save(userToAdd);
-        UserPreferences newPref = createNewPreferenceFromRequestData(day, start, end, add);
-        ArrayList<UserPreferences> einsteinsPrefs = new ArrayList<>();
-        einsteinsPrefs.add(newPref);
-
-        userToAdd.setEmail("iLikeForces@smart.com");
-        userToAdd.setUserPrefs(einsteinsPrefs);
-        userRepo.save(userToAdd);
-
-        return true;
-    }
-
-    // TODO: 2019-03-18 update to work with LoggedInUser when merged
-    private ArrayList<UserPreferences> getUserPreferenceData(User user)
-    {
-        return user.getUserPrefs();
+    public ArrayList<UserPreferences> getUserPreferences(){
+            return sessionPreferences;
     }
 
     /*
    Method that modifies userPrefs when they are updated by the user
    uses helper methods addPref() and removePref() defined below
     */
-    public void modifyUserPrefs(UserPreferences newPreference, String userEmail) {
-        User userToUpdate = userRepo.findByEmail(userEmail);
-        User updatedUser;
-        System.out.println("the user email is: " + userEmail + " the name of the user found by this email is " + userToUpdate.getFirstName());
+    public void modifyUserPrefs(UserPreferences newPreference) {
 
         if(newPreference.isAdd()){
-            updatedUser = addPref(newPreference, userToUpdate);
+            addPref(newPreference);
         }
         else{
-           updatedUser = removePref(newPreference, userToUpdate);
+           removePref(newPreference);
         }
-        System.out.println("Updated User: " + updatedUser.getFirstName() + " new param components: " + updatedUser.getUserPrefs().get(0).getStartTime() + " size of prefs array: " +  updatedUser.getUserPrefs().size());
-        System.out.println("going to save user to repo: ");
-        userRepo.save(updatedUser);
-        System.out.println("User saved!!!!!!");
-
     }
 
-    public User addPref(UserPreferences newPreference, User user) {
-        ArrayList<UserPreferences>  currentPrefs = getUserPreferenceData(user);
+    public void addPref(UserPreferences newPreference) {
+        ArrayList<UserPreferences>  currentPrefs = sessionPreferences;
         if (currentPrefs.size() < 1) {
             currentPrefs.add(newPreference);
         }
@@ -86,11 +51,10 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
                 }
             }
         }
-        return user;
     }
 
-    public User removePref(UserPreferences newPreference, User user) {
-        ArrayList<UserPreferences>  currentPrefs = getUserPreferenceData(user);
+    public void removePref(UserPreferences newPreference) {
+        ArrayList<UserPreferences>  currentPrefs = sessionPreferences;
         for (int i = 0; i < currentPrefs.size(); i++) {
             if (currentPrefs.get(i).compareDays(newPreference) && currentPrefs.get(i).timeOverlap(newPreference)) {
                 if (currentPrefs.get(i).getStartTime() < newPreference.getEndTime()) {
@@ -106,7 +70,6 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
 
             }
         }
-        return user;
     }
 
     /*
