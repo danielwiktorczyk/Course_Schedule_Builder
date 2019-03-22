@@ -13,7 +13,6 @@ public class UserPreferencesController {
     UserPreferencesService userPreferencesService;
 
     UserPreferences newPreference = new UserPreferences();
-
     @PostMapping("/userPreferences")
     @CrossOrigin
     @ResponseBody

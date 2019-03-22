@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 @Service
 public class UserPreferencesServiceImpl implements UserPreferencesService{
@@ -19,6 +20,14 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
             return sessionPreferences;
     }
 
+    public void destroyCurrentPreferences(){
+        Iterator it = sessionPreferences.iterator();
+
+        while (it.hasNext()){
+            it.remove();
+        }
+    }
+
     /*
    Method that modifies userPrefs when they are updated by the user
    uses helper methods addPref() and removePref() defined below
@@ -30,6 +39,12 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
         }
         else{
            removePref(newPreference);
+        }
+        System.out.println("Array size is now: " + sessionPreferences.size());
+
+        Iterator it = sessionPreferences.iterator();
+        while (it.hasNext()){
+            System.out.println(it.toString());
         }
     }
 

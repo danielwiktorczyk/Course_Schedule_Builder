@@ -21,9 +21,23 @@ private int endTime;
         return add;
     }
 
+    @Override
+    public String toString() {
+        return "UserPreferences{" +
+                "monday=" + monday +
+                ", tuesday=" + tuesday +
+                ", wednesday=" + wednesday +
+                ", thursday=" + thursday +
+                ", friday=" + friday +
+                ", add=" + add +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                '}';
+    }
+
     /*
-    method that compares the day booleans of two UserPreference Objects to determine if they are the same
-     */
+        method that compares the day booleans of two UserPreference Objects to determine if they are the same
+         */
     public boolean compareDays(UserPreferences prefToCompare){
         if(monday && prefToCompare.monday){
             return true;
