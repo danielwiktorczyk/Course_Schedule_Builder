@@ -1,31 +1,20 @@
 package com.CourseScheduleBuilder.Services;
 
 import com.CourseScheduleBuilder.Model.UserPreferences;
-import com.CourseScheduleBuilder.Repositories.UserRepo;
+import com.CourseScheduleBuilder.Repositories.PreferencesRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 @Service
 public class UserPreferencesServiceImpl implements UserPreferencesService{
 
     @Autowired
-    private UserRepo userRepo;
+    private PreferencesRepo preferencesRepo;
 
-    private ArrayList<UserPreferences> sessionPreferences;
-
-    public ArrayList<UserPreferences> getUserPreferences(){
-            return sessionPreferences;
-    }
-
-    public void destroyCurrentPreferences(){
-        Iterator it = sessionPreferences.iterator();
-
-        while (it.hasNext()){
-            it.remove();
-        }
+    public List<UserPreferences> getUserPreferences(){
+            return preferencesRepo.findAll();
     }
 
     /*
@@ -35,43 +24,62 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
     public void modifyUserPrefs(UserPreferences newPreference) {
 
         if(newPreference.isAdd()){
+            System.out.println("in modify userPrefs, add boolean regognized");
             addPref(newPreference);
+            System.out.println("newPref added successfully");
         }
         else{
            removePref(newPreference);
         }
-        System.out.println("Array size is now: " + sessionPreferences.size());
+    }
 
-        Iterator it = sessionPreferences.iterator();
-        while (it.hasNext()){
-            System.out.println(it.toString());
+    public List<UserPreferences> getCurrentPrefs(UserPreferences newPreference){
+        if(newPreference.isMonday()){
+            return preferencesRepo.findByMondayIsTrue();
+        }
+        else if(newPreference.isTuesday()){
+            return preferencesRepo.findByTuesdayIsTrue();
+        }
+        else if(newPreference.isWednesday()){
+            return preferencesRepo.findByWednesdayIsTrue();
+        }
+        else if(newPreference.isThursday()){
+            return preferencesRepo.findByThursdayIsTrue();
+        }
+        else if(newPreference.isFriday()){
+            return preferencesRepo.findByFridayIsTrue();
+        }
+        else{
+            return null;
         }
     }
 
     public void addPref(UserPreferences newPreference) {
-        ArrayList<UserPreferences>  currentPrefs = sessionPreferences;
-        if (currentPrefs.size() < 1) {
-            currentPrefs.add(newPreference);
+        System.out.println("into AddPref()");
+        System.out.println("stuff in prefs" + preferencesRepo.findAll().size());
+        if (preferencesRepo.findAll().size() == 0) {
+            System.out.println("no preferences in repo");
+            preferencesRepo.save(newPreference);
         }
         else {
-            for (int i = 0; i < currentPrefs.size(); i++) {
-                if (currentPrefs.get(i).compareDays(newPreference) && currentPrefs.get(i).timeOverlap(newPreference)) {
+            List<UserPreferences> currentPrefs = getCurrentPrefs(newPreference);
+                 for(int i = 0; i <currentPrefs.size(); i++) {
                     if (currentPrefs.get(i).getStartTime() < newPreference.getStartTime()) {
                         newPreference.setStartTime(currentPrefs.get(i).getStartTime());
                     }
                     if (currentPrefs.get(i).getEndTime() > newPreference.getEndTime()) {
                         newPreference.setEndTime(currentPrefs.get(i).getEndTime());
                     }
-                    currentPrefs.add(newPreference);
+                     preferencesRepo.save(newPreference);
                 }
             }
         }
-    }
 
     public void removePref(UserPreferences newPreference) {
-        ArrayList<UserPreferences>  currentPrefs = sessionPreferences;
+        List<UserPreferences> currentPrefs = getCurrentPrefs(newPreference);
+
         for (int i = 0; i < currentPrefs.size(); i++) {
-            if (currentPrefs.get(i).compareDays(newPreference) && currentPrefs.get(i).timeOverlap(newPreference)) {
+            if (currentPrefs.get(i).timeOverlap(newPreference)) {
                 if (currentPrefs.get(i).getStartTime() < newPreference.getEndTime()) {
                     currentPrefs.get(i).setStartTime(newPreference.getEndTime());
                 }
@@ -79,6 +87,7 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
                     currentPrefs.get(i).setEndTime(currentPrefs.get(i).getStartTime());
                 }
                 if(currentPrefs.get(i).getStartTime() > newPreference.getStartTime() && currentPrefs.get(i).getEndTime() < newPreference.getEndTime()){
+                    // TODO: 2019-03-22 remove from repo code
                     currentPrefs.remove(i);
                     i--;
                 }
@@ -134,7 +143,6 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
         } else {
             newPreference.setAdd(false);
         }
-        System.out.println("made a new preference: " + newPreference.getStartTime() + ", " + newPreference.getEndTime() + " " + " No Friday: " + newPreference.isFriday());
         return newPreference;
 
     }

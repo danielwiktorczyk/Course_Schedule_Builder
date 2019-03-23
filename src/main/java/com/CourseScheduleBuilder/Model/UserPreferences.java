@@ -1,16 +1,24 @@
 package com.CourseScheduleBuilder.Model;
 
-import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class UserPreferences {
-private boolean monday;
-private boolean tuesday;
-private boolean wednesday;
-private boolean thursday;
-private boolean friday;
-private boolean add;
-private int startTime;
-private int endTime;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO )
+    private Integer id;
+    private boolean monday;
+    private boolean tuesday;
+    private boolean wednesday;
+    private boolean thursday;
+    private boolean friday;
+    private boolean add;
+    private int startTime;
+    private int endTime;
 
     /*
     UserPreferences can be added or removed using the same object, the boolean "add"
