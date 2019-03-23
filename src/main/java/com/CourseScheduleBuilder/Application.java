@@ -1,5 +1,6 @@
 package com.CourseScheduleBuilder;
 
+import com.CourseScheduleBuilder.Model.Schedule;
 import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
@@ -59,6 +60,7 @@ public class Application implements CommandLineRunner {
         user2.setEWT(false);
         user2.addToPrereqs("ENGR233");
 
+        Schedule s = new Schedule();
 
 
         userRepo.save(user2);

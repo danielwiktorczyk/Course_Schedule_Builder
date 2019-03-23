@@ -28,7 +28,7 @@ public class ScheduleBuilderController {
     @ResponseBody
     public boolean addCourseToWishList(@RequestBody String course)
     {
-        String[] classes = {"COMP248","COMP232","SOEN287"};
+        String[] classes = {"COMP249","COMP232","SOEN287","ENGR201","ENGR213"};
         scheduleBuilderService.scheduleGenerator(classes);
         return true;
        // course = course.substring(9,course.length()-2);

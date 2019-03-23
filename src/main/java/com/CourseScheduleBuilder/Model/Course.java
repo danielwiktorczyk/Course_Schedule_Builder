@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Course {
+public class Course{
 
 
     private String term;
@@ -35,16 +35,16 @@ public class Course {
     private Integer id;
 
 
-    public String getStartTime() {
-        return startTime;
+    public int getStartTime() {
+        return Integer.valueOf(startTime);
     }
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
-        return endTime;
+    public int getEndTime() {
+        return Integer.valueOf(endTime);
     }
 
     public void setEndTime(String endTime) {
@@ -113,6 +113,32 @@ public class Course {
 
     public void setLabRequired(String labRequired) {
         this.labRequired = labRequired;
+    }
+
+    public boolean[] getClassDays(){
+        boolean[] classDays = new boolean[5];
+        if (this.monday.equals("TRUE")){
+            classDays[0] = true;
+        }
+        else classDays[0] = false;
+        if (this.tuesday.equals("TRUE")){
+            classDays[1] = true;
+        }
+        else classDays[1] = false;
+        if (this.wednesday.equals("TRUE")){
+            classDays[2] = true;
+        }
+        else classDays[2] = false;
+        if (this.thursday.equals("TRUE")){
+            classDays[3] = true;
+        }
+        else classDays[3] = false;
+        if (this.friday.equals("TRUE")){
+            classDays[4] = true;
+        }
+        else classDays[4] = false;
+
+        return classDays;
     }
 
     @Override

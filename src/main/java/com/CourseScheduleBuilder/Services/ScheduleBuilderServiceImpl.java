@@ -5,6 +5,7 @@ import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
 import com.CourseScheduleBuilder.Repositories.loggedInUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Schedules;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         UserRepo userRepo;
         @Autowired
         loggedInUserRepo login;
+
+        private static Schedules[] savedSchedules;
 
 
     @Override
@@ -38,15 +41,6 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
                 return true;
         }
         return false;
-
-
-
-
-
-    //    List<String> course = courseRepo.findByName(info.getCourses());
-
-
-      //  return false;
     }
 
 
@@ -59,9 +53,6 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
        user = userRepo.findByEmail(loginUser.getEmail());
 
-  //       nameOfCourseToTake = info.getCourses().get(0);
-
-        //retrieves all the users course already taken
         return user;
     }
 
@@ -70,91 +61,118 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         List<Course>[] lectureList = new List[size];
         List<Course>[] tutorialList = new List[size];
         List<Course>[] labList = new List[size];
-        boolean[] labRequired = new boolean[size];
         int possibilities = 1;
-        System.out.println("PHASE 1 -------------------------------");
+
         for(int i=0;i<size;i++){
-            lectureList[i] = courseRepo.findByNameAndComponent(string[i],"LEC");
-            System.out.println(lectureList[i].size());
-            possibilities *= lectureList[i].size();
-            System.out.println(possibilities);
-            tutorialList[i] = courseRepo.findByNameAndComponent(string[i],"TUT");
-            System.out.println(tutorialList[i].size());
-            possibilities *= tutorialList[i].size();
-          //  for (int k=0;k<tutorialList[i].size();k++)
-            //System.out.println(tutorialList[i].get(k).getName() +"  " +tutorialList[i].get(k).getComponent() + "  "+tutorialList[i].get(k).getAssociation() + "  " +tutorialList[i].get(k).getId());
-            System.out.println(possibilities);
+            lectureList[i] = courseRepo.findByNameAndComponentAndTerm(string[i],"LEC","Fall");
+            tutorialList[i] = courseRepo.findByNameAndComponentAndTerm(string[i],"TUT","Fall");
             if (lectureList[i].get(0).getLabRequired().equals("TRUE")){
-                labList[i] = courseRepo.findByNameAndComponent(string[i], "LAB");
-                possibilities *= labList[i].size();
-                System.out.println(possibilities);
-           //     System.out.println(labList[i].size());
-                labRequired[i] = true;
+                labList[i] = courseRepo.findByNameAndComponentAndTerm(string[i], "LAB","Fall");
             }
-            System.out.println("---------------------------------");
         }
-        System.out.println("PHASE 2 -------------------------------");
-        System.out.println(possibilities);
-        Schedule[] schedules = new Schedule[possibilities];
-        for(int i=0;i<possibilities;i++)
+        List<CourseTrio>[] courseList = new List[size];
+
+        for (int i=0; i<size; i++){
+            courseList[i] = groupCourses(lectureList[i],tutorialList[i],labList[i]);
+        }
+
+        Schedule[] schedules = new Schedule[courseList[0].size()];
+
+        for(int i=0;i<courseList[0].size();i++){
             schedules[i] = new Schedule();
-        for(int i=0;i<size;i++){
-            schedules = addToSchedule(schedules,lectureList[i],possibilities);
-            schedules = addToSchedule(schedules,tutorialList[i],possibilities);
-            if(labRequired[i]) {
-               schedules = addToSchedule(schedules, labList[i], possibilities);
+            schedules[i].insertCourse(courseList[0].get(i));
+        }
+        if(courseList.length>1){
+            for(int i=1;i<courseList.length;i++){
+                schedules = addToSchedule(courseList[i],schedules);
             }
-
         }
-
-        for(int i=0;i<possibilities;i++)
-            schedules[i].adjustLength();
-        schedules = verifyTutorials(schedules,string.length);
-        System.out.println("PHASE 3 -------------------------------");
-        for (int j=0;j<schedules.length;j++) {
-            for(int k = 0; k<schedules[j].getCourses().length; k++);
-           // System.out.println(schedules[j].getCourses()[k].getName() + "  " + schedules[j].getCourses()[k].getComponent() + "   " + schedules[j].getCourses()[k].getStartTime() + "   " + schedules[j].getCourses()[k].getEndTime() + "   Association Number: " +  schedules[j].getCourses()[k].getAssociation() + "  " +  schedules[j].getCourses()[k].getId());
-           // System.out.println("----------------------");
-        }
-        System.out.println(schedules.length);
         return schedules;
     }
-    @Override
-    public Schedule[] addToSchedule(Schedule[] schedule, List<Course> course, int possibilities){
-                        int size = course.size();
-                        for(int i=0;i<possibilities;i++){
-                        schedule[i].insertCourse(course.get(i%size));
-                    }
-                        return schedule;
+
+
+    public Schedule[] addToSchedule(List<CourseTrio> courseList,Schedule[] schedules){
+        List<Schedule> scheduleList = new ArrayList();
+
+        for(int i=0;i<schedules.length;i++){
+            Schedule[] newSchedule = new Schedule[schedules.length * courseList.size()];
+            for(int j=0; j<courseList.size();j++){
+                try {
+                    newSchedule[j] = (Schedule) schedules[i].clone();
+                } catch(Exception e){
+                    System.out.println("Cloning failed");
+                }
+                newSchedule[j].insertCourse(courseList.get(j));
+                if (validateSchedule(newSchedule[j])) {
+                    scheduleList.add(newSchedule[j]);
+                }
+            }
+        }
+        Schedule[] returnSchedule = new Schedule[scheduleList.size()];
+        return scheduleList.toArray(returnSchedule);
 
     }
 
 
-    public Schedule[] verifyTutorials(Schedule[] schedules, int courses){
-        List<Schedule> newSchedule= new ArrayList();
-        int valid;
-        for(int i=0;i<schedules.length;i++){
-            valid = 0;
-
-            for(int j=0;j<schedules[i].getCourses().length;j++){
-                if(schedules[i].getCourses()[j].getComponent().equals("LAB") || schedules[i].getCourses()[j].getComponent().equals("TUT"))
+    public List<CourseTrio> groupCourses(List<Course> lecture, List<Course> tutorial, List<Course> labs){
+        List<CourseTrio> courseTrio = new ArrayList<>();
+        boolean haslab = lecture.get(0).getLabRequired().equals("TRUE");
+        for (int i=0;i<lecture.size();i++){
+            for(int j=0;j<tutorial.size();j++){
+                if (!lecture.get(i).getAssociation().equals(tutorial.get(j).getAssociation()))
                     continue;
-                for (int k=j+1;k<schedules[i].getCourses().length;k++) {
-                    if (schedules[i].getCourses()[j].getName().equals(schedules[i].getCourses()[k].getName()) && schedules[i].getCourses()[j].getAssociation().equals(schedules[i].getCourses()[k].getAssociation())) {
-                    //    System.out.println(schedules[i].getCourses()[j].getName() + "    " + schedules[i].getCourses()[k].getName() +"  " +  schedules[i].getCourses()[j].getAssociation() + "   " + schedules[i].getCourses()[k].getAssociation());
-                        valid++;
+                if(!haslab) {
+                    courseTrio.add(new CourseTrio(lecture.get(i),tutorial.get(j)));
+                    continue;
+                }
+                for(int k=0; k<labs.size();k++){
+                    courseTrio.add(new CourseTrio(lecture.get(i),tutorial.get(j), labs.get(k)));
+                }
+
+            }
+        }
+        return courseTrio;
+
+    }
+
+
+    public boolean validateSchedule(Schedule schedule){
+        int individualCourses = schedule.getSize()*2 + schedule.labCount();
+        Course[] courses = new Course[individualCourses];
+        int l=0;
+        for (int j=0; j<schedule.getSize();j++){
+                 courses[l] = schedule.getCourseTrio()[j].getLecture();
+                l++;
+                courses[l] = schedule.getCourseTrio()[j].getTutorial();
+                l++;
+                if (schedule.getCourseTrio()[j].isHasLab())
+                {
+                    courses[l] = schedule.getCourseTrio()[j].getLab();
+                    l++;
+                }
+
+        }
+        for (int i=0; i<individualCourses;i++){
+            for(int j=0; j<individualCourses;j++){
+                if (j==i)
+                    continue;
+                if (courses[i].getStartTime() <= courses[j].getStartTime() && courses[j].getStartTime() <= courses[i].getEndTime()){
+                    for(int k=0; k<5; k++) {
+                        if(courses[i].getClassDays()[k] == courses[j].getClassDays()[k] && courses[i].getClassDays()[k] == true) {
+                            return false;
+                        }
                     }
                 }
-             //   System.out.println("Valid value : " + valid);
+                if (courses[i].getStartTime() <= courses[j].getEndTime() && courses[j].getEndTime() <= courses[i].getEndTime()){
+                    for(int k=0; k<5; k++) {
+                        if(courses[i].getClassDays()[k] == courses[j].getClassDays()[k] && courses[i].getClassDays()[k] == true) {
+                            return false;
+                        }
+                    }
+                }
             }
-         //   System.out.println(valid);
-            if(valid == courses)
-            newSchedule.add(schedules[i]);
-         //   System.out.println("----------------------------------");
         }
-        Schedule[] ReturnSchedule = new Schedule[newSchedule.size()];
-        ReturnSchedule = newSchedule.toArray(ReturnSchedule);
-
-        return ReturnSchedule;
+        return true;
     }
+
 }
