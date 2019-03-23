@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import AddedCourseList from "./AddedCourseList";
-import {withRouter} from "react-router-dom";
+import {BrowserRouter as Router, withRouter} from "react-router-dom";
+import Header from "./Header";
 
 
 class SelectCourse extends Component {
@@ -57,6 +58,10 @@ class SelectCourse extends Component {
     }
     render(){
         return (
+            <div>
+                <Router ClassName="header-fix">
+                    <Header />
+                </Router>
             <div className="container s-course">
 
                 <div >
@@ -80,6 +85,7 @@ class SelectCourse extends Component {
                     <button className="col-3 btn btn-home-log" onClick={this.generateSchedule}>GENERATE</button>
                     <button className="col-3 btn btn-home-log" onClick={this.routeChange}>CHANGE SEMESTER</button>
                 </div>
+            </div>
             </div>
         );
     }

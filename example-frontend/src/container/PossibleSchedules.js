@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import '../css/App.css';
 // import dateFns from "date-fns";
 // import Calendar from "./components/Calendar";
-import {withRouter} from "react-router-dom";
+import {BrowserRouter as Router, withRouter} from "react-router-dom";
+import Header from "./Header";
 
 
 class PossibleSchedules extends Component {
@@ -73,6 +74,10 @@ class PossibleSchedules extends Component {
 
     render() {
         return (
+            <div>
+                <Router ClassName="header-fix">
+                    <Header />
+                </Router>
             <div className="container-  select-semester">
                 <div className="container-">
                     <a href="/"><img className="logo- semester" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/></a>
@@ -96,6 +101,7 @@ class PossibleSchedules extends Component {
                     </table>
                     <h3>Option 1</h3>
                 </div>
+            </div>
             </div>
         );
     }

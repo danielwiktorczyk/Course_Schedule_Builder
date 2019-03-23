@@ -242,3 +242,31 @@ table, td, th {
 button.col-2.btn.btn-home-log {
   margin: 10px 37px 10px 37px;
 }
+.header {
+  overflow: hidden;
+  background-color: #A52A2A;
+}
+
+.header a {
+  float: left;
+  color: #ffffff;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.header a:hover {
+  background-color: maroon;
+}
+
+.header-right {
+  float: right;
+}

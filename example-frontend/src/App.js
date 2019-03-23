@@ -8,6 +8,7 @@ import SelectCourse from "./container/SelectCourse";
 import PossibleSchedules from "./container/PossibleSchedules";
 import Signup from './container/Signup';
 import Signin from './container/Signin';
+import Header from './container/Header';
 
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
               <Route path="/SelectSemester" component={SelectSemester} />
               <Route path="/SelectCourse" component={SelectCourse} />
               <Route path="/PossibleSchedules" component={PossibleSchedules} />
+              <Route path="/Header" component={Header} />
 
             </div>
           </div>
