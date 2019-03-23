@@ -26,9 +26,10 @@ class SelectSemester extends Component {
                 <h2>Select a semester to start</h2>
                 <hr/>
                 <div className="wrapper row select-semester-button">
-                    <button className="col-3 btn btn-home-log" onClick={this.routeChange}>Summer 2018</button>
-                    <button className="col-3 btn btn-home-log" onClick={this.routeChange}>Fall 2018</button>
-                    <button className="col-3 btn btn-home-log" onClick={this.routeChange}>Winter 2019</button>
+                    <button className="col-2 btn btn-home-log" onClick={this.routeChange}>Summer 2018</button>
+                    <button className="col-2 btn btn-home-log" onClick={this.routeChange}>Fall 2018</button>
+                    <button className="col-2 btn btn-home-log" onClick={this.routeChange}>Winter 2019</button>
+                    <button className="col-2 btn btn-home-log" onClick={this.routeChange}>Fall / Winter 2019</button>
                 </div>
             </div>
         );

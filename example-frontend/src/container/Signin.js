@@ -80,9 +80,9 @@ class Signin extends Component {
   }
 
   login() {
-    var name;
-    var pass;
-    var element;
+    let name;
+    let pass;
+    let element;
     element = document.getElementById('user');
     if (element != null) {
       name = element.value;
@@ -98,7 +98,6 @@ class Signin extends Component {
       pass = null;
     }
 
-
     // alert(name +" " + pass);
     axios.post('http://localhost:8080/login', {
       username: name,
@@ -107,7 +106,7 @@ class Signin extends Component {
       //   alert("Received Successful response from server!");
       this.setState({loggedIn: res.data});
       if (this.state.loggedIn === true) {
-        alert("logged in"); // login returns true
+        //alert("logged in"); // login returns true
         this.props.history.push("/SelectSemester");
       }
       else

@@ -53,6 +53,7 @@ class SelectCourse extends Component {
             this._inputElement.value = "";
             e.preventDefault();
         }
+
     }
     render(){
         return (
@@ -63,7 +64,7 @@ class SelectCourse extends Component {
                 </div>
                 <h1>COURSE SELECTION</h1><hr/>
 
-                <h2>Please enter Course number</h2><hr/>
+                {/*<h2>Please enter Course number</h2><hr/>*/}
 
                 <div>
                 <form onSubmit={this.addItem}>

@@ -16,7 +16,7 @@ class PossibleSchedules extends Component {
 
         // Outer loop
         /*TODO
-        here we should loop for every course, show associates sections & times
+        here we should loop for every course, show associated sections & times
         should iterate till it reaches the number of coursed selected by user
         */
         for (let i = 0; i < 5; i++) {
@@ -24,7 +24,6 @@ class PossibleSchedules extends Component {
         }
         return options;
     }
-
 
         createTable(){
             let table = [];
@@ -36,44 +35,37 @@ class PossibleSchedules extends Component {
             for (let i = 8; i < 24; i++) {
                 let children = [];
 
-                    //weekdays
-                    for (let j = 0; j < 5; j++) {
-                        children.push(
-                            // request course info from db ('course' is used for testing purposes)
-                            <td>course</td>
-                        )
-                    }
+
                     // 15-min 4 times/ hour
                     for(let k = 0; k < 4; k++){
                         let time = i + ":" + quarterHours[k];
                         times.push(time);
                         table.push(
                             <table className="table table-striped">
-                                {/*<thead>*/}
-                                {/*<tr>*/}
-                                    {/*<th scope="col">#</th>*/}
-                                    {/*<th scope="col">Monday</th>*/}
-                                    {/*<th scope="col">Tuesday</th>*/}
-                                    {/*<th scope="col">Wednesday</th>*/}
-                                    {/*<th scope="col">Thursday</th>*/}
-                                    {/*<th scope="col">Friday</th>*/}
-                                {/*</tr>*/}
-                                {/*</thead>*/}
                                 <tbody>
                                 <tr>
                                     {i} : {quarterHours[k]} {children}
                                 </tr>
                                 </tbody>
                             </table>
-
-                            // <table className=" container table possible table-striped">
-                            //     <tbody className="container">
-                            //          <th> MONDAY</th>
-                            //             <tr> {i} : {quarterHours[j]} {children}</tr>
-                            //
-                            //     </tbody>
-                            // </table>
                         );
+                }
+                //weekdays
+                for (let j = 0; j < 5; j++) {
+
+                    if(i> 8 && i<=10 && (j==2 || j==3)){
+
+                        children.push(
+                            // request course info from db ('course' is used for testing purposes)
+                            <td>course</td>
+                        )
+                    }
+                    else {
+                        children.push(
+                            // request course info from db ('course' is used for testing purposes)
+                            <td>...........--</td>
+                        )
+                    }
                 }
             }
             return table;

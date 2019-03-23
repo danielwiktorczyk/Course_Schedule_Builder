@@ -234,8 +234,11 @@ table, td, th {
 }
 .logo- {
   position: relative;
-  left: 0px;
+  left: 0;
 }
 .table {
-   margin-bottom: 0rem;
+   margin-bottom: 0;
+}
+button.col-2.btn.btn-home-log {
+  margin: 10px 37px 10px 37px;
 }

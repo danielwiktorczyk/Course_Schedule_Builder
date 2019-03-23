@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './css/App.css';
 
-import Signup from './container/Signup';
-import Signin from './container/Signin';
-
 import {BrowserRouter as Router, Route} from 'react-router-dom';
+
 import SelectSemester from "./container/SelectSemester";
 import SelectCourse from "./container/SelectCourse";
 import PossibleSchedules from "./container/PossibleSchedules";
+import Signup from './container/Signup';
+import Signin from './container/Signin';
 
 
 class App extends Component {
