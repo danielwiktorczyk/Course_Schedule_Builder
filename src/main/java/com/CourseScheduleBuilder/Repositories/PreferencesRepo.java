@@ -16,5 +16,4 @@ public interface PreferencesRepo extends JpaRepository<UserPreferences, String>{
     List<UserPreferences> findByStartTime(int StartTime);
     List<UserPreferences> findByEndTime(int EndTime);
 
-
 }

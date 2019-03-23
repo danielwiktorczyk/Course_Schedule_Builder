@@ -76,13 +76,13 @@ public class UserPreferences {
         if(startTime == prefToCompare.getStartTime() && endTime == prefToCompare.getEndTime()){
             return true;
         }
-        else if(startTime > prefToCompare.getStartTime() && endTime > prefToCompare.getEndTime()){
-            return true;
-        }
-        else if(startTime < prefToCompare.getStartTime() && prefToCompare.getEndTime() > endTime){
-            return true;
-        }
         else if(startTime > prefToCompare.getStartTime() && endTime < prefToCompare.getEndTime()){
+            return true;
+        }
+        else if(startTime < prefToCompare.getStartTime() && prefToCompare.getStartTime() < endTime){
+            return true;
+        }
+        else if(startTime > prefToCompare.getStartTime() && startTime < prefToCompare.getEndTime()){
             return true;
         }
         else if(startTime < prefToCompare.getStartTime() && endTime > prefToCompare.getEndTime()){

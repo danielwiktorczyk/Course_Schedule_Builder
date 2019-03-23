@@ -18,15 +18,24 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
     }
 
     /*
+    Removes all preferences in the database, needs to be run when the user leaves the schedule builder so the
+    preferences start new for each schedule builder session
+     */
+    public void destroyPreferences(){
+        List<UserPreferences> currentPrefs = getUserPreferences();
+        for (int i = 0; i < currentPrefs.size(); i++) {
+            preferencesRepo.delete(currentPrefs.get(i));
+        }
+    }
+
+    /*
    Method that modifies userPrefs when they are updated by the user
    uses helper methods addPref() and removePref() defined below
     */
     public void modifyUserPrefs(UserPreferences newPreference) {
 
         if(newPreference.isAdd()){
-            System.out.println("in modify userPrefs, add boolean regognized");
             addPref(newPreference);
-            System.out.println("newPref added successfully");
         }
         else{
            removePref(newPreference);
@@ -55,43 +64,93 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
     }
 
     public void addPref(UserPreferences newPreference) {
-        System.out.println("into AddPref()");
-        System.out.println("stuff in prefs" + preferencesRepo.findAll().size());
+        System.out.println("startTime = " + newPreference.getStartTime() + " endTime = " + newPreference.getEndTime());
+        List<UserPreferences> currentPrefs = getCurrentPrefs(newPreference);
+        boolean alreadyUpdated = false;
         if (preferencesRepo.findAll().size() == 0) {
-            System.out.println("no preferences in repo");
             preferencesRepo.save(newPreference);
         }
         else {
-            List<UserPreferences> currentPrefs = getCurrentPrefs(newPreference);
-                 for(int i = 0; i <currentPrefs.size(); i++) {
-                    if (currentPrefs.get(i).getStartTime() < newPreference.getStartTime()) {
-                        newPreference.setStartTime(currentPrefs.get(i).getStartTime());
+            for (int i = 0; i < currentPrefs.size(); i++) {
+                UserPreferences prefToUpdate = currentPrefs.get(i);
+                if (prefToUpdate.timeOverlap(newPreference)) {
+                    if (prefToUpdate.getStartTime() > newPreference.getStartTime() && prefToUpdate.getEndTime() >= newPreference.getEndTime()) {
+                        System.out.println("current pref starts after new pref");
+                        prefToUpdate.setStartTime(newPreference.getStartTime());
+                        System.out.println("prefToUpdate startTime is now: " + prefToUpdate.getStartTime() + " end time is still " + prefToUpdate.getEndTime());
+                        preferencesRepo.save(prefToUpdate);
+                        alreadyUpdated = true;
                     }
-                    if (currentPrefs.get(i).getEndTime() > newPreference.getEndTime()) {
-                        newPreference.setEndTime(currentPrefs.get(i).getEndTime());
+                    if (prefToUpdate.getEndTime() < newPreference.getEndTime() && prefToUpdate.getStartTime() <= newPreference.getStartTime()) {
+                        System.out.println("current pref ends before new pref");
+                        prefToUpdate.setEndTime(newPreference.getEndTime());
+                        System.out.println("prefToUpdate endTime is now: " + prefToUpdate.getEndTime() + " start time is still " + prefToUpdate.getStartTime());
+                        preferencesRepo.save(prefToUpdate);
+                        alreadyUpdated = true;
                     }
-                     preferencesRepo.save(newPreference);
+                    if (currentPrefs.get(i).getStartTime() < newPreference.getStartTime() && currentPrefs.get(i).getEndTime() > newPreference.getEndTime()) {
+                        alreadyUpdated = true;
+                    }
                 }
+
             }
+            if (!alreadyUpdated) {
+                preferencesRepo.save(newPreference);
+            }
+
+
         }
+    }
 
     public void removePref(UserPreferences newPreference) {
         List<UserPreferences> currentPrefs = getCurrentPrefs(newPreference);
 
         for (int i = 0; i < currentPrefs.size(); i++) {
-            if (currentPrefs.get(i).timeOverlap(newPreference)) {
-                if (currentPrefs.get(i).getStartTime() < newPreference.getEndTime()) {
-                    currentPrefs.get(i).setStartTime(newPreference.getEndTime());
-                }
-                if (currentPrefs.get(i).getEndTime() < newPreference.getStartTime()) {
-                    currentPrefs.get(i).setEndTime(currentPrefs.get(i).getStartTime());
-                }
-                if(currentPrefs.get(i).getStartTime() > newPreference.getStartTime() && currentPrefs.get(i).getEndTime() < newPreference.getEndTime()){
-                    // TODO: 2019-03-22 remove from repo code
-                    currentPrefs.remove(i);
-                    i--;
-                }
+            UserPreferences prefToUpdate = currentPrefs.get(i);
 
+            if (prefToUpdate.timeOverlap(newPreference)) {
+                System.out.println("overlap identified");
+                if(prefToUpdate.getStartTime() <= newPreference.getStartTime() && prefToUpdate.getEndTime() >= newPreference.getEndTime()){
+                    UserPreferences splitPrefFirstHalf = new UserPreferences();
+                    UserPreferences splitPrefSecondHalf = new UserPreferences();
+
+                    splitPrefFirstHalf.setMonday(prefToUpdate.isMonday());
+                    splitPrefSecondHalf.setMonday(prefToUpdate.isMonday());
+                    splitPrefFirstHalf.setTuesday(prefToUpdate.isTuesday());
+                    splitPrefSecondHalf.setTuesday(prefToUpdate.isTuesday());
+                    splitPrefFirstHalf.setWednesday(prefToUpdate.isWednesday());
+                    splitPrefSecondHalf.setWednesday(prefToUpdate.isWednesday());
+                    splitPrefFirstHalf.setThursday(prefToUpdate.isThursday());
+                    splitPrefSecondHalf.setThursday(prefToUpdate.isThursday());
+                    splitPrefFirstHalf.setFriday(prefToUpdate.isFriday());
+                    splitPrefSecondHalf.setFriday(prefToUpdate.isFriday());
+                    splitPrefFirstHalf.setAdd(true);
+                    splitPrefSecondHalf.setAdd(true);
+
+                    splitPrefFirstHalf.setStartTime(prefToUpdate.getStartTime());
+                    splitPrefFirstHalf.setEndTime(newPreference.getStartTime());
+                    splitPrefSecondHalf.setStartTime(newPreference.getEndTime());
+                    splitPrefSecondHalf.setEndTime(prefToUpdate.getEndTime());
+
+                    preferencesRepo.delete(prefToUpdate);
+                    preferencesRepo.save(splitPrefFirstHalf);
+                    preferencesRepo.save(splitPrefSecondHalf);
+                }
+                else {
+                    if (prefToUpdate.getStartTime() <= newPreference.getStartTime()) {
+                        System.out.println("pref to modify starts before the delete start time");
+                        prefToUpdate.setEndTime(newPreference.getStartTime());
+                        preferencesRepo.save(prefToUpdate);
+                    }
+                    if (prefToUpdate.getEndTime() >= newPreference.getEndTime()) {
+                        System.out.println("pref to modify ends after the delete end time");
+                        prefToUpdate.setStartTime(newPreference.getEndTime());
+                        preferencesRepo.save(prefToUpdate);
+                    }
+                    if (prefToUpdate.getStartTime() >= newPreference.getStartTime() && prefToUpdate.getEndTime() <= newPreference.getEndTime()) {
+                        preferencesRepo.delete(prefToUpdate);
+                    }
+                }
             }
         }
     }
@@ -101,7 +160,6 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
      */
     public UserPreferences createNewPreferenceFromRequestData(String day, Integer prefStartTime, Integer prefEndTime, Boolean add) {
         UserPreferences newPreference = new UserPreferences();
-        System.out.println("params: " + day + " " + prefStartTime + " " + prefEndTime + " " + add);
         if (day.equalsIgnoreCase("monday")) {
             newPreference.setMonday(true);
             newPreference.setTuesday(false);

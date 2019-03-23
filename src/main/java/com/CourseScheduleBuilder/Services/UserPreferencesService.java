@@ -9,4 +9,5 @@ public interface UserPreferencesService {
    void removePref(UserPreferences newPreference);
    UserPreferences createNewPreferenceFromRequestData(String day, Integer prefStartTime, Integer prefEndTime, Boolean add);
    List<UserPreferences> getCurrentPrefs(UserPreferences newPreference);
+   void destroyPreferences();
    }
