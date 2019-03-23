@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import '../css/App.css';
-// import dateFns from "date-fns";
-// import Calendar from "./components/Calendar";
 import {BrowserRouter as Router, withRouter} from "react-router-dom";
 import Header from "./Header";
 
@@ -21,7 +19,7 @@ class PossibleSchedules extends Component {
         should iterate till it reaches the number of coursed selected by user
         */
         for (let i = 0; i < 5; i++) {
-            let sections = [];
+          //  let sections = [];
         }
         return options;
     }
@@ -54,7 +52,7 @@ class PossibleSchedules extends Component {
                 //weekdays
                 for (let j = 0; j < 5; j++) {
 
-                    if(i> 8 && i<=10 && (j==2 || j==3)){
+                    if(i> 8 && i<=10 && (j===2 || j===3)){
 
                         children.push(
                             // request course info from db ('course' is used for testing purposes)
@@ -80,7 +78,7 @@ class PossibleSchedules extends Component {
                 </Router>
             <div className="container-  select-semester">
                 <div className="container-">
-                    <a href="/"><img className="logo- semester" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/></a>
+                    <img className="logo- semester" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>
                     <h1>Possible schedules</h1>
                     <hr/>
 

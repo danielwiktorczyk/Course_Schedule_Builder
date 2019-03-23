@@ -249,7 +249,7 @@ button.col-2.btn.btn-home-log {
 
 .header a {
   float: left;
-  color: #ffffff;
+  color: #ffffff !important;
   text-align: center;
   padding: 12px;
   text-decoration: none;
@@ -269,4 +269,10 @@ button.col-2.btn.btn-home-log {
 
 .header-right {
   float: right;
+}
+img.header-logo {
+  /* padding: 0; */
+  /* margin: 0; */
+  float: left;
+  height: 49px;
 }

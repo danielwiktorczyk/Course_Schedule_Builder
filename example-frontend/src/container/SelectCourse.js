@@ -11,7 +11,7 @@ class SelectCourse extends Component {
         super(props);
         this.state = {loggedIn: true};
         this.routeChange = this.routeChange.bind(this);
-        this.generateSchedule = this. generateSchedule.bind(this);
+        this.generateSchedule = this.generateSchedule.bind(this);
         this.addItem = this.addItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.state = {

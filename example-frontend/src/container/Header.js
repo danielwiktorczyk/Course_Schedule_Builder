@@ -12,10 +12,13 @@ class Header extends Component {
     render(){
         return (
             <div className="header">
+                {/*<div >*/}
+                    {/*<img className="header-logo" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>*/}
+                {/*</div>*/}
                 <div className="header-right">
-                    <a href="#">My Profile</a>
-                    <a href="#">View my Schedule</a>
-                    <a href="#">Logout</a>
+                    <a >My Profile</a>
+                    <a >View my Schedule</a>
+                    <a >Logout</a>
                 </div>
             </div>
         );
