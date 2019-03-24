@@ -106,11 +106,13 @@ class Signup extends Component {
     }
 
     register() {
-        var firstName;
-        var lastName;
-        var email;
-        var pass;
-        var element;
+        let firstName;
+        let lastName;
+        let userName;
+        let email;
+        let pass;
+        let confirmPass;
+        let element;
         element = document.getElementById('firstname').value;
         if (element != null) {
             firstName = element.value;
@@ -124,6 +126,14 @@ class Signup extends Component {
         }
         else {
             lastName = null;
+            alert("Please enter your last name");
+        }
+        element = document.getElementById('username');
+        if (element != null) {
+            userName = element.value;
+        }
+        else {
+            alert("Please enter your user name"); //login returns false
         }
         element = document.getElementById('email');
         if (element != null) {
@@ -132,19 +142,29 @@ class Signup extends Component {
         else {
             email = null;
         }
-        element = document.getElementById('pass');
+        let element1 = document.getElementById('pass');
         if (element != null) {
-            pass = element.value;
+            pass = element1.value;
         }
         else {
             pass = null;
+        }
+        element = document.getElementById('confirm-pass');
+        if (element != null && element.value == pass ) {
+            confirmPass = element.value;
+        }
+        else {
+            alert("Please re-enter your password confirmation");
+            return false;
         }
 
         // alert(name +" " + pass);
         axios.post('http://localhost:8080/registration', {
             firstName: firstName,
             lastName: lastName,
+            userName: userName,
             email: email,
+            confirmPass: confirmPass,
             password: pass
         }).then(res => {
             //   alert("Received Successful response from server!");
