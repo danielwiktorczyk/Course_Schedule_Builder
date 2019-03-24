@@ -24,16 +24,19 @@ class Signup extends Component {
         this.state = {
             firstname: "",
             lastname: "",
+            username: "",
             email: "",
             password: "",
+            confirmPassword: "",
             everFocusedFirstName: false,
+            everFocusedUserName: false,
             everFocusedLastName: false,
             everFocusedEmail: false,
             everFocusedPassword: false,
+            everFocusedConfirmPassword: false,
             inFocus: ""
         };
     }
-
     routeChange() {
         let path = '/';
         this.props.history.push(path);
@@ -46,6 +49,9 @@ class Signup extends Component {
     handleLastNameChange = evt => {
         this.setState({ lastname: evt.target.value });
     };
+    handleUserNameChange = evt => {
+        this.setState({ username: evt.target.value });
+    };
 
     handleEmailChange = evt => {
         this.setState({ email: evt.target.value });
@@ -54,6 +60,9 @@ class Signup extends Component {
     handlePasswordChange = evt => {
         this.setState({ password: evt.target.value });
     };
+    handleConfirmPasswordChange = evt => {
+        this.setState({ confirmPassword: evt.target.value });
+    };
 
     handleSubmit = evt => {
         if (!this.canBeSubmitted()) {
@@ -61,19 +70,17 @@ class Signup extends Component {
             return;
         }
         const { firstname, lastname, email, password} = this.state;
-        alert(`Signed up with firstname: ${firstname} lastname: ${lastname}  email: ${email} password: ${password}`);
+        alert(`Signed up with first name: ${firstname} last name: ${lastname}  email: ${email} password: ${password}`);
     };
 
     canBeSubmitted() {
-        const errors = validate(this.state.firstname, this.state.lastname, this.state.email, this.state.password);
+        const errors = validate(this.state.firstname, this.state.lastname,this.state.username,  this.state.email, this.state.password, this.state.confirmPassword);
         const isDisabled = Object.keys(errors).some(x => errors[x]);
         return !isDisabled;
     }
 
-
-//
     render(){
-        const errors = validate(this.state.firstname, this.state.lastname, this.state.email, this.state.password);
+        const errors = validate(this.state.firstname, this.state.lastname,this.state.username,  this.state.email, this.state.password, this.state.confirmPassword);
         const isDisabled = Object.keys(errors).some(x => errors[x]);
         return(
             <div className="container center- card-signin" id="inside">
@@ -85,12 +92,14 @@ class Signup extends Component {
                         <div className="row">
                             <div><label className="col-12">First Name:<input className="col-12"  type="text" name="firstname" id={'firstname'}  value={this.state.firstname} onChange={this.handleFirstNameChange} /></label></div>
                             <div><label className="col-12">Last Name:<input className="col-12" type="text" name="lastname" id={'lastname'} value={this.state.lastname} onChange={this.handleLastNameChange} /></label></div>
+                            <div><label className="col-12">User Name:<input className="col-12"  type="text" name="username" id={'username'}  value={this.state.username} onChange={this.handleUserNameChange} /></label></div>
                             <div><label className="col-12">Email:<input className="col-12" type="text" name="email" id={'email'} value={this.state.email} onChange={this.handleEmailChange}/></label></div>
                             <div><label className="col-12">Password:<input className="col-12" type="password" name="password" id={'pass'} value={this.state.password} onChange={this.handlePasswordChange} /></label></div>
+                            <div><label className="col-12">Confirm Password:<input className="col-12" type="password" name="confirmPassword" id={'confirm-pass'} value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange} /></label></div>
                         </div>
                     </div>
                     <button disabled={isDisabled} className="btn btn-home-log" type="button" value="Submit" onClick={this.register}>Sign up</button>
-                    <button className="btn btn-home-log" type="button" value="Submit" onClick={this.routeChange}>Already a memeber</button>
+                    <button className="btn btn-home-log" type="button" value="Submit" onClick={this.routeChange}>Already a member</button>
                 </form>
             </div>
         );

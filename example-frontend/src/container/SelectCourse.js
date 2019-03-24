@@ -62,7 +62,7 @@ class SelectCourse extends Component {
                 <Router ClassName="header-fix">
                     <Header />
                 </Router>
-            <div className="container s-course">
+            <div className="container- s-course">
 
                 <div >
                     <img  className="ScheduleGen-" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>

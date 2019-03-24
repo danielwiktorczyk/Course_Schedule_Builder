@@ -10,19 +10,20 @@ class PossibleSchedules extends Component {
         this.state = {loggedIn: true};
     }
 
-    createTable2(){
-        let options = [];
-
-        // Outer loop
-        /*TODO
-        here we should loop for every course, show associated sections & times
-        should iterate till it reaches the number of coursed selected by user
-        */
-        for (let i = 0; i < 5; i++) {
-          //  let sections = [];
-        }
-        return options;
-    }
+    // createTable will be used to show tables with possible sections on the right-hand side of the screen
+    // createTable2(){
+    //     let options = [];
+    //
+    //     // Outer loop
+    //     /*TODO
+    //     here we should loop for every course, show associated sections & times
+    //     should iterate till it reaches the number of coursed selected by user
+    //     */
+    //     for (let i = 0; i < 5; i++) {
+    //         //let sections = [];
+    //     }
+    //     return options;
+    // }
 
         createTable(){
             let table = [];
@@ -34,14 +35,21 @@ class PossibleSchedules extends Component {
             for (let i = 8; i < 24; i++) {
                 let children = [];
 
-
                     // 15-min 4 times/ hour
                     for(let k = 0; k < 4; k++){
-                        let time = i + ":" + quarterHours[k];
+                        let time = ("0" + i).slice(-2)+ ":" + quarterHours[k];
                         times.push(time);
                         table.push(
                             <table className="table table-striped">
                                 <tbody>
+                                {/*<tr>*/}
+                                    {/*<th className="col-2" scope="col">#</th>*/}
+                                    {/*<th className="col-2" scope="col">Monday</th>*/}
+                                    {/*<th className="col-2" scope="col">Tuesday</th>*/}
+                                    {/*<th className="col-2" scope="col">Wednesday</th>*/}
+                                    {/*<th className="col-2" scope="col">Thursday</th>*/}
+                                    {/*<th className="col-2" scope="col">Friday</th>*/}
+                                {/*</tr>*/}
                                 <tr>
                                     {i} : {quarterHours[k]} {children}
                                 </tr>
@@ -62,6 +70,7 @@ class PossibleSchedules extends Component {
                     else {
                         children.push(
                             // request course info from db ('course' is used for testing purposes)
+                            // or show empty if there's breaks/gaps
                             <td>...........--</td>
                         )
                     }
@@ -78,26 +87,16 @@ class PossibleSchedules extends Component {
                 </Router>
             <div className="container-  select-semester">
                 <div className="container-">
-                    <img className="logo- semester" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>
+                    {/*<img className="logo- semester" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>*/}
                     <h1>Possible schedules</h1>
                     <hr/>
 
                     <table className=" container table possible table-striped">
                         <tbody className="container">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Monday</th>
-                            <th scope="col">Tuesday</th>
-                            <th scope="col">Wednesday</th>
-                            <th scope="col">Thursday</th>
-                            <th scope="col">Friday</th>
-                        </tr>
-                        </thead>
                         {this.createTable()}
                         </tbody>
                     </table>
-                    <h3>Option 1</h3>
+                    <h3>Option #</h3>
                 </div>
             </div>
             </div>
