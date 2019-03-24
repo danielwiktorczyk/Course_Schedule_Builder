@@ -50,7 +50,7 @@ class PossibleSchedules extends Component {
                                     {/*<th className="col-2" scope="col">Thursday</th>*/}
                                     {/*<th className="col-2" scope="col">Friday</th>*/}
                                 {/*</tr>*/}
-                                <tr>
+                                <tr key={i + ":" + quarterHours[k]}>
                                     {i} : {quarterHours[k]} {children}
                                 </tr>
                                 </tbody>
@@ -82,15 +82,13 @@ class PossibleSchedules extends Component {
     render() {
         return (
             <div>
-                <Router ClassName="header-fix">
+                <Router>
                     <Header />
                 </Router>
             <div className="container-  select-semester">
                 <div className="container-">
-                    {/*<img className="logo- semester" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>*/}
                     <h1>Possible schedules</h1>
                     <hr/>
-
                     <table className=" container table possible table-striped">
                         <tbody className="container">
                         {this.createTable()}

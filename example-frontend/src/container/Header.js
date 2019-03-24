@@ -12,9 +12,6 @@ class Header extends Component {
     render(){
         return (
             <div className="header">
-                {/*<div >*/}
-                    {/*<img className="header-logo" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>*/}
-                {/*</div>*/}
                 <div className="header-right">
                     <a >My Profile</a>
                     <a >View my Schedule</a>

@@ -1,3 +1,6 @@
+/*color originally used for website was #A52A2A, in case we wanna change it back*/
+/*on hover the color previously chosen was Maroon*/
+
 .App {
   text-align: center;
 }
@@ -29,13 +32,11 @@
 .center {
   width: 42% !important;
   padding: 73px 57px 75px 63px;
-  margin: 79px 47px 150px 310px;
   text-align: center;
 }
 .center- {
   width: 42% !important;
   padding: 50px 126px 51px 93px;
-  margin: 70px 0 31px 306px;
   text-align: center;
 }
 button, input, optgroup, select, textarea {
@@ -49,7 +50,7 @@ button, input, optgroup, select, textarea {
   margin-left: 12px;
 }
 #container{
-  color : black;
+  color : #010101;
 
 }
 .card-signup,
@@ -57,7 +58,7 @@ button, input, optgroup, select, textarea {
   text-align: center;
   border-radius: 1rem;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
-  border-color: #A52A2A;
+  border-color: #010101;
   border-width: 2px;
 }
 .card-signup .card-title,
@@ -74,19 +75,19 @@ input.col-6,
 input.col-12 {
   border-radius: 10px;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
-  border-color: #A52A2A;
+  border-color: #010101;
   border-width: 1px;
   padding: 9px;
   margin: 0 0 19px 0;
   text-transform: uppercase;
-  color: #A52A2A;
+  color: #010101;
 }
 
 .btn-home-log{
   color: white !important;
   text-transform: uppercase !important;
-  background-color: #A52A2A !important;
-  border-color:#A52A2A !important;
+  background-color: #010101 !important;
+  border-color:#010101 !important;
   border-radius: 10px !important;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
   padding: 10px;
@@ -102,8 +103,8 @@ img.ScheduleGen {
   padding-bottom: 100px;
 }
 hr{
-  color: #A52A2A;
-  background-color: #A52A2A;
+  color: #010101;
+  background-color: #010101;
 }
 .select-semester-button{
   padding-top: 1rem;
@@ -117,7 +118,7 @@ div.selected-courses,
 input.col-8.course-name {
   border-radius: 10px;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
-  border-color: #A52A2A;
+  border-color: #010101;
   border-width: 1px;
   padding: 9px;
   margin: 0 0 19px 0;
@@ -127,7 +128,7 @@ input.col-8.course-name {
 }
 .theList,
 div.selected-courses{
-  border-color: #A52A2A;
+  border-color: #010101;
 }
 button.col-3.btn.btn-home-log {
   position: relative;
@@ -136,7 +137,7 @@ button.col-3.btn.btn-home-log {
   height: 3rem;
 }
 .register{
-  color: #A52A2A;
+  color: #010101;
 }
 .reg{
   padding-top: 20px;
@@ -180,7 +181,7 @@ button.col-3.btn.btn-home-log {
   content: ' ';
   height: 20px;
   width: 2px;
-  background-color: #A52A2A;
+  background-color: #010101;
 }
 .close:before {
   transform: rotate(45deg);
@@ -204,7 +205,7 @@ input:focus,
 }
 
 button.btn.btn-home-log:hover {
-  background-color: maroon !important;
+  background-color: #28074D !important;
 }
 .table td, .table th {
   padding: 0;
@@ -214,7 +215,7 @@ button.btn.btn-home-log:hover {
 table {
   border-collapse: collapse;
   font-size: 10px;
-  /*border: 1px solid #A52A2A;*/
+  /*border: 1px solid #010101;*/
 
 }
 .table.possible{
@@ -235,7 +236,7 @@ button.col-2.btn.btn-home-log {
 }
 .header {
   overflow: hidden;
-  background-color: #A52A2A;
+  background-color: #010101;
 }
 .header a {
   float: left;
@@ -251,8 +252,9 @@ button.col-2.btn.btn-home-log {
   font-size: 25px;
   font-weight: bold;
 }
+.footer a:hover,
 .header a:hover {
-  background-color: maroon;
+  background-color: #28074D;
 }
 h1{
   margin: 20px;
@@ -260,11 +262,40 @@ h1{
 .header-right {
   float: right;
 }
-img.header-logo {
-  float: left;
-  height: 49px;
-}
 .ScheduleGen- {
   padding-bottom: 26px;
   padding-top: 50px;
+}
+p:empty {
+  width: 100%;
+  height: 49px;
+  background: #010101;
+  margin: 0;
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+}
+div#inside {
+  position: relative;
+  top: 90px;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #010101;
+  color: white;
+  height: 51px;
+  padding-top: 13px;
+  text-align: center;
+}
+.footer a{
+  color: #ffffff !important;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 24px;
+  border-radius: 4px;
 }

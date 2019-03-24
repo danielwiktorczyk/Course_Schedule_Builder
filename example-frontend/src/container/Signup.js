@@ -3,11 +3,12 @@ import '../css/App.css';
 import axios from 'axios';
 import {withRouter} from "react-router-dom";
 
-function validate(firstname, lastname, email, pass) {
+function validate(firstname, lastname, username, email, pass) {
     // true means invalid, so our conditions got reversed
     return {
         firstname: firstname.length === 0,
         lastname: lastname.length === 0,
+        username: username.length === 0,
         email: email.length === 0,
         password: pass.length === 0
     };
@@ -150,7 +151,7 @@ class Signup extends Component {
             pass = null;
         }
         element = document.getElementById('confirm-pass');
-        if (element != null && element.value == pass ) {
+        if (element != null && element.value === pass ) {
             confirmPass = element.value;
         }
         else {
