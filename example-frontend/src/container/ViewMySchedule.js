@@ -11,6 +11,9 @@ class ViewMySchedule extends Component {
                 <Router>
                     <Header />
                 </Router>
+
+                <h1>SHOW STUDENT SCHEDULE AFTER ALLOWING THEM TO SELECT SEMESTER</h1>
+
             </div>
         );
     }

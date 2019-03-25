@@ -312,12 +312,8 @@ div#inside {
   color: white !important;
   text-transform: uppercase !important;
   background-color: #010101 !important;
-  border-color:#28074D !important;
   border-radius: 10px !important;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
-  /*padding: 10px;*/
-  /*margin: 10px;*/
-  /*width: 100%;*/
 }
 
 ul {
@@ -334,4 +330,9 @@ li {
 li button {
   display: block;
   padding: 8px;
+}
+.aboutTeam{
+  position: relative;
+  top: 50px;
+
 }

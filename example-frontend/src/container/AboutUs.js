@@ -6,8 +6,10 @@ class AboutUs extends Component {
 
     render(){
         return (
-            <div>
-
+            <div className="container">
+                <div >
+                    <img className="aboutTeam" src={require("../assets/About.jpg")} alt="THE PROCRASTINATORS TEAM MEMBERS"/>
+                </div>
             </div>
         );
     }

@@ -28,12 +28,13 @@ class Header extends Component {
         let name;
         let pass;
 
-        axios.post('http://localhost:8080/login', {
+        axios.post('http://localhost:8080/logout', {
             username: name,
             password: pass
         }).then(res => {
-            this.setState({loggedOut: res.data});
-            if (this.state.loggedIn === false) {
+            this.setState({loggedIn: res.data});
+            if (this.state.loggedIn === true) {
+                this.state = {loggedIn: false};
                 this.props.history.push("/");
             }
         }, err => {

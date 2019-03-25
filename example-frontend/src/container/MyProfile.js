@@ -13,6 +13,9 @@ class MyProfile extends Component {
                    <Header />
            </Router>
 
+
+           <h2>Personal Profile</h2>
+
        </div>
 
         );
