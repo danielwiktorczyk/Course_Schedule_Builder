@@ -68,32 +68,6 @@ public class UserPreferences {
 
     }
 
-    /*
-    method to determines if two userPreferences Objects overlap in time
-     */
-
-    public boolean timeOverlap(UserPreferences prefToCompare){
-        if(startTime == prefToCompare.getStartTime() && endTime == prefToCompare.getEndTime()){
-            return true;
-        }
-        else if(startTime > prefToCompare.getStartTime() && endTime < prefToCompare.getEndTime()){
-            return true;
-        }
-        else if(startTime < prefToCompare.getStartTime() && prefToCompare.getStartTime() < endTime){
-            return true;
-        }
-        else if(startTime > prefToCompare.getStartTime() && startTime < prefToCompare.getEndTime()){
-            return true;
-        }
-        else if(startTime < prefToCompare.getStartTime() && endTime > prefToCompare.getEndTime()){
-            return true;
-        }
-        else{
-            return false;
-        }
-
-    }
-
     public void setAdd(boolean add) {
         this.add = add;
     }

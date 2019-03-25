@@ -35,6 +35,7 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
     public void modifyUserPrefs(UserPreferences newPreference) {
 
         if(newPreference.isAdd()){
+            System.out.print("User Preference to be added " + newPreference.isAdd());
             addPref(newPreference);
         }
         else{
@@ -63,41 +64,40 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
         }
     }
 
+    // TODO: 2019-03-23 add a remove duplicates method if there is time, doesn't affect the code but it's nicer
     public void addPref(UserPreferences newPreference) {
         System.out.println("startTime = " + newPreference.getStartTime() + " endTime = " + newPreference.getEndTime());
         List<UserPreferences> currentPrefs = getCurrentPrefs(newPreference);
-        boolean alreadyUpdated = false;
         if (preferencesRepo.findAll().size() == 0) {
             preferencesRepo.save(newPreference);
         }
         else {
             for (int i = 0; i < currentPrefs.size(); i++) {
                 UserPreferences prefToUpdate = currentPrefs.get(i);
-                if (prefToUpdate.timeOverlap(newPreference)) {
-                    if (prefToUpdate.getStartTime() > newPreference.getStartTime() && prefToUpdate.getEndTime() >= newPreference.getEndTime()) {
-                        System.out.println("current pref starts after new pref");
-                        prefToUpdate.setStartTime(newPreference.getStartTime());
-                        System.out.println("prefToUpdate startTime is now: " + prefToUpdate.getStartTime() + " end time is still " + prefToUpdate.getEndTime());
-                        preferencesRepo.save(prefToUpdate);
-                        alreadyUpdated = true;
-                    }
-                    if (prefToUpdate.getEndTime() < newPreference.getEndTime() && prefToUpdate.getStartTime() <= newPreference.getStartTime()) {
-                        System.out.println("current pref ends before new pref");
-                        prefToUpdate.setEndTime(newPreference.getEndTime());
-                        System.out.println("prefToUpdate endTime is now: " + prefToUpdate.getEndTime() + " start time is still " + prefToUpdate.getStartTime());
-                        preferencesRepo.save(prefToUpdate);
-                        alreadyUpdated = true;
-                    }
-                    if (currentPrefs.get(i).getStartTime() < newPreference.getStartTime() && currentPrefs.get(i).getEndTime() > newPreference.getEndTime()) {
-                        alreadyUpdated = true;
-                    }
+
+                if (prefToUpdate.getStartTime() == newPreference.getStartTime() && prefToUpdate.getEndTime() == newPreference.getEndTime()) {
+                    break;
+
+                } else if (prefToUpdate.getStartTime() <= newPreference.getStartTime() && prefToUpdate.getEndTime() >= newPreference.getEndTime()) {
+                    break;
+
+                } else if (prefToUpdate.getStartTime() > newPreference.getStartTime() && newPreference.getEndTime() > prefToUpdate.getStartTime() && newPreference.getEndTime() <= prefToUpdate.getEndTime()) {
+                    prefToUpdate.setStartTime(newPreference.getStartTime());
+                    preferencesRepo.save(prefToUpdate);
+
+                } else if (newPreference.getStartTime() <= prefToUpdate.getEndTime() && prefToUpdate.getEndTime() < newPreference.getEndTime() && newPreference.getStartTime() >= prefToUpdate.getStartTime()) {
+                    prefToUpdate.setEndTime(newPreference.getEndTime());
+                    preferencesRepo.save(prefToUpdate);
+
+                } else if (prefToUpdate.getStartTime() > newPreference.getStartTime() && prefToUpdate.getEndTime() < newPreference.getEndTime()) {
+                    prefToUpdate.setStartTime(newPreference.getStartTime());
+                    prefToUpdate.setEndTime(newPreference.getEndTime());
+                    preferencesRepo.save(prefToUpdate);
                 }
-
+                else {
+                    preferencesRepo.save(newPreference);
+                }
             }
-            if (!alreadyUpdated) {
-                preferencesRepo.save(newPreference);
-            }
-
 
         }
     }
@@ -110,7 +110,10 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
 
             if (prefToUpdate.timeOverlap(newPreference)) {
                 System.out.println("overlap identified");
-                if(prefToUpdate.getStartTime() <= newPreference.getStartTime() && prefToUpdate.getEndTime() >= newPreference.getEndTime()){
+                if (prefToUpdate.getStartTime() == newPreference.getStartTime() && prefToUpdate.getEndTime() == newPreference.getEndTime()) {
+                    preferencesRepo.delete(prefToUpdate);
+                }
+                else if(prefToUpdate.getStartTime() <= newPreference.getStartTime() && prefToUpdate.getEndTime() >= newPreference.getEndTime()){
                     UserPreferences splitPrefFirstHalf = new UserPreferences();
                     UserPreferences splitPrefSecondHalf = new UserPreferences();
 
@@ -146,9 +149,6 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
                         System.out.println("pref to modify ends after the delete end time");
                         prefToUpdate.setStartTime(newPreference.getEndTime());
                         preferencesRepo.save(prefToUpdate);
-                    }
-                    if (prefToUpdate.getStartTime() >= newPreference.getStartTime() && prefToUpdate.getEndTime() <= newPreference.getEndTime()) {
-                        preferencesRepo.delete(prefToUpdate);
                     }
                 }
             }
