@@ -13,6 +13,7 @@ import PossibleSchedules from "./container/PossibleSchedules";
 import ViewMySchedule from './container/ViewMySchedule';
 import MyProfile from './container/MyProfile';
 import PlayGame from './container/PlayGame';
+import AboutUs from "./container/AboutUs";
 
 
 class App extends Component {
@@ -33,6 +34,7 @@ class App extends Component {
               <Route key={9} path="/ViewMySchedule" component={ViewMySchedule} />
               <Route key={10} path="/MyProfile" component={MyProfile} />
               <Route key={11} path="/PlayGame" component={PlayGame} />
+              <Route key={12} path="/AboutUs" component={AboutUs} />
               <Footer/>
             </div>
           </div>
