@@ -1,5 +1,6 @@
 package com.CourseScheduleBuilder.controller;
 
+import com.CourseScheduleBuilder.Model.Schedule;
 import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Services.ScheduleBuilderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +27,37 @@ public class ScheduleBuilderController {
 
     @CrossOrigin
     @ResponseBody
-    public boolean addCourseToWishList(@RequestBody String course)
+    public boolean addCourseToWishList(@RequestBody String courses)
     {
-        String[] classes = {"COMP249","COMP232","SOEN287","ENGR201","ENGR213"};
-        scheduleBuilderService.scheduleGenerator(classes);
-        return true;
-       // course = course.substring(9,course.length()-2);
-       // return scheduleBuilderService.validatePrerequisites(course);
 
+        scheduleBuilderService.scheduleGenerator(courses);
+        return true;
     }
 
+    @PostMapping("/generate")
+    @CrossOrigin
+    @ResponseBody
+    public Schedule generateSchedule()
+    {
+        return scheduleBuilderService.generateSchedule();
+
+    }
+    @PostMapping("/next")
+    @CrossOrigin
+    @ResponseBody
+    public Schedule nextSchedule()
+    {
+        return scheduleBuilderService.nextSchedule();
+
+    }
+    @PostMapping("/previous")
+    @CrossOrigin
+    @ResponseBody
+    public Schedule previousSchedule()
+    {
+        return scheduleBuilderService.previousSchedule();
+
+    }
 
 
 

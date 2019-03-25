@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Course{
+public class Course implements Cloneable{
 
 
     private String term;
@@ -149,5 +149,10 @@ public class Course{
                 ", preReq='" + preReq + '\'' +
                 ", coReq='" + coReq + '\'' +
                 '}';
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
