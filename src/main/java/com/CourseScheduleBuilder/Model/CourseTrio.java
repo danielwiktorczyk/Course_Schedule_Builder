@@ -56,28 +56,32 @@ public class CourseTrio implements Cloneable{
     }
 
 
-    public void printInfo(){
+    void printInfo(){
         System.out.println("Lecture: " + this.lecture.getName() + "   " + this.lecture.getId() + "   " + this.lecture.getStartTime() + "   " + this.lecture.getEndTime() + "   " +this.lecture.getComponent() + "  " + this.lecture.getClassDays()[0] + "  " + this.lecture.getClassDays()[1]+ "  " + this.lecture.getClassDays()[2]+ "  " + this.lecture.getClassDays()[3]+ "  " + this.lecture.getClassDays()[4] );
         System.out.println("Tutorial: " + this.tutorial.getName() + "   " + this.tutorial.getId() + "   " + this.tutorial.getStartTime() + "   " + this.tutorial.getEndTime() + "   " + this.tutorial.getComponent()+ "  " + this.tutorial.getClassDays()[0] + "  " + this.tutorial.getClassDays()[1]+ "  " + this.tutorial.getClassDays()[2]+ "  " + this.tutorial.getClassDays()[3]+ "  " + this.tutorial.getClassDays()[4] );
         if (this.hasLab)
         System.out.println("Lab: " + this.lab.getName() + "   " + this.lab.getId() + "   " + this.lab.getStartTime() + "   " + this.lab.getEndTime() + "   " + this.lab.getComponent() + "  " + this.lab.getClassDays()[0] + "  " + this.lab.getClassDays()[1]+ "  " + this.lab.getClassDays()[2]+ "  " + this.lab.getClassDays()[3]+ "  " + this.lab.getClassDays()[4] );
     }
 
-    public boolean compareTo(CourseTrio courseTrio){
-        if(this.tutorial.getId() == courseTrio.tutorial.getId())
+    boolean compareTo(CourseTrio courseTrio){
+        if(this.tutorial.getId().equals(courseTrio.tutorial.getId()))
             return true;
-        if(this.lecture.getId() == courseTrio.lecture.getId())
+        if(this.lecture.getId().equals(courseTrio.lecture.getId()))
             return true;
         if(this.hasLab){
-            if (this.lab.getId() == this.lab.getId())
-                return true;
+            return this.lab.getId().equals(this.lab.getId());
         }
         return false;
     }
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        CourseTrio newCourseTrio = (CourseTrio) super.clone();
+        newCourseTrio.lecture = (Course)this.lecture.clone();
+        newCourseTrio.tutorial = (Course) this.tutorial.clone();
+        if(hasLab)
+            newCourseTrio.lab = (Course) this.lab.clone();
+        return newCourseTrio;
     }
 
 }

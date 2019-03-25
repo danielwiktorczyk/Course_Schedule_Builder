@@ -13,15 +13,22 @@ import java.util.List;
 @Service
 public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
-        @Autowired
+        private final
         CourseRepo courseRepo;
-        @Autowired
+        private final
         UserRepo userRepo;
-        @Autowired
+        private final
         loggedInUserRepo login;
 
         private static Schedule[] savedSchedules = new Schedule[5];
         private static int scheduleCount = 0;
+
+    @Autowired
+    public ScheduleBuilderServiceImpl(CourseRepo courseRepo, UserRepo userRepo, loggedInUserRepo login) {
+        this.courseRepo = courseRepo;
+        this.userRepo = userRepo;
+        this.login = login;
+    }
 
 
     @Override
@@ -36,8 +43,8 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             return true;
        user = retriveUserInfo();
         prereqs = user.getPrereqs();
-        for(int i=0; i<prereqs.size();i++){
-            if (coursePrereq.equals(prereqs.get(i)))
+        for (Object prereq : prereqs) {
+            if (coursePrereq.equals(prereq))
                 return true;
         }
         return false;
@@ -56,14 +63,14 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         return user;
     }
 
-    public void scheduleGenerator(String string){
+    public void scheduleGenerator(String courseName){
         scheduleCount = 0;
         long startTime = System.nanoTime(); //Following this line, a list of possible lectures and one of tutorials are obtained
-        List<Course> lectureList = courseRepo.findByNameAndComponentAndTerm(string,"LEC","Fall");
-        List<Course> tutorialList = courseRepo.findByNameAndComponentAndTerm(string,"TUT","Fall");
+        List<Course> lectureList = courseRepo.findByNameAndComponentAndTerm(courseName,"LEC","Fall");
+        List<Course> tutorialList = courseRepo.findByNameAndComponentAndTerm(courseName,"TUT","Fall");
         List<Course> labList = new ArrayList();
         if (lectureList.get(0).getLabRequired().equals("TRUE")) { //If there is a lab, a list of labs is obtained.
-            labList = courseRepo.findByNameAndComponentAndTerm(string, "LAB", "Fall");
+            labList = courseRepo.findByNameAndComponentAndTerm(courseName, "LAB", "Fall");
         }
         /*
         On this next line, the lectures, tutorials and labs are combined into all valid groupings and returned as a single list.
@@ -80,55 +87,52 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         }
         savedSchedules = addToSchedule(courseList,savedSchedules); //For all courses beyond the initial one, the addToSchedule method is used to see the combinations.
         System.out.println(System.nanoTime()-startTime);
-        return;
     }
 
 
-    public Schedule[] addToSchedule(List<CourseTrio> courseList,Schedule[] schedules){
+    private Schedule[] addToSchedule(List<CourseTrio> courseList, Schedule[] schedules){
         List<Schedule> scheduleList = new ArrayList<>(); //List that will hold all new schedules objects as they are built
         Schedule newSchedule; //Temporary schedule object where schedules are built.
-        for(int i=0;i<schedules.length;i++){   //Each existing schedule will be added to each of the options available in courseList, these are the new courses to be added
-            for(int j=0;j<courseList.size();j++){
+        for (Schedule schedule : schedules) {   //Each existing schedule will be added to each of the options available in courseList, these are the new courses to be added
+            for (int j = 0; j < courseList.size(); j++) {
                 try {
-                    newSchedule = (Schedule) schedules[i].clone(); //Original schedule is cloned and stored in newSchedule
+                    newSchedule = (Schedule) schedule.clone(); //Original schedule is cloned and stored in newSchedule
                     newSchedule.insertCourse((CourseTrio) courseList.get(j).clone()); //From here a course is added
                     if (validateSchedule(newSchedule)) { //Schedule validated for time conflicts
                         scheduleList.add(newSchedule); //If schedule is valid it should be saved. If you print the schedule here, all is well. Values are messed up at each loop iteration somehow.
-
+                        // newSchedule.printSchedule();
                     }
-                } catch(Exception e){
+                } catch (CloneNotSupportedException e) {
                     System.out.println("Cloning failed");
                 }
-              //  scheduleList.get(scheduleList.size()-1).printSchedule(); //Code works till here, but once this loop is
+                //  scheduleList.get(scheduleList.size()-1).printSchedule(); //Code works till here, but once this loop is
             }                                                           // exited, the values of the Tutorial object are changed.
-            scheduleList.get(scheduleList.size()-1).printSchedule();
-            scheduleList.get(scheduleList.size()-2).printSchedule();
         }
         Schedule[] returnSchedule = new Schedule[scheduleList.size()];
         scheduleList.toArray(returnSchedule); //Schedule transformed to array to be sent back
-        /* Uncomment to see all the possible schedule options that are returned.
-        The problem lies here, the returned schedules dont match the values added to the list during the operations
-          for (int i=0;i<returnSchedule.length;i++)
-            returnSchedule[i].printSchedule();
-            */
+        // Uncomment to see all the possible schedule options that are returned.
+        //The problem lies here, the returned schedules dont match the values added to the list during the operations
+        for (Schedule schedule : returnSchedule)
+            schedule.printSchedule();
+
         return returnSchedule;
 
     }
 
 
-    public List<CourseTrio> groupCourses(List<Course> lecture, List<Course> tutorial, List<Course> labs){
+    private List<CourseTrio> groupCourses(List<Course> lecture, List<Course> tutorial, List<Course> labs){
         List<CourseTrio> courseTrio = new ArrayList<>(); //List where combined courses will be stored until ready for return.
         boolean haslab = lecture.get(0).getLabRequired().equals("TRUE"); //Checking if this course requires a lab versus its first entry
-        for (int i=0;i<lecture.size();i++){
-            for(int j=0;j<tutorial.size();j++){
-                if (!lecture.get(i).getAssociation().equals(tutorial.get(j).getAssociation()))
+        for (Course course1 : lecture) {
+            for (Course course : tutorial) {
+                if (!course1.getAssociation().equals(course.getAssociation()))
                     continue; //If tutorial and lecture association invalid, this combination is not saved
-                if(!haslab) {
-                    courseTrio.add(new CourseTrio(lecture.get(i),tutorial.get(j)));
+                if (!haslab) {
+                    courseTrio.add(new CourseTrio(course1, course));
                     continue; //If no lab required, then a lecture and tutorial are stored only
                 }
-                for(int k=0; k<labs.size();k++){
-                    courseTrio.add(new CourseTrio(lecture.get(i),tutorial.get(j), labs.get(k)));
+                for (Course lab : labs) {
+                    courseTrio.add(new CourseTrio(course1, course, lab));
                     //If a lab is required. Each lab possibilities is associated with the proper lecture/tutorial combination
                 }
 
@@ -161,7 +165,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     }
 
 
-    public boolean validateSchedule(Schedule schedule){
+    private boolean validateSchedule(Schedule schedule){
         int individualCourses = schedule.getSize()*2 + schedule.labCount();
         Course[] courses = new Course[individualCourses]; //New array where all the course objects will be stored as equals
         int l=0;
@@ -182,22 +186,23 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
                 if (j==i)
                     continue;
                 if (courses[i].getStartTime() <= courses[j].getStartTime() && courses[j].getStartTime() <= courses[i].getEndTime()){
-                    for(int k=0; k<5; k++) {
-                        if(courses[i].getClassDays()[k] == courses[j].getClassDays()[k] && courses[i].getClassDays()[k] == true) {
-                            return false;
-                        }
-                    }
+                    if (isClassOnTheSameDay(courses, i, j)) return false;
                 }
                 if (courses[i].getStartTime() <= courses[j].getEndTime() && courses[j].getEndTime() <= courses[i].getEndTime()){
-                    for(int k=0; k<5; k++) {
-                        if(courses[i].getClassDays()[k] == courses[j].getClassDays()[k] && courses[i].getClassDays()[k] == true) {
-                            return false;
-                        }
-                    }
+                    if (isClassOnTheSameDay(courses, i, j)) return false;
                 }
             }
         }
         return true;
+    }
+
+    private boolean isClassOnTheSameDay(Course[] courses, int i, int j) {
+        for(int k=0; k<5; k++) {
+            if(courses[i].getClassDays()[k] == courses[j].getClassDays()[k] && courses[i].getClassDays()[k]) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

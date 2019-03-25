@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Course implements Cloneable{
+public final class Course implements Cloneable{
 
 
     private String term;
@@ -117,26 +117,11 @@ public class Course implements Cloneable{
 
     public boolean[] getClassDays(){
         boolean[] classDays = new boolean[5];
-        if (this.monday.equals("TRUE")){
-            classDays[0] = true;
-        }
-        else classDays[0] = false;
-        if (this.tuesday.equals("TRUE")){
-            classDays[1] = true;
-        }
-        else classDays[1] = false;
-        if (this.wednesday.equals("TRUE")){
-            classDays[2] = true;
-        }
-        else classDays[2] = false;
-        if (this.thursday.equals("TRUE")){
-            classDays[3] = true;
-        }
-        else classDays[3] = false;
-        if (this.friday.equals("TRUE")){
-            classDays[4] = true;
-        }
-        else classDays[4] = false;
+        classDays[0] = this.monday.equals("TRUE");
+        classDays[1] = this.tuesday.equals("TRUE");
+        classDays[2] = this.wednesday.equals("TRUE");
+        classDays[3] = this.thursday.equals("TRUE");
+        classDays[4] = this.friday.equals("TRUE");
 
         return classDays;
     }

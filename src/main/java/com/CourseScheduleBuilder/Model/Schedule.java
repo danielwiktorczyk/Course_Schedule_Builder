@@ -68,7 +68,9 @@ public class Schedule implements Cloneable{
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        Schedule returnSchedule = (Schedule) super.clone();
+        returnSchedule.courses = this.courses.clone();
+        return returnSchedule;
     }
 
 
