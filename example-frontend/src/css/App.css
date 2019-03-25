@@ -58,7 +58,7 @@ button, input, optgroup, select, textarea {
   text-align: center;
   border-radius: 1rem;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
-  border-color: #010101;
+  border-color: #28074D !important;
   border-width: 2px;
 }
 .card-signup .card-title,
@@ -75,7 +75,7 @@ input.col-6,
 input.col-12 {
   border-radius: 10px;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
-  border-color: #010101;
+  border-color: #28074D;
   border-width: 1px;
   padding: 9px;
   margin: 0 0 19px 0;
@@ -87,7 +87,7 @@ input.col-12 {
   color: white !important;
   text-transform: uppercase !important;
   background-color: #010101 !important;
-  border-color:#010101 !important;
+  border-color:#28074D !important;
   border-radius: 10px !important;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
   padding: 10px;
@@ -103,8 +103,8 @@ img.ScheduleGen {
   padding-bottom: 100px;
 }
 hr{
-  color: #010101;
-  background-color: #010101;
+  color: #28074D;
+  background-color: #28074D;
 }
 .select-semester-button{
   padding-top: 1rem;
@@ -118,7 +118,7 @@ div.selected-courses,
 input.col-8.course-name {
   border-radius: 10px;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
-  border-color: #010101;
+  border-color: #28074D;
   border-width: 1px;
   padding: 9px;
   margin: 0 0 19px 0;
@@ -128,7 +128,7 @@ input.col-8.course-name {
 }
 .theList,
 div.selected-courses{
-  border-color: #010101;
+  border-color: #28074D;
 }
 button.col-3.btn.btn-home-log {
   position: relative;
@@ -236,6 +236,7 @@ button.col-2.btn.btn-home-log {
 }
 .header {
   overflow: hidden;
+  height: 49px;
   background-color: #010101;
 }
 .header a {
@@ -261,6 +262,9 @@ h1{
 }
 .header-right {
   float: right;
+}
+.header-left{
+  float: left;
 }
 .ScheduleGen- {
   padding-bottom: 26px;
@@ -298,4 +302,36 @@ div#inside {
   font-size: 18px;
   line-height: 24px;
   border-radius: 4px;
+}
+.header-buttons:hover{
+
+  background-color: #28074D !important;
+}
+
+.header-buttons{
+  color: white !important;
+  text-transform: uppercase !important;
+  background-color: #010101 !important;
+  border-color:#28074D !important;
+  border-radius: 10px !important;
+  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
+  /*padding: 10px;*/
+  /*margin: 10px;*/
+  /*width: 100%;*/
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+li button {
+  display: block;
+  padding: 8px;
 }

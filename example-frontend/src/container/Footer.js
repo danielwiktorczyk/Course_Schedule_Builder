@@ -3,15 +3,30 @@ import '../css/App.css';
 import {withRouter} from "react-router-dom";
 
 class Footer extends Component {
+    constructor(props) {
+        super(props);
+        this.goToPlayGame = this.goToPlayGame.bind(this);
+        this.goToAboutUs = this.goToAboutUs.bind(this);
+    }
 
+    goToPlayGame() {
+        let path = '/PlayGame';
+        this.props.history.push(path);
+    }
+
+    goToAboutUs(){
+        let path = '/AboutUs';
+        this.props.history.push(path);
+
+    }
 
     render(){
         return (
             <footer>
                 <div className="footer">
                     <div className="">
-                        <a >About Us</a>
-                        <a >Play a Game!</a>
+                        <a onClick={this.goToAboutUs}>About Us</a>
+                        <a onClick={this.goToPlayGame}>Play a Game!</a>
                     </div>
                 </div>
             </footer>
