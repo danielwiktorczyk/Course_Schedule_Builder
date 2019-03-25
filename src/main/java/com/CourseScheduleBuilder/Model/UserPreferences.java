@@ -20,6 +20,7 @@ public class UserPreferences {
     private int startTime;
     private int endTime;
 
+    // TODO: 2019-03-25 write some error methods for invalid input (limits on times, invalid entries etc...)
     /*
     UserPreferences can be added or removed using the same object, the boolean "add"
     provides a way to know if the UserPreference Object created should be added or removed
@@ -67,6 +68,32 @@ public class UserPreferences {
         }
 
     }
+
+    /*
+        method that checks day boolean attributes and returns the day as a string
+         */
+    public String getDay(){
+        if(monday ){
+            return "Monday";
+        }
+        else if(tuesday){
+            return "Tuesday";
+        }
+        else if(wednesday){
+            return "Wednesday";
+        }
+        else if(thursday){
+            return "Thursday";
+        }
+        else if(friday){
+            return "Friday";
+        }
+        else{
+            return "Day cannot be determined";
+        }
+
+    }
+
 
     public void setAdd(boolean add) {
         this.add = add;
