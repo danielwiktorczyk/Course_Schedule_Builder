@@ -280,10 +280,6 @@ p:empty {
   overflow: hidden;
   z-index: -1;
 }
-div#inside {
-  position: relative;
-  top: 90px;
-}
 .footer {
   position: fixed;
   left: 0;
@@ -331,24 +327,15 @@ a{
 }
 div#inside {
   position: relative;
-  top: 100px;
+  top: 105px;
   border-color: black !important;
 }
 .center- {
-  width: 57.5% !important;
+  width: 53.5% !important;
   padding: 36px 0 36px 0;
   text-align: center;
 }
-input#email {
-  max-width: 85%;
-  position: relative;
-  left: 18px;
-}
-input#confirm-pass {
-  max-width: 225px;
-  position: relative;
-  left: -13px;
-}
+
 .adjust-h2{
   padding-left: 25px;
 
@@ -369,4 +356,16 @@ img.logo {
 }
 .logo-select-sem{
   width: 30%;
+}
+.fix-sign-up {
+  margin-left: 14px;
+  margin-top: 20px;
+  position: relative;
+  left: 113px;
+  width: 28%;
+}
+.col-new{
+  position: relative;
+  left: 115px;
+max-width: 90%;
 }

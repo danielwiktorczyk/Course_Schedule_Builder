@@ -91,21 +91,21 @@ class Signup extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <div className="row">
-                            <div><label className="col-6">First Name:</label><input className="col-6"  type="text" name="firstname" id={'firstname'}  value={this.state.firstname} onChange={this.handleFirstNameChange} /></div>
-                            <div><label className="col-6">Last Name:</label><input className="col-6" type="text" name="lastname" id={'lastname'} value={this.state.lastname} onChange={this.handleLastNameChange} /></div>
+                            <div><div className="col-6 col-new"><label>First Name:</label></div><input className="col-6 col-new"  type="text" name="firstname" id={'firstname'}  value={this.state.firstname} onChange={this.handleFirstNameChange} /></div>
+                            <div><div className="col-6 col-new"><label>Last Name:</label></div><input className="col-6 col-new" type="text" name="lastname" id={'lastname'} value={this.state.lastname} onChange={this.handleLastNameChange} /></div>
                         </div>
                             <div className="row">
-                                <div><label className="col-6">User Name:</label><input className="col-6"  type="text" name="username" id={'username'}  value={this.state.username} onChange={this.handleUserNameChange} /></div>
-                                <div><label className="col-6">Email:</label><input className="col-6" type="text" name="email" id={'email'} value={this.state.email} onChange={this.handleEmailChange}/></div>
+                                <div><div><label className="col-6 col-new">User Name:</label></div><input className="col-6 col-new"  type="text" name="username" id={'username'}  value={this.state.username} onChange={this.handleUserNameChange} /></div>
+                                <div><div><label className="col-6 col-new">Email:</label></div><input className="col-6 col-new" type="text" name="email" id={'email'} value={this.state.email} onChange={this.handleEmailChange}/></div>
                             </div>
                         <div className="row">
-                            <div><label className="col-6">Password:</label><input className="col-6" type="password" name="password" id={'pass'} value={this.state.password} onChange={this.handlePasswordChange} /></div>
-                            <div><label className="col-6">Confirm Password:</label><input className="col-6" type="password" name="confirmPassword" id={'confirm-pass'} value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange} /></div>
+                            <div><div><label className="col-6 col-new">Password:</label></div><input className="col-6 col-new"  type="password" name="password" id={'pass'} value={this.state.password} onChange={this.handlePasswordChange} /></div>
+                            <div><div><label className="col-6 col-new">Confirm Password:</label></div><input className="col-6 col-new" type="password" name="confirmPassword" id={'confirm-pass'} value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange} /></div>
                         </div>
                     </div>
                     <div className="row">
-                        <button disabled={isDisabled} className=" btn btn-home-log" type="button" value="Submit" onClick={this.register}>Sign up</button>
-                        <button className="btn btn-home-log" type="button" value="Submit" onClick={this.routeChange}>Already a member</button>
+                        <button disabled={isDisabled} className="fix-sign-up btn btn-home-log" type="button" value="Submit" onClick={this.register}>Sign up</button>
+                        <button className="fix-sign-up btn btn-home-log" type="button" value="Submit" onClick={this.routeChange}>Already a member</button>
                     </div>
                 </form>
             </div>
