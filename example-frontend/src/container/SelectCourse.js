@@ -65,11 +65,9 @@ class SelectCourse extends Component {
             <div className="container- s-course">
 
                 <div >
-                    <img  className="ScheduleGen-" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>
+                    <img  className="ScheduleGen- logo-select-sem" src={require("../assets/SOEN-LOGO.JPG")} alt="SOEN SCHEDULER BUILDER"/>
                 </div>
-                <h1>COURSE SELECTION</h1><hr/>
-
-                {/*<h2>Please enter Course number</h2><hr/>*/}
+                <hr/><h2 className="adjust-h2">COURSE SELECTION</h2><hr/>
 
                 <div>
                 <form onSubmit={this.addItem}>
@@ -82,8 +80,8 @@ class SelectCourse extends Component {
                 </div>
 
                 <div>
-                    <button className="col-3 btn btn-home-log" onClick={this.generateSchedule}>GENERATE</button>
-                    <button className="col-3 btn btn-home-log" onClick={this.routeChange}>CHANGE SEMESTER</button>
+                    <button className="col-3 btn btn-home-log select-semester-options" onClick={this.generateSchedule}>GENERATE</button>
+                    <button className="col-3 btn btn-home-log select-semester-options" onClick={this.routeChange}>CHANGE SEMESTER</button>
                 </div>
             </div>
             </div>

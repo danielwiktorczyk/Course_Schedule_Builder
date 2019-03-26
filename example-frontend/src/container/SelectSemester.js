@@ -14,11 +14,10 @@ class SelectSemester extends Component {
                 <div className="container-  select-semester">
 
                     <div className="container-">
-                        <img className="logo semester" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>
+                        <img className="logo-select-sem semester" src={require("../assets/SOEN-LOGO.JPG")} alt="SOEN SCHEDULER BUILDER"/>
                     </div>
-                    <h3>Visualize possible schedules for a selection of courses to quickly plan your semester!</h3>
                     <hr/>
-                    <h2>Select a semester to start</h2>
+                    <h2 className="adjust-h2">Select a semester to start</h2>
                     <hr/>
                     <div className="wrapper row select-semester-button">
                         <button className="col-2 btn btn-home-log" onClick={this.routeChange}>Summer 2018</button>

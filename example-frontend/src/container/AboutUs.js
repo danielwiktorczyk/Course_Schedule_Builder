@@ -6,7 +6,7 @@ class AboutUs extends Component {
 
     render(){
         return (
-            <div className="container">
+            <div className="container about-us-img">
                 <div >
                     <img className="aboutTeam" src={require("../assets/About.jpg")} alt="THE PROCRASTINATORS TEAM MEMBERS"/>
                 </div>

@@ -63,7 +63,7 @@ class Signin extends Component {
 
         <div className="container center card-signup" id="inside">
           <div >
-            <img className="logo" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>
+            <img className="logo" src={require("../assets/SOEN-LOGO.JPG")} alt="SOEN SCHEDULER BUILDER"/>
           </div>
           <form onSubmit={this.handleSubmit}>
 

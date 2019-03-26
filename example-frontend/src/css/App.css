@@ -1,9 +1,9 @@
 /*color originally used for website was #A52A2A, in case we wanna change it back*/
 /*on hover the color previously chosen was Maroon*/
 
-.App {
-  text-align: center;
-}
+/*.App {*/
+  /*text-align: center;*/
+/*}*/
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -30,7 +30,7 @@
   to { transform: rotate(360deg); }
 }
 .center {
-  width: 42% !important;
+  width: 36% !important;
   padding: 73px 57px 75px 63px;
   text-align: center;
 }
@@ -143,8 +143,10 @@ button.col-3.btn.btn-home-log {
   padding-top: 20px;
 }
 .logo{
-  position: relative;
-  left: -40px;
+  /*position: relative;*/
+  /*left: -40px;*/
+  width: 100%;
+
 }
 
 .linkStyle,
@@ -258,7 +260,7 @@ button.col-2.btn.btn-home-log {
   background-color: #28074D;
 }
 h1{
-  margin: 20px;
+  margin: 20px 0;
 }
 .header-right {
   float: right;
@@ -267,8 +269,7 @@ h1{
   float: left;
 }
 .ScheduleGen- {
-  padding-bottom: 26px;
-  padding-top: 50px;
+  padding: 100px 0 50px 0;
 }
 p:empty {
   width: 100%;
@@ -315,24 +316,57 @@ div#inside {
   border-radius: 10px !important;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
 }
-
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: hidden;
-}
-
-li {
-  float: left;
-}
-
-li button {
-  display: block;
-  padding: 8px;
 }
 .aboutTeam{
   position: relative;
   top: 50px;
 
+}
+a{
+  cursor: pointer;
+}
+div#inside {
+  position: relative;
+  top: 100px;
+  border-color: black !important;
+}
+.center- {
+  width: 57.5% !important;
+  padding: 36px 0 36px 0;
+  text-align: center;
+}
+input#email {
+  max-width: 85%;
+  position: relative;
+  left: 18px;
+}
+input#confirm-pass {
+  max-width: 225px;
+  position: relative;
+  left: -13px;
+}
+.adjust-h2{
+  padding-left: 25px;
+
+}
+.select-semester-options{
+  left: 16px !important;
+
+}
+.about-us-img{
+  text-align: center;
+}
+img.logo {
+  margin-bottom: 30px;
+}
+.sign-up-logo{
+  width: 50%;
+  margin-bottom: 30px;
+}
+.logo-select-sem{
+  width: 30%;
 }

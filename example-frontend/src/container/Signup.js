@@ -86,21 +86,27 @@ class Signup extends Component {
         return(
             <div className="container center- card-signin" id="inside">
                 <div >
-                    <img className="logo" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>
+                    <img className="sign-up-logo " src={require("../assets/SOEN-LOGO.JPG")} alt="SOEN SCHEDULER BUILDER"/>
                 </div>
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <div className="row">
-                            <div><label className="col-12">First Name:<input className="col-12"  type="text" name="firstname" id={'firstname'}  value={this.state.firstname} onChange={this.handleFirstNameChange} /></label></div>
-                            <div><label className="col-12">Last Name:<input className="col-12" type="text" name="lastname" id={'lastname'} value={this.state.lastname} onChange={this.handleLastNameChange} /></label></div>
-                            <div><label className="col-12">User Name:<input className="col-12"  type="text" name="username" id={'username'}  value={this.state.username} onChange={this.handleUserNameChange} /></label></div>
-                            <div><label className="col-12">Email:<input className="col-12" type="text" name="email" id={'email'} value={this.state.email} onChange={this.handleEmailChange}/></label></div>
-                            <div><label className="col-12">Password:<input className="col-12" type="password" name="password" id={'pass'} value={this.state.password} onChange={this.handlePasswordChange} /></label></div>
-                            <div><label className="col-12">Confirm Password:<input className="col-12" type="password" name="confirmPassword" id={'confirm-pass'} value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange} /></label></div>
+                            <div><label className="col-6">First Name:</label><input className="col-6"  type="text" name="firstname" id={'firstname'}  value={this.state.firstname} onChange={this.handleFirstNameChange} /></div>
+                            <div><label className="col-6">Last Name:</label><input className="col-6" type="text" name="lastname" id={'lastname'} value={this.state.lastname} onChange={this.handleLastNameChange} /></div>
+                        </div>
+                            <div className="row">
+                                <div><label className="col-6">User Name:</label><input className="col-6"  type="text" name="username" id={'username'}  value={this.state.username} onChange={this.handleUserNameChange} /></div>
+                                <div><label className="col-6">Email:</label><input className="col-6" type="text" name="email" id={'email'} value={this.state.email} onChange={this.handleEmailChange}/></div>
+                            </div>
+                        <div className="row">
+                            <div><label className="col-6">Password:</label><input className="col-6" type="password" name="password" id={'pass'} value={this.state.password} onChange={this.handlePasswordChange} /></div>
+                            <div><label className="col-6">Confirm Password:</label><input className="col-6" type="password" name="confirmPassword" id={'confirm-pass'} value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange} /></div>
                         </div>
                     </div>
-                    <button disabled={isDisabled} className="btn btn-home-log" type="button" value="Submit" onClick={this.register}>Sign up</button>
-                    <button className="btn btn-home-log" type="button" value="Submit" onClick={this.routeChange}>Already a member</button>
+                    <div className="row">
+                        <button disabled={isDisabled} className=" btn btn-home-log" type="button" value="Submit" onClick={this.register}>Sign up</button>
+                        <button className="btn btn-home-log" type="button" value="Submit" onClick={this.routeChange}>Already a member</button>
+                    </div>
                 </form>
             </div>
         );
