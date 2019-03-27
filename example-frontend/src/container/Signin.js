@@ -22,7 +22,7 @@ class Signin extends Component {
     this.state = {
       name: "",
       password: "",
-      everFocusedEmail: false,
+      everFocusedUsername: false,
       everFocusedPassword: false,
       inFocus: ""
     };

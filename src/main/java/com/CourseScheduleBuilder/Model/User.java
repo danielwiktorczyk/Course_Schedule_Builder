@@ -15,7 +15,7 @@ public class User {
     private Integer id;
     private String firstName;
     private String lastName;
-    private String email;
+    private String username;
     private String password;
     private boolean EWT;
     private ArrayList<String> prereqs = new ArrayList<>();
@@ -28,12 +28,12 @@ public class User {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
@@ -82,7 +82,7 @@ public class User {
                 "id=" + id +
                 ", First Name='" + firstName + '\'' +
                 ", Last Name='" + lastName + '\'' +
-                ", Email Address='" + email + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
