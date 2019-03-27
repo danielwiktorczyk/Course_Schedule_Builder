@@ -66,12 +66,6 @@ public class Application implements CommandLineRunner {
         userRepo.save(user2);
 
         List<User> userData = userRepo.findAll();
-        System.out.println("--------------");
-        for(int i=0; i<userData.size();i++) {
-            for (int j=0; j<userData.get(i).getPrereqs().size(); j++)
-            System.out.println(userData.get(i).getPrereqs().get(j));
-        }
-        System.out.println("--------------");
 
         for (User User : userData) {
             LOG.info("Course found :" + User.toString());

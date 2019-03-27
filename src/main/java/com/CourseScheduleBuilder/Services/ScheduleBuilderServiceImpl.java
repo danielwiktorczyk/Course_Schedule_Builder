@@ -13,13 +13,9 @@ import java.util.List;
 @Service
 public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
-        private final
-        CourseRepo courseRepo;
-        private final
-        UserRepo userRepo;
-        private final
-        loggedInUserRepo login;
-
+        private final CourseRepo courseRepo;
+        private final UserRepo userRepo;
+        private final loggedInUserRepo login;
         private static Schedule[] savedSchedules = new Schedule[5];
         private static int scheduleCount = 0;
 
@@ -63,7 +59,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         return user;
     }
 
-    public void scheduleGenerator(String courseName){
+    public void generateSchedules(String courseName){
         scheduleCount = 0;
         long startTime = System.nanoTime(); //Following this line, a list of possible lectures and one of tutorials are obtained
         List<Course> lectureList = courseRepo.findByNameAndComponentAndTerm(courseName,"LEC","Fall");
@@ -82,11 +78,11 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
                 savedSchedules[i] = new Schedule();
                 savedSchedules[i].insertCourse(courseList.get(i));
             }
-            System.out.println(System.nanoTime()-startTime);
+            System.out.println("Finish Time : " + (System.nanoTime()-startTime));
             return;
         }
         savedSchedules = addToSchedule(courseList,savedSchedules); //For all courses beyond the initial one, the addToSchedule method is used to see the combinations.
-        System.out.println(System.nanoTime()-startTime);
+        System.out.println("Finish Time : " + (System.nanoTime()-startTime));
     }
 
 
@@ -98,7 +94,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
                 try {
                     newSchedule = (Schedule) schedule.clone(); //Original schedule is cloned and stored in newSchedule
                     newSchedule.insertCourse((CourseTrio) courseList.get(j).clone()); //From here a course is added
-                    if (validateSchedule(newSchedule)) { //Schedule validated for time conflicts
+                    if (validateSchedule2(newSchedule)) { //Schedule validated for time conflicts
                         scheduleList.add(newSchedule); //If schedule is valid it should be saved. If you print the schedule here, all is well. Values are messed up at each loop iteration somehow.
                         // newSchedule.printSchedule();
                     }
@@ -112,8 +108,8 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         scheduleList.toArray(returnSchedule); //Schedule transformed to array to be sent back
         // Uncomment to see all the possible schedule options that are returned.
         //The problem lies here, the returned schedules dont match the values added to the list during the operations
-        for (Schedule schedule : returnSchedule)
-            schedule.printSchedule();
+        //for (Schedule schedule : returnSchedule)
+         //   schedule.printSchedule();
 
         return returnSchedule;
 
@@ -141,7 +137,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         return courseTrio;
 
     }
-    public Schedule generateSchedule(){
+    public Schedule generateAndShowFirstSchedule(){
         scheduleCount = 0;
         System.out.println("PRINTING SCHEDULE : " + scheduleCount);
         return savedSchedules[scheduleCount];
@@ -151,8 +147,11 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             System.out.println("PRINTING SCHEDULE : " + scheduleCount);
             return savedSchedules[scheduleCount];
         }
-        else
-            return new Schedule();
+        else{
+            scheduleCount =0;
+            System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+            return savedSchedules[scheduleCount];
+        }
     }
 
     public Schedule previousSchedule(){
@@ -160,8 +159,11 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             System.out.println("PRINTING SCHEDULE : " + scheduleCount);
             return savedSchedules[scheduleCount];
         }
-        else return
-        new Schedule();
+        else {
+            scheduleCount = savedSchedules.length-1;
+            System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+            return savedSchedules[scheduleCount];
+        }
     }
 
 
@@ -196,9 +198,61 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         return true;
     }
 
+    private boolean validateSchedule2(Schedule schedule){
+        boolean hasLab = schedule.getCourseTrio()[schedule.getSize()-1].isHasLab();
+        int labCount = 0;
+        if (hasLab)
+            labCount = 1;
+
+        int individualCourses = (schedule.getSize()-1)*2 + schedule.labCount()-labCount;
+        Course[] courses = new Course[individualCourses]; //New array where all the course objects will be stored as equals
+        Course[] courses2 = new Course[2+labCount];
+        int l=0;
+        int m=0;
+        for (int j=0; j<schedule.getSize()-1;j++){ //This loop turns the different courseTrios back into courses
+            courses[l] = schedule.getCourseTrio()[j].getLecture();
+            l++;
+            courses[l] = schedule.getCourseTrio()[j].getTutorial();
+            l++;
+            if (schedule.getCourseTrio()[j].isHasLab())
+            {
+                courses[l] = schedule.getCourseTrio()[j].getLab();
+                l++;
+            }
+        }
+
+        courses2[m++] = schedule.getCourseTrio()[schedule.getSize()-1].getLecture();
+        courses2[m++] = schedule.getCourseTrio()[schedule.getSize()-1].getTutorial();
+        if(schedule.getCourseTrio()[schedule.getSize()-1].isHasLab())
+        courses2[m++] = schedule.getCourseTrio()[schedule.getSize()-1].getLab();
+
+
+        //If the starttime or endtime of a class falls between the start and endtime of another AND on the same day, this returns a false boolean showing that the schedule is invalid
+        for (int i=0; i<courses.length;i++){
+            for(int j=0; j<courses2.length;j++){
+                if (courses[i].getStartTime() <= courses2[j].getStartTime() && courses2[j].getStartTime() <= courses[i].getEndTime()){
+                    if (isClassOnTheSameDay2(courses, courses2,i, j)) return false;
+                }
+                if (courses[i].getStartTime() <= courses2[j].getEndTime() && courses2[j].getEndTime() <= courses[i].getEndTime()){
+                    if (isClassOnTheSameDay2(courses,courses2, i, j)) return false;
+                }
+            }
+        }
+        return true;
+    }
+
     private boolean isClassOnTheSameDay(Course[] courses, int i, int j) {
         for(int k=0; k<5; k++) {
             if(courses[i].getClassDays()[k] == courses[j].getClassDays()[k] && courses[i].getClassDays()[k]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isClassOnTheSameDay2(Course[] courses,Course[] courses2 ,int i, int j) {
+        for(int k=0; k<5; k++) {
+            if(courses[i].getClassDays()[k] == courses2[j].getClassDays()[k] && courses[i].getClassDays()[k]) {
                 return true;
             }
         }

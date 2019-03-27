@@ -15,8 +15,7 @@ public class ScheduleBuilderController {
     @Autowired
     CourseRepo courseRepo;
 
-    @PostMapping("/createSchedule") // TODO rename as needed, we can have
-    // many mappings this controller can handle
+    @PostMapping("/createSchedule") // TODO rename as needed, we can have // many mappings this controller can handle
     @CrossOrigin
     @ResponseBody
     public boolean requestSchedule(/* //TODO */){
@@ -29,8 +28,7 @@ public class ScheduleBuilderController {
     @ResponseBody
     public boolean addCourseToWishList(@RequestBody String courses)
     {
-
-        scheduleBuilderService.scheduleGenerator(courses);
+        scheduleBuilderService.generateSchedules(courses);
         return true;
     }
 
@@ -39,7 +37,7 @@ public class ScheduleBuilderController {
     @ResponseBody
     public Schedule generateSchedule()
     {
-        return scheduleBuilderService.generateSchedule();
+        return scheduleBuilderService.generateAndShowFirstSchedule();
 
     }
     @PostMapping("/next")
