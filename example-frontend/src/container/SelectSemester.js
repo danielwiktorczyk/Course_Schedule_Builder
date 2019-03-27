@@ -8,7 +8,7 @@ class SelectSemester extends Component {
     render() {
         return (
             <div>
-                <Router ClassName="header-fix">
+                <Router>
                     <Header />
                 </Router>
                 <div className="container-  select-semester">

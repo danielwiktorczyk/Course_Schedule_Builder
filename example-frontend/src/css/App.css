@@ -57,7 +57,7 @@ button, input, optgroup, select, textarea {
 .card-signin {
   text-align: center;
   border-radius: 1rem;
-  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.5);
   border-color: #28074D !important;
   border-width: 2px;
 }
@@ -327,11 +327,11 @@ a{
 }
 div#inside {
   position: relative;
-  top: 105px;
+  top: 95px;
   border-color: black !important;
 }
 .center- {
-  width: 53.5% !important;
+  width: 52.5% !important;
   padding: 36px 0 36px 0;
   text-align: center;
 }
@@ -358,14 +358,21 @@ img.logo {
   width: 30%;
 }
 .fix-sign-up {
-  margin-left: 14px;
+  margin-left: 12px;
   margin-top: 20px;
   position: relative;
-  left: 113px;
-  width: 28%;
+  left: 95px;
+  width: 30%;
 }
 .col-new{
   position: relative;
   left: 115px;
 max-width: 90%;
+}
+p.theList {
+  left: 26px;
+  width: 96%;
+}
+form.form-elements {
+  text-align: left;
 }

@@ -59,7 +59,7 @@ class SelectCourse extends Component {
     render(){
         return (
             <div>
-                <Router ClassName="header-fix">
+                <Router>
                     <Header />
                 </Router>
             <div className="container- s-course">

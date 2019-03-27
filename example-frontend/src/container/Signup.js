@@ -88,7 +88,7 @@ class Signup extends Component {
                 <div >
                     <img className="sign-up-logo " src={require("../assets/SOEN-LOGO.JPG")} alt="SOEN SCHEDULER BUILDER"/>
                 </div>
-                <form onSubmit={this.handleSubmit}>
+                <form className="form-elements" onSubmit={this.handleSubmit}>
                     <div>
                         <div className="row">
                             <div><div className="col-6 col-new"><label>First Name:</label></div><input className="col-6 col-new"  type="text" name="firstname" id={'firstname'}  value={this.state.firstname} onChange={this.handleFirstNameChange} /></div>

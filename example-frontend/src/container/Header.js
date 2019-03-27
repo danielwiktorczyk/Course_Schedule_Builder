@@ -13,15 +13,16 @@ class Header extends Component {
         // this.logout = this.logout.bind(this);
 
     }
-
     goToMyProfile() {
         let path = '/MyProfile';
         this.props.history.push(path);
+        window.location.reload();
     }
 
     goToSchedule(){
         let path = '/ViewMySchedule';
         this.props.history.push(path);
+        window.location.reload();
 
     }
     //TODO: this logout function should be reviewed after it has been defined in BE
@@ -43,6 +44,7 @@ class Header extends Component {
     //         alert("Server rejected response: " + err);
     //     });
     // }
+
     render(){
         return (
             <div className="header">
