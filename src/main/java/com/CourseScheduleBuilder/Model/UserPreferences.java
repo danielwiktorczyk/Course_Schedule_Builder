@@ -70,6 +70,19 @@ public class UserPreferences {
     }
 
     /*
+    puts day booleans in an array for direct comparison with course booleans
+     */
+    public boolean[] getPreferenceDays(){
+        boolean[] prefDays = new boolean[5];
+        prefDays[0] = monday;
+        prefDays[1] = tuesday;
+        prefDays[2] = wednesday;
+        prefDays[3] = thursday;
+        prefDays[4] = friday;
+        return prefDays;
+    }
+
+    /*
         method that checks day boolean attributes and returns the day as a string
          */
     public String getDay(){
