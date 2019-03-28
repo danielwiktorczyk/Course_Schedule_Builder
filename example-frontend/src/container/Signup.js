@@ -96,7 +96,7 @@ class Signup extends Component {
                             <div><div className="col-6 col-new"><label>Last Name:</label></div><input className="col-6 col-new" type="text" name="lastname" id={'lastname'} value={this.state.lastname} onChange={this.handleLastNameChange} /></div>
                         </div>
                             <div className="row">
-                                <div><div><label className="col-6 col-new">User Name:</label></div><input className="col-6 col-new"  type="text" name="username" id={'username'}  value={this.state.username} onChange={this.handleUserNameChange} /></div>
+                                <div><div><label className="col-6 col-new">Username:</label></div><input className="col-6 col-new"  type="text" name="username" id={'username'}  value={this.state.username} onChange={this.handleUserNameChange} /></div>
                                 <div><div><label className="col-6 col-new">Email:</label></div><input className="col-6 col-new" type="text" name="email" id={'email'} value={this.state.email} onChange={this.handleEmailChange}/></div>
                             </div>
                         <div className="row">
@@ -116,7 +116,7 @@ class Signup extends Component {
     register() {
         let firstName;
         let lastName;
-        let userName;
+        let username;
         let email;
         let pass;
         let confirmPass;
@@ -138,7 +138,7 @@ class Signup extends Component {
         }
         element = document.getElementById('username');
         if (element != null) {
-            userName = element.value;
+            username = element.value;
         }
         else {
             alert("Please enter your user name"); //login returns false
@@ -170,7 +170,7 @@ class Signup extends Component {
         axios.post('http://localhost:8080/registration', {
             firstName: firstName,
             lastName: lastName,
-            username: userName,
+            username: username,
             email: email,
             password: pass
         }).then(res => {

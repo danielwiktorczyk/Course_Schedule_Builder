@@ -15,22 +15,15 @@ public class User {
     private Integer id;
     private String firstName;
     private String lastName;
-    private String userName;
+    private String username;
     private String email;
     private String password;
     private boolean EWT;
+    private Schedule fallSchedule;
+    private Schedule winterSchedule;
+    private Schedule summerSchedule;
     private ArrayList<String> prereqs = new ArrayList<>();
 
-    public User(String firstName, String lastName, String userName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-    }
-
-    public User() {
-    }
 
     public Integer getId() {
         return id;
@@ -99,12 +92,39 @@ public class User {
                 '}';
     }
 
+    public Schedule getFallSchedule() {
+        return fallSchedule;
+    }
+
+    public void setFallSchedule(Schedule fallSchedule) {
+        this.fallSchedule = fallSchedule;
+    }
+
+    public Schedule getWinterSchedule() {
+        return winterSchedule;
+    }
+
+    public void setWinterSchedule(Schedule winterSchedule) {
+        this.winterSchedule = winterSchedule;
+    }
+
+    public Schedule getSummerSchedule() {
+        return summerSchedule;
+    }
+
+    public void setSummerSchedule(Schedule summerSchedule) {
+        this.summerSchedule = summerSchedule;
+    }
+
+    public void setPrereqs(ArrayList<String> prereqs) {
+        this.prereqs = prereqs;
+    }
 
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     public void setUsername(String username) {
-        this.userName = username;
+        this.username = username;
     }
 }

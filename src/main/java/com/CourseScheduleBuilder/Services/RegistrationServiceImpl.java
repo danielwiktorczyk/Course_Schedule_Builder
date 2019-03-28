@@ -12,7 +12,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     private UserRepo userrepo;
 
     public boolean validateAndRegisterNewUserRequest(User user){
-        if (userrepo.findByUserName(user.getUsername()) == null ){
+        if (userrepo.findByUsername(user.getUsername()) == null ){
             user.setEWT(false);
             userrepo.save(user);
             return true;
