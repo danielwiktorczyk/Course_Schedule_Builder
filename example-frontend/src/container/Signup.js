@@ -102,7 +102,7 @@ class Signup extends Component {
         var email;
         var pass;
         var element;
-        element = document.getElementById('firstname');
+        element = document.getElementById('firstname').value;
         if (element != null) {
             firstName = element.value;
         }
