@@ -22,13 +22,33 @@ public class ScheduleBuilderController {
         return true;
         // using scheduleBuilder here for logic
     }
-    @PostMapping("/addCourseToWishList")
+    @PostMapping("/addCourseToWishListFall")
 
     @CrossOrigin
     @ResponseBody
-    public boolean addCourseToWishList(@RequestBody String courses)
+    public boolean addCourseToWishListFall(@RequestBody String courses)
     {
-        scheduleBuilderService.generateSchedules(courses);
+        scheduleBuilderService.generateSchedules(courses,"Fall");
+        return true;
+    }
+
+    @PostMapping("/addCourseToWishListWinter")
+
+    @CrossOrigin
+    @ResponseBody
+    public boolean addCourseToWishListWinter(@RequestBody String courses)
+    {
+        scheduleBuilderService.generateSchedules(courses,"Winter");
+        return true;
+    }
+
+    @PostMapping("/addCourseToWishListSummer")
+
+    @CrossOrigin
+    @ResponseBody
+    public boolean addCourseToWishListSummer(@RequestBody String courses)
+    {
+        scheduleBuilderService.generateSchedules(courses,"Summer");
         return true;
     }
 
@@ -37,7 +57,9 @@ public class ScheduleBuilderController {
     @ResponseBody
     public Schedule generateSchedule()
     {
-        return scheduleBuilderService.generateAndShowFirstSchedule();
+        Schedule returnSchedule = scheduleBuilderService.generateAndShowFirstSchedule();
+        returnSchedule.adjustLength();
+        return returnSchedule;
 
     }
     @PostMapping("/next")
@@ -45,7 +67,9 @@ public class ScheduleBuilderController {
     @ResponseBody
     public Schedule nextSchedule()
     {
-        return scheduleBuilderService.nextSchedule();
+        Schedule returnSchedule = scheduleBuilderService.nextSchedule();
+        returnSchedule.adjustLength();
+        return returnSchedule;
 
     }
     @PostMapping("/previous")
@@ -53,7 +77,9 @@ public class ScheduleBuilderController {
     @ResponseBody
     public Schedule previousSchedule()
     {
-        return scheduleBuilderService.previousSchedule();
+        Schedule returnSchedule = scheduleBuilderService.previousSchedule();
+        returnSchedule.adjustLength();
+        return returnSchedule;
 
     }
 

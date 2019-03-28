@@ -59,14 +59,14 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         return user;
     }
 
-    public void generateSchedules(String courseName){
+    public void generateSchedules(String courseName,String semester){
         scheduleCount = 0;
         long startTime = System.nanoTime(); //Following this line, a list of possible lectures and one of tutorials are obtained
-        List<Course> lectureList = courseRepo.findByNameAndComponentAndTerm(courseName,"LEC","Fall");
-        List<Course> tutorialList = courseRepo.findByNameAndComponentAndTerm(courseName,"TUT","Fall");
+        List<Course> lectureList = courseRepo.findByNameAndComponentAndTerm(courseName,"LEC",semester);
+        List<Course> tutorialList = courseRepo.findByNameAndComponentAndTerm(courseName,"TUT",semester);
         List<Course> labList = new ArrayList();
         if (lectureList.get(0).getLabRequired().equals("TRUE")) { //If there is a lab, a list of labs is obtained.
-            labList = courseRepo.findByNameAndComponentAndTerm(courseName, "LAB", "Fall");
+            labList = courseRepo.findByNameAndComponentAndTerm(courseName, "LAB", semester);
         }
         /*
         On this next line, the lectures, tutorials and labs are combined into all valid groupings and returned as a single list.

@@ -65,7 +65,7 @@ public class ScheduleBuilderServiceImplTest {
 
     @Test
     public void generateSchedule() {
-        scheduleBuilderService.generateSchedules(courseA);
+        scheduleBuilderService.generateSchedules(courseA,"Fall");
     }
 
     @Test
