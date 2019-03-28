@@ -18,7 +18,6 @@ public class RegistrationController {
     @CrossOrigin
     @ResponseBody
     public boolean validateAndRegisterNewUserRequest(@RequestBody User user){
-
         return registrationService.validateAndRegisterNewUserRequest(user);
 
 

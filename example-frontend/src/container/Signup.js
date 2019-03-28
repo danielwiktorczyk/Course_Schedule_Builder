@@ -121,7 +121,7 @@ class Signup extends Component {
         let pass;
         let confirmPass;
         let element;
-        element = document.getElementById('firstname').value;
+        element = document.getElementById('firstname');
         if (element != null) {
             firstName = element.value;
         }
@@ -136,7 +136,7 @@ class Signup extends Component {
             lastName = null;
             alert("Please enter your last name");
         }
-        element = document.getElementById('email');
+        element = document.getElementById('username');
         if (element != null) {
             userName = element.value;
         }
@@ -170,7 +170,7 @@ class Signup extends Component {
         axios.post('http://localhost:8080/registration', {
             firstName: firstName,
             lastName: lastName,
-            userName: userName,
+            username: userName,
             email: email,
             password: pass
         }).then(res => {

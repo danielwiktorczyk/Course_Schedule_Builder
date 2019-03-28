@@ -15,11 +15,22 @@ public class User {
     private Integer id;
     private String firstName;
     private String lastName;
-    private String username;
+    private String userName;
     private String email;
     private String password;
     private boolean EWT;
     private ArrayList<String> prereqs = new ArrayList<>();
+
+    public User(String firstName, String lastName, String userName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User() {
+    }
 
     public Integer getId() {
         return id;
@@ -90,10 +101,10 @@ public class User {
 
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.userName = username;
     }
 }

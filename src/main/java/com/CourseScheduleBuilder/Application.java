@@ -77,7 +77,7 @@ public class Application implements CommandLineRunner {
         User resultUser = userRepo.findByFirstName("Moataz");
         LOG.info("User found by name : " + resultUser.toString());
 
-        List<User> results = userRepo.findByUsernameAndPassword("SuperMan@live.com", "20BONUSPOINTS");
+        List<User> results = userRepo.findByUserNameAndPassword("SuperMan@live.com", "20BONUSPOINTS");
 
         for (User User : results) {
             LOG.info("Matching results are : " + User.toString());
