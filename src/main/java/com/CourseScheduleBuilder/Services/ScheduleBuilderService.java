@@ -9,4 +9,5 @@ public interface ScheduleBuilderService {
     public Schedule generateAndShowFirstSchedule();
     public Schedule nextSchedule();
     public Schedule previousSchedule();
+    public boolean enroll(String semester);
 }

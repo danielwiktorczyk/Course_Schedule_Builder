@@ -82,6 +82,30 @@ public class ScheduleBuilderController {
         return returnSchedule;
 
     }
+    @PostMapping("/enrollFall")
+    @CrossOrigin
+    @ResponseBody
+    public boolean enrollFall()
+    {
+        return scheduleBuilderService.enroll("Fall");
+
+    }
+    @PostMapping("/enrollWinter")
+    @CrossOrigin
+    @ResponseBody
+    public boolean enroleWinter()
+    {
+        return scheduleBuilderService.enroll("Winter");
+
+    }
+    @PostMapping("/enrollSummer")
+    @CrossOrigin
+    @ResponseBody
+    public boolean enrollSummer()
+    {
+        return scheduleBuilderService.enroll("Summer");
+
+    }
 
 
 

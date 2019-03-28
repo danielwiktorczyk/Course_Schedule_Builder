@@ -54,7 +54,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
         loginUser = login.findByUser("user");
 
-       user = userRepo.findByUsername(loginUser.getEmail());
+       user = userRepo.findByUsername(loginUser.getUsername());
 
         return user;
     }
@@ -257,6 +257,21 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             }
         }
         return false;
+    }
+
+    public boolean enroll(String semester){
+        User user = retriveUserInfo();
+        if (user == null)
+            return false;
+        if (semester.equals("Fall")) {
+            user.setFallSchedule(savedSchedules[scheduleCount]);
+            userRepo.saveAndFlush(user);
+        }
+        if (semester.equals("Winter"))
+            user.setWinterSchedule(savedSchedules[scheduleCount]);
+        if (semester.equals("Summer"))
+            user.setSummerSchedule(savedSchedules[scheduleCount]);
+        return true;
     }
 
 }
