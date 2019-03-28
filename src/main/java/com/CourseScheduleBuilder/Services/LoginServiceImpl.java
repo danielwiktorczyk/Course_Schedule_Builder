@@ -1,7 +1,9 @@
 package com.CourseScheduleBuilder.Services;
 
 import com.CourseScheduleBuilder.Model.UserFromFrontEnd;
+import com.CourseScheduleBuilder.Model.loggedInUser;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
+import com.CourseScheduleBuilder.Repositories.loggedInUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired //needed to point to the same repo database
     private UserRepo userrepo;
+    @Autowired //needed to point to the same repo database
+    private loggedInUserRepo loggedInUser;
 
     @Override
     public boolean loginUser(UserFromFrontEnd user) {
@@ -17,6 +21,7 @@ public class LoginServiceImpl implements LoginService {
             return false;
         }
         if (userrepo.findByEmail(user.getUsername()).getPassword().equals(user.getPassword())){
+            loggedInUser.save(new loggedInUser(user.getUsername()));
             return true;
         }
         else {
