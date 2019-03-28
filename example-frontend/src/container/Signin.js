@@ -33,7 +33,7 @@ class Signin extends Component {
     this.props.history.push(path);
   }
 
-  handlnameChange = evt => {
+  handleNameChange = evt => {
     this.setState({ name: evt.target.value });
   };
 
@@ -56,8 +56,6 @@ class Signin extends Component {
     return !isDisabled;
   }
 
-
-//
   render(){
     const errors = validate(this.state.name, this.state.password);
     const isDisabled = Object.keys(errors).some(x => errors[x]);
@@ -65,12 +63,12 @@ class Signin extends Component {
 
         <div className="container center card-signup" id="inside">
           <div >
-            <img className="logo" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/>
+            <img className="logo" src={require("../assets/SOEN-LOGO.JPG")} alt="SOEN SCHEDULER BUILDER"/>
           </div>
           <form onSubmit={this.handleSubmit}>
 
               <div className="row">
-                <div> <label className="col-12">User Name:<input className="col-12" type="text" name="name" id={'user'} value={this.state.name} onChange={this.handlnameChange} /></label></div>
+                <div> <label className="col-12">User Name:<input className="col-12" type="text" name="name" id={'user'} value={this.state.name} onChange={this.handleNameChange} /></label></div>
                 <div> <label className="col-12">Password:<input className="col-12" type="password" name="password" id={'pass'} value={this.state.password} onChange={this.handlePasswordChange}  /></label></div>
               </div>
 
@@ -82,9 +80,9 @@ class Signin extends Component {
   }
 
   login() {
-    var name;
-    var pass;
-    var element;
+    let name;
+    let pass;
+    let element;
     element = document.getElementById('user');
     if (element != null) {
       name = element.value;
@@ -100,7 +98,6 @@ class Signin extends Component {
       pass = null;
     }
 
-
     // alert(name +" " + pass);
     axios.post('http://localhost:8080/login', {
       username: name,
@@ -109,7 +106,7 @@ class Signin extends Component {
       //   alert("Received Successful response from server!");
       this.setState({loggedIn: res.data});
       if (this.state.loggedIn === true) {
-        alert("logged in"); // login returns true
+        //alert("logged in"); // login returns true
         this.props.history.push("/SelectSemester");
       }
       else
