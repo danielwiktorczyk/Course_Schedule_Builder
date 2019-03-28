@@ -4,6 +4,7 @@ import com.CourseScheduleBuilder.Model.Schedule;
 import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
+import org.h2.tools.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.List;
 
 @SpringBootApplication
@@ -83,5 +87,35 @@ public class Application implements CommandLineRunner {
             LOG.info("Matching results are : " + User.toString());
         }
 
+
+        /**
+         * This will create the h2 databse server, then start it
+         * then it will execute a few SQL commands and load the csv file
+         * YOU HAVE TO ADD THE MODULE OF H2 //TODO TODO  but only once
+         * 3 - File -> Project structure -> libraries
+         * 4 - click on  the '+' above all the maven libraries and click on Java
+         * 5 - It is in the Modules directory ( [..]/Course_Schedule_Builder/Modules/ )
+         */
+        try {
+            Server server = Server.createTcpServer(args).start();
+            server = Server.createTcpServer("-tcpAllowOthers").start();
+            Class.forName("org.h2.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/DB", "sa", "");
+
+
+            Statement statement = conn.createStatement();
+            statement.execute("DROP TABLE COURSE");
+            statement.execute("CREATE TABLE COURSE AS SELECT * FROM CSVREAD('./Course_Database_Table.csv')");
+            statement.close();
+
+            conn.close();
+            server.stop();
+        } catch (Exception e) {
+            System.out.println("Something wrong with starting h2");
+            e.printStackTrace();
+        }
+
+
     }
+
 }
