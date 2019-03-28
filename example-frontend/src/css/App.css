@@ -376,3 +376,32 @@ p.theList {
 form.form-elements {
   text-align: left;
 }
+.adjust-item {
+  width: 97% !important;
+  padding: 21px 0 36px 0;
+}
+div#student{
+position: relative;
+top: 25px;
+border-color: black !important;
+}
+.student-profile{
+  border-radius: 1rem;
+  -webkit-box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.5);
+  border-color: #28074D !important;
+  border-width: 2px;
+}
+img.student-profile-logo {
+  width: 35%;
+  padding: 20px;
+}
+.myProfile {
+  padding: 0 2rem;
+}
+.student-img {
+  height: 100%;
+}
+.myProfile-inner {
+  padding-top: 24px;
+}
