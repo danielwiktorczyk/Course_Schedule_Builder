@@ -1,6 +1,9 @@
-.App {
-  text-align: center;
-}
+/*color originally used for website was #A52A2A, in case we wanna change it back*/
+/*on hover the color previously chosen was Maroon*/
+
+/*.App {*/
+  /*text-align: center;*/
+/*}*/
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -27,17 +30,13 @@
   to { transform: rotate(360deg); }
 }
 .center {
-  width: 42% !important;
-  border: 7px solid green;
+  width: 36% !important;
   padding: 73px 57px 75px 63px;
-  margin: 79px 47px 150px 310px;
   text-align: center;
 }
 .center- {
   width: 42% !important;
-  border: 7px solid green;
   padding: 50px 126px 51px 93px;
-  margin: 70px 0 31px 306px;
   text-align: center;
 }
 button, input, optgroup, select, textarea {
@@ -51,16 +50,15 @@ button, input, optgroup, select, textarea {
   margin-left: 12px;
 }
 #container{
-  color : black;
-  /*background-color: #C9C7F2;*/
+  color : #010101;
 
 }
 .card-signup,
 .card-signin {
   text-align: center;
   border-radius: 1rem;
-  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
-  border-color: darkred;
+  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.5);
+  border-color: #28074D !important;
   border-width: 2px;
 }
 .card-signup .card-title,
@@ -77,29 +75,25 @@ input.col-6,
 input.col-12 {
   border-radius: 10px;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
-  border-color: darkred;
+  border-color: #28074D;
   border-width: 1px;
   padding: 9px;
   margin: 0 0 19px 0;
   text-transform: uppercase;
-  color: darkred;
+  color: #010101;
 }
 
 .btn-home-log{
   color: white !important;
   text-transform: uppercase !important;
-  background-color: darkred !important;
-  border-color:darkred !important;
+  background-color: #010101 !important;
+  border-color:#28074D !important;
   border-radius: 10px !important;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
   padding: 10px;
   margin: 10px;
   width: 93%;
 }
-/*.container.center.card-signin {*/
-  /*max-width: 15rem;*/
-  /*height: 28rem;*/
-/*}*/
 
 .container.select-semester {
   padding-top: 10rem;
@@ -108,13 +102,9 @@ input.col-12 {
 img.ScheduleGen {
   padding-bottom: 100px;
 }
-.ScheduleGen-{
-  padding-bottom: 100px;
-  padding-top: 100px;
-}
 hr{
-  color: darkred;
-  background-color: darkred;
+  color: #28074D;
+  background-color: #28074D;
 }
 .select-semester-button{
   padding-top: 1rem;
@@ -128,7 +118,7 @@ div.selected-courses,
 input.col-8.course-name {
   border-radius: 10px;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
-  border-color: darkred;
+  border-color: #28074D;
   border-width: 1px;
   padding: 9px;
   margin: 0 0 19px 0;
@@ -138,7 +128,7 @@ input.col-8.course-name {
 }
 .theList,
 div.selected-courses{
-  border-color: darkred;
+  border-color: #28074D;
 }
 button.col-3.btn.btn-home-log {
   position: relative;
@@ -147,21 +137,16 @@ button.col-3.btn.btn-home-log {
   height: 3rem;
 }
 .register{
-  color: darkred;
+  color: #010101;
 }
 .reg{
   padding-top: 20px;
 }
 .logo{
-  position: relative;
-  left: -40px;
-}
-headerStyle:hover,
-.headerStyle{
-  background: darkred;
-  color: #fff;
-  textAlign: center;
-  padding: 10px;
+  /*position: relative;*/
+  /*left: -40px;*/
+  width: 100%;
+
 }
 
 .linkStyle,
@@ -181,4 +166,213 @@ headerStyle:hover,
 }
 .s-course{
   padding-bottom: 5rem;
+}
+.close {
+  width: 32px;
+  -webkit-box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
+  opacity: 1;
+
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 20px;
+  width: 2px;
+  background-color: #010101;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
+button.close {
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.row:focus,
+input:focus,
+.btn:focus {
+  outline: 0;
+   box-shadow: 0 0 0 0 rgba(0,0,0,0);
+}
+
+button.btn.btn-home-log:hover {
+  background-color: #28074D !important;
+}
+.table td, .table th {
+  padding: 0;
+  margin: 0;
+
+}
+table {
+  border-collapse: collapse;
+  font-size: 10px;
+  /*border: 1px solid #010101;*/
+
+}
+.table.possible{
+  width: 50%;
+  float: right;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+.logo- {
+  position: relative;
+  left: 0;
+}
+.table {
+   margin-bottom: 0;
+}
+button.col-2.btn.btn-home-log {
+  margin: 10px 37px 10px 37px;
+}
+.header {
+  overflow: hidden;
+  height: 49px;
+  background-color: #010101;
+}
+.header a {
+  float: left;
+  color: #ffffff !important;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+}
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+.footer a:hover,
+.header a:hover {
+  background-color: #28074D;
+}
+h1{
+  margin: 20px 0;
+}
+.header-right {
+  float: right;
+}
+.header-left{
+  float: left;
+}
+.ScheduleGen- {
+  padding: 100px 0 50px 0;
+}
+p:empty {
+  width: 100%;
+  height: 49px;
+  background: #010101;
+  margin: 0;
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #010101;
+  color: white;
+  height: 51px;
+  padding-top: 13px;
+  text-align: center;
+}
+.footer a{
+  color: #ffffff !important;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 24px;
+  border-radius: 4px;
+}
+.header-buttons:hover{
+
+  background-color: #28074D !important;
+}
+
+.header-buttons{
+  color: white !important;
+  text-transform: uppercase !important;
+  background-color: #010101 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.aboutTeam{
+  position: relative;
+  top: 50px;
+
+}
+a{
+  cursor: pointer;
+}
+div#inside {
+  position: relative;
+  top: 95px;
+  border-color: black !important;
+}
+.center- {
+  width: 52.5% !important;
+  padding: 36px 0 36px 0;
+  text-align: center;
+}
+
+.adjust-h2{
+  padding-left: 25px;
+
+}
+.select-semester-options{
+  left: 16px !important;
+
+}
+.about-us-img{
+  text-align: center;
+}
+img.logo {
+  margin-bottom: 30px;
+}
+.sign-up-logo{
+  width: 50%;
+  margin-bottom: 30px;
+}
+.logo-select-sem{
+  width: 30%;
+}
+.fix-sign-up {
+  margin-left: 12px;
+  margin-top: 20px;
+  position: relative;
+  left: 95px;
+  width: 30%;
+}
+.col-new{
+  position: relative;
+  left: 115px;
+max-width: 90%;
+}
+p.theList {
+  left: 26px;
+  width: 96%;
+}
+form.form-elements {
+  text-align: left;
 }
