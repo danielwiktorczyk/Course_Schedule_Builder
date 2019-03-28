@@ -54,7 +54,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
         loginUser = login.findByUser("user");
 
-       user = userRepo.findByEmail(loginUser.getEmail());
+       user = userRepo.findByUsername(loginUser.getEmail());
 
         return user;
     }

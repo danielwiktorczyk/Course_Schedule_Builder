@@ -162,7 +162,7 @@ class Signup extends Component {
             confirmPass = element.value;
         }
         else {
-            alert("Please re-enter your password confirmation");
+            alert("Passwords do not match, please re-enter your passwords");
             return false;
         }
 
@@ -172,7 +172,6 @@ class Signup extends Component {
             lastName: lastName,
             userName: userName,
             email: email,
-            confirmPass: confirmPass,
             password: pass
         }).then(res => {
             //   alert("Received Successful response from server!");
