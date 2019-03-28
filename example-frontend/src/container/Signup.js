@@ -104,8 +104,8 @@ class Signup extends Component {
                         </div>
                     </div>
                     <div className="row">
-                        <button disabled={isDisabled} className="fix-sign-up btn btn-home-log" type="button" value="Submit" onClick={this.register}>Sign up</button>
                         <button className="fix-sign-up btn btn-home-log" type="button" value="Submit" onClick={this.routeChange}>Already a member</button>
+                        <button disabled={isDisabled} className="fix-sign-up btn btn-home-log" type="button" value="Submit" onClick={this.register}>Sign up</button>
                     </div>
                 </form>
             </div>
