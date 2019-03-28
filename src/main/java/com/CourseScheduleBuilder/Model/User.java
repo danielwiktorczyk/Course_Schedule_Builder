@@ -19,7 +19,13 @@ public class User {
     private String email;
     private String password;
     private boolean EWT;
+
+//    private Schedule fallSchedule = new Schedule();
+//    private Schedule winterSchedule = new Schedule();
+//    private Schedule summerSchedule = new Schedule();
+//
     private ArrayList<String> prereqs = new ArrayList<>();
+
 
     public Integer getId() {
         return id;
