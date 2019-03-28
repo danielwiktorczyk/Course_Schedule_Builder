@@ -4,6 +4,7 @@ import axios from 'axios';
 import {withRouter} from "react-router-dom";
 
 function validate(firstname, lastname, username, email, pass) {
+
     // true means invalid, so our conditions got reversed
     return {
         firstname: firstname.length === 0,
@@ -135,7 +136,7 @@ class Signup extends Component {
             lastName = null;
             alert("Please enter your last name");
         }
-        element = document.getElementById('username');
+        element = document.getElementById('email');
         if (element != null) {
             userName = element.value;
         }
