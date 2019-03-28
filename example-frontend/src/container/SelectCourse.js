@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import AddedCourseList from "./AddedCourseList";
-import {withRouter} from "react-router-dom";
+import {BrowserRouter as Router, withRouter} from "react-router-dom";
+import Header from "./Header";
 
 
 class SelectCourse extends Component {
@@ -10,6 +11,7 @@ class SelectCourse extends Component {
         super(props);
         this.state = {loggedIn: true};
         this.routeChange = this.routeChange.bind(this);
+        this.generateSchedule = this.generateSchedule.bind(this);
         this.addItem = this.addItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.state = {
@@ -21,9 +23,13 @@ class SelectCourse extends Component {
         let path = '/SelectSemester';
         this.props.history.push(path);
     }
+    generateSchedule() {
+        let path = '/PossibleSchedules';
+        this.props.history.push(path);
+    }
 
     deleteItem(key) {
-        var filteredItems = this.state.items.filter(function (item) {
+        let filteredItems = this.state.items.filter(function (item) {
             return (item.key !== key);
         });
 
@@ -34,7 +40,7 @@ class SelectCourse extends Component {
 
     addItem(e) {
         if (this._inputElement.value !== "") {
-            var newItem = {
+            let newItem = {
                 text: this._inputElement.value,
                 key: Date.now()
             };
@@ -48,19 +54,20 @@ class SelectCourse extends Component {
             this._inputElement.value = "";
             e.preventDefault();
         }
+
     }
-
-
     render(){
         return (
-            <div className="container s-course">
+            <div>
+                <Router>
+                    <Header />
+                </Router>
+            <div className="container- s-course">
 
                 <div >
-                    <a href="#"><img  className="ScheduleGen-" src={require("../assets/SOEN.jpg")} alt="SOEN SCHEDULER BUILDER"/></a>
+                    <img  className="ScheduleGen- logo-select-sem" src={require("../assets/SOEN-LOGO.JPG")} alt="SOEN SCHEDULER BUILDER"/>
                 </div>
-                <h1>COURSE SELECTION</h1><hr/>
-
-                <h2>Please enter Course number</h2><hr/>
+                <hr/><h2 className="adjust-h2">COURSE SELECTION</h2><hr/>
 
                 <div>
                 <form onSubmit={this.addItem}>
@@ -72,19 +79,11 @@ class SelectCourse extends Component {
                 <AddedCourseList entries={this.state.items}  delete={this.deleteItem}/>
                 </div>
 
-
-                {/*<br /><br />*/}
-                {/*<h3>Selected Courses:</h3>*/}
-                {/*<div className="selected-courses">*/}
-                    {/*<p>T0-do: display user input here: (classes/sections)</p>*/}
-                {/*</div>*/}
-
                 <div>
-                    <button className="col-3 btn btn-home-log">GENERATE</button>
-                    <button className="col-3 btn btn-home-log" onClick={this.routeChange}>CHANGE SEMESTER</button>
+                    <button className="col-3 btn btn-home-log select-semester-options" onClick={this.generateSchedule}>GENERATE</button>
+                    <button className="col-3 btn btn-home-log select-semester-options" onClick={this.routeChange}>CHANGE SEMESTER</button>
                 </div>
-
-
+            </div>
             </div>
         );
     }
