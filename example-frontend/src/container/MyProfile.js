@@ -14,8 +14,8 @@ class MyProfile extends Component {
 
     }
     getUserInfo(){
-        let userName= signin.name;
-        return userName;
+        let username= signin.name;
+        return username;
     }
 
     render(){

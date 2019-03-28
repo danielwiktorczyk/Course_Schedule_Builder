@@ -12,14 +12,14 @@ public class RegistrationServiceImpl implements RegistrationService {
     private UserRepo userrepo;
 
     public boolean validateAndRegisterNewUserRequest(User user){
-        if (userrepo.findByEmail(user.getEmail()) == null ){
+        if (userrepo.findByUsername(user.getUsername()) == null ){
             user.setEWT(false);
             userrepo.save(user);
             return true;
         }
         else {
             System.out.println("DUPLICATE ACCOUNT CREATION ATTEMPTED");
-            System.out.println(user.getEmail());
+            System.out.println(user.getUsername());
             return false;
         }
 
