@@ -31,87 +31,6 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         this.preferences = preferences;
     }
 
-    /*
-    This method provides a way of verifying the courses in the schedule against the users preferences
-    if a conflict is found, the trio in conflict is removed from the courseList.
-    The updated courseList id returnrd
-     */
-// TODO: 2019-03-28 need to call this method before schedule generation results are returned 
-    public List<CourseTrio> checkPreferences(List<CourseTrio> courseList) {
-        Iterator<CourseTrio> itCourse = courseList.iterator();
-        List<UserPreferences> preferenceList = userPreferencesService.getUserPreferences();
-        Iterator<UserPreferences> itPrefs = preferenceList.iterator();
-
-        while (itPrefs.hasNext()) {
-            UserPreferences prefToVerify = itPrefs.next();
-            boolean[] prefDays = prefToVerify.getPreferenceDays();
-
-            while (itCourse.hasNext()) {
-                CourseTrio trioToVerify = itCourse.next();
-                Course[] trioComponents;
-                if (trioToVerify.isHasLab()) {
-                    trioComponents = new Course[3];
-                } else {
-                    trioComponents = new Course[2];
-                }
-                trioComponents[0] = trioToVerify.getLecture();
-                trioComponents[1] = trioToVerify.getTutorial();
-                if (trioToVerify.isHasLab()) {
-                    trioComponents[2] = trioToVerify.getLab();
-                }
-
-                for (int i = 0; i < trioComponents.length; i++) {
-                    boolean[] courseDays = trioComponents[i].getClassDays();
-                    if (prefDays[0] == courseDays[0] && prefDays[1] == courseDays[1] && prefDays[2] == courseDays[2] && prefDays[3] == courseDays[3] && prefDays[4] == courseDays[4]) {
-                        //course begins before or at the same time as pref and ends after or at the same time as the pref
-                        if (trioComponents[i].getStartTime() <= prefToVerify.getStartTime() && trioComponents[i].getEndTime() >= prefToVerify.getEndTime()) {
-                            courseList.remove(trioToVerify);
-                            break;
-                        }
-                        //course starts after pref starts but before it ends
-                        else if (trioComponents[i].getStartTime() > prefToVerify.getStartTime() && prefToVerify.getEndTime() > trioComponents[i].getStartTime()) {
-                            courseList.remove(trioToVerify);
-                            break;
-                        }
-                        //course starts before pref starts but ends after it starts
-                        else if (trioComponents[i].getStartTime() < prefToVerify.getStartTime() && prefToVerify.getStartTime() < trioComponents[i].getEndTime()) {
-                            courseList.remove(trioToVerify);
-                            break;
-                        }
-                        //course starts after pref starts and ends before pref ends
-                        else if (trioComponents[i].getStartTime() > prefToVerify.getStartTime() && prefToVerify.getEndTime() > trioComponents[i].getEndTime()) {
-                            courseList.remove(trioToVerify);
-                            break;
-                        }
-
-                    }
-                }
-            }
-        }
-        return courseList;
-    }
-
-
-    @Override
-    public boolean validatePrerequisites(String courseToValidate) {
-        User user;
-        ArrayList prereqs;
-
-       Course courseInDB = courseRepo.findByNameAndComponent(courseToValidate,"LEC").get(0);
-       String coursePrereq = courseInDB.getPreReq();
-
-       if(coursePrereq == null)
-            return true;
-       user = retriveUserInfo();
-        prereqs = user.getPrereqs();
-        for (Object prereq : prereqs) {
-            if (coursePrereq.equals(prereq))
-                return true;
-        }
-        return false;
-    }
-
-
     private User retriveUserInfo()
     {
         loggedInUser loginUser;
@@ -119,7 +38,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
         loginUser = login.findByUser("user");
 
-       user = userRepo.findByEmail(loginUser.getEmail());
+       user = userRepo.findByUsername(loginUser.getUsername());
 
         return user;
     }
@@ -323,5 +242,91 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         }
         return false;
     }
+
+    public boolean enroll(String semester){
+        User user = retriveUserInfo();
+        if (user == null)
+            return false;
+        if (semester.equals("Fall")) {
+            user.setFallSchedule(savedSchedules[scheduleCount]);
+            userRepo.saveAndFlush(user);
+        }
+        if (semester.equals("Winter"))
+            user.setWinterSchedule(savedSchedules[scheduleCount]);
+        if (semester.equals("Summer"))
+            user.setSummerSchedule(savedSchedules[scheduleCount]);
+        return true;
+    }
+
+    public void clear()
+    {
+        scheduleCount = 0;
+        savedSchedules = new Schedule[5];
+    }
+    public Schedule seeUserScheduleFall()
+    {
+        User user = retriveUserInfo();
+        return user.getFallSchedule();
+    }
+
+    @Override
+    public boolean validatePrerequisites(String courseToValidate) {
+        User user;
+        user = retriveUserInfo();
+
+        List<String> previouslyTakenCourses = user.getPrereqs();
+
+
+
+        for(int i=0;i<previouslyTakenCourses.size();i++)
+        {
+            List<Course> equivalentCourseList = courseRepo.findByNameAndComponent(previouslyTakenCourses.get(i), "LEC");
+
+            if (equivalentCourseList.size() > 0 && i < equivalentCourseList.size() && equivalentCourseList.get(i).getEquivalent() != null)
+                user.addToPrereqs(equivalentCourseList.get(0).getEquivalent().replaceAll("[ .()]",""));
+        }
+
+        for(int i=0;i<previouslyTakenCourses.size();i++)
+        {
+            System.out.println("User has already taken: "+user.getPrereqs().get(i));
+        }
+
+        Course courseToTake = null;
+        try {
+            courseToTake = courseRepo.findByNameAndComponent(courseToValidate, "LEC").get(0);
+        }catch(Exception e)
+        {
+            System.out.println("Error, course not found in database");
+            return false;
+        }
+        String coursePrereq = courseToTake.getPreReq();
+        if(coursePrereq == null)
+            return true;
+
+        String[] coursePrerequArray = coursePrereq.replaceAll("[ .()]","").split(",");
+
+
+        for (int i = 0; i < coursePrerequArray.length; i++) {
+            System.out.println("The prerequisiste for "+courseToValidate+" is "+coursePrerequArray[i]);
+        }
+        String[] missingPrereq = new String[coursePrerequArray.length];
+        ArrayList<String> missingPrereqList = new ArrayList<>();
+
+        for (int i = 0; i < coursePrerequArray.length; i++) {
+            if(!previouslyTakenCourses.contains(coursePrerequArray[i]))
+                missingPrereqList.add(coursePrerequArray[i]);
+        }
+        if(missingPrereqList.size()>0)
+        {
+            System.out.println("Prerequisistes missing: ");
+            for (int i = 0; i < missingPrereqList.size(); i++) {
+                System.out.println(missingPrereqList.get(i));
+            }
+            return false;
+        }
+
+        return true;
+    }
+
 
 }

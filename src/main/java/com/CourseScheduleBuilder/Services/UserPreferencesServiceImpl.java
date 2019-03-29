@@ -21,6 +21,7 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
     Removes all preferences in the database, needs to be run when the user leaves the schedule builder so the
     preferences start new for each schedule builder session
      */
+    // TODO: 2019-03-29 need a session variable so the preference removal can be triggered 
     public void destroyPreferences(){
         List<UserPreferences> currentPrefs = getUserPreferences();
         for (int i = 0; i < currentPrefs.size(); i++) {

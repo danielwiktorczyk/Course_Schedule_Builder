@@ -1,8 +1,9 @@
 package com.CourseScheduleBuilder.Model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Schedule implements Cloneable{
+public class Schedule implements Cloneable, Serializable {
 
     private CourseTrio[] courses;
     private int size;

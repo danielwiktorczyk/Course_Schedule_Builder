@@ -17,10 +17,10 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public boolean loginUser(UserFromFrontEnd user) {
-        if (userrepo.findByEmail(user.getUsername()) == null){
+        if (userrepo.findByUsername(user.getUsername()) == null){
             return false;
         }
-        if (userrepo.findByEmail(user.getUsername()).getPassword().equals(user.getPassword())){
+        if (userrepo.findByUsername(user.getUsername()).getPassword().equals(user.getPassword())){
             loggedInUser.save(new loggedInUser(user.getUsername()));
             return true;
         }

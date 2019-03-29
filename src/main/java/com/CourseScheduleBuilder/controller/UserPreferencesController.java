@@ -16,7 +16,6 @@ public class UserPreferencesController {
 
     UserPreferences newPreference = new UserPreferences();
 
-    // TODO: 2019-03-22 should point to location of schedule builder
     @PostMapping("/userPreferences")
     @CrossOrigin
     @ResponseBody
