@@ -106,6 +106,9 @@ public class Application implements CommandLineRunner {
             Statement statement = conn.createStatement();
             statement.execute("DROP TABLE COURSE");
             statement.execute("CREATE TABLE COURSE AS SELECT * FROM CSVREAD('./Course_Database_Table.csv')");
+            statement.execute("ALTER TABLE USER ALTER COLUMN FALL_SCHEDULE LONGTEXT");
+            statement.execute("ALTER TABLE USER ALTER COLUMN WINTER_SCHEDULE LONGTEXT");
+            statement.execute("ALTER TABLE USER ALTER COLUMN SUMMER_SCHEDULE LONGTEXT");
             statement.close();
 
             conn.close();

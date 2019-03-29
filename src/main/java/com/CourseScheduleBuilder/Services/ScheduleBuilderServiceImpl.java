@@ -27,25 +27,6 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     }
 
 
-    @Override
-    public boolean validatePrerequisites(String courseToValidate) {
-        User user;
-        ArrayList prereqs;
-
-       Course courseInDB = courseRepo.findByNameAndComponent(courseToValidate,"LEC").get(0);
-       String coursePrereq = courseInDB.getPreReq();
-
-       if(coursePrereq == null)
-            return true;
-       user = retriveUserInfo();
-        prereqs = user.getPrereqs();
-        for (Object prereq : prereqs) {
-            if (coursePrereq.equals(prereq))
-                return true;
-        }
-        return false;
-    }
-
 
     private User retriveUserInfo()
     {
@@ -54,7 +35,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
         loginUser = login.findByUser("user");
 
-       user = userRepo.findByUsername(loginUser.getEmail());
+       user = userRepo.findByUsername(loginUser.getUsername());
 
         return user;
     }
@@ -258,5 +239,91 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         }
         return false;
     }
+
+    public boolean enroll(String semester){
+        User user = retriveUserInfo();
+        if (user == null)
+            return false;
+        if (semester.equals("Fall")) {
+            user.setFallSchedule(savedSchedules[scheduleCount]);
+            userRepo.saveAndFlush(user);
+        }
+        if (semester.equals("Winter"))
+            user.setWinterSchedule(savedSchedules[scheduleCount]);
+        if (semester.equals("Summer"))
+            user.setSummerSchedule(savedSchedules[scheduleCount]);
+        return true;
+    }
+
+    public void clear()
+    {
+        scheduleCount = 0;
+        savedSchedules = new Schedule[5];
+    }
+    public Schedule seeUserScheduleFall()
+    {
+        User user = retriveUserInfo();
+        return user.getFallSchedule();
+    }
+
+    @Override
+    public boolean validatePrerequisites(String courseToValidate) {
+        User user;
+        user = retriveUserInfo();
+
+        List<String> previouslyTakenCourses = user.getPrereqs();
+
+
+
+        for(int i=0;i<previouslyTakenCourses.size();i++)
+        {
+            List<Course> equivalentCourseList = courseRepo.findByNameAndComponent(previouslyTakenCourses.get(i), "LEC");
+
+            if (equivalentCourseList.size() > 0 && i < equivalentCourseList.size() && equivalentCourseList.get(i).getEquivalent() != null)
+                user.addToPrereqs(equivalentCourseList.get(0).getEquivalent().replaceAll("[ .()]",""));
+        }
+
+        for(int i=0;i<previouslyTakenCourses.size();i++)
+        {
+            System.out.println("User has already taken: "+user.getPrereqs().get(i));
+        }
+
+        Course courseToTake = null;
+        try {
+            courseToTake = courseRepo.findByNameAndComponent(courseToValidate, "LEC").get(0);
+        }catch(Exception e)
+        {
+            System.out.println("Error, course not found in database");
+            return false;
+        }
+        String coursePrereq = courseToTake.getPreReq();
+        if(coursePrereq == null)
+            return true;
+
+        String[] coursePrerequArray = coursePrereq.replaceAll("[ .()]","").split(",");
+
+
+        for (int i = 0; i < coursePrerequArray.length; i++) {
+            System.out.println("The prerequisiste for "+courseToValidate+" is "+coursePrerequArray[i]);
+        }
+        String[] missingPrereq = new String[coursePrerequArray.length];
+        ArrayList<String> missingPrereqList = new ArrayList<>();
+
+        for (int i = 0; i < coursePrerequArray.length; i++) {
+            if(!previouslyTakenCourses.contains(coursePrerequArray[i]))
+                missingPrereqList.add(coursePrerequArray[i]);
+        }
+        if(missingPrereqList.size()>0)
+        {
+            System.out.println("Prerequisistes missing: ");
+            for (int i = 0; i < missingPrereqList.size(); i++) {
+                System.out.println(missingPrereqList.get(i));
+            }
+            return false;
+        }
+
+        return true;
+    }
+
 
 }

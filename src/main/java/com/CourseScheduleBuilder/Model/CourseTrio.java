@@ -1,6 +1,8 @@
 package com.CourseScheduleBuilder.Model;
 
-public class CourseTrio implements Cloneable{
+import java.io.Serializable;
+
+public class CourseTrio implements Cloneable, Serializable {
     private Course lecture;
     private Course tutorial;
     private Course lab;
