@@ -354,7 +354,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
         }
         if(success == coReqList.size()) {
-            System.out.println("success");
+            System.out.println("Success");
             return true;
         }
         else
