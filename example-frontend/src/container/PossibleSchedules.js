@@ -87,14 +87,50 @@ class PossibleSchedules extends Component {
                 </Router>
             <div className="container-  select-semester">
                 <div className="container-">
-                    <h1>Possible schedules</h1>
+                    <hr/><h1 className="show-options">Possible schedules</h1>
+                    <div className="row row-for-arrow">
+                        <img className="center-arrows" src={require("../assets/double-left.JPG")} alt="left"/>
+                        <img className="center-arrows" src={require("../assets/left-arrow.JPG")} alt="left"/>
+                        <div className="show-option-num">##</div>
+                        <img className="center-arrows" src={require("../assets/right-arrow.JPG")} alt="right"/>
+                        <img className="center-arrows" src={require("../assets/double-right.JPG")} alt="right"/>
+                    </div>
                     <hr/>
                     <table className=" container table possible table-striped">
                         <tbody className="container">
                         {this.createTable()}
                         </tbody>
                     </table>
-                    <h3>Option #</h3>
+                    <div>
+                        <h3>Option ##</h3>
+
+                        {/*<div className="dropdown">*/}
+                            {/*<a className="btn btn-secondary dropdown-toggle" role="button"*/}
+                               {/*id="dropdownMenuLink" data-toggle="dropdown">*/}
+                                {/*Dropdown link*/}
+                            {/*</a>*/}
+
+                            {/*<div className="dropdown-menu" aria-labelledby="dropdownMenuLink">*/}
+                                {/*<a className="dropdown-item" href="#">Most days off</a>*/}
+                                {/*<a className="dropdown-item" href="#">Online classes</a>*/}
+                                {/*<a className="dropdown-item" href="#">No online classes</a>*/}
+                                {/*<a className="dropdown-item" href="#">Time off campus</a>*/}
+                            {/*</div>*/}
+                        {/*</div>*/}
+
+                        <div className="dropdown">
+                            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                                    data-toggle="dropdown">
+                                Preferences
+                            </button>
+                            <div className="dropdown-menu">
+                                <button className="dropdown-item" type="button">Most days off</button>
+                                <button className="dropdown-item" type="button">Online classes</button>
+                                <button className="dropdown-item" type="button">Time off campus</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             </div>
