@@ -12,4 +12,5 @@ public interface ScheduleBuilderService {
     public boolean enroll(String semester);
     public void clear();
     public Schedule seeUserScheduleFall();
+    public boolean validateCorequisites();
 }
