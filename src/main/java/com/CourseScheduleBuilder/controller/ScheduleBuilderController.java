@@ -30,10 +30,10 @@ public class ScheduleBuilderController {
     {
 
        if(!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
-           return "Prereqs not met";
+           return "Prerequisites not met";
 
         scheduleBuilderService.generateSchedules(courses.getMessage(),"Fall");
-        return "Couse added";
+        return "Course added!";
     }
     @PostMapping("/clear")
     @CrossOrigin
