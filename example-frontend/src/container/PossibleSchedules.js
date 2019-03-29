@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import '../css/App.css';
 import {BrowserRouter as Router, withRouter} from "react-router-dom";
 import Header from "./Header";
+import axios from 'axios';
+
 
 
 class PossibleSchedules extends Component {
     constructor(props) {
         super(props);
         this.state = {loggedIn: true};
+        this.previous = this.previous.bind(this);
+        this.next = this.next.bind(this);
+        this.generate = this.generate.bind(this);
     }
 
     // createTable will be used to show tables with possible sections on the right-hand side of the screen
@@ -24,6 +29,39 @@ class PossibleSchedules extends Component {
     //     }
     //     return options;
     // }
+
+    generate() {
+        axios.post('http://localhost:8080/generate', {
+        }).then(res => {
+            const result = res.data;
+            return result;
+        }, err => {
+            alert("Server rejected response: " + err);
+        });
+
+    }
+
+    next() {
+        axios.post('http://localhost:8080/next', {
+        }).then(res => {
+            const result = res.data;
+            return result;
+        }, err => {
+            alert("Server rejected response: " + err);
+        });
+
+    }
+
+    previous() {
+        axios.post('http://localhost:8080/previous', {
+        }).then(res => {
+            const result = res.data;
+            return result;
+        }, err => {
+            alert("Server rejected response: " + err);
+        });
+
+    }
 
         createTable(){
             let table = [];
@@ -89,38 +127,15 @@ class PossibleSchedules extends Component {
                 <div className="container-">
                     <hr/><h1 className="show-options">Possible schedules</h1>
                     <div className="row row-for-arrow">
+
                         <img className="center-arrows" src={require("../assets/double-left.JPG")} alt="left"/>
                         <img className="center-arrows" src={require("../assets/left-arrow.JPG")} alt="left"/>
                         <div className="show-option-num">##</div>
                         <img className="center-arrows" src={require("../assets/right-arrow.JPG")} alt="right"/>
                         <img className="center-arrows" src={require("../assets/double-right.JPG")} alt="right"/>
-                    </div>
-                    <hr/>
-                    <table className=" container table possible table-striped">
-                        <tbody className="container">
-                        {this.createTable()}
-                        </tbody>
-                    </table>
-                    <div>
-                        <h3>Option ##</h3>
-
-                        {/*<div className="dropdown">*/}
-                            {/*<a className="btn btn-secondary dropdown-toggle" role="button"*/}
-                               {/*id="dropdownMenuLink" data-toggle="dropdown">*/}
-                                {/*Dropdown link*/}
-                            {/*</a>*/}
-
-                            {/*<div className="dropdown-menu" aria-labelledby="dropdownMenuLink">*/}
-                                {/*<a className="dropdown-item" href="#">Most days off</a>*/}
-                                {/*<a className="dropdown-item" href="#">Online classes</a>*/}
-                                {/*<a className="dropdown-item" href="#">No online classes</a>*/}
-                                {/*<a className="dropdown-item" href="#">Time off campus</a>*/}
-                            {/*</div>*/}
-                        {/*</div>*/}
 
                         <div className="dropdown">
-                            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
-                                    data-toggle="dropdown">
+                            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
                                 Preferences
                             </button>
                             <div className="dropdown-menu">
@@ -129,12 +144,24 @@ class PossibleSchedules extends Component {
                                 <button className="dropdown-item" type="button">Time off campus</button>
                             </div>
                         </div>
+
+                    </div>
+
+                    <hr/>
+                    <table className=" container table possible table-striped">
+                        <tbody className="container">
+                        {this.createTable()}
+                        </tbody>
+                    </table>
+                    <div>
+                        <h3>Option ##</h3>
                     </div>
 
                 </div>
             </div>
             </div>
         );
+
     }
 }
 export default withRouter(PossibleSchedules);

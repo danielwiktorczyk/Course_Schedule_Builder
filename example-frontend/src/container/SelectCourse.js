@@ -3,7 +3,7 @@ import '../css/App.css';
 import AddedCourseList from "./AddedCourseList";
 import {BrowserRouter as Router, withRouter} from "react-router-dom";
 import Header from "./Header";
- // import axios from 'axios';
+ import axios from 'axios';
 
 
 class SelectCourse extends Component {
@@ -47,6 +47,19 @@ class SelectCourse extends Component {
                 text: this._inputElement.value,
                 key: Date.now()
             };
+            let message = this._inputElement.value;
+            axios.post('http://localhost:8080/addCourseToWishListFall', {
+                message
+
+            }).then(res => {
+                if (true == res.data) {
+                    alert("course added");
+                }
+                else
+                    alert("Please enter your course info in this format: SOEN 341");
+            }, err => {
+                alert("Server rejected response: COURSE INFO NOT RECEIVED");
+            });
 
             this.setState((prevState) => {
                 return {
