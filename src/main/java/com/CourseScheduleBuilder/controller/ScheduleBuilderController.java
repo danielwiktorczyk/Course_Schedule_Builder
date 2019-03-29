@@ -1,5 +1,6 @@
 package com.CourseScheduleBuilder.controller;
 
+import com.CourseScheduleBuilder.Model.FEMessage;
 import com.CourseScheduleBuilder.Model.Schedule;
 import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Services.ScheduleBuilderService;
@@ -23,22 +24,41 @@ public class ScheduleBuilderController {
         // using scheduleBuilder here for logic
     }
     @PostMapping("/addCourseToWishListFall")
-
     @CrossOrigin
     @ResponseBody
-    public boolean addCourseToWishListFall(@RequestBody String courses)
+    public String addCourseToWishListFall(@RequestBody FEMessage courses)
     {
-        scheduleBuilderService.generateSchedules(courses,"Fall");
+
+       if(!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
+           return "Prereqs not met";
+
+        scheduleBuilderService.generateSchedules(courses.getMessage(),"Fall");
+        return "Couse added";
+    }
+    @PostMapping("/clear")
+    @CrossOrigin
+    @ResponseBody
+    public boolean clear()
+    {
+        scheduleBuilderService.clear();
         return true;
+    }
+
+    @PostMapping("/fallSchedule")
+    @CrossOrigin
+    @ResponseBody
+    public Schedule seeUserScheduleFall()
+    {
+        return scheduleBuilderService.seeUserScheduleFall();
     }
 
     @PostMapping("/addCourseToWishListWinter")
 
     @CrossOrigin
     @ResponseBody
-    public boolean addCourseToWishListWinter(@RequestBody String courses)
+    public boolean addCourseToWishListWinter(@RequestBody FEMessage courses)
     {
-        scheduleBuilderService.generateSchedules(courses,"Winter");
+        scheduleBuilderService.generateSchedules(courses.getMessage(),"Winter");
         return true;
     }
 
@@ -46,9 +66,9 @@ public class ScheduleBuilderController {
 
     @CrossOrigin
     @ResponseBody
-    public boolean addCourseToWishListSummer(@RequestBody String courses)
+    public boolean addCourseToWishListSummer(@RequestBody FEMessage courses)
     {
-        scheduleBuilderService.generateSchedules(courses,"Summer");
+        scheduleBuilderService.generateSchedules(courses.getMessage(),"Summer");
         return true;
     }
 

@@ -10,4 +10,6 @@ public interface ScheduleBuilderService {
     public Schedule nextSchedule();
     public Schedule previousSchedule();
     public boolean enroll(String semester);
+    public void clear();
+    public Schedule seeUserScheduleFall();
 }
