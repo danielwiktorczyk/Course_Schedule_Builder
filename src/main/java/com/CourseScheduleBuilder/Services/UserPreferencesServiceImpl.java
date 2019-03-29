@@ -5,6 +5,7 @@ import com.CourseScheduleBuilder.Repositories.PreferencesRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -13,9 +14,19 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
     @Autowired
     private PreferencesRepo preferencesRepo;
 
-    public List<UserPreferences> getUserPreferences(){
-            return preferencesRepo.findAll();
+    /*
+    method to be used with an array of courses present in a course trio to return a list of userPreferences that are on the same day an may conflict
+     */
+    public ArrayList<UserPreferences> getUserPreferences(){
+        List<UserPreferences> prefList = new ArrayList<UserPreferences>();
+        prefList.addAll(preferencesRepo.findByMondayIsTrue());
+        prefList.addAll(preferencesRepo.findByTuesdayIsTrue());
+        prefList.addAll(preferencesRepo.findByWednesdayIsTrue());
+        prefList.addAll(preferencesRepo.findByThursdayIsTrue());
+        prefList.addAll(preferencesRepo.findByFridayIsTrue());
+        return (ArrayList<UserPreferences>) prefList;
     }
+
 
     /*
     Removes all preferences in the database, needs to be run when the user leaves the schedule builder so the
