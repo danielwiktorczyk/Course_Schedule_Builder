@@ -307,7 +307,7 @@ p:empty {
 
 .header-buttons{
   color: white !important;
-  text-transform: uppercase !important;
+  /*text-transform: uppercase !important;*/
   background-color: #010101 !important;
   border-radius: 10px !important;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
@@ -393,7 +393,7 @@ border-color: black !important;
   border-width: 2px;
 }
 img.student-profile-logo {
-  width: 35%;
+  width: 33%;
   padding: 20px;
 }
 .myProfile {
@@ -404,4 +404,23 @@ img.student-profile-logo {
 }
 .myProfile-inner {
   padding-top: 24px;
+}
+h1.show-options {
+  text-align: center;
+}
+.center-arrows{
+  width: 7%;
+}
+.row-for-arrow{
+  padding-left: 27rem;
+}
+img.center-arrows {
+  height: 5%;
+}
+.show-option-num {
+  font-size: 19pt;
+}
+button#dropdownMenu2 {
+  margin-left: 0;
+  background: black;
 }
