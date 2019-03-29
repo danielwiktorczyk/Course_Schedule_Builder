@@ -15,7 +15,7 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
     private PreferencesRepo preferencesRepo;
 
     /*
-    method to be used with an array of courses present in a course trio to return a list of userPreferences that are on the same day an may conflict
+    returns an ArrayList of all user preferences in the repository
      */
     public ArrayList<UserPreferences> getUserPreferences(){
         List<UserPreferences> prefList = new ArrayList<UserPreferences>();
@@ -54,6 +54,10 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
         }
     }
 
+
+    /*
+    finds any preferences in the repository that have the same day as a new preference to be added or removed
+    */
     public List<UserPreferences> getCurrentPrefs(UserPreferences newPreference){
         if(newPreference.isMonday()){
             return preferencesRepo.findByMondayIsTrue();
@@ -110,6 +114,10 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
         }
     }
 
+    /*
+    Based on todays discussion about how preferences will be sent from fe, this method can probably be simplified a lot
+    Keeping it with all functionality intact until we decide on how preferences will be communicated
+     */
     public void removePref(UserPreferences newPreference) {
         List<UserPreferences> currentPrefs = getCurrentPrefs(newPreference);
         if(currentPrefs.size() == 0){
