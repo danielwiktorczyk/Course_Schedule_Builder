@@ -7,6 +7,7 @@ import com.CourseScheduleBuilder.Repositories.loggedInUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -245,6 +246,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         if (user == null)
             return false;
         if (semester.equals("Fall")) {
+            validateCorequisites();
             user.setFallSchedule(savedSchedules[scheduleCount]);
             userRepo.saveAndFlush(user);
         }
@@ -306,7 +308,6 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         for (int i = 0; i < coursePrerequArray.length; i++) {
             System.out.println("The prerequisiste for "+courseToValidate+" is "+coursePrerequArray[i]);
         }
-        String[] missingPrereq = new String[coursePrerequArray.length];
         ArrayList<String> missingPrereqList = new ArrayList<>();
 
         for (int i = 0; i < coursePrerequArray.length; i++) {
@@ -324,6 +325,55 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
         return true;
     }
+
+    public boolean validateCorequisites()
+    {
+        User user;
+        user = retriveUserInfo();
+
+
+        List<String> previouslyTakenCourses = user.getPrereqs();
+        List<Course> coursesStudentIsTaking = new ArrayList<>();
+        for (int i = 0; i < savedSchedules[0].getCourseTrio().length; i++)
+           {
+               String courseName = savedSchedules[0].getCourseTrio()[i].getLecture().getName();
+               Course addthis = courseRepo.findByName(courseName).get(0);
+               coursesStudentIsTaking.add(addthis);
+             //  coursesTaking[i] = courseRepo.findByNameAndComponent(savedSchedules[0].getCourseTrio()[i].getLecture().getName(), "LEC").get(0);
+              // coursesStudentIsTaking.add(courseRepo.findByNameAndComponent(savedSchedules[0].getCourseTrio()[i].getLecture().getName(), "LEC").get(0));
+           }
+
+        for (int i = 0; i < coursesStudentIsTaking.size(); i++) {
+
+            if (coursesStudentIsTaking.get(i).getCoReq() == null)
+                coursesStudentIsTaking.remove(i);
+
+
+            if (coursesStudentIsTaking.get(i).getCoReq() != null) {
+                for (int j = 0; j < previouslyTakenCourses.size(); j++) {
+                    if (coursesStudentIsTaking.get(i).getCoReq().equals(previouslyTakenCourses.get(j)))
+                        coursesStudentIsTaking.remove(i);
+                }
+                for (int j = 0; j < coursesStudentIsTaking.size(); j++) {
+                    if (coursesStudentIsTaking.get(i) != null && coursesStudentIsTaking.get(i).getCoReq().equals(coursesStudentIsTaking.get(j).getName()))
+                        coursesStudentIsTaking.remove(i);
+                }
+            }
+        }
+        if(coursesStudentIsTaking.size()>0)
+        {
+            System.out.println("Some corequisites have not been met");
+            for (int j = 0; j < coursesStudentIsTaking.size(); j++) {
+                if(coursesStudentIsTaking.get(j).getCoReq() != null)
+                System.out.println(coursesStudentIsTaking.get(j));
+            }
+            return false;
+        }
+
+        return true;
+    }
+
+
 
 
 }
