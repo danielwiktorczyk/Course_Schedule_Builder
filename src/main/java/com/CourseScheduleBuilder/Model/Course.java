@@ -5,9 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public final class Course implements Cloneable{
+public final class Course implements Cloneable, Serializable {
 
 
     private String term;

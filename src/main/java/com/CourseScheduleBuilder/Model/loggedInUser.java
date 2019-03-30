@@ -30,12 +30,12 @@ public class loggedInUser {
         this.user = user;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Id
@@ -43,11 +43,11 @@ public class loggedInUser {
     private Integer id;
     private String name;
     private String user;
-    private String email;
+    private String username;
 
-    public loggedInUser(String email){
+    public loggedInUser(String username){
         user = "user";
-        this.email = email;
+        this.username = username;
     }
 
     public loggedInUser() {

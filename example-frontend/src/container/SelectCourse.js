@@ -3,7 +3,7 @@ import '../css/App.css';
 import AddedCourseList from "./AddedCourseList";
 import {BrowserRouter as Router, withRouter} from "react-router-dom";
 import Header from "./Header";
-import axios from 'axios';
+ import axios from 'axios';
 
 
 function validate(coursename) {
