@@ -61,7 +61,7 @@ class SelectCourse extends Component {
                 message
 
             }).then(res => {
-                if (true == res.data) {
+                if ("Course added!" == res.data) {
                     alert("course added");
                 }
                 else
