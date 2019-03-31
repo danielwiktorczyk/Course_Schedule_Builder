@@ -17,10 +17,15 @@ class SelectCourse extends Component {
         this.deleteItem = this.deleteItem.bind(this);
         // this.add_course = this.add_course.bind(this);
 
+
         this.state = {
             items: []
         };
     };
+    resetForm = () => {
+
+        window.location.reload();
+    }
 
     routeChange() {
         let path = '/SelectSemester';
@@ -84,7 +89,6 @@ class SelectCourse extends Component {
                     <Header />
                 </Router>
             <div className="container- s-course">
-
                 <div >
                     <img  className="ScheduleGen- logo-select-sem" src={require("../assets/SOEN-LOGO.JPG")} alt="SOEN SCHEDULER BUILDER"/>
                 </div>
@@ -104,6 +108,7 @@ class SelectCourse extends Component {
                 <div>
                     <button className="col-3 btn btn-home-log select-semester-options" onClick={this.generateSchedule}>GENERATE</button>
                     <button className="col-3 btn btn-home-log select-semester-options" onClick={this.routeChange}>CHANGE SEMESTER</button>
+                    <button className="col-3 btn btn-home-log select-semester-options" onClick={this.resetForm}>CLEAR</button>
                 </div>
             </div>
             </div>
