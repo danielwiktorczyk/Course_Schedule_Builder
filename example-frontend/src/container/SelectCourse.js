@@ -25,6 +25,7 @@ class SelectCourse extends Component {
     resetForm = () => {
 
         window.location.reload();
+
     }
 
     routeChange() {
