@@ -72,7 +72,12 @@ class SelectCourse extends Component {
         }
 
     }
+    getLocalItem = () => {
+        console.log("*/*/*//* ", localStorage.getItem("a1"));
+        return localStorage.getItem("a1");
+    }
     render(){
+        console.log("test 2", localStorage.getItem("a1"));
         return (
             <div>
                 <Router>
@@ -83,7 +88,7 @@ class SelectCourse extends Component {
                 <div >
                     <img  className="ScheduleGen- logo-select-sem" src={require("../assets/SOEN-LOGO.JPG")} alt="SOEN SCHEDULER BUILDER"/>
                 </div>
-                <hr/><h2 className="adjust-h2">COURSE SELECTION</h2><hr/>
+                <hr/><h2 className="adjust-h2">COURSE SELECTION {this.getLocalItem()}</h2><hr/>
 
                 <div>
                 <form onSubmit={this.addItem}>
