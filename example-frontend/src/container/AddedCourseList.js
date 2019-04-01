@@ -25,7 +25,6 @@ class AddedCourseList extends Component {
 
         return (
             <div>
-            <p>Selected Courses:</p>
             <ul>{listItems}</ul>
             </div>
         );
