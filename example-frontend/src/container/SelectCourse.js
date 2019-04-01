@@ -31,10 +31,17 @@ class SelectCourse extends Component {
 
     }
 
+    resetForm = () => {
+
+        window.location.reload();
+
+    }
+
     routeChange() {
         let path = '/SelectSemester';
         this.props.history.push(path);
     }
+
     generateSchedule() {
         let path = '/PossibleSchedules';
         this.props.history.push(path);
@@ -100,6 +107,11 @@ class SelectCourse extends Component {
         const isDisabled = Object.keys(errors).some(x => errors[x]);
         return !isDisabled;
     }
+
+    getLocalItem = () => {
+
+        return localStorage.getItem("a");
+    }
     
     render(){
         const errors = validate(this.state.coursename);
@@ -115,7 +127,7 @@ class SelectCourse extends Component {
                     <div >
                         <img  className="ScheduleGen- logo-select-sem" src={require("../assets/SOEN-LOGO.JPG")} alt="SOEN SCHEDULER BUILDER"/>
                     </div>
-                    <hr/><h2 className="adjust-h2">COURSE SELECTION</h2><hr/>
+                    <hr/><h2 className="adjust-h2">COURSE SELECTION  {this.getLocalItem()}</h2><hr/>
 
                     <div>
                         <form onSubmit={this.addItem}>
@@ -130,7 +142,7 @@ class SelectCourse extends Component {
                     </div>
 
                     <div>
-                        <button className="col-3 btn btn-home-log select-semester-options" disabled={isDisabled} onSubmit={this.handleSubmit}>GENERATE</button>
+                        <button className="col-3 btn btn-home-log select-semester-options" disabled={isDisabled} onClick={this.generateSchedule}>GENERATE</button>
                         <button className="col-3 btn btn-home-log select-semester-options" onClick={this.routeChange}>CHANGE SEMESTER</button>
                        
                     </div>
