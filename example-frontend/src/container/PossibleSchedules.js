@@ -13,38 +13,69 @@ class PossibleSchedules extends Component {
         this.previous = this.previous.bind(this);
         this.next = this.next.bind(this);
         this.generate = this.generate.bind(this);
+        let schedule = this.generate.bind(this.schedule);
     }
     getLocalIt = () => {
 
         return localStorage.getItem("a");
     }
 
-    // createTable will be used to show tables with possible sections on the right-hand side of the screen
-    // createTable2(){
-    //     let options = [];
-    //
-    //     // Outer loop
-    //     /*TODO
-    //     here we should loop for every course, show associated sections & times
-    //     should iterate till it reaches the number of coursed selected by user
-    //     */
-    //     for (let i = 0; i < 5; i++) {
-    //         //let sections = [];
-    //     }
-    //     return options;
-    // }
 
     generate() {
+        console.log(" aaaadd1111111");
         axios.post('http://localhost:8080/generate', {
         }).then(res => {
             const result = res.data;
+            this.schedule = result;
+
+                localStorage.setItem("name", this.schedule.courseTrio[0].lecture.name);
+                localStorage.setItem("comp", this.schedule.courseTrio[0].lecture.component);
+                localStorage.setItem("start", this.schedule.courseTrio[0].lecture.startTime);
+                localStorage.setItem("end", this.schedule.courseTrio[0].lecture.endTime);
+                localStorage.setItem("classDay", this.schedule.courseTrio[0].lecture.classDays);
+
+
+            localStorage.setItem("tutname", this.schedule.courseTrio[0].tutorial.name);
+            localStorage.setItem("tutcomp", this.schedule.courseTrio[0].tutorial.component);
+            localStorage.setItem("tutstart", this.schedule.courseTrio[0].tutorial.startTime);
+            localStorage.setItem("tutend", this.schedule.courseTrio[0].tutorial.endTime);
+            localStorage.setItem("tutclassDay", this.schedule.courseTrio[0].tutorial.classDays);
+
+
+            localStorage.setItem("labname", this.schedule.courseTrio[0].lab.name);
+            localStorage.setItem("labcomp", this.schedule.courseTrio[0].lab.component);
+            localStorage.setItem("labstart", this.schedule.courseTrio[0].lab.startTime);
+            localStorage.setItem("labend", this.schedule.courseTrio[0].lab.endTime);
+            localStorage.setItem("labclassDay", this.schedule.courseTrio[0].lab.classDays);
+
+
+            alert(this.schedule.courseTrio[0].lecture.classDays);
+
             return result;
-            localStorage.setItem("name", this.schedule);
         }, err => {
             alert("Server rejected response: " + err);
         });
 
     }
+
+    getLecName = (i) => {
+
+        return localStorage.getItem("name"+{i});
+
+    }
+    getLecComponent = () => {
+        return localStorage.getItem("compnent");
+    }
+    getLecStartTime = () => {
+        return localStorage.getItem("strat");
+    }
+    getLecEnd = () => {
+        return localStorage.getItem("end");
+    }
+    getClassDays = () => {
+        return localStorage.getItem("classDay")
+    }
+
 
     next() {
         axios.post('http://localhost:8080/next', {
@@ -107,7 +138,7 @@ class PossibleSchedules extends Component {
 
                         children.push(
                             // request course info from db ('course' is used for testing purposes)
-                            <td>course</td>
+                            <td>{this.schedule}</td>
                         )
                     }
                     else {
@@ -124,6 +155,11 @@ class PossibleSchedules extends Component {
 
     render() {
 
+        console.log("coure name", localStorage.getItem("name"));
+        console.log("course component", localStorage.getItem("comp"));
+        console.log("start time", localStorage.getItem("start"));
+        console.log("class days", localStorage.getItem("classDay"));
+        console.log("end time", localStorage.getItem("end"));
         return (
             <div>
                 <Router>
@@ -131,7 +167,17 @@ class PossibleSchedules extends Component {
                 </Router>
             <div className="container-  select-semester">
                 <div className="container-">
+
+
+
+
                     <hr/><h1 className="show-options">Possible schedules for {this.getLocalIt()}</h1>
+                    <h4 className="show-options">The Obj {this.getClassDays()}</h4>
+
+
+
+
+
                     <div className="row row-for-arrow">
 
                         <img className="center-arrows" src={require("../assets/double-left.JPG")} alt="left"/>
@@ -161,6 +207,7 @@ class PossibleSchedules extends Component {
                     </table>
                     <div>
                         <h3>Option ##</h3>
+                        <button onClick={this.generate}>GENERATE</button>
                     </div>
 
                 </div>
