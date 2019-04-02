@@ -7,14 +7,15 @@ class AddedCourseList extends Component {
         this.createTasks = this.createTasks.bind(this);
     }
 
-    delete(key) {
-        this.props.delete(key);
-    }
+    // delete(key) {
+    //     this.props.delete(key);
+    // }
 
     createTasks(item) {
 
-        return<p className="theList" key={item.key}>Selected Courses: {item.text}
-            <button onClick={() => this.delete(item.key)} className="col-1 close btn btn-home-log"> </button></p>
+        return<p className="theList" key={item.key}> {item.text}
+            {/*<button onClick={() => this.delete(item.key)} className="col-1 close btn btn-home-log"> </button>*/}
+        </p>
     }
 
     render() {
@@ -23,7 +24,9 @@ class AddedCourseList extends Component {
 
 
         return (
+            <div>
             <ul>{listItems}</ul>
+            </div>
         );
     }
 };
