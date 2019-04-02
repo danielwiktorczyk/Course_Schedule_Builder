@@ -53,23 +53,27 @@ public class ScheduleBuilderController {
     }
 
     @PostMapping("/addCourseToWishListWinter")
-
     @CrossOrigin
     @ResponseBody
-    public boolean addCourseToWishListWinter(@RequestBody FEMessage courses)
+    public String addCourseToWishListWinter(@RequestBody FEMessage courses)
     {
+        if(!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
+            return "Prerequisites not met";
+
         scheduleBuilderService.generateSchedules(courses.getMessage(),"Winter");
-        return true;
+        return "Course added!";
     }
 
     @PostMapping("/addCourseToWishListSummer")
-
     @CrossOrigin
     @ResponseBody
-    public boolean addCourseToWishListSummer(@RequestBody FEMessage courses)
+    public String addCourseToWishListSummer(@RequestBody FEMessage courses)
     {
+        if(!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
+            return "Prerequisites not met";
+
         scheduleBuilderService.generateSchedules(courses.getMessage(),"Summer");
-        return true;
+        return "Course added!";
     }
 
     @PostMapping("/generate")
@@ -105,25 +109,34 @@ public class ScheduleBuilderController {
     @PostMapping("/enrollFall")
     @CrossOrigin
     @ResponseBody
-    public boolean enrollFall()
+    public String enrollFall()
     {
-        return scheduleBuilderService.enroll("Fall");
+        if (!scheduleBuilderService.validateCorequisites())
+        return "Corequisites were not met";
+
+        scheduleBuilderService.enroll("Fall");
+        return "Enrolled";
 
     }
     @PostMapping("/enrollWinter")
     @CrossOrigin
     @ResponseBody
-    public boolean enroleWinter()
+    public String enrollWinter()
     {
-        return scheduleBuilderService.enroll("Winter");
-
+        if (scheduleBuilderService.validateCorequisites())
+            return "Corequisites were not met";
+        scheduleBuilderService.enroll("Winter");
+        return "Enrolled";
     }
     @PostMapping("/enrollSummer")
     @CrossOrigin
     @ResponseBody
-    public boolean enrollSummer()
+    public String enrollSummer()
     {
-        return scheduleBuilderService.enroll("Summer");
+        if (scheduleBuilderService.validateCorequisites())
+            return "Corequisites were not met";
+        scheduleBuilderService.enroll("Summer");
+        return "Enrolled";
 
     }
 
