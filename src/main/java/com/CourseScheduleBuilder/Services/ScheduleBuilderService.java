@@ -12,5 +12,5 @@ public interface ScheduleBuilderService {
     public Schedule previousSchedule();
     public boolean enroll(String semester);
     public void clear();
-    public Schedule seeUserScheduleFall();;
+    public Schedule seeUserScheduleFall();
 }
