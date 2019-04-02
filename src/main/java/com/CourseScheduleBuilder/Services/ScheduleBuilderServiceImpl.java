@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -245,7 +246,6 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         if (user == null)
             return false;
         if (semester.equals("Fall")) {
-            validateCorequisites();
             user.setFallSchedule(savedSchedules[scheduleCount]);
             userRepo.saveAndFlush(user);
         }
@@ -330,35 +330,47 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         User user;
         user = retriveUserInfo();
         List<String> previouslyTakenCourses = new ArrayList<>();
+        List<String> coReqList = new ArrayList<>();
+        int success = 0;
+
         try {
             previouslyTakenCourses = (List<String>) user.getPrereqs().clone();
         } catch (Exception e){
 
         }
-        List<String> coReqList = new ArrayList<>();
+
         for (int i = 0; i < savedSchedules[0].getCourseTrio().length; i++)
            {
                previouslyTakenCourses.add(savedSchedules[0].getCourseTrio()[i].getLecture().getName());
-               if(savedSchedules[0].getCourseTrio()[i].getLecture().getCoReq() != null) {
+
+               if(savedSchedules[0].getCourseTrio()[i].getLecture().getCoReq() != null)
+               {
                    String[] coreqs = savedSchedules[0].getCourseTrio()[i].getLecture().getCoReq().replaceAll("[ .()]","").split(",");
-                  for(int k=0;k<coreqs.length;k++)
-                   coReqList.add(coreqs[k]);
+                   coReqList.addAll(Arrays.asList(coreqs));
                }
            }
-        int success = 0;
-        for (int i = 0; i < coReqList.size(); i++) {
-            for(int j=0; j<previouslyTakenCourses.size();j++){
-                if(previouslyTakenCourses.get(j).equals(coReqList.get(i)))
-                    success++;
-            }
 
+        /*
+         * checks if the courses user has and is taking are enough
+         * to take the new courses.
+         */
+        for (String previouslyTakenCoure : previouslyTakenCourses) {
+            if (coReqList.contains(previouslyTakenCoure)) {
+                /*
+                 * This line is a miracle since it never reaches here
+                 * but should increment if corerequisites have been met
+                 */
+                success++;
+            }
         }
+
         if(success == coReqList.size()) {
             System.out.println("Success");
             return true;
         }
         else
-            System.out.println("Corequisites not met : " + (coReqList.size()-success));
+            System.out.println("Number of corequisites not met : " + (coReqList.size()-success));
+
             return false;
     }
 

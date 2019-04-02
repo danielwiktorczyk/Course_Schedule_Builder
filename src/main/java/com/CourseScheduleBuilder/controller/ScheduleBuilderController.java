@@ -53,23 +53,27 @@ public class ScheduleBuilderController {
     }
 
     @PostMapping("/addCourseToWishListWinter")
-
     @CrossOrigin
     @ResponseBody
-    public boolean addCourseToWishListWinter(@RequestBody FEMessage courses)
+    public String addCourseToWishListWinter(@RequestBody FEMessage courses)
     {
+        if(!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
+            return "Prerequisites not met";
+
         scheduleBuilderService.generateSchedules(courses.getMessage(),"Winter");
-        return true;
+        return "Course added!";
     }
 
     @PostMapping("/addCourseToWishListSummer")
-
     @CrossOrigin
     @ResponseBody
-    public boolean addCourseToWishListSummer(@RequestBody FEMessage courses)
+    public String addCourseToWishListSummer(@RequestBody FEMessage courses)
     {
+        if(!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
+            return "Prerequisites not met";
+
         scheduleBuilderService.generateSchedules(courses.getMessage(),"Summer");
-        return true;
+        return "Course added!";
     }
 
     @PostMapping("/generate")
@@ -107,8 +111,9 @@ public class ScheduleBuilderController {
     @ResponseBody
     public String enrollFall()
     {
-        if (scheduleBuilderService.validateCorequisites())
+        if (!scheduleBuilderService.validateCorequisites())
         return "Corequisites were not met";
+
         scheduleBuilderService.enroll("Fall");
         return "Enrolled";
 
