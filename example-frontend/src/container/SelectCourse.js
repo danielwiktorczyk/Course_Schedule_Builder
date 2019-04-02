@@ -57,6 +57,31 @@ class SelectCourse extends Component {
     //     });
     // }
 
+    checkoutInputCourse(course)
+    {
+        if(course == null) {
+            alert("Please enter Something");
+            return false;
+        }
+        course = course.replace(" ","").toUpperCase();
+        if(course.match(/^\w\w\w\w\d\d\d$/)) {
+            alert("string good");
+                return true;
+        }
+        else {
+            alert("please enter the course name (e.g COMP) and number (e.g 248) COMP248");
+            return false;
+        }
+    }
+
+
+    parseStringCourse(course)
+    {
+         return course.replace(" ","").toUpperCase();
+    }
+
+
+
     addItem(e) {
         if (this._inputElement.value !== "") {
             let newItem = {
@@ -64,15 +89,16 @@ class SelectCourse extends Component {
                 key: Date.now()
             };
             let message = this._inputElement.value;
+            message = this.parseStringCourse(message);
             axios.post('http://localhost:8080/addCourseToWishListFall', {
                 message
 
             }).then(res => {
-                if ("Course added!" == res.data) {
+                if (this.checkoutInputCourse(message) && "Course added!" == res.data ) {
                     alert("course added");
                 }
                 else
-                    alert("Please enter your course info in this format: SOEN 341");
+                    alert("SHOULD NOT ADD COURSE");
             }, err => {
                 alert("Server rejected response: COURSE INFO NOT RECEIVED");
             });
