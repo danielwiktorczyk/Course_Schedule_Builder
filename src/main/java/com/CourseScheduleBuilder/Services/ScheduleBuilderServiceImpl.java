@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -377,6 +378,133 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             System.out.println("Number of corequisites not met : " + (coReqList.size()-success));
 
             return false;
+    }
+
+    /*
+        This method provides a schedule that takes into account the users time preferences
+        if a conflict is found, the trio in conflict is removed from the courseList. The updated courseList is returned
+         */
+    @Override
+    public void preferredSchedule() {
+        //array of previously generated schedules
+        Schedule[] scheduleNoPrefs = savedSchedules.clone();
+        System.out.println("savedSchedule is length " + scheduleNoPrefs.length);
+        userPreferencesSchedule = savedSchedules.clone();
+        System.out.println("preferredSchedule is length " + userPreferencesSchedule.length);
+        //arraylist of user preferences
+        ArrayList<UserPreferences> preferenceList = userPreferencesService.getUserPreferences();
+        System.out.println("size of prefList: " + preferenceList.size());
+        Iterator<UserPreferences> itPrefs = preferenceList.iterator();
+
+        while (itPrefs.hasNext()) {
+            //first preference to verify
+            System.out.println("in first while loop");
+            UserPreferences prefToVerify = itPrefs.next();
+            boolean[] prefDays = prefToVerify.getPreferenceDays();
+
+            for (int i = 0; i < scheduleNoPrefs.length; i++) {
+                System.out.println("in for loop, i =" + i);
+                //original array of trios, unmodified
+                CourseTrio[] allTrios = scheduleNoPrefs[i].getCourseTrio();
+                //array of trios that gets updated when a conflict is identified
+                CourseTrio[] updatedTrios = scheduleNoPrefs[i].getCourseTrio();
+                System.out.println("allTrios length is " + allTrios.length);
+
+                //keeps track of how many trio removals have been preformed so the array can be resized at the end
+                int removed = 0;
+                for (int j = 0; j < allTrios.length; j++) {
+                    System.out.println("in for loop to verify preferences j=" + j);
+                    if(allTrios[j] == null){
+                        System.out.println("NULL!!!!!!");
+                        break;
+                    }
+                    else {
+                        System.out.println("current trio is: lecture " + allTrios[j].getLecture() + ", tutorial " + allTrios[j].getLecture());
+                        CourseTrio trioToVerify = allTrios[j];
+                        System.out.println("trio has lab " + trioToVerify.isHasLab());
+                        Course[] trioComponents;
+                        if (trioToVerify.isHasLab()) {
+                            trioComponents = new Course[3];
+                        } else {
+                            trioComponents = new Course[2];
+                        }
+                        trioComponents[0] = trioToVerify.getLecture();
+                        trioComponents[1] = trioToVerify.getTutorial();
+                        if (trioToVerify.isHasLab()) {
+                            trioComponents[2] = trioToVerify.getLab();
+                        }
+                        for (int k = 0; k < trioComponents.length; k++) {
+
+                            boolean[] courseDays = trioComponents[k].getClassDays();
+                            System.out.println("verifying... k= " + k);
+                            Course componentToVerify = trioComponents[k];
+                            //method to check overlap between a preference and a course
+                            trioToVerify = checkTrioForUserPreferences(prefDays, courseDays, componentToVerify, prefToVerify, trioToVerify);
+                            if(trioToVerify == null){
+                                removed++;
+                                break;
+                            }
+                        }
+                        //trio will be unchanged or null if there is a time conflict
+                        updatedTrios[j]= trioToVerify;
+                    }
+                }
+                if(removed > 0) {
+                    System.out.println("resizing array, removed = " + removed);
+                    CourseTrio[] resizedUpdatedTrios = new CourseTrio[updatedTrios.length - removed];
+                    System.out.println("updatedTrios is size: " + updatedTrios.length + " resized trios is size: " + resizedUpdatedTrios.length);
+                    int resize = 0;
+                    for(int x = 0; x < updatedTrios.length; x++){
+                        if(updatedTrios[x]!= null){
+                            System.out.println("adding trio with lec: " + updatedTrios[x].getLecture() + " to resized array at slot " + resize);
+                            resizedUpdatedTrios[resize]= updatedTrios[x];
+                            resize++;
+                        }
+                    }
+                    System.out.println("trying to add resized updatedTrios to userPreferencesSchedule");
+                    userPreferencesSchedule[i].setCourses(resizedUpdatedTrios);
+                }
+                else{
+                    System.out.println("no trios removed, adding unaltered schedule");
+                    userPreferencesSchedule[i].setCourses(allTrios);
+                }
+            }
+
+        }
+    }
+    /*
+    compares preferences and course times for a courseTrio, returns either unaltered course trio if no preference/course conflict
+    or null if there is a conflict between course and pref time
+    */
+    public CourseTrio checkTrioForUserPreferences(boolean[] prefDays, boolean[] courseDays, Course course, UserPreferences preference, CourseTrio trio){
+        //if preference and course are on the same day, check times for overlap
+        if (prefDays[0] == courseDays[0] && prefDays[1] == courseDays[1] && prefDays[2] == courseDays[2] && prefDays[3] == courseDays[3] && prefDays[4] == courseDays[4]) {
+            //course begins before or at the same time as pref and ends after or at the same time as the pref
+            if (course.getStartTime() <= preference.getStartTime() && course.getEndTime() >= preference.getEndTime()) {
+                trio = null;
+                System.out.println("trio removed (course begins before or at the same time as pref and ends after or at the same time as the pref)");
+                return trio;
+            }
+            //course starts after pref starts but before it ends
+            else if (course.getStartTime() > preference.getStartTime() && preference.getEndTime() > course.getStartTime()) {
+                trio = null;
+                System.out.println("trio removed (course starts after pref starts but before it ends ");
+                return trio;
+            }
+            //course starts before pref starts but ends after it starts
+            else if (course.getStartTime() < preference.getStartTime() && preference.getStartTime() < course.getEndTime()) {
+                trio = null;
+                System.out.println("trio removed (course starts before pref starts but ends after it starts");
+                return trio;
+            }
+            //course starts after pref starts and ends before pref ends
+            else if (course.getStartTime() > preference.getStartTime() && preference.getEndTime() > course.getEndTime()) {
+                trio = null;
+                System.out.println("trio removed (course starts after pref starts and ends before pref ends");
+                return trio;
+            }
+        }
+        return trio;
     }
 
 

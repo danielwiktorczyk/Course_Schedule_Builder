@@ -1,6 +1,9 @@
 package com.CourseScheduleBuilder.Services;
 
+import com.CourseScheduleBuilder.Model.Course;
+import com.CourseScheduleBuilder.Model.CourseTrio;
 import com.CourseScheduleBuilder.Model.Schedule;
+import com.CourseScheduleBuilder.Model.UserPreferences;
 
 public interface ScheduleBuilderService {
     boolean validatePrerequisites(String course);
@@ -13,4 +16,5 @@ public interface ScheduleBuilderService {
     public boolean enroll(String semester);
     public void clear();
     public Schedule seeUserScheduleFall();
+    void preferredSchedule();
 }
