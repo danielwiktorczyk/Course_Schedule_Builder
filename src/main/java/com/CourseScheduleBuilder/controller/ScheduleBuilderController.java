@@ -17,6 +17,9 @@ public class ScheduleBuilderController {
     @Autowired
     CourseRepo courseRepo;
 
+    @Autowired
+    UserPreferencesService userPreferencesService;
+
     @PostMapping("/createSchedule") // TODO rename as needed, we can have // many mappings this controller can handle
     @CrossOrigin
     @ResponseBody
@@ -65,8 +68,9 @@ public class ScheduleBuilderController {
             return "Prerequisites not met";
 
         scheduleBuilderService.generateSchedules(courses.getMessage(),"Winter");
-        if(userPreferencesService.preferencesPresent()){
+        if(userPreferencesService.preferencesPresent()) {
             scheduleBuilderService.preferredSchedule();
+        }
         return "Course added!";
     }
 
@@ -79,8 +83,9 @@ public class ScheduleBuilderController {
             return "Prerequisites not met";
 
         scheduleBuilderService.generateSchedules(courses.getMessage(),"Summer");
-        if(userPreferencesService.preferencesPresent()){
+        if(userPreferencesService.preferencesPresent()) {
             scheduleBuilderService.preferredSchedule();
+        }
         return "Course added!";
     }
 
