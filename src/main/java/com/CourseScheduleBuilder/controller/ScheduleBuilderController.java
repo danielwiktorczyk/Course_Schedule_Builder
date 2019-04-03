@@ -6,6 +6,7 @@ import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Services.ScheduleBuilderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.CourseScheduleBuilder.Services.UserPreferencesService;
 
 @RestController
 public class ScheduleBuilderController {
@@ -33,6 +34,9 @@ public class ScheduleBuilderController {
            return "Prerequisites not met";
 
         scheduleBuilderService.generateSchedules(courses.getMessage(),"Fall");
+        if(userPreferencesService.preferencesPresent()){
+            scheduleBuilderService.preferredSchedule();
+        }
         return "Course added!";
     }
     @PostMapping("/clear")
@@ -61,6 +65,8 @@ public class ScheduleBuilderController {
             return "Prerequisites not met";
 
         scheduleBuilderService.generateSchedules(courses.getMessage(),"Winter");
+        if(userPreferencesService.preferencesPresent()){
+            scheduleBuilderService.preferredSchedule();
         return "Course added!";
     }
 
@@ -73,6 +79,8 @@ public class ScheduleBuilderController {
             return "Prerequisites not met";
 
         scheduleBuilderService.generateSchedules(courses.getMessage(),"Summer");
+        if(userPreferencesService.preferencesPresent()){
+            scheduleBuilderService.preferredSchedule();
         return "Course added!";
     }
 
