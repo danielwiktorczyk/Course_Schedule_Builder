@@ -79,7 +79,7 @@ input.col-12 {
   border-width: 1px;
   padding: 9px;
   margin: 0 0 19px 0;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   color: #010101;
 }
 
