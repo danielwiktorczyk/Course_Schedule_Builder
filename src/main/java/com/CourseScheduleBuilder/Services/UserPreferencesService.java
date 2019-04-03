@@ -13,4 +13,5 @@ public interface UserPreferencesService {
    List<UserPreferences> getCurrentPrefs(UserPreferences newPreference);
    ArrayList<UserPreferences> getUserPreferences();
    void destroyPreferences();
+   boolean preferencesPresent();
    }

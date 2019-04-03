@@ -15,8 +15,9 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
     private PreferencesRepo preferencesRepo;
 
     /*
-    returns an ArrayList of all user preferences in the repository
-     */
+   method to be used with an array of courses present in a course trio to return a list of userPreferences that are on the same day an may conflict
+    */
+    @Override
     public ArrayList<UserPreferences> getUserPreferences(){
         List<UserPreferences> prefList = new ArrayList<UserPreferences>();
         prefList.addAll(preferencesRepo.findByMondayIsTrue());
@@ -27,16 +28,26 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
         return (ArrayList<UserPreferences>) prefList;
     }
 
-
     /*
     Removes all preferences in the database, needs to be run when the user leaves the schedule builder so the
     preferences start new for each schedule builder session
      */
-    // TODO: 2019-03-29 need a session variable so the preference removal can be triggered 
     public void destroyPreferences(){
-        List<UserPreferences> currentPrefs = getUserPreferences();
+        ArrayList<UserPreferences> currentPrefs = getUserPreferences();
         for (int i = 0; i < currentPrefs.size(); i++) {
             preferencesRepo.delete(currentPrefs.get(i));
+        }
+    }
+
+    /*
+    method to determine if there are any preferences in the repository
+     */
+    public boolean preferencesPresent(){
+        if(getUserPreferences().size()>0){
+            return true;
+        }
+        else {
+            return false;
         }
     }
 
