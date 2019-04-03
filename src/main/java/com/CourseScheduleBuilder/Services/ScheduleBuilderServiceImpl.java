@@ -20,12 +20,16 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         private final loggedInUserRepo login;
         private static Schedule[] savedSchedules = new Schedule[5];
         private static int scheduleCount = 0;
+        private final PreferencesRepo preferences;
+        private static Schedule[] userPreferencesSchedule = new Schedule[5];
+        private UserPreferencesService userPreferencesService;
 
     @Autowired
-    public ScheduleBuilderServiceImpl(CourseRepo courseRepo, UserRepo userRepo, loggedInUserRepo login, PreferencesRepo preferencesRepo) {
+    public ScheduleBuilderServiceImpl(CourseRepo courseRepo, UserRepo userRepo, loggedInUserRepo login, PreferencesRepo preferences) {
         this.courseRepo = courseRepo;
         this.userRepo = userRepo;
         this.login = login;
+        this.preferences = preferences;
     }
 
 
