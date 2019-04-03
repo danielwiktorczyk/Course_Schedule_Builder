@@ -4,6 +4,7 @@ import com.CourseScheduleBuilder.Model.Schedule;
 
 public interface ScheduleBuilderService {
     boolean validatePrerequisites(String course);
+    boolean validateCorequisites();
     //Schedule[] addToSchedule(Schedule[] schedule, List<Course> lectures,List<Course> tutorial, List<Course> labs ,int possibilities);
     public void generateSchedules(String string, String semester);
     public Schedule generateAndShowFirstSchedule();

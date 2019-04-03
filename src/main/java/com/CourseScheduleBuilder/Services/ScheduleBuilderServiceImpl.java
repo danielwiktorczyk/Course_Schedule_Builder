@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -18,18 +18,17 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         private final CourseRepo courseRepo;
         private final UserRepo userRepo;
         private final loggedInUserRepo login;
-        private final PreferencesRepo preferences;
-        private UserPreferencesService userPreferencesService;
         private static Schedule[] savedSchedules = new Schedule[5];
         private static int scheduleCount = 0;
 
     @Autowired
-    public ScheduleBuilderServiceImpl(CourseRepo courseRepo, UserRepo userRepo, loggedInUserRepo login, PreferencesRepo preferences) {
+    public ScheduleBuilderServiceImpl(CourseRepo courseRepo, UserRepo userRepo, loggedInUserRepo login, PreferencesRepo preferencesRepo) {
         this.courseRepo = courseRepo;
         this.userRepo = userRepo;
         this.login = login;
-        this.preferences = preferences;
     }
+
+
 
     private User retriveUserInfo()
     {
@@ -309,7 +308,6 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         for (int i = 0; i < coursePrerequArray.length; i++) {
             System.out.println("The prerequisiste for "+courseToValidate+" is "+coursePrerequArray[i]);
         }
-        String[] missingPrereq = new String[coursePrerequArray.length];
         ArrayList<String> missingPrereqList = new ArrayList<>();
 
         for (int i = 0; i < coursePrerequArray.length; i++) {
@@ -327,6 +325,57 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
         return true;
     }
+
+    public boolean validateCorequisites()
+    {
+        User user;
+        user = retriveUserInfo();
+        List<String> previouslyTakenCourses = new ArrayList<>();
+        List<String> coReqList = new ArrayList<>();
+        int success = 0;
+
+        try {
+            previouslyTakenCourses = (List<String>) user.getPrereqs().clone();
+        } catch (Exception e){
+
+        }
+
+        for (int i = 0; i < savedSchedules[0].getCourseTrio().length; i++)
+           {
+               previouslyTakenCourses.add(savedSchedules[0].getCourseTrio()[i].getLecture().getName());
+
+               if(savedSchedules[0].getCourseTrio()[i].getLecture().getCoReq() != null)
+               {
+                   String[] coreqs = savedSchedules[0].getCourseTrio()[i].getLecture().getCoReq().replaceAll("[ .()]","").split(",");
+                   coReqList.addAll(Arrays.asList(coreqs));
+               }
+           }
+
+        /*
+         * checks if the courses user has and is taking are enough
+         * to take the new courses.
+         */
+        for (String previouslyTakenCoure : previouslyTakenCourses) {
+            if (coReqList.contains(previouslyTakenCoure)) {
+                /*
+                 * This line is a miracle since it never reaches here
+                 * but should increment if corerequisites have been met
+                 */
+                success++;
+            }
+        }
+
+        if(success == coReqList.size()) {
+            System.out.println("Success");
+            return true;
+        }
+        else
+            System.out.println("Number of corequisites not met : " + (coReqList.size()-success));
+
+            return false;
+    }
+
+
 
 
 }

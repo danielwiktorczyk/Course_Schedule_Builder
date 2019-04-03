@@ -14,6 +14,10 @@ class PossibleSchedules extends Component {
         this.next = this.next.bind(this);
         this.generate = this.generate.bind(this);
     }
+    getLocalIt = () => {
+
+        return localStorage.getItem("a");
+    }
 
     // createTable will be used to show tables with possible sections on the right-hand side of the screen
     // createTable2(){
@@ -35,6 +39,7 @@ class PossibleSchedules extends Component {
         }).then(res => {
             const result = res.data;
             return result;
+            localStorage.setItem("name", this.schedule);
         }, err => {
             alert("Server rejected response: " + err);
         });
@@ -118,6 +123,7 @@ class PossibleSchedules extends Component {
         }
 
     render() {
+
         return (
             <div>
                 <Router>
@@ -125,7 +131,7 @@ class PossibleSchedules extends Component {
                 </Router>
             <div className="container-  select-semester">
                 <div className="container-">
-                    <hr/><h1 className="show-options">Possible schedules</h1>
+                    <hr/><h1 className="show-options">Possible schedules for {this.getLocalIt()}</h1>
                     <div className="row row-for-arrow">
 
                         <img className="center-arrows" src={require("../assets/double-left.JPG")} alt="left"/>
