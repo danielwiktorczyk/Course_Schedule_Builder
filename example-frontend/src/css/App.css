@@ -222,7 +222,8 @@ table {
 }
 .table.possible{
   width: 50%;
-  float: right;
+  /*float: right;*/
+  text-align: center;
   margin-bottom: 1rem;
   color: #212529;
 }
@@ -421,12 +422,196 @@ img.center-arrows {
   font-size: 19pt;
 }
 button#dropdownMenu2 {
-  margin-left: 0;
+  /*margin-left: 0;*/
   background: black;
+  text-transform: uppercase;
 }
-button#dropdownMenu2 {
+/*button#dropdownMenu2 {*/
+  /*position: relative;*/
+  /*top: -11px;*/
+  /*left: 285px;*/
+  /*background: black;*/
+/*}*/
+
+.dropdown-item:focus, .dropdown-item:hover {
+  color: #16181b;
+  margin-left: 0;
+  text-decoration: none;
+  background-color: #f8f9fa;
+}
+.dropdown-toggle::after {
+  display: inline-block;
+  margin-left: 1.255em;
+  vertical-align: .255em;
+  content: "";
+  border-top: .3em solid;
+  border-right: .3em solid transparent;
+  border-bottom: 0;
+  border-left: .3em solid transparent;
+}
+.right-arrow-position{
+  position: absolute;
+  top: 64%;
+  left: 73%;
+  height: 3%;
+  width: 3%;
+}
+img.center-arrows.left-arrow-position {
+  position: absolute;
+  width: 3%;
+  height: 4.5%;
+  left: 22%;
+  top: 64%;
+}
+button.col-3.btn.btn-home-log.select-semester-options {
+  padding: 0;
+  max-width: 22.6%;
+}
+
+.newwrapper {
+  display: block;
   position: relative;
-  top: -11px;
-  left: 285px;
-  background: black;
+  padding-left: 65px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  /*font-size: 22px;*/
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.newwrapper input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 30px;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.newwrapper:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.newwrapper input:checked ~ .checkmark {
+  background-color: #010101;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.newwrapper input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.newwrapper .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.preferences {
+  margin-left: 30px;
+  margin-top: 17px;
+}
+
+
+
+/*/////////////////////////////*/
+/* The container */
+.wrapping {
+  display: inline-block;
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 12px;
+  margin-right: 20px;
+  cursor: pointer;
+  /*font-size: 22px;*/
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.wrapping input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.check-mark {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  height: 17px;
+  width: 17px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.wrapping:hover input ~ .check-mark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.wrapping input:checked ~ .check-mark {
+  background-color: black;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.check-mark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.preferences h6{
+  text-decoration: underline;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.wrapping input:checked ~ .check-mark:after {
+  display: inline-block;
+}
+
+/* Style the indicator (dot/circle) */
+.wrapping .check-mark:after {
+  top: 4.4px;
+  left: 5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+.choices {
+  margin-left: 5rem;
+}
+label.newwrapper {
+  font-weight: bold;
 }

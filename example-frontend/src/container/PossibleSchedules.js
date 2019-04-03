@@ -4,8 +4,6 @@ import {BrowserRouter as Router, withRouter} from "react-router-dom";
 import Header from "./Header";
 import axios from 'axios';
 
-
-
 class PossibleSchedules extends Component {
     constructor(props) {
         super(props);
@@ -13,37 +11,21 @@ class PossibleSchedules extends Component {
         this.previous = this.previous.bind(this);
         this.next = this.next.bind(this);
         this.generate = this.generate.bind(this);
+        let schedule = null;
     }
-    getLocalIt = () => {
-
-        return localStorage.getItem("a");
-    }
-
-    // createTable will be used to show tables with possible sections on the right-hand side of the screen
-    // createTable2(){
-    //     let options = [];
-    //
-    //     // Outer loop
-    //     /*TODO
-    //     here we should loop for every course, show associated sections & times
-    //     should iterate till it reaches the number of coursed selected by user
-    //     */
-    //     for (let i = 0; i < 5; i++) {
-    //         //let sections = [];
-    //     }
-    //     return options;
-    // }
+    getLocalIt = () => {return localStorage.getItem("a");};
 
     generate() {
         axios.post('http://localhost:8080/generate', {
         }).then(res => {
             const result = res.data;
+            this.schedule = result;
+            alert(this.schedule.courseTrio[0].lecture.name);
             return result;
-            localStorage.setItem("name", this.schedule);
+            // localStorage.setItem("name", this.schedule);
         }, err => {
             alert("Server rejected response: " + err);
         });
-
     }
 
     next() {
@@ -54,9 +36,7 @@ class PossibleSchedules extends Component {
         }, err => {
             alert("Server rejected response: " + err);
         });
-
     }
-
     previous() {
         axios.post('http://localhost:8080/previous', {
         }).then(res => {
@@ -106,14 +86,11 @@ class PossibleSchedules extends Component {
                     if(i> 8 && i<=10 && (j===2 || j===3)){
 
                         children.push(
-                            // request course info from db ('course' is used for testing purposes)
                             <td>course</td>
                         )
                     }
                     else {
                         children.push(
-                            // request course info from db ('course' is used for testing purposes)
-                            // or show empty if there's breaks/gaps
                             <td>...........--</td>
                         )
                     }
@@ -131,37 +108,21 @@ class PossibleSchedules extends Component {
                 </Router>
             <div className="container-  select-semester">
                 <div className="container-">
-                    <hr/><h1 className="show-options">Possible schedules for {this.getLocalIt()}</h1>
+                    <hr/><h1 className="show-options">POSSIBILITIES FOR {this.getLocalIt()}</h1>
                     <div className="row row-for-arrow">
 
-                        <img className="center-arrows" src={require("../assets/double-left.JPG")} alt="left"/>
-                        <img className="center-arrows" src={require("../assets/left-arrow.JPG")} alt="left"/>
-                        <div className="show-option-num">##</div>
-                        <img className="center-arrows" src={require("../assets/right-arrow.JPG")} alt="right"/>
-                        <img className="center-arrows" src={require("../assets/double-right.JPG")} alt="right"/>
-
-                        <div className="dropdown">
-                            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
-                                Preferences
-                            </button>
-                            <div className="dropdown-menu">
-                                <button className="dropdown-item" type="button">Most days off</button>
-                                <button className="dropdown-item" type="button">Online classes</button>
-                                <button className="dropdown-item" type="button">Time off campus</button>
-                            </div>
-                        </div>
 
                     </div>
 
                     <hr/>
+                    <img className="center-arrows left-arrow-position" src={require("../assets/left-arrow.JPG")} alt="left"/>
+
                     <table className=" container table possible table-striped">
                         <tbody className="container">
                         {this.createTable()}
                         </tbody>
                     </table>
-                    <div>
-                        <h3>Option ##</h3>
-                    </div>
+                    <img className="center-arrows right-arrow-position" src={require("../assets/right-arrow.JPG")} alt="left"/>
 
                 </div>
             </div>
