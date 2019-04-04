@@ -33,11 +33,11 @@ public class ScheduleBuilderServiceImplTest {
         static class ScheduleBuilderServiceImplTestConfiguration {
         @Bean
         public ScheduleBuilderServiceImpl scheduleBuilderService() {
-            return new ScheduleBuilderServiceImpl( courseRepo,  userRepo,  login);
+            return new ScheduleBuilderServiceImpl( courseRepo,  userRepo);
         }
     }
 
-    @Autowired
+
     ScheduleBuilderServiceImpl scheduleBuilderService;
 
 

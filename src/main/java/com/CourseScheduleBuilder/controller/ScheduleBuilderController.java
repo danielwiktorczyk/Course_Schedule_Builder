@@ -2,10 +2,20 @@ package com.CourseScheduleBuilder.controller;
 
 import com.CourseScheduleBuilder.Model.FEMessage;
 import com.CourseScheduleBuilder.Model.Schedule;
+import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Repositories.CourseRepo;
+import com.CourseScheduleBuilder.Repositories.UserRepo;
+import com.CourseScheduleBuilder.Services.AuthenticateFacade;
 import com.CourseScheduleBuilder.Services.ScheduleBuilderService;
+import com.CourseScheduleBuilder.Services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ScheduleBuilderController {
@@ -15,6 +25,15 @@ public class ScheduleBuilderController {
 
     @Autowired
     CourseRepo courseRepo;
+
+    @Autowired
+    UserRepo userRepo;
+
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    AuthenticateFacade authenticateFacade;
 
     @PostMapping("/createSchedule") // TODO rename as needed, we can have // many mappings this controller can handle
     @CrossOrigin
@@ -29,7 +48,7 @@ public class ScheduleBuilderController {
     public String addCourseToWishListFall(@RequestBody FEMessage courses)
     {
 
-       if(!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
+        if(!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
            return "Prerequisites not met";
 
         scheduleBuilderService.generateSchedules(courses.getMessage(),"Fall");

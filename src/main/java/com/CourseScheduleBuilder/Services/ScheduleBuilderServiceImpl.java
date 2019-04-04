@@ -5,6 +5,9 @@ import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
 import com.CourseScheduleBuilder.Repositories.loggedInUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,29 +17,39 @@ import java.util.List;
 @Service
 public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
+          @Autowired
         private final CourseRepo courseRepo;
+         @Autowired
         private final UserRepo userRepo;
-        private final loggedInUserRepo login;
+//          @Autowired
+//        private final loggedInUserRepo login;
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    AuthenticateFacade authenticateFacade;
         private static Schedule[] savedSchedules = new Schedule[5];
         private static int scheduleCount = 0;
 
+
     @Autowired
-    public ScheduleBuilderServiceImpl(CourseRepo courseRepo, UserRepo userRepo, loggedInUserRepo login) {
+    public ScheduleBuilderServiceImpl(CourseRepo courseRepo, UserRepo userRepo) {
         this.courseRepo = courseRepo;
         this.userRepo = userRepo;
-        this.login = login;
+    //    this.login = login;
     }
 
 
 
     private User retriveUserInfo()
     {
-        loggedInUser loginUser;
+   //     loggedInUser loginUser;
         User user;
 
-        loginUser = login.findByUser("user");
+   //     loginUser = login.findByUser("user");
 
-       user = userRepo.findByUsername(loginUser.getUsername());
+   //    user = userRepo.findByUsername(loginUser.getUsername());
+        user = userRepo.findByUsername(currentUserNameSimple());
 
         return user;
     }
@@ -274,7 +287,9 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
         List<String> previouslyTakenCourses = user.getPrereqs();
 
-
+        System.out.println("*****************");
+        System.out.println("The user currently logged in: "+currentUserNameSimple());
+        System.out.println("*****************");
 
         for(int i=0;i<previouslyTakenCourses.size();i++)
         {
@@ -374,7 +389,16 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             return false;
     }
 
+    public String currentUserNameSimple() {
+        List<User> u = userRepo.findByActive(1);
+        for (int i = 0; i < u.size(); i++) {
+            Authentication authentication = new UsernamePasswordAuthenticationToken(u.get(i).getUsername(), u.get(i).getPassword(), null);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
 
+        Authentication authentication = authenticateFacade.getAuthentication();
+        return authentication.getName();
+    }
 
 
 }

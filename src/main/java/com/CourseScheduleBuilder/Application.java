@@ -4,6 +4,7 @@ import com.CourseScheduleBuilder.Model.Schedule;
 import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
+import com.CourseScheduleBuilder.Services.UserDetailsServiceImpl;
 import org.h2.tools.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ public class Application implements CommandLineRunner {
 
     private CourseRepo courseRepo;
     private UserRepo userRepo;
+    private UserDetailsServiceImpl userDetailsService;
 
     private Logger LOG = LoggerFactory.getLogger(Application.class);
 
@@ -78,8 +80,8 @@ public class Application implements CommandLineRunner {
 
         }
 
-        User resultUser = userRepo.findByFirstName("Moataz");
-        LOG.info("User found by name : " + resultUser.toString());
+       List<User> resultUser = userRepo.findByFirstName("Moataz");
+        LOG.info("User found by name : " + resultUser.get(0).toString());
 
         List<User> results = userRepo.findByUsernameAndPassword("SuperMan@live.com", "20BONUSPOINTS");
 

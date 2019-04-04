@@ -1,11 +1,9 @@
 package com.CourseScheduleBuilder.Model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -23,6 +21,22 @@ public class User {
     private Schedule winterSchedule;
     private Schedule summerSchedule;
     private ArrayList<String> prereqs = new ArrayList<>();
+
+
+    public User()
+    {
+
+    }
+            public User(User users) {
+                this.active= users.getActive();
+            this.email = users.getEmail();
+            this.roles = users.getRoles();
+            this.firstName = users.getFirstName();
+            this.lastName =users.getLastName();
+            this.id = users.getId();
+            this.password = users.getPassword();
+
+    }
 
 
     public Integer getId() {
@@ -126,5 +140,28 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    private int active;
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
     }
 }

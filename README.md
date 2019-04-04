@@ -1,3 +1,7 @@
+#Spring Security
+> I managed to get one user logged in at a time without the need of a repository  
+> If another user logs in, it will automatically log out the other user (kind of ish like netflix)
+
 The courseData.csv file should be used to populate the Course repository with SOEN, ENGR, ENCS, COMP and ELEC 275 classes.
 
 Most of the data is pretty self explainatory just a couple of notes:
