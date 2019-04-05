@@ -134,4 +134,13 @@ public class User implements Cloneable{
         returnUser.setPrereqs((ArrayList) returnUser.getPrereqs().clone());
         return returnUser;
     }
+    private int active;
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
 }

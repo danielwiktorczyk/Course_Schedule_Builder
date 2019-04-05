@@ -1,9 +1,9 @@
 package com.CourseScheduleBuilder.Services;
 
+import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Model.UserFromFrontEnd;
-import com.CourseScheduleBuilder.Model.loggedInUser;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
-import com.CourseScheduleBuilder.Repositories.loggedInUserRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +11,16 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements LoginService {
 
     @Autowired //needed to point to the same repo database
-    private UserRepo userrepo;
-    @Autowired //needed to point to the same repo database
-    private loggedInUserRepo loggedInUser;
+    private UserRepo userRepo;
 
     @Override
     public boolean loginUser(UserFromFrontEnd user) {
-        if (userrepo.findByUsername(user.getUsername()) == null){
+        if (userRepo.findByUsername(user.getUsername()) == null){
             return false;
         }
-        if (userrepo.findByUsername(user.getUsername()).getPassword().equals(user.getPassword())){
-            loggedInUser.save(new loggedInUser(user.getUsername()));
+        if (userRepo.findByUsername(user.getUsername()).getPassword().equals(user.getPassword())){
+            logout_old_user_and_login_new(user);
+            setActiveStatus(user);
             return true;
         }
         else {
@@ -38,8 +37,33 @@ public class LoginServiceImpl implements LoginService {
          */
     }
 
+    private void setActiveStatus(UserFromFrontEnd user) {
+        User newUser = userRepo.findByUsername(user.getUsername());
+        newUser.setActive(1);
+        userRepo.save(newUser);
+    }
+
+
+    /**
+         * will check to see if a user is logged in,
+         * log them out if the case and allow the new user to log in
+         * @param user
+         */
+        private void logout_old_user_and_login_new(UserFromFrontEnd user){
+            if(userRepo.findByActive(1).size() > 0)
+            {
+                System.out.println("Logging out: "+userRepo.findByActive(1).get(0).getFirstName()+" "+userRepo.findByActive(1).get(0).getLastName());
+                userRepo.findByActive(1).get(0).setActive(0);
+                System.out.println("New Login: "+userRepo.findByUsername(user.getUsername()).getFirstName()+" "+userRepo.findByUsername(user.getUsername()).getFirstName());
+            }
+        }
+
+
+
     public boolean logOutUser(){
-        loggedInUser.deleteAll();
+            User user = userRepo.findByActive(1).get(0);
+            user.setActive(0);
+            userRepo.save(user);
         return true;
     }
 }

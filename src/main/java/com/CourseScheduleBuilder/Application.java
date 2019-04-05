@@ -47,8 +47,12 @@ public class Application implements CommandLineRunner {
         user1.setLastName("Fawzy");
         user1.setPassword("aaa");
         user1.setEmail("moataz_fawzy@live.com");
-        user1.setUsername("MoatazF");
+        user1.setUsername("aaa");
         user1.setEWT(false);
+        user1.addToPrereqs("COMP348");
+        user1.addToPrereqs("COMP352");
+        user1.addToPrereqs("SOEN391");
+        user1.addToPrereqs("COMP248");
 
         userRepo.save(user1);
 
@@ -111,8 +115,6 @@ public class Application implements CommandLineRunner {
 
         }
 
-        User resultUser = userRepo.findByFirstName("Moataz");
-        LOG.info("User found by name : " + resultUser.toString());
 
         List<User> results = userRepo.findByUsernameAndPassword("SuperMan@live.com", "20BONUSPOINTS");
 
