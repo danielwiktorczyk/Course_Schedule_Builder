@@ -132,25 +132,46 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     }
     public Schedule nextSchedule(){
         if(++scheduleCount < savedSchedules.length) {
-            System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-            return savedSchedules[scheduleCount];
+            if(validateSchedule(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return nextSchedule();
+            }
         }
         else{
             scheduleCount =0;
-            System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-            return savedSchedules[scheduleCount];
+            if(validateSchedule(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return nextSchedule();
+            }
         }
     }
 
     public Schedule previousSchedule(){
         if(--scheduleCount > 0) {
-            System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-            return savedSchedules[scheduleCount];
+            if(validateSchedule(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return previousSchedule();
+            }
         }
         else {
             scheduleCount = savedSchedules.length-1;
-            System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-            return savedSchedules[scheduleCount];
+
+            if(validateSchedule(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return previousSchedule();
+            }
         }
     }
 
@@ -267,10 +288,16 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         scheduleCount = 0;
         savedSchedules = new Schedule[5];
     }
-    public Schedule seeUserScheduleFall()
+    public Schedule seeUserSchedule(String semester)
     {
         User user = retriveUserInfo();
-        return user.getFallSchedule();
+        if (semester.equals("Fall"))
+            return user.getFallSchedule();
+        if(semester.equals("Winter"))
+            return user.getWinterSchedule();
+        if(semester.equals("Summer"))
+            return user.getSummerSchedule();
+        return new Schedule();
     }
 
     @Override
@@ -384,7 +411,8 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         This method provides a schedule that takes into account the users time preferences
         if a conflict is found, the trio in conflict is removed from the courseList. The updated courseList is returned
          */
-    @Override
+
+    /*@Override
     public void preferredSchedule() {
         //array of previously generated schedules
         Schedule[] scheduleNoPrefs = savedSchedules.clone();
@@ -478,38 +506,129 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     compares preferences and course times for a courseTrio, returns either unaltered course trio if no preference/course conflict
     or null if there is a conflict between course and pref time
     */
-    public CourseTrio checkTrioForUserPreferences(boolean[] prefDays, boolean[] courseDays, Course course, UserPreferences preference, CourseTrio trio){
+    public Course checkCourseForUserPreferences(boolean[] prefDays, boolean[] courseDays, Course course, UserPreferences preference){
         //if preference and course are on the same day, check times for overlap
         if (prefDays[0] == courseDays[0] && prefDays[1] == courseDays[1] && prefDays[2] == courseDays[2] && prefDays[3] == courseDays[3] && prefDays[4] == courseDays[4]) {
             //course begins before or at the same time as pref and ends after or at the same time as the pref
             if (course.getStartTime() <= preference.getStartTime() && course.getEndTime() >= preference.getEndTime()) {
-                trio = null;
+                course = null;
                 System.out.println("trio removed (course begins before or at the same time as pref and ends after or at the same time as the pref)");
-                return trio;
+                return course;
             }
             //course starts after pref starts but before it ends
             else if (course.getStartTime() > preference.getStartTime() && preference.getEndTime() > course.getStartTime()) {
-                trio = null;
+                course = null;
                 System.out.println("trio removed (course starts after pref starts but before it ends ");
-                return trio;
+                return course;
             }
             //course starts before pref starts but ends after it starts
             else if (course.getStartTime() < preference.getStartTime() && preference.getStartTime() < course.getEndTime()) {
-                trio = null;
+                course = null;
                 System.out.println("trio removed (course starts before pref starts but ends after it starts");
-                return trio;
+                return course;
             }
             //course starts after pref starts and ends before pref ends
             else if (course.getStartTime() > preference.getStartTime() && preference.getEndTime() > course.getEndTime()) {
-                trio = null;
+                course = null;
                 System.out.println("trio removed (course starts after pref starts and ends before pref ends");
-                return trio;
+                return course;
             }
         }
-        return trio;
+        return course;
     }
 
+    /*
+            This method provides a schedule that takes into account the users time preferences
+            if a conflict is found, the trio in conflict is removed from the courseList. The updated courseList is returned
+             */
+    @Override
+    public void preferredSchedule() {
+        //array of previously generated schedules
+        Schedule[] scheduleNoPrefs = savedSchedules.clone();
+        System.out.println("savedSchedule is length " + scheduleNoPrefs.length);
+        userPreferencesSchedule = savedSchedules.clone();
+        System.out.println("preferredSchedule is length " + userPreferencesSchedule.length);
 
+        //arraylist of courses
+        System.out.println(" deconstructing savedSchedule, creating list of all courses");
+        ArrayList<Course> allCourses = new ArrayList<Course>();
+        for (int i=0; i<scheduleNoPrefs.length ;i++){
+            CourseTrio[] allTrios = scheduleNoPrefs[i].getCourseTrio();
+            for(int j=0; j < allTrios.length; j++) {
+                allCourses.add(allTrios[j].getLecture());
+                allCourses.add(allTrios[j].getTutorial());
+                if (allTrios[j].isHasLab()) {
+                    allCourses.add(allTrios[j].getLab());
+                }
+            }
+        }
+        System.out.println("arraylist or courses made.  Length = " + allCourses.size());
 
+        //Arraylist of user preferences
+        System.out.print("arraylist of user preferences being made");
+        ArrayList<UserPreferences> preferenceList = new ArrayList<UserPreferences>();
+        preferenceList = userPreferencesService.getUserPreferences();
+        preferenceList.addAll(preferences.findByMondayIsTrue());
+        preferenceList.addAll(preferences.findByTuesdayIsTrue());
+        preferenceList.addAll(preferences.findByWednesdayIsTrue());
+        preferenceList.addAll(preferences.findByThursdayIsTrue());
+        preferenceList.addAll(preferences.findByFridayIsTrue());
+        System.out.println("size of prefList: " + preferenceList.size());
+        Iterator<UserPreferences> itPrefs = preferenceList.iterator();
+        Iterator<Course> itCourses = allCourses.iterator();
+
+        while (itPrefs.hasNext()) {
+            //first preference to verify
+            System.out.println("in first while loop");
+            UserPreferences prefToVerify = itPrefs.next();
+            boolean[] prefDays = prefToVerify.getPreferenceDays();
+            while (itCourses.hasNext()) {
+                System.out.println("in second while loop");
+                Course courseToVerify = itCourses.next();
+                boolean[] courseDays = courseToVerify.getClassDays();
+                //logic to check overlap between a preference and a course
+                courseToVerify = checkCourseForUserPreferences(prefDays, courseDays, courseToVerify, prefToVerify);
+                if (courseToVerify == null) {
+                    allCourses.remove(courseToVerify);
+                }
+            }
+        }
+        System.out.println("all conflicting courses removed.  New size of allCourses is: " + allCourses.size());
+        System.out.println("recombining remaining courses into a new schedule");
+        //seperate into lecture, tutorial and lab components
+        ArrayList<Course> lecture = new ArrayList<Course>();
+        ArrayList<Course> tutorial = new ArrayList<Course>();
+        ArrayList<Course> lab = new ArrayList<Course>();
+        for(int k = 0; k < allCourses.size(); k++){
+            if(allCourses.get(k).getComponent().equalsIgnoreCase("lec")){
+                lecture.add(allCourses.get(k));
+            }
+            else if(allCourses.get(k).getComponent().equalsIgnoreCase("tut")){
+                tutorial.add(allCourses.get(k));
+            }
+            else if(allCourses.get(k).getComponent().equalsIgnoreCase("lab")){
+                lab.add(allCourses.get(k));
+            }
+            else{
+                System.out.print("what else can you be!?");
+            }
+        }
+        //store as lists for re combination
+        System.out.println("converting ArrayList to Array");
+        Course[] lecArray = lecture.toArray(new Course[lecture.size()]);
+        Course[] tutArray = tutorial.toArray(new Course[tutorial.size()]);
+        Course[] labArray = lab.toArray(new Course[lab.size()]);
+        System.out.println("converting Array to List");
+        List<Course> lecList = Arrays.asList(lecArray);
+        List<Course> tutList = Arrays.asList(tutArray);
+        List<Course> labList = Arrays.asList(labArray);
+
+        //recombine
+        System.out.println("re combining, making list of course trios");
+        List<CourseTrio> updatedTrios = groupCourses(lecList, tutList, labList);
+        System.out.println("re combining, making userPreferencesSchedule");
+        userPreferencesSchedule = addToSchedule(updatedTrios, userPreferencesSchedule);
+        System.out.println("SUCCESS!!!!!");
+    }
 
 }

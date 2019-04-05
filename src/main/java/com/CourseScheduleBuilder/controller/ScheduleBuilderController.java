@@ -56,7 +56,22 @@ public class ScheduleBuilderController {
     @ResponseBody
     public Schedule seeUserScheduleFall()
     {
-        return scheduleBuilderService.seeUserScheduleFall();
+        return scheduleBuilderService.seeUserSchedule("Fall");
+    }
+
+    @PostMapping("/WinterSchedule")
+    @CrossOrigin
+    @ResponseBody
+    public Schedule seeUserScheduleWinter()
+    {
+        return scheduleBuilderService.seeUserSchedule("Winter");
+    }
+    @PostMapping("/SummerSchedule")
+    @CrossOrigin
+    @ResponseBody
+    public Schedule seeUserScheduleSummer()
+    {
+        return scheduleBuilderService.seeUserSchedule("Summer");
     }
 
     @PostMapping("/addCourseToWishListWinter")
