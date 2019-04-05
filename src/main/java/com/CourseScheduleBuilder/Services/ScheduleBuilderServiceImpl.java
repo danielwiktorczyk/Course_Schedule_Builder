@@ -3,7 +3,7 @@ package com.CourseScheduleBuilder.Services;
 import com.CourseScheduleBuilder.Model.*;
 import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
-import com.CourseScheduleBuilder.Repositories.loggedInUserRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,30 +14,34 @@ import java.util.List;
 @Service
 public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
+          @Autowired
         private final CourseRepo courseRepo;
+         @Autowired
         private final UserRepo userRepo;
-        private final loggedInUserRepo login;
+
+
         private static Schedule[] savedSchedules = new Schedule[5];
         private static int scheduleCount = 0;
 
     @Autowired
-    public ScheduleBuilderServiceImpl(CourseRepo courseRepo, UserRepo userRepo, loggedInUserRepo login) {
+    public ScheduleBuilderServiceImpl(CourseRepo courseRepo, UserRepo userRepo) {
         this.courseRepo = courseRepo;
         this.userRepo = userRepo;
-        this.login = login;
+    //    this.login = login;
     }
 
 
 
     private User retriveUserInfo()
     {
-        loggedInUser loginUser;
-        User user;
+        User user = null;
 
-        loginUser = login.findByUser("user");
-
-       user = userRepo.findByUsername(loginUser.getUsername());
-
+        if(userRepo.findByActive(1).size()>0) {
+            user = userRepo.findByActive(1).get(0);
+        }
+        else{
+            System.out.println("Not logged in");
+        }
         return user;
     }
 

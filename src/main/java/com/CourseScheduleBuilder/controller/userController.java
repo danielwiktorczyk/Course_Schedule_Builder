@@ -3,7 +3,7 @@ package com.CourseScheduleBuilder.controller;
 import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Model.UserFromFrontEnd;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
-import com.CourseScheduleBuilder.Repositories.loggedInUserRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +13,6 @@ public class userController {
 
     @Autowired
     UserRepo userRepo;
-    @Autowired
-    loggedInUserRepo loggedInUserRepo;
 
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
@@ -30,7 +28,7 @@ public class userController {
     @ResponseBody
     public User userInfo()
     {
-        String username = loggedInUserRepo.findByUser("user").getUsername();
+        String username = userRepo.findByActive(1).get(0).getUsername();
         User returnUser = new User();
         try {
            returnUser = (User) userRepo.findByUsername(username).clone();
