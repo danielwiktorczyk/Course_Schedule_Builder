@@ -17,8 +17,15 @@ public class LoginController {
     @CrossOrigin
     @ResponseBody
     public boolean login(@RequestBody UserFromFrontEnd user){
-
         return loginService.loginUser(user);
+
+    }
+
+    @PostMapping("/logout")
+    @CrossOrigin
+    @ResponseBody
+    public boolean logout(){
+        return loginService.logOutUser();
 
     }
 }

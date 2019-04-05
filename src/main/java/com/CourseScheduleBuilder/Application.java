@@ -47,13 +47,8 @@ public class Application implements CommandLineRunner {
         user1.setLastName("Fawzy");
         user1.setPassword("aaa");
         user1.setEmail("moataz_fawzy@live.com");
-        user1.setUsername("aaa");
+        user1.setUsername("MoatazF");
         user1.setEWT(false);
-        user1.addToPrereqs("COMP348");
-        user1.addToPrereqs("COMP352");
-        user1.addToPrereqs("SOEN391");
-        user1.addToPrereqs("COMP248");
-
 
         userRepo.save(user1);
 
@@ -61,18 +56,56 @@ public class Application implements CommandLineRunner {
         user2.setFirstName("Terrill");
         user2.setLastName("Fancott");
         user2.setEmail("SuperMan@live.com");
-        user2.setUsername("bbb");
-        user2.setPassword("bbb");
+        user2.setUsername("TerrillF");
+        user2.setPassword("aaa");
         user2.setEWT(false);
-        user2.addToPrereqs("ENGR233");
+        user2.addToPrereqs("COMP248");
+        user2.addToPrereqs("COMP232");
+        user2.addToPrereqs("ENGR213");
+        user2.addToPrereqs("ENGR201");
 
         Schedule s = new Schedule();
 
 
         userRepo.save(user2);
 
-        List<User> userData = userRepo.findAll();
+        User user3 = new User();
+        user3.setFirstName("Bob");
+        user3.setLastName("Baggins");
+        user3.setEmail("Bilbro@live.com");
+        user3.setUsername("BobB");
+        user3.setPassword("aaa");
+        user3.setEWT(false);
+        user3.addToPrereqs("COMP248");
+        user3.addToPrereqs("COMP232");
+        user3.addToPrereqs("ENGR213");
+        user3.addToPrereqs("ENGR201");
+        user3.addToPrereqs("SOEN228");
+        user3.addToPrereqs("COMP249");
+        user3.addToPrereqs("SOEN287");
+        user3.addToPrereqs("ENGR233");
 
+        userRepo.save(user3);
+
+        User user4 = new User();
+        user4.setFirstName("Omar");
+        user4.setLastName("Baggins");
+        user4.setEmail("OmarB@live.com");
+        user4.setUsername("OmarB");
+        user4.setPassword("aaa");
+        user4.setEWT(false);
+        user4.addToPrereqs("COMP248");
+        user4.addToPrereqs("COMP232");
+        user4.addToPrereqs("ENGR213");
+        user4.addToPrereqs("ENGR201");
+        user4.addToPrereqs("SOEN228");
+        user4.addToPrereqs("COMP249");
+        user4.addToPrereqs("SOEN287");
+        user4.addToPrereqs("ENGR233");
+
+        userRepo.save(user4);
+
+        List<User> userData = userRepo.findAll();
         for (User User : userData) {
             LOG.info("Course found :" + User.toString());
 
