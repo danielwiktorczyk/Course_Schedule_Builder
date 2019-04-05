@@ -126,25 +126,46 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     }
     public Schedule nextSchedule(){
         if(++scheduleCount < savedSchedules.length) {
-            System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-            return savedSchedules[scheduleCount];
+            if(validateSchedule(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return nextSchedule();
+            }
         }
         else{
             scheduleCount =0;
-            System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-            return savedSchedules[scheduleCount];
+            if(validateSchedule(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return nextSchedule();
+            }
         }
     }
 
     public Schedule previousSchedule(){
         if(--scheduleCount > 0) {
-            System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-            return savedSchedules[scheduleCount];
+            if(validateSchedule(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return previousSchedule();
+            }
         }
         else {
             scheduleCount = savedSchedules.length-1;
-            System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-            return savedSchedules[scheduleCount];
+
+            if(validateSchedule(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return previousSchedule();
+            }
         }
     }
 
@@ -261,10 +282,16 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         scheduleCount = 0;
         savedSchedules = new Schedule[5];
     }
-    public Schedule seeUserScheduleFall()
+    public Schedule seeUserSchedule(String semester)
     {
         User user = retriveUserInfo();
-        return user.getFallSchedule();
+        if (semester.equals("Fall"))
+            return user.getFallSchedule();
+        if(semester.equals("Winter"))
+            return user.getWinterSchedule();
+        if(semester.equals("Summer"))
+            return user.getSummerSchedule();
+        return new Schedule();
     }
 
     @Override

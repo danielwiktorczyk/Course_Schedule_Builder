@@ -1,5 +1,4 @@
-/*color originally used for website was #A52A2A, in case we wanna change it back*/
-/*on hover the color previously chosen was Maroon*/
+
 
 /*.App {*/
 /*text-align: center;*/
@@ -96,7 +95,7 @@ input.col-12 {
 }
 
 .container.select-semester {
-  padding-top: 10rem;
+  padding: 5rem 0;
   text-align: center;
 }
 img.ScheduleGen {
@@ -209,31 +208,13 @@ input:focus,
 button.btn.btn-home-log:hover {
   background-color: #28074D !important;
 }
-.table td, .table th {
-  padding: 0;
-  margin: 0;
 
-}
-table {
-  border-collapse: collapse;
-  font-size: 10px;
-  /*border: 1px solid #010101;*/
 
-}
-.table.possible{
-  width: 50%;
-  /*float: right;*/
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #212529;
-}
 .logo- {
   position: relative;
   left: 0;
 }
-.table {
-  margin-bottom: 0;
-}
+
 button.col-2.btn.btn-home-log {
   margin: 10px 37px 10px 37px;
 }
@@ -615,6 +596,7 @@ button.col-3.btn.btn-home-log.select-semester-options {
 label.newwrapper {
   font-weight: bold;
 }
+
 
 /*--------------------view schedule-------------------------------*/
 

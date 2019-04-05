@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import java.util.ArrayList;
 
 @Entity
-public class User {
+public class User implements Cloneable{
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO )
@@ -126,5 +126,12 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        User returnUser = (User) super.clone();
+        returnUser.setPrereqs((ArrayList) returnUser.getPrereqs().clone());
+        return returnUser;
     }
 }
