@@ -37,4 +37,9 @@ public class LoginServiceImpl implements LoginService {
         and the password is correct, otherwise a false value is returned.
          */
     }
+
+    public boolean logOutUser(){
+        loggedInUser.deleteAll();
+        return true;
+    }
 }

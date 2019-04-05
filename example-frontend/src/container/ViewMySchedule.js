@@ -65,8 +65,10 @@ class ViewMySchedule extends Component {
     // get the data by default
     async componentDidMount() {
         const {offset}  = this.state
-        axios.post('http://localhost:8080/generate')
+        axios.post('http://localhost:8080/fallSchedule')
             .then((res) => {
+                if (res.data == '')
+                    return;
                 this.setState({data : res.data.courseTrio , size : res.data.size})
             })
             .catch((error) => {
@@ -109,12 +111,6 @@ class ViewMySchedule extends Component {
                         </div>
                         <div className="table_heading_wrapper">
                             <h3 className="table_heading">Weekly Schedule</h3>
-                            <p>Name:</p>
-                        </div>
-                        <div className="button__wrapper">
-                            <button onClick={this.next}>Next</button>
-                            /
-                            <button onClick={this.previous}>Previous</button>
                         </div>
                         <table className="table">
                             <thead>

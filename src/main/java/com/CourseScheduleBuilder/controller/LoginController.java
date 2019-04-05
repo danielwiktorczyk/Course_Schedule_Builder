@@ -20,6 +20,14 @@ public class LoginController {
         return loginService.loginUser(user);
 
     }
+
+    @PostMapping("/logout")
+    @CrossOrigin
+    @ResponseBody
+    public boolean logout(){
+        return loginService.logOutUser();
+
+    }
 }
 
 

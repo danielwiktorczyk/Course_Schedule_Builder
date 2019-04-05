@@ -3,171 +3,170 @@ import '../css/App.css';
 import {BrowserRouter as Router, withRouter} from "react-router-dom";
 import Header from "./Header";
 import axios from 'axios';
+import moment from "moment";
 
 
 
 class PossibleSchedules extends Component {
     constructor(props) {
         super(props);
-        this.state = {loggedIn: true};
-        this.previous = this.previous.bind(this);
-        this.next = this.next.bind(this);
-        this.generate = this.generate.bind(this);
+        this.state = {
+            loggedIn: true,
+            loading: true,
+            person: null,
+            data : [],
+            offset: 0,
+            size : 0,
+        };
     }
-    getLocalIt = () => {
-
-        return localStorage.getItem("a");
-    }
-
-    // createTable will be used to show tables with possible sections on the right-hand side of the screen
-    // createTable2(){
-    //     let options = [];
     //
-    //     // Outer loop
-    //     /*TODO
-    //     here we should loop for every course, show associated sections & times
-    //     should iterate till it reaches the number of coursed selected by user
-    //     */
-    //     for (let i = 0; i < 5; i++) {
-    //         //let sections = [];
-    //     }
-    //     return options;
+    // async componentDidMount() {
+    //     const url = "https://api.randomuser.me/";
+    //     const response = await fetch(url);
+    //     const data = await response.json();
+    //     this.setState({ person: data.results[0], loading: false });
     // }
 
-    generate() {
-        axios.post('http://localhost:8080/generate', {
-        }).then(res => {
-            const result = res.data;
-            return result;
-            localStorage.setItem("name", this.schedule);
-        }, err => {
-            alert("Server rejected response: " + err);
-        });
+    // paginate with respect to next
+    next = ()  => {
+        if(true){
+            axios.post('http://localhost:8080/next')
+                .then((res) => {
+                    this.setState(prevState =>{
+                        return{
+                            offset : prevState.offset +1,
+                            data : res.data.courseTrio
 
-    }
-
-    next() {
-        axios.post('http://localhost:8080/next', {
-        }).then(res => {
-            const result = res.data;
-            return result;
-        }, err => {
-            alert("Server rejected response: " + err);
-        });
-
-    }
-
-    previous() {
-        axios.post('http://localhost:8080/previous', {
-        }).then(res => {
-            const result = res.data;
-            return result;
-        }, err => {
-            alert("Server rejected response: " + err);
-        });
-
-    }
-
-        createTable(){
-            let table = [];
-            let quarterHours = ["00", "15", "30", "45"];
-            let times = [];
-
-            // Outer loop
-            // 15-min intervals starting at 8am
-            for (let i = 8; i < 24; i++) {
-                let children = [];
-
-                    // 15-min 4 times/ hour
-                    for(let k = 0; k < 4; k++){
-                        let time = ("0" + i).slice(-2)+ ":" + quarterHours[k];
-                        times.push(time);
-                        table.push(
-                            <table className="table table-striped">
-                                <tbody>
-                                {/*<tr>*/}
-                                    {/*<th className="col-2" scope="col">#</th>*/}
-                                    {/*<th className="col-2" scope="col">Monday</th>*/}
-                                    {/*<th className="col-2" scope="col">Tuesday</th>*/}
-                                    {/*<th className="col-2" scope="col">Wednesday</th>*/}
-                                    {/*<th className="col-2" scope="col">Thursday</th>*/}
-                                    {/*<th className="col-2" scope="col">Friday</th>*/}
-                                {/*</tr>*/}
-                                <tr key={i + ":" + quarterHours[k]}>
-                                    {i} : {quarterHours[k]} {children}
-                                </tr>
-                                </tbody>
-                            </table>
-                        );
-                }
-                //weekdays
-                for (let j = 0; j < 5; j++) {
-
-                    if(i> 8 && i<=10 && (j===2 || j===3)){
-
-                        children.push(
-                            // request course info from db ('course' is used for testing purposes)
-                            <td>course</td>
-                        )
-                    }
-                    else {
-                        children.push(
-                            // request course info from db ('course' is used for testing purposes)
-                            // or show empty if there's breaks/gaps
-                            <td>...........--</td>
-                        )
-                    }
-                }
-            }
-            return table;
+                        }
+                    })
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         }
+    }
+
+    // paginate with respect to previous
+    previous = ()  => {
+        if(true){
+            axios.post('http://localhost:8080/previous')
+                .then((res) => {
+                    this.setState(prevState =>{
+                        return{
+                            offset : prevState.offset -1,
+                            data : res.data.courseTrio,
+                        }
+                    })
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+    }
+
+    // get the data by default
+    async componentDidMount() {
+        const {offset}  = this.state
+        axios.post('http://localhost:8080/generate')
+            .then((res) => {
+                this.setState({data : res.data.courseTrio , size : res.data.size})
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
+    }
+
 
     render() {
-
+        // if (this.state.loading) {
+        //     return <div>loading...</div>;
+        // }
+        //
+        // if (!this.state.person) {
+        //     return <div>didn't get a person</div>;
+        // }
+        const {data} = this.state
+        const timeTable = ['8 AM' , '9 AM' ,'10 AM' ,'11 AM' , '12 PM' , '1 PM', '2 PM' , '3 PM' , '4 PM' , '5 PM' , '6 PM' , '7 PM' , '8 PM' , '9 PM' , '10 PM' ]
+        const schedule = [JSON.parse(JSON.stringify(data))]
+        const arry = []
+        schedule[0].map((item,key) => {
+            return(
+                arry.push(item.lecture) &&
+                arry.push(item.lab) && arry.push(item.tutorial)
+            )
+        })
         return (
+
             <div>
                 <Router>
                     <Header />
                 </Router>
-            <div className="container-  select-semester">
-                <div className="container-">
-                    <hr/><h1 className="show-options">Possible schedules for {this.getLocalIt()}</h1>
-                    <div className="row row-for-arrow">
+                <div className="container select-semester">
+                    <div className="table__wrapper">
+                        <div className="row">
 
-                        <img className="center-arrows" src={require("../assets/double-left.JPG")} alt="left"/>
-                        <img className="center-arrows" src={require("../assets/left-arrow.JPG")} alt="left"/>
-                        <div className="show-option-num">##</div>
-                        <img className="center-arrows" src={require("../assets/right-arrow.JPG")} alt="right"/>
-                        <img className="center-arrows" src={require("../assets/double-right.JPG")} alt="right"/>
-
-                        <div className="dropdown">
-                            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
-                                Preferences
-                            </button>
-                            <div className="dropdown-menu">
-                                <button className="dropdown-item" type="button">Most days off</button>
-                                <button className="dropdown-item" type="button">Online classes</button>
-                                <button className="dropdown-item" type="button">Time off campus</button>
-                            </div>
+                            {/*<div>{this.state.person.name.title}</div>*/}
+                            {/*<div>{this.state.person.name.first}</div>*/}
                         </div>
+                        <div className="table_heading_wrapper">
+                            <h3 className="table_heading">Weekly Schedule</h3>
+                            <p>Name:</p>
+                        </div>
+                        <div className="button__wrapper">
+                            <button onClick={this.previous}>Previous</button>
+                            /
+                            <button onClick={this.next}>Next</button>
+                        </div>
+                        <table className="table">
+                            <thead>
+                            <tr>
+                                <th>Time/ period</th>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                            </tr>
+                            </thead>
+                            <tbody className="tbody">
+                            {
+                                timeTable.map((time, key) => {
+                                    return(
+                                        arry.map((item,key) => {
+                                            return(
+                                                <Row key={key} time={time} unique={key}  {...item} />
+                                            )
+                                        })
+                                    );
+                                })
+                            }
 
+                            </tbody>
+                        </table>
+                        <p></p>
                     </div>
-
-                    <hr/>
-                    <table className=" container table possible table-striped">
-                        <tbody className="container">
-                        {this.createTable()}
-                        </tbody>
-                    </table>
-                    <div>
-                        <h3>Option ##</h3>
-                    </div>
-
                 </div>
             </div>
-            </div>
         );
-
     }
 }
+
+
+const createCells = ({...classDays}, name , component , startTime , endTime, time , unique, section) => {
+    var td = []
+    for(let i = 0 ; i < 5 ; i++ ){
+        let check  = time === moment().startOf('day').add(startTime, 'minutes').format('h A')
+        check ? (
+            classDays[i] ? td.push( <td key={i}>{ classDays[i] && name } <br/>{classDays[i] && component }  <br/>{classDays[i] && section }<br/> {classDays[i] && moment().startOf('day').add(startTime, 'minutes').format('hh:mm A') + ' - ' + moment().startOf('day').add(endTime, 'minutes').format('hh:mm A')}</td>) : td.push(<td key={i}></td>)
+        ) : unique === 0 ? td.push(<td key={i}></td>) : td.push()
+    }
+    return td;
+}
+const Row = ({startTime, endTime, classDays, name , component, time ,unique, section}) => (
+    <tr>
+        {unique === 0 ? <td><strong>{time}</strong></td> :  time === moment().startOf('day').add(startTime, 'minutes').format('h A') ? <td></td> :null }
+        { name && createCells(classDays, name , component , startTime , endTime, time , unique, section) }
+    </tr>
+)
 export default withRouter(PossibleSchedules);
