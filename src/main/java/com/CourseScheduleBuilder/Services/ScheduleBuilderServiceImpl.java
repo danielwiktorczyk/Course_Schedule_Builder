@@ -126,25 +126,46 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     }
     public Schedule nextSchedule(){
         if(++scheduleCount < savedSchedules.length) {
-            System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-            return savedSchedules[scheduleCount];
+            if(validateSchedule(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return nextSchedule();
+            }
         }
         else{
             scheduleCount =0;
-            System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-            return savedSchedules[scheduleCount];
+            if(validateSchedule(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return nextSchedule();
+            }
         }
     }
 
     public Schedule previousSchedule(){
         if(--scheduleCount > 0) {
-            System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-            return savedSchedules[scheduleCount];
+            if(validateSchedule(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return previousSchedule();
+            }
         }
         else {
             scheduleCount = savedSchedules.length-1;
-            System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-            return savedSchedules[scheduleCount];
+
+            if(validateSchedule(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return previousSchedule();
+            }
         }
     }
 

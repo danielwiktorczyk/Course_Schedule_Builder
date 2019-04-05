@@ -17,7 +17,6 @@ public class LoginController {
     @CrossOrigin
     @ResponseBody
     public boolean login(@RequestBody UserFromFrontEnd user){
-
         return loginService.loginUser(user);
 
     }

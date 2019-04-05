@@ -1,8 +1,7 @@
-/*color originally used for website was #A52A2A, in case we wanna change it back*/
-/*on hover the color previously chosen was Maroon*/
+
 
 /*.App {*/
-  /*text-align: center;*/
+/*text-align: center;*/
 /*}*/
 
 .App-logo {
@@ -96,7 +95,7 @@ input.col-12 {
 }
 
 .container.select-semester {
-  padding-top: 10rem;
+  padding: 5rem 0;
   text-align: center;
 }
 img.ScheduleGen {
@@ -203,36 +202,19 @@ button.close {
 input:focus,
 .btn:focus {
   outline: 0;
-   box-shadow: 0 0 0 0 rgba(0,0,0,0);
+  box-shadow: 0 0 0 0 rgba(0,0,0,0);
 }
 
 button.btn.btn-home-log:hover {
   background-color: #28074D !important;
 }
-.table td, .table th {
-  padding: 0;
-  margin: 0;
 
-}
-table {
-  border-collapse: collapse;
-  font-size: 10px;
-  /*border: 1px solid #010101;*/
 
-}
-.table.possible{
-  width: 50%;
-  float: right;
-  margin-bottom: 1rem;
-  color: #212529;
-}
 .logo- {
   position: relative;
   left: 0;
 }
-.table {
-   margin-bottom: 0;
-}
+
 button.col-2.btn.btn-home-log {
   margin: 10px 37px 10px 37px;
 }
@@ -367,7 +349,7 @@ img.logo {
 .col-new{
   position: relative;
   left: 115px;
-max-width: 90%;
+  max-width: 90%;
 }
 p.theList {
   left: 26px;
@@ -381,9 +363,9 @@ form.form-elements {
   padding: 21px 0 36px 0;
 }
 div#student{
-position: relative;
-top: 25px;
-border-color: black !important;
+  position: relative;
+  top: 25px;
+  border-color: black !important;
 }
 .student-profile{
   border-radius: 1rem;
@@ -429,4 +411,63 @@ button#dropdownMenu2 {
   top: -11px;
   left: 285px;
   background: black;
+}
+
+
+/*--------------------view schedule-------------------------------*/
+
+.table__wrapper {
+  box-shadow: 0px 1px 57px -9px darkgrey;
+  border: 1px solid #bdbbb6;
+  border-radius: 10px;
+  font-size: 1em;
+  padding: 20px;
+}
+.table_heading_wrapper {
+  padding: 2rem 0 1rem 0;
+}
+.table__wrapper p {
+  margin: 0 0 0 3px
+}
+
+.table_heading {
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #bdbbb6;
+}
+.tbody {
+  border: 1px solid #bdbbb6 !important;
+}
+.table th {
+  height: 50px;
+  margin-left: 5px !important;
+}
+.table th,  .table td {
+  text-align: center;
+  padding: 8px;
+}
+th:nth-child(2) {background-color:lightblue }
+th:nth-child(3) {background-color:limegreen }
+th:nth-child(4) {background-color:yellow }
+th:nth-child(5) {background-color:lightcoral }
+th:nth-child(6) {background-color:slategray}
+
+.table tr , .table td {
+  border: 1px solid #bdbbb6;
+}
+.button__wrapper {
+  text-align: right;
+}
+.button__wrapper button{
+  background-color:darkcyan;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  transition: 0.5s;
 }
