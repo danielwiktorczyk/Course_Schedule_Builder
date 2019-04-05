@@ -19,13 +19,20 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
     */
     @Override
     public ArrayList<UserPreferences> getUserPreferences(){
-        List<UserPreferences> prefList = new ArrayList<UserPreferences>();
+        System.out.println("In user pref array creation");
+        ArrayList<UserPreferences> prefList = new ArrayList<UserPreferences>();
+        System.out.println("arraylist created");
         prefList.addAll(preferencesRepo.findByMondayIsTrue());
+        System.out.println("monday verified.  Size=" + prefList.size());
         prefList.addAll(preferencesRepo.findByTuesdayIsTrue());
+        System.out.println("tuesday verified.  Size=" + prefList.size());
         prefList.addAll(preferencesRepo.findByWednesdayIsTrue());
+        System.out.println("wednesday verified.  Size=" + prefList.size());
         prefList.addAll(preferencesRepo.findByThursdayIsTrue());
+        System.out.println("thursday verified.  Size=" + prefList.size());
         prefList.addAll(preferencesRepo.findByFridayIsTrue());
-        return (ArrayList<UserPreferences>) prefList;
+        System.out.println("friday verified.  Size=" + prefList.size());
+        return prefList;
     }
 
     /*

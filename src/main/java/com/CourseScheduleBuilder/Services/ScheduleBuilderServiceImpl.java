@@ -392,7 +392,9 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         userPreferencesSchedule = savedSchedules.clone();
         System.out.println("preferredSchedule is length " + userPreferencesSchedule.length);
         //arraylist of user preferences
-        ArrayList<UserPreferences> preferenceList = userPreferencesService.getUserPreferences();
+        ArrayList<UserPreferences> preferenceList = new ArrayList<UserPreferences>();
+        System.out.println("preferenceList created.  Length=" + preferenceList.size());
+        preferenceList = userPreferencesService.getUserPreferences();
         System.out.println("size of prefList: " + preferenceList.size());
         Iterator<UserPreferences> itPrefs = preferenceList.iterator();
 
