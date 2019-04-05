@@ -151,20 +151,20 @@ class ViewMySchedule extends Component {
 }
 
 
-const createCells = ({...classDays}, name , component , startTime , endTime, time , unique) => {
+const createCells = ({...classDays}, name , component , startTime , endTime, time , unique, section) => {
     var td = []
     for(let i = 0 ; i < 5 ; i++ ){
         let check  = time === moment().startOf('day').add(startTime, 'minutes').format('h A')
         check ? (
-            classDays[i] ? td.push( <td key={i}>{ classDays[i] && name } <br/>{classDays[i] && component } <br/> {classDays[i] && moment().startOf('day').add(startTime, 'minutes').format('hh:mm A') + ' - ' + moment().startOf('day').add(endTime, 'minutes').format('hh:mm A')}</td>) : td.push(<td key={i}></td>)
+            classDays[i] ? td.push( <td key={i}>{ classDays[i] && name } <br/>{classDays[i] && component }  <br/>{classDays[i] && section }<br/> {classDays[i] && moment().startOf('day').add(startTime, 'minutes').format('hh:mm A') + ' - ' + moment().startOf('day').add(endTime, 'minutes').format('hh:mm A')}</td>) : td.push(<td key={i}></td>)
         ) : unique === 0 ? td.push(<td key={i}></td>) : td.push()
     }
     return td;
 }
-const Row = ({startTime, endTime, classDays, name , component, time ,unique}) => (
+const Row = ({startTime, endTime, classDays, name , component, time ,unique, section}) => (
     <tr>
         {unique === 0 ? <td><strong>{time}</strong></td> :  time === moment().startOf('day').add(startTime, 'minutes').format('h A') ? <td></td> :null }
-        { name && createCells(classDays, name , component , startTime , endTime, time , unique) }
+        { name && createCells(classDays, name , component , startTime , endTime, time , unique, section) }
     </tr>
 )
 

@@ -116,6 +116,14 @@ public final class Course implements Cloneable, Serializable {
         this.labRequired = labRequired;
     }
 
+    public String getSection() {
+        return section;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
+    }
+
     public boolean[] getClassDays(){
         boolean[] classDays = new boolean[5];
         classDays[0] = this.monday.equals("TRUE");
