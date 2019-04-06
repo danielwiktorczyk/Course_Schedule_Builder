@@ -3,6 +3,7 @@ import '../css/App.css';
 import {withRouter} from "react-router-dom";
 import {BrowserRouter as Router} from 'react-router-dom';
 import Header from './Header';
+import axios from "axios";
 
 class SelectSemester extends Component {
     render() {
@@ -44,6 +45,11 @@ class SelectSemester extends Component {
     };
 
     routeChange(btnLabel) {
+        axios.post('http://localhost:8080/clear', {
+        }).then(res => {
+        }, err => {
+            alert("Server rejected response: COURSE INFO NOT RECEIVED");
+        });
         let path = '/SelectCourse';
         console.log("test1 ", btnLabel);
         localStorage.setItem("a", btnLabel);

@@ -75,6 +75,40 @@ class PossibleSchedules extends Component {
 
     }
 
+    enroll(){
+        if( localStorage.getItem("a") === "FALL 2019"){
+            axios.post('http://localhost:8080/enrollFall', {
+            }).then(res => {
+            }, err => {
+                alert("Server rejected response: " + err);
+            });
+        }
+
+        if( localStorage.getItem("a") === "WINTER 2019"){
+            axios.post('http://localhost:8080/enrollWinter', {
+            }).then(res => {
+            }, err => {
+                alert("Server rejected response: " + err);
+            });
+        }
+
+        if( localStorage.getItem("a") === "SUMMER 2018"){
+            axios.post('http://localhost:8080/enrollSummer', {
+            }).then(res => {
+            }, err => {
+                alert("Server rejected response: " + err);
+            });
+        }
+
+
+
+
+
+
+
+
+    }
+
     getLocalIt = () => {
 
         return localStorage.getItem("a");
@@ -118,7 +152,7 @@ class PossibleSchedules extends Component {
                             <hr/>
                         </div>
                         <div className="row">
-                            <button className="select-this-option btn btn-home-log">Select this Option</button>
+                            <button className="select-this-option btn btn-home-log" onClick={this.enroll}>Enroll</button>
                         </div>
                         <div className="button__wrapper">
                             <button className="col-1 btn btn-home-log" onClick={this.previous}>Prev.</button>

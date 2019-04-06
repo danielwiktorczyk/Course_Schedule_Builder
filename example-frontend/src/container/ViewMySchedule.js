@@ -26,10 +26,36 @@ class ViewMySchedule extends Component {
     // }
 
     // paginate with respect to next
-    next = ()  => {
+    summer = ()  => {
         if(true){
-            axios.post('http://localhost:8080/next')
+            axios.post('http://localhost:8080/SummerSchedule')
                 .then((res) => {
+                    if (res.data == ""){
+                        alert("You do not have a Summer schedule");
+                        return;
+                    }
+                    this.setState(prevState =>{
+                        return{
+                            offset : prevState.offset +1,
+                            data : res.data.courseTrio
+
+                        }
+                    })
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+    }
+
+    fall = ()  => {
+        if(true){
+            axios.post('http://localhost:8080/FallSchedule')
+                .then((res) => {
+                    if (res.data == ""){
+                        alert("You do not have a Fall schedule");
+                        return;
+                    }
                     this.setState(prevState =>{
                         return{
                             offset : prevState.offset +1,
@@ -45,10 +71,14 @@ class ViewMySchedule extends Component {
     }
 
     // paginate with respect to previous
-    previous = ()  => {
+    winter = ()  => {
         if(true){
-            axios.post('http://localhost:8080/previous')
+            axios.post('http://localhost:8080/WinterSchedule')
                 .then((res) => {
+                    if (res.data == ""){
+                        alert("You do not have a Winter schedule");
+                        return;
+                    }
                     this.setState(prevState =>{
                         return{
                             offset : prevState.offset -1,
@@ -113,9 +143,9 @@ class ViewMySchedule extends Component {
                             <hr/>
                             <h3 className="table_heading">Weekly Schedule</h3>
                             <hr/>
-                            <button className="col-2 btn btn-home-log">Fall</button>
-                            <button className="col-2 btn btn-home-log">Winter</button>
-                            <button className="col-2 btn btn-home-log">Summer</button>
+                            <button className="col-2 btn btn-home-log" onClick={this.fall}>Fall</button>
+                            <button className="col-2 btn btn-home-log" onClick={this.winter}>Winter</button>
+                            <button className="col-2 btn btn-home-log" onClick={this.summer}>Summer</button>
                         </div>
                         <table className="table">
                             <thead>
