@@ -138,7 +138,7 @@ public class ScheduleBuilderController {
     @ResponseBody
     public String enrollWinter()
     {
-        if (scheduleBuilderService.validateCorequisites())
+        if (!scheduleBuilderService.validateCorequisites())
             return "Corequisites were not met";
         scheduleBuilderService.enroll("Winter");
         return "Enrolled";
@@ -148,7 +148,7 @@ public class ScheduleBuilderController {
     @ResponseBody
     public String enrollSummer()
     {
-        if (scheduleBuilderService.validateCorequisites())
+        if (!scheduleBuilderService.validateCorequisites())
             return "Corequisites were not met";
         scheduleBuilderService.enroll("Summer");
         return "Enrolled";
