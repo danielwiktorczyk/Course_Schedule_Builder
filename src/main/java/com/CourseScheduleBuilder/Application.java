@@ -63,6 +63,7 @@ public class Application implements CommandLineRunner {
         user2.addToPrereqs("COMP232");
         user2.addToPrereqs("ENGR213");
         user2.addToPrereqs("ENGR201");
+        user2.addToPrereqs("ECON201");
 
         Schedule s = new Schedule();
 
@@ -102,6 +103,11 @@ public class Application implements CommandLineRunner {
         user4.addToPrereqs("COMP249");
         user4.addToPrereqs("SOEN287");
         user4.addToPrereqs("ENGR233");
+        user4.addToPrereqs("ECON201");
+        user4.addToPrereqs("BIOL206");
+        user4.addToPrereqs("ENGR251");
+        user4.addToPrereqs("COMP345");
+        user4.addToPrereqs("COMP353");
 
         userRepo.save(user4);
 

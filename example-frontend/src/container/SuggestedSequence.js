@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../css/App.css';
 import {BrowserRouter as Router, withRouter} from "react-router-dom";
 import Header from "./Header";
+import axios from "axios";
 // import axios from "axios";
 
 
@@ -10,7 +11,19 @@ class SuggestedSequence extends Component {
         super(props);
         this.state = {
             loggedIn: true,
+            coursesCompleted: [],
         };
+    }
+
+    async componentDidMount() {
+        axios.post('http://localhost:8080/progression')
+            .then((res) => {
+                this.setState({coursesCompleted: res.data})
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
     }
 
     render(){

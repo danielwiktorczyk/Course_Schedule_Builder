@@ -27,13 +27,12 @@ public class ScheduleBuilderServiceImplTest {
     @MockBean
     private static UserRepo userRepo;
     @MockBean
-    private static loggedInUserRepo login;
-
+    private static loggedInUserRepo loginUserRepo;
     @TestConfiguration
         static class ScheduleBuilderServiceImplTestConfiguration {
         @Bean
         public ScheduleBuilderServiceImpl scheduleBuilderService() {
-            return new ScheduleBuilderServiceImpl( courseRepo,  userRepo,  login);
+            return new ScheduleBuilderServiceImpl(courseRepo,  userRepo,loginUserRepo);
         }
     }
 
