@@ -1,6 +1,7 @@
 package com.CourseScheduleBuilder.Model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class CourseTrio implements Cloneable, Serializable {
     private Course lecture;
@@ -86,4 +87,14 @@ public class CourseTrio implements Cloneable, Serializable {
         return newCourseTrio;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CourseTrio that = (CourseTrio) o;
+        return hasLab == that.hasLab &&
+                lecture.equals(that.lecture) &&
+                Objects.equals(tutorial, that.tutorial) &&
+                Objects.equals(lab, that.lab);
+    }
 }

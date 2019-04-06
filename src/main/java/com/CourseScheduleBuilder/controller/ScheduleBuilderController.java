@@ -37,9 +37,6 @@ public class ScheduleBuilderController {
            return "Prerequisites not met";
 
         scheduleBuilderService.generateSchedules(courses.getMessage(),"Fall");
-        if(userPreferencesService.preferencesPresent()){
-            scheduleBuilderService.preferredSchedule();
-        }
         return "Course added!";
     }
     @PostMapping("/clear")
@@ -83,9 +80,6 @@ public class ScheduleBuilderController {
             return "Prerequisites not met";
 
         scheduleBuilderService.generateSchedules(courses.getMessage(),"Winter");
-        if(userPreferencesService.preferencesPresent()) {
-            scheduleBuilderService.preferredSchedule();
-        }
         return "Course added!";
     }
 
@@ -98,9 +92,6 @@ public class ScheduleBuilderController {
             return "Prerequisites not met";
 
         scheduleBuilderService.generateSchedules(courses.getMessage(),"Summer");
-        if(userPreferencesService.preferencesPresent()) {
-            scheduleBuilderService.preferredSchedule();
-        }
         return "Course added!";
     }
 
@@ -109,7 +100,14 @@ public class ScheduleBuilderController {
     @ResponseBody
     public Schedule generateSchedule()
     {
-        Schedule returnSchedule = scheduleBuilderService.generateAndShowFirstSchedule();
+        Schedule returnSchedule;
+        if(userPreferencesService.preferencesPresent()){
+            scheduleBuilderService.preferredSchedule();
+            returnSchedule = scheduleBuilderService.generateAndShowFirstPrefSchedule();
+        }
+        else {
+            returnSchedule = scheduleBuilderService.generateAndShowFirstSchedule();
+        }
         returnSchedule.adjustLength();
         return returnSchedule;
 
@@ -119,7 +117,13 @@ public class ScheduleBuilderController {
     @ResponseBody
     public Schedule nextSchedule()
     {
-        Schedule returnSchedule = scheduleBuilderService.nextSchedule();
+        Schedule returnSchedule;
+        if(userPreferencesService.preferencesPresent()){
+            returnSchedule = scheduleBuilderService.nextPrefSchedule();
+        }
+        else {
+            returnSchedule = scheduleBuilderService.nextSchedule();
+        }
         returnSchedule.adjustLength();
         return returnSchedule;
 
@@ -129,7 +133,13 @@ public class ScheduleBuilderController {
     @ResponseBody
     public Schedule previousSchedule()
     {
-        Schedule returnSchedule = scheduleBuilderService.previousSchedule();
+        Schedule returnSchedule;
+        if(userPreferencesService.preferencesPresent()){
+            returnSchedule = scheduleBuilderService.nextPrefSchedule();
+        }
+        else{
+            returnSchedule = scheduleBuilderService.previousSchedule();
+    }
         returnSchedule.adjustLength();
         return returnSchedule;
 

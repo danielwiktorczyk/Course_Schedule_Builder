@@ -17,4 +17,7 @@ public interface ScheduleBuilderService {
     public void clear();
     public Schedule seeUserSchedule(String semester);
     void preferredSchedule();
+    Schedule generateAndShowFirstPrefSchedule();
+    Schedule nextPrefSchedule();
+    Schedule previousPrefSchedule();
 }

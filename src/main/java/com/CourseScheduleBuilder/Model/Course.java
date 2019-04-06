@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 public final class Course implements Cloneable, Serializable {
@@ -149,4 +150,26 @@ public final class Course implements Cloneable, Serializable {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return term.equals(course.term) &&
+                Objects.equals(name, course.name) &&
+                Objects.equals(section, course.section) &&
+                Objects.equals(component, course.component) &&
+                Objects.equals(startTime, course.startTime) &&
+                Objects.equals(endTime, course.endTime) &&
+                Objects.equals(monday, course.monday) &&
+                Objects.equals(tuesday, course.tuesday) &&
+                Objects.equals(wednesday, course.wednesday) &&
+                Objects.equals(thursday, course.thursday) &&
+                Objects.equals(friday, course.friday) &&
+                Objects.equals(online, course.online) &&
+                Objects.equals(association, course.association);
+    }
 }
+
+
