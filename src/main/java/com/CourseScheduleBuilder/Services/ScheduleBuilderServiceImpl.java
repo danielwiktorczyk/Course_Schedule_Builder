@@ -270,10 +270,15 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             user.setFallSchedule(savedSchedules[scheduleCount]);
             userRepo.saveAndFlush(user);
         }
-        if (semester.equals("Winter"))
+        if (semester.equals("Winter")) {
             user.setWinterSchedule(savedSchedules[scheduleCount]);
-        if (semester.equals("Summer"))
+            userRepo.saveAndFlush(user);
+        }
+        userRepo.saveAndFlush(user);
+        if (semester.equals("Summer")) {
             user.setSummerSchedule(savedSchedules[scheduleCount]);
+            userRepo.saveAndFlush(user);
+        }
         return true;
     }
 

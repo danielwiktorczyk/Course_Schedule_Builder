@@ -92,18 +92,48 @@ class SelectCourse extends Component {
                 key: Date.now()
             };
             let message = this._inputElement.value;
-            axios.post('http://localhost:8080/addCourseToWishListFall', {
-                message
 
-            }).then(res => {
-                if ("Course added!" == res.data) {
-                    alert("course added");
-                }
-                else
-                    alert(res.data);
-            }, err => {
-                alert("Server rejected response: COURSE INFO NOT RECEIVED");
-            });
+            if( localStorage.getItem("a") === "FALL 2019") {
+                axios.post('http://localhost:8080/addCourseToWishListFall', {
+                    message
+
+                }).then(res => {
+                    if ("Course added!" == res.data) {
+                        alert("course added");
+                    } else
+                        alert(res.data);
+                }, err => {
+                    alert("Server rejected response: COURSE INFO NOT RECEIVED");
+                });
+            }
+
+            if( localStorage.getItem("a") === "WINTER 2019") {
+                axios.post('http://localhost:8080/addCourseToWishListWinter', {
+                    message
+
+                }).then(res => {
+                    if ("Course added!" == res.data) {
+                        alert("course added");
+                    } else
+                        alert(res.data);
+                }, err => {
+                    alert("Server rejected response: COURSE INFO NOT RECEIVED");
+                });
+            }
+
+            if( localStorage.getItem("a") === "SUMMER 2019") {
+                axios.post('http://localhost:8080/addCourseToWishListSummer', {
+                    message
+
+                }).then(res => {
+                    if ("Course added!" == res.data) {
+                        alert("course added");
+                    } else
+                        alert(res.data);
+                }, err => {
+                    alert("Server rejected response: COURSE INFO NOT RECEIVED");
+                });
+            }
 
             this.setState((prevState) => {
                 return {

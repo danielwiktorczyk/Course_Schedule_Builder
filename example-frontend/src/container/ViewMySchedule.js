@@ -50,7 +50,7 @@ class ViewMySchedule extends Component {
 
     fall = ()  => {
         if(true){
-            axios.post('http://localhost:8080/FallSchedule')
+            axios.post('http://localhost:8080/fallSchedule')
                 .then((res) => {
                     if (res.data == ""){
                         alert("You do not have a Fall schedule");

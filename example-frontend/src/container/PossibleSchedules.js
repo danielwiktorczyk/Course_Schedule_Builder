@@ -8,6 +8,7 @@ import moment from "moment";
 class PossibleSchedules extends Component {
     constructor(props) {
         super(props);
+        this.enroll = this.enroll.bind(this);
         this.state = {
             loggedIn: true,
             loading: true,
@@ -79,6 +80,7 @@ class PossibleSchedules extends Component {
         if( localStorage.getItem("a") === "FALL 2019"){
             axios.post('http://localhost:8080/enrollFall', {
             }).then(res => {
+                alert(res.data);
             }, err => {
                 alert("Server rejected response: " + err);
             });
@@ -87,6 +89,7 @@ class PossibleSchedules extends Component {
         if( localStorage.getItem("a") === "WINTER 2019"){
             axios.post('http://localhost:8080/enrollWinter', {
             }).then(res => {
+                alert(res.data);
             }, err => {
                 alert("Server rejected response: " + err);
             });
@@ -95,15 +98,14 @@ class PossibleSchedules extends Component {
         if( localStorage.getItem("a") === "SUMMER 2018"){
             axios.post('http://localhost:8080/enrollSummer', {
             }).then(res => {
+                alert(res.data);
             }, err => {
                 alert("Server rejected response: " + err);
             });
         }
-
-
-
-
-
+        let path = '/ViewMySchedule';
+        this.props.history.push(path);
+        window.location.reload();
 
 
 
