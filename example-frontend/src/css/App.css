@@ -467,7 +467,7 @@ th{
   border: 1px solid #bdbbb6;
 }
 .button__wrapper {
-  text-align: right;
+  /*text-align: right;*/
 }
 .button__wrapper button{
   /*background-color:darkcyan;*/
@@ -742,4 +742,8 @@ h3.middle{
 }
 .header ul{
   margin: 0;
+}
+button:focus{
+  outline: 0;
+  box-shadow: 0 0 0 0 rgba(0,0,0,0);
 }

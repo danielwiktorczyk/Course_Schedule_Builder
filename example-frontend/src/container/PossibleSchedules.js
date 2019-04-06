@@ -121,9 +121,9 @@ class PossibleSchedules extends Component {
                             <button className="select-this-option btn btn-home-log">Select this Option</button>
                         </div>
                         <div className="button__wrapper">
-                            <button onClick={this.previous}>Previous</button>
+                            <button className="col-1 btn btn-home-log" onClick={this.previous}>Prev.</button>
                             /
-                            <button onClick={this.next}>Next</button>
+                            <button className="col-1 btn btn-home-log" onClick={this.next}>Next</button>
                         </div>
 
                         <table className="table">
