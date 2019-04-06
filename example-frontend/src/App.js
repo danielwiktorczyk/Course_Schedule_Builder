@@ -14,6 +14,7 @@ import ViewMySchedule from './container/ViewMySchedule';
 import MyProfile from './container/MyProfile';
 import PlayGame from './container/PlayGame';
 import AboutUs from "./container/AboutUs";
+import SuggestedSequence from "./container/SuggestedSequence";
 
 
 class App extends Component {
@@ -35,6 +36,7 @@ class App extends Component {
               <Route key={10} path="/MyProfile" component={MyProfile} />
               <Route key={11} path="/PlayGame" component={PlayGame} />
               <Route key={12} path="/AboutUs" component={AboutUs} />
+              <Route key={13} path="/SuggestedSequence" component={SuggestedSequence} />
               <Footer/>
             </div>
           </div>
