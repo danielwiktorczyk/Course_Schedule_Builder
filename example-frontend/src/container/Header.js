@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import {withRouter} from "react-router-dom";
+import axios from "axios";
 
 class Header extends Component {
 
@@ -21,6 +22,13 @@ class Header extends Component {
     }
     logOut() {
         let path = '/';
+        axios.post('http://localhost:8080/logout', {
+        }).then(res => {
+            this.setState({loggedIn: false});
+            alert("Successfully Logged Out");
+        }, err => {
+            alert("Server rejected response: " + err);
+        });
         this.props.history.push(path);
         window.location.reload();
     }

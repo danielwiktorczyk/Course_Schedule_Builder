@@ -5,12 +5,14 @@ import Header from "./Header";
  import axios from "axios";
 
 
+
 class SuggestedSequence extends Component {
     constructor(props) {
         super(props);
         this.state = {
             loggedIn: true,
             courseCompleted : [],
+            coursesCompleted: [],
         };
     }
 
