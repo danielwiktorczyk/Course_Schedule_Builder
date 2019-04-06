@@ -13,4 +13,5 @@ public interface ScheduleBuilderService {
     public boolean enroll(String semester);
     public void clear();
     public Schedule seeUserSchedule(String semester);
+    public String[] coursesTaken();
 }
