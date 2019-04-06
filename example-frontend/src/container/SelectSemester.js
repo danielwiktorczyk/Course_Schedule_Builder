@@ -33,7 +33,6 @@ class SelectSemester extends Component {
                 </div>
             </div>
             </div>
-
     );
     }
 
