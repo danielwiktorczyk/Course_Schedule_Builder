@@ -585,7 +585,6 @@ button.col-3.btn.btn-home-log.select-semester-options {
   margin-top: 17px;
 }
 
-/*/////////////////////////////*/
 /* The container */
 .wrapping {
   display: inline-block;
@@ -701,10 +700,46 @@ img:hover{
   border-width: 2px;
   padding: 20px 50px;
   margin: 2rem 0 5rem 0;
+  /*text-align: center;*/
 }
-h4{
-  color: #540E72;
-}
+
 .middle{
   text-align: center;
+}
+h4 {
+  border-radius: 0.5rem;
+  box-shadow: 0 1rem 3rem 0 rgba(0, 0, 0, 0.2);
+  border-color: #28074D !important;
+  border-width: 2px;
+  color: #540E72;
+  /* width: 62%; */
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  /* left: 19%; */
+  margin: 15px 0;
+}
+
+h3.middle{
+  color: #540E72;
+  text-align: center;
+  margin-top: 17px;
+}
+
+.add_space{
+  margin-top: 20px;
+}
+.sequence ul.b {
+  list-style-type: square;
+}
+.sequence li{
+  list-style-type: square;
+}
+.sequence ul {
+  list-style-type: none;
+  margin: 0 0 0 45%;
+  padding: 0;
+}
+.header ul{
+  margin: 0;
 }

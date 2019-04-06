@@ -107,7 +107,7 @@ class SuggestedSequence extends Component {
         }
         //array for semester 7
         function ListSem7Courses(props) {
-            return <li>{props.value}</li>;
+            return <li><span>{props.value}</span></li>;
         }
 
         function CoursesList7(props) {
@@ -142,32 +142,41 @@ class SuggestedSequence extends Component {
         const courses4= ["COMP346" , "ELEC275", "ENGR371", "SOEN331", "SOEN341"];
         const courses5= ["COMP335" , "SOEN384", "ENGR391", "SOEN342", "SOEN343"];
         const courses6= ["SOEN344" , "SOEN345", "SOEN357", "SOEN390", "Elective"];
-        const courses7= ["ENGR301" , "SOEN321", "SOEN490", "Elective-1", "Elective-2"];
-        const courses8= ["ENGR392" , "SOEN385", "SOEN490", "Elective-1", "Elective-2"];
+        const courses7= ["ENGR301" , "SOEN321", "SOEN490", "Elective*", "Elective**"];
+        const courses8= ["ENGR392" , "SOEN385", "SOEN490", "Elective*", "Elective**"];
 
         return (
-            <div>
+            <div className="sequence">
                 <Router>
                     <Header />
                 </Router>
                 <div className="course_seq">
+                    <hr/>
                     <h3 className="middle">Software Engineering - General Program </h3>
-                    <h4>Semester 1</h4>
-                    <CoursesList1 courses1={courses1} />
-                    <h4>Semester 2</h4>
-                    <CoursesList2 courses2={courses2} />
-                    <h4>Semester 3</h4>
-                    <CoursesList3 courses3={courses3} />
-                    <h4>Semester 4</h4>
-                    <CoursesList4 courses4={courses4} />
-                    <h4>Semester 5</h4>
-                    <CoursesList5 courses5={courses5} />
-                    <h4>Semester 6</h4>
-                    <CoursesList6 courses6={courses6} />
-                    <h4>Semester 7</h4>
-                    <CoursesList7 courses7={courses7} />
-                    <h4>Semester 8</h4>
-                    <CoursesList8 courses8={courses8} />
+                    <hr/>
+                    <div className="row">
+                        <div className="col-6 add_space">
+                            <h4><i className="fa fa-book"> </i> Semester 1</h4>
+                            <CoursesList1 courses1={courses1} />
+                            <h4><i className="fa fa-book"> </i> Semester 2</h4>
+                            <CoursesList2 courses2={courses2} />
+                            <h4><i className="fa fa-book"> </i> Semester 3</h4>
+                            <CoursesList3 courses3={courses3} />
+                            <h4><i className="fa fa-book"> </i> Semester 4</h4>
+                            <CoursesList4 courses4={courses4} />
+                        </div>
+                        <div className="col-6 add_space">
+                            <h4><i className="fa fa-book"> </i> Semester 5</h4>
+                            <CoursesList5 courses5={courses5} />
+                            <h4><i className="fa fa-book"> </i> Semester 6</h4>
+                            <CoursesList6 courses6={courses6} />
+                            <h4><i className="fa fa-book"> </i> Semester 7</h4>
+                            <CoursesList7 courses7={courses7} />
+                            <h4><i className="fa fa-book"> </i> Semester 8</h4>
+                            <CoursesList8 courses8={courses8} />
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
