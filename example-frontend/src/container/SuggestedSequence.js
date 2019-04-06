@@ -148,13 +148,13 @@ class SuggestedSequence extends Component {
         }
 
         const courses1 = ["COMP232" , "COMP248", "ENGR201", "ENGR213", "General Elective"];
-        const courses2= ["COMP249" , "SOEN228", "ENGR233", "SOEN287", "Basic Science"];
-        const courses3= ["COMP384" , "COMP352", "ENCS282", "ENGR202", "Basic Science"];
+        const courses2= ["COMP249" , "SOEN228", "ENGR233", "SOEN287", "Basic Science 1"];
+        const courses3= ["COMP384" , "COMP352", "ENCS282", "ENGR202", "Basic Science 2"];
         const courses4= ["COMP346" , "ELEC275", "ENGR371", "SOEN331", "SOEN341"];
         const courses5= ["COMP335" , "SOEN384", "ENGR391", "SOEN342", "SOEN343"];
-        const courses6= ["SOEN344" , "SOEN345", "SOEN357", "SOEN390", "Elective"];
-        const courses7= ["ENGR301" , "SOEN321", "SOEN490", "Elective*", "Elective**"];
-        const courses8= ["ENGR392" , "SOEN385", "SOEN490", "Elective*", "Elective**"];
+        const courses6= ["SOEN344" , "SOEN345", "SOEN357", "SOEN390", "Elective 1"];
+        const courses7= ["ENGR301" , "SOEN321", "SOEN490", "Elective 2", "Elective 3"];
+        const courses8= ["ENGR392" , "SOEN385", "SOEN490", "Elective 4", "Elective 5"];
 
         return (
             <div className="sequence">
