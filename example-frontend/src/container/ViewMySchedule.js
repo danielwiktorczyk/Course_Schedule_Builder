@@ -102,7 +102,7 @@ class ViewMySchedule extends Component {
                 <Router>
                     <Header />
                 </Router>
-                <div className="container select-semester">
+                <div className="container select-semester show-schedule">
                     <div className="table__wrapper">
                         <div className="row">
 
@@ -138,7 +138,6 @@ class ViewMySchedule extends Component {
 
                             </tbody>
                         </table>
-                        <p></p>
                     </div>
                 </div>
             </div>

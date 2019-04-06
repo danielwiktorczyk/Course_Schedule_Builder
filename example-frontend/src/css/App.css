@@ -86,7 +86,7 @@ input.col-12 {
   color: white !important;
   text-transform: uppercase !important;
   background-color: #010101 !important;
-  border-color:#28074D !important;
+  border-color:#641B83 !important;
   border-radius: 10px !important;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
   padding: 10px;
@@ -102,8 +102,8 @@ img.ScheduleGen {
   padding-bottom: 100px;
 }
 hr{
-  color: #28074D;
-  background-color: #28074D;
+  color: #641B83;
+  background-color: #641B83;
 }
 .select-semester-button{
   padding-top: 1rem;
@@ -117,7 +117,7 @@ div.selected-courses,
 input.col-8.course-name {
   border-radius: 10px;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
-  border-color: #28074D;
+  border-color: #641B83;
   border-width: 1px;
   padding: 9px;
   margin: 0 0 19px 0;
@@ -127,7 +127,7 @@ input.col-8.course-name {
 }
 .theList,
 div.selected-courses{
-  border-color: #28074D;
+  border-color: #641B83;
 }
 button.col-3.btn.btn-home-log {
   position: relative;
@@ -204,9 +204,9 @@ input:focus,
   outline: 0;
    box-shadow: 0 0 0 0 rgba(0,0,0,0);
 }
-
+.generate-with-pref:hover,
 button.btn.btn-home-log:hover {
-  background-color: #28074D !important;
+  background-color: #641B83 !important;
 }
 
 
@@ -239,7 +239,7 @@ button.col-2.btn.btn-home-log {
 }
 .footer a:hover,
 .header a:hover {
-  background-color: #28074D;
+  background-color: #641B83;
 }
 h1{
   margin: 20px 0;
@@ -284,7 +284,7 @@ p:empty {
 }
 .header-buttons:hover{
 
-  background-color: #28074D !important;
+  background-color: #641B83 !important;
 }
 
 .header-buttons{
@@ -371,7 +371,7 @@ div#student{
   border-radius: 1rem;
   -webkit-box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.5);
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.5);
-  border-color: #28074D !important;
+  border-color: #641B83 !important;
   border-width: 2px;
 }
 img.student-profile-logo {
@@ -459,7 +459,7 @@ button#dropdownMenu2 {
 /*th:nth-child(6) {background-color:slategray}*/
 
 th{
-  background-color: black;
+  background-color: #641B83;
   color:#ffffff;
   border: 1px solid #fff !important;
 }
@@ -467,10 +467,11 @@ th{
   border: 1px solid #bdbbb6;
 }
 .button__wrapper {
-  text-align: center;
+  text-align: right;
 }
 .button__wrapper button{
-  background-color:darkcyan;
+  /*background-color:darkcyan;*/
+  background-color:#010101;
   border-radius: 5px;
   border: none;
   color: #fff;
@@ -552,7 +553,7 @@ button.col-3.btn.btn-home-log.select-semester-options {
 
 /* When the checkbox is checked, add a blue background */
 .newwrapper input:checked ~ .checkmark {
-  background-color: #010101;
+  background-color: #641B83;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -583,8 +584,6 @@ button.col-3.btn.btn-home-log.select-semester-options {
   margin-left: 30px;
   margin-top: 17px;
 }
-
-
 
 /*/////////////////////////////*/
 /* The container */
@@ -627,7 +626,7 @@ button.col-3.btn.btn-home-log.select-semester-options {
 
 /* When the radio button is checked, add a blue background */
 .wrapping input:checked ~ .check-mark {
-  background-color: black;
+  background-color: #641B83;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -665,4 +664,32 @@ label.newwrapper {
   padding-top: 3rem !important;
   padding-bottom: 6rem !important;
 
+}
+
+button.select-this-option.btn.btn-home-log {
+  width: 17%;
+  position: relative;
+  left: 41%;
+  top: -12px;
+}
+img:hover{
+  cursor: pointer;
+}
+
+/*th:nth-child(2) {background-color:lightblue }*/
+/*th:nth-child(3) {background-color:limegreen }*/
+/*th:nth-child(4) {background-color:yellow }*/
+/*th:nth-child(5) {background-color:lightcoral }*/
+/*th:nth-child(6) {background-color:slategray}*/
+
+.generate-with-pref{
+  color: white !important;
+  text-transform: uppercase !important;
+  background-color: #010101 !important;
+  border-color: #641B83 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin: 10px;
+  /* width: 93%; */
 }

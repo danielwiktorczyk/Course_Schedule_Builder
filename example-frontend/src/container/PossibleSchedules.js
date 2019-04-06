@@ -64,7 +64,7 @@ class PossibleSchedules extends Component {
 
     // get the data by default
     async componentDidMount() {
-        const {offset}  = this.state;
+        const {offset}  = this.state
         axios.post('http://localhost:8080/generate')
             .then((res) => {
                 this.setState({data : res.data.courseTrio , size : res.data.size})
@@ -111,16 +111,21 @@ class PossibleSchedules extends Component {
                             {/*<div>{this.state.person.name.title}</div>*/}
                             {/*<div>{this.state.person.name.first}</div>*/}
                         </div>
+
                         <div className="table_heading_wrapper">
                             <hr/>
                             <h3 className="table_heading">WEEKLY SCHEDULE FOR {this.getLocalIt()}</h3>
                             <hr/>
                         </div>
-                        <div className="button__wrapper">
-                            <img className="center-arrows prev" src={require("../assets/left-arrow.JPG")} onClick={this.previous} alt="left"/>
-                            ## / ##
-                            <img className="center-arrows next" src={require("../assets/right-arrow.JPG")} onClick={this.next} alt="right"/>
+                        <div className="row">
+                            <button className="select-this-option btn btn-home-log">Select this Option</button>
                         </div>
+                        <div className="button__wrapper">
+                            <button onClick={this.previous}>Previous</button>
+                            /
+                            <button onClick={this.next}>Next</button>
+                        </div>
+
                         <table className="table">
                             <thead>
                             <tr>
