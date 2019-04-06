@@ -21,21 +21,68 @@ class SelectCourse extends Component {
         this.routeChange = this.routeChange.bind(this);
         this.generateSchedule = this.generateSchedule.bind(this);
         this.addItem = this.addItem.bind(this);
-         // this.deleteItem = this.deleteItem.bind(this);
+        this.clearList = this.clearList.bind(this);
         //  this.add_course = this.add_course.bind(this);
 
         this.state = {
             items: [],
-            coursename: ""
+            coursename: "",
+            showMessage: false,
+            showOptionsMonday: false,
+            showOptionsTuesday: false,
+            showOptionsWednesday: false,
+            showOptionsThursday: false,
+            showOptionsFriday: false
         };
-
     }
-
-    resetForm = () => {
-
-        window.location.reload();
-
-    }
+    _showMessage = (bool) => {
+        if (this.state.showMessage === false){
+            this.setState({showMessage: true}) &&
+            this.setState({showOptionsMonday: false}) &&
+            this.setState({showOptionsTuesday: false}) &&
+            this.setState({showOptionsWednesday: false}) &&
+            this.setState({showOptionsThursday: false}) &&
+            this.setState({showOptionsFriday: false})
+        }else{
+            this.setState({showMessage: false}) &&
+            this.setState({showOptionsMonday: false}) &&
+            this.setState({showOptionsTuesday: false}) &&
+            this.setState({showOptionsWednesday: false}) &&
+            this.setState({showOptionsThursday: false}) &&
+            this.setState({showOptionsFriday: false})
+        }
+    };
+    _showOptionsMonday = (bool) =>{
+        if (this.state.showOptionsMonday === false){
+            this.setState({showOptionsMonday: true})
+        }else{
+            this.setState({showOptionsMonday: false})
+        }
+    };_showOptionsTuesday = (bool) =>{
+        if (this.state.showOptionsTuesday === false){
+            this.setState({showOptionsTuesday: true})
+        }else{
+            this.setState({showOptionsTuesday: false})
+        }
+    };_showOptionsWednesday = (bool) =>{
+        if (this.state.showOptionsWednesday === false){
+            this.setState({showOptionsWednesday: true})
+        }else{
+            this.setState({showOptionsWednesday: false})
+        }
+    };_showOptionsThursday = (bool) =>{
+        if (this.state.showOptionsThursday === false){
+            this.setState({showOptionsThursday: true})
+        }else{
+            this.setState({showOptionsThursday: false})
+        }
+    };_showOptionsFriday = (bool) =>{
+        if (this.state.showOptionsFriday === false){
+            this.setState({showOptionsFriday: true})
+        }else{
+            this.setState({showOptionsFriday: false})
+        }
+    };
 
     routeChange() {
         let path = '/SelectSemester';
@@ -46,16 +93,6 @@ class SelectCourse extends Component {
         let path = '/PossibleSchedules';
         this.props.history.push(path);
     }
-
-    // deleteItem(key) {
-    //     let filteredItems = this.state.items.filter(function (item) {
-    //         return (item.key !== key);
-    //     });
-    //
-    //     this.setState({
-    //         items: filteredItems
-    //     });
-    // }
 
     addItem(e) {
         if (this._inputElement.value !== "") {
@@ -88,6 +125,10 @@ class SelectCourse extends Component {
         }
 
     }
+    clearList(){
+        window.location.reload();
+    }
+
 
     handleCourseNameChange = evt => {
         this.setState({ coursename: evt.target.value });
@@ -111,7 +152,7 @@ class SelectCourse extends Component {
     getLocalItem = () => {
 
         return localStorage.getItem("a");
-    }
+    };
     
     render(){
         const errors = validate(this.state.coursename);
@@ -144,35 +185,119 @@ class SelectCourse extends Component {
                     <div>
                         <button className="col-3 btn btn-home-log select-semester-options" disabled={isDisabled} onClick={this.generateSchedule}>GENERATE</button>
                         <button className="col-3 btn btn-home-log select-semester-options" onClick={this.routeChange}>CHANGE SEMESTER</button>
-                       
+                        <button className="col-3 btn btn-home-log select-semester-options" onClick={this.clearList}>CLEAR LIST</button>
+                        <button className="col-3 btn btn-home-log select-semester-options" onClick={this._showMessage}>ADD PREFERENCES</button>
+                        { this.state.showMessage && (
+                            <div className="preferences">
+                                <h6>Choose the Days/ Times You Would Like to Be away from Campus:</h6>
+                                <label className="newwrapper">Monday
+                                    <input type="checkbox"/>
+                                        <span className="checkmark" onClick={this._showOptionsMonday}></span>
+                                </label>
+                                { this.state.showOptionsMonday && (
+                                    <div className="choices">
+                                        <label className="wrapping radio-inline">No Mornings
+                                            <input type="radio" name="radio1"/>
+                                                <span className="check-mark"></span>
+                                        </label>
+                                        <label className="wrapping radio-inline">No Evenings
+                                            <input type="radio" name="radio2"/>
+                                                <span className="check-mark"></span>
+                                        </label>
+                                        <label className="wrapping radio-inline">All Day off
+                                            <input type="radio" name="radio3"/>
+                                            <span className="check-mark"></span>
+                                        </label>
+                                    </div>
+                                )}
+                                <label className="newwrapper">Tuesday
+                                    <input type="checkbox"/>
+                                        <span className="checkmark" onClick={this._showOptionsTuesday}></span>
+                                </label>
+                                { this.state.showOptionsTuesday && (
+                                    <div className="choices">
+                                        <label className="wrapping radio-inline">No Mornings
+                                            <input type="radio" name="radio4"/>
+                                            <span className="check-mark"></span>
+                                        </label>
+                                        <label className="wrapping radio-inline">No Evenings
+                                            <input type="radio" name="radio5"/>
+                                            <span className="check-mark"></span>
+                                        </label>
+                                        <label className="wrapping radio-inline">All Day off
+                                            <input type="radio" name="radio6"/>
+                                            <span className="check-mark"></span>
+                                        </label>
+                                    </div>
+                                )}
+                                <label className="newwrapper">Wednesday
+                                    <input type="checkbox"/>
+                                        <span className="checkmark" onClick={this._showOptionsWednesday}></span>
+                                </label>
+                                { this.state.showOptionsWednesday && (
+                                    <div className="choices">
+                                        <label className="wrapping radio-inline">No Mornings
+                                            <input type="radio" name="radio7"/>
+                                            <span className="check-mark"></span>
+                                        </label>
+                                        <label className="wrapping radio-inline">No Evenings
+                                            <input type="radio" name="radio8"/>
+                                            <span className="check-mark"></span>
+                                        </label>
+                                        <label className="wrapping radio-inline">All Day off
+                                            <input type="radio" name="radio9"/>
+                                            <span className="check-mark"></span>
+                                        </label>
+                                    </div>
+                                )}
+                                <label className="newwrapper">Thursday
+                                    <input type="checkbox"/>
+                                        <span className="checkmark" onClick={this._showOptionsThursday}></span>
+                                </label>
+                                { this.state.showOptionsThursday && (
+                                    <div className="choices">
+                                        <label className="wrapping radio-inline">No Mornings
+                                            <input type="radio" name="radio10"/>
+                                            <span className="check-mark"></span>
+                                        </label>
+                                        <label className="wrapping radio-inline">No Evenings
+                                            <input type="radio" name="radio11"/>
+                                            <span className="check-mark"></span>
+                                        </label>
+                                        <label className="wrapping radio-inline">All Day off
+                                            <input type="radio" name="radio12"/>
+                                            <span className="check-mark"></span>
+                                        </label>
+                                    </div>
+                                )}
+                                <label className="newwrapper" >Friday
+                                    <input type="checkbox"/>
+                                        <span className="checkmark" onClick={this._showOptionsFriday}></span>
+                                </label>
+                                { this.state.showOptionsFriday && (
+                                    <div className="choices">
+                                        <label className="wrapping radio-inline">No Mornings
+                                            <input type="radio" name="radio13"/>
+                                            <span className="check-mark"></span>
+                                        </label>
+                                        <label className="wrapping radio-inline">No Evenings
+                                            <input type="radio" name="radio14"/>
+                                            <span className="check-mark"></span>
+                                        </label>
+                                        <label className="wrapping radio-inline">All Day off
+                                            <input type="radio" name="radio15"/>
+                                            <span className="check-mark"></span>
+                                        </label>
+                                    </div>
+                                )}
+
+                            </div>
+                        ) }
+
                     </div>
                 </div>
             </div>
         );
     }
-
-    // add_course() {
-    //
-    //     let name = document.getElementById('course-name');
-    //     if (name != null) {
-    //         name = name.value;
-    //     }
-    //     else {
-    //         alert("Please enter your course name"); //user input = null
-    //     }
-    //
-    //     axios.post('http://localhost:8080/course', {
-    //         name: name,
-    //
-    //     }).then(res => {
-    //         if (name === Course().getName) {
-    //            alert("course added");
-    //         }
-    //         else
-    //             alert("Please enter your course info in this format: SOEN 341");
-    //     }, err => {
-    //         alert("Server rejected response: COURSE INFO NOT RECEIVED");
-    //     });
-    // }
 }
 export default withRouter(SelectCourse);
