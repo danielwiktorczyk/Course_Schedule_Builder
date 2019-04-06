@@ -552,22 +552,31 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         //arraylist of courses
         System.out.println(" deconstructing savedSchedule, creating list of all courses");
         ArrayList<Course> allCourses = new ArrayList<Course>();
+        System.out.println("list of all courses has length: " + allCourses.size());
         for (int i=0; i<scheduleNoPrefs.length ;i++){
+            System.out.println("in first for loop, i=" + i);
             CourseTrio[] allTrios = scheduleNoPrefs[i].getCourseTrio();
             for(int j=0; j < allTrios.length; j++) {
-                allCourses.add(allTrios[j].getLecture());
+                System.out.println("in second for loop, j=" + j);
+                if(allTrios[j] == null){
+                    break;
+                }
+                else {
+                    allCourses.add(allTrios[j].getLecture());
+                }
+                System.out.println("adding lecture" + allTrios[j].getLecture());
                 allCourses.add(allTrios[j].getTutorial());
+                System.out.println("adding tutorial" + allTrios[j].getTutorial());
                 if (allTrios[j].isHasLab()) {
                     allCourses.add(allTrios[j].getLab());
                 }
             }
         }
-        System.out.println("arraylist or courses made.  Length = " + allCourses.size());
+        System.out.println("arraylist of courses made.  Length = " + allCourses.size());
 
         //Arraylist of user preferences
         System.out.print("arraylist of user preferences being made");
         ArrayList<UserPreferences> preferenceList = new ArrayList<UserPreferences>();
-        preferenceList = userPreferencesService.getUserPreferences();
         preferenceList.addAll(preferences.findByMondayIsTrue());
         preferenceList.addAll(preferences.findByTuesdayIsTrue());
         preferenceList.addAll(preferences.findByWednesdayIsTrue());
