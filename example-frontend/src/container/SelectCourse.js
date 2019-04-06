@@ -37,19 +37,10 @@ class SelectCourse extends Component {
     }
     _showMessage = (bool) => {
         if (this.state.showMessage === false){
-            this.setState({showMessage: true}) &&
-            this.setState({showOptionsMonday: false}) &&
-            this.setState({showOptionsTuesday: false}) &&
-            this.setState({showOptionsWednesday: false}) &&
-            this.setState({showOptionsThursday: false}) &&
-            this.setState({showOptionsFriday: false})
+            this.setState({showMessage: true})
+
         }else{
-            this.setState({showMessage: false}) &&
-            this.setState({showOptionsMonday: false}) &&
-            this.setState({showOptionsTuesday: false}) &&
-            this.setState({showOptionsWednesday: false}) &&
-            this.setState({showOptionsThursday: false}) &&
-            this.setState({showOptionsFriday: false})
+            this.setState({showMessage: false})
         }
     };
     _showOptionsMonday = (bool) =>{
@@ -201,11 +192,11 @@ class SelectCourse extends Component {
                                                 <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">No Evenings
-                                            <input type="radio" name="radio2"/>
+                                            <input type="radio" name="radio1"/>
                                                 <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">All Day off
-                                            <input type="radio" name="radio3"/>
+                                            <input type="radio" name="radio1"/>
                                             <span className="check-mark"></span>
                                         </label>
                                     </div>
@@ -217,15 +208,15 @@ class SelectCourse extends Component {
                                 { this.state.showOptionsTuesday && (
                                     <div className="choices">
                                         <label className="wrapping radio-inline">No Mornings
-                                            <input type="radio" name="radio4"/>
+                                            <input type="radio" name="radio2"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">No Evenings
-                                            <input type="radio" name="radio5"/>
+                                            <input type="radio" name="radio2"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">All Day off
-                                            <input type="radio" name="radio6"/>
+                                            <input type="radio" name="radio2"/>
                                             <span className="check-mark"></span>
                                         </label>
                                     </div>
@@ -237,15 +228,15 @@ class SelectCourse extends Component {
                                 { this.state.showOptionsWednesday && (
                                     <div className="choices">
                                         <label className="wrapping radio-inline">No Mornings
-                                            <input type="radio" name="radio7"/>
+                                            <input type="radio" name="radio3"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">No Evenings
-                                            <input type="radio" name="radio8"/>
+                                            <input type="radio" name="radio3"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">All Day off
-                                            <input type="radio" name="radio9"/>
+                                            <input type="radio" name="radio3"/>
                                             <span className="check-mark"></span>
                                         </label>
                                     </div>
@@ -257,15 +248,15 @@ class SelectCourse extends Component {
                                 { this.state.showOptionsThursday && (
                                     <div className="choices">
                                         <label className="wrapping radio-inline">No Mornings
-                                            <input type="radio" name="radio10"/>
+                                            <input type="radio" name="radio4"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">No Evenings
-                                            <input type="radio" name="radio11"/>
+                                            <input type="radio" name="radio4"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">All Day off
-                                            <input type="radio" name="radio12"/>
+                                            <input type="radio" name="radio4"/>
                                             <span className="check-mark"></span>
                                         </label>
                                     </div>
@@ -277,11 +268,11 @@ class SelectCourse extends Component {
                                 { this.state.showOptionsFriday && (
                                     <div className="choices">
                                         <label className="wrapping radio-inline">No Mornings
-                                            <input type="radio" name="radio13"/>
+                                            <input type="radio" name="radio5"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">No Evenings
-                                            <input type="radio" name="radio14"/>
+                                            <input type="radio" name="radio5"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">All Day off
@@ -290,10 +281,9 @@ class SelectCourse extends Component {
                                         </label>
                                     </div>
                                 )}
-
+                                <button className="btn generate-with-pref">Generate Using Preferences</button>
                             </div>
                         ) }
-
                     </div>
                 </div>
             </div>

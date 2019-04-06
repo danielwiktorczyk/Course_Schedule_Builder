@@ -102,7 +102,7 @@ class ViewMySchedule extends Component {
                 <Router>
                     <Header />
                 </Router>
-                <div className="container select-semester">
+                <div className="container select-semester show-schedule">
                     <div className="table__wrapper">
                         <div className="row">
 
@@ -110,7 +110,12 @@ class ViewMySchedule extends Component {
                             {/*<div>{this.state.person.name.first}</div>*/}
                         </div>
                         <div className="table_heading_wrapper">
+                            <hr/>
                             <h3 className="table_heading">Weekly Schedule</h3>
+                            <hr/>
+                            <button className="col-2 btn btn-home-log">Fall</button>
+                            <button className="col-2 btn btn-home-log">Winter</button>
+                            <button className="col-2 btn btn-home-log">Summer</button>
                         </div>
                         <table className="table">
                             <thead>
@@ -138,14 +143,12 @@ class ViewMySchedule extends Component {
 
                             </tbody>
                         </table>
-                        <p></p>
                     </div>
                 </div>
             </div>
         );
     }
 }
-
 
 const createCells = ({...classDays}, name , component , startTime , endTime, time , unique, section) => {
     var td = []
