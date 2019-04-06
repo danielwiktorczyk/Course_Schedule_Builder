@@ -100,7 +100,7 @@ class SelectCourse extends Component {
                     alert("course added");
                 }
                 else
-                    alert("Please enter your course info in this format: SOEN 341");
+                    alert(res.data);
             }, err => {
                 alert("Server rejected response: COURSE INFO NOT RECEIVED");
             });
@@ -117,8 +117,14 @@ class SelectCourse extends Component {
 
     }
     clearList(){
+        axios.post('http://localhost:8080/clear', {
+        }).then(res => {
+        }, err => {
+            alert("Server rejected response: COURSE INFO NOT RECEIVED");
+        });
         window.location.reload();
     }
+
 
 
     handleCourseNameChange = evt => {
