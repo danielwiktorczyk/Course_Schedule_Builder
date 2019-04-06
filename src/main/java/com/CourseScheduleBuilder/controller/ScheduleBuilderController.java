@@ -155,6 +155,17 @@ public class ScheduleBuilderController {
 
     }
 
+    @PostMapping("/progression")
+    @CrossOrigin
+    @ResponseBody
+    public String[] progression()
+    {
+        return scheduleBuilderService.coursesTaken();
+
+    }
+
+
+
 
 
 
