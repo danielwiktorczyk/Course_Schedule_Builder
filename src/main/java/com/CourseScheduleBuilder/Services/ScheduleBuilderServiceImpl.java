@@ -594,9 +594,10 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
                 boolean overlap = checkCourseForUserPreferences(prefDays, courseDays, courseToVerify, prefToVerify);
                 if (overlap) {
                     System.out.println("Overlap identified");
-                    System.out.println("checking updatedSchedule");
+                    System.out.println("checking updatedSchedule of length " + updatedSchedule.size());
                     for(int p = 0; p < updatedSchedule.size(); p++){
                         CourseTrio[] trio = updatedSchedule.get(p).getCourseTrio();
+                        System.out.println("checking trio of length " + trio.length);
                         for(int q = 0; q < trio.length; q++){
                             if(findPrefConflict(courseToVerify, trio)){
                                 updatedSchedule.remove(p);
