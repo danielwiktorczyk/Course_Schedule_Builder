@@ -156,20 +156,9 @@ public final class Course implements Cloneable, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Course course = (Course) o;
-        return term.equals(course.term) &&
-                Objects.equals(name, course.name) &&
-                Objects.equals(section, course.section) &&
-                Objects.equals(component, course.component) &&
-                Objects.equals(startTime, course.startTime) &&
-                Objects.equals(endTime, course.endTime) &&
-                Objects.equals(monday, course.monday) &&
-                Objects.equals(tuesday, course.tuesday) &&
-                Objects.equals(wednesday, course.wednesday) &&
-                Objects.equals(thursday, course.thursday) &&
-                Objects.equals(friday, course.friday) &&
-                Objects.equals(online, course.online) &&
-                Objects.equals(association, course.association);
+        return id.equals(course.id);
     }
+
 }
 
 

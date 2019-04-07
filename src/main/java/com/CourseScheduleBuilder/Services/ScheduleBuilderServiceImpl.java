@@ -440,155 +440,11 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     }
 
     /*
-            This method provides a schedule that takes into account the users time preferences
-            if a conflict is found, the trio in conflict is removed from the courseList. The updated courseList is returned
-
-    /*
-    @Override
-    public void preferredSchedule() {
-        //array of previously generated schedules
-        Schedule[] scheduleNoPrefs = savedSchedules.clone();
-        System.out.println("savedSchedule is length " + scheduleNoPrefs.length);
-        userPreferencesSchedule = savedSchedules.clone();
-        System.out.println("preferredSchedule is length " + userPreferencesSchedule.length);
-
-        //arraylist of courses
-        System.out.println(" deconstructing savedSchedule, creating list of all courses");
-        ArrayList<Course> allCourses = new ArrayList<Course>();
-        for (int i=0; i<scheduleNoPrefs.length ;i++){
-            System.out.println("in first for loop, i=" + i);
-            CourseTrio[] allTrios = scheduleNoPrefs[i].getCourseTrio();
-            for(int j=0; j < allTrios.length; j++) {
-                System.out.println("in second for loop, j=" + j);
-                if(allTrios[j] == null){
-                    break;
-                }
-                else {
-                    allCourses.add(allTrios[j].getLecture());
-                }
-                System.out.println("adding lecture" + allTrios[j].getLecture());
-                allCourses.add(allTrios[j].getTutorial());
-                System.out.println("adding tutorial" + allTrios[j].getTutorial());
-                if (allTrios[j].isHasLab()) {
-                    allCourses.add(allTrios[j].getLab());
-                }
-            }
-        }
-        System.out.println("arraylist of courses made.  Length = " + allCourses.size());
-
-        //need to keep and update trio lists in parallel for recombination
-        ArrayList<CourseTrio> courseType1 = new ArrayList<CourseTrio>(Arrays.asList(scheduleNoPrefs[0].getCourseTrio()));
-        System.out.println("courseType1 has length " + courseType1.size());
-        ArrayList<CourseTrio> courseType2 = new ArrayList<CourseTrio>(Arrays.asList(scheduleNoPrefs[1].getCourseTrio()));
-        System.out.println("courseType2 has length " + courseType2.size());
-        ArrayList<CourseTrio> courseType3 = new ArrayList<CourseTrio>(Arrays.asList(scheduleNoPrefs[2].getCourseTrio()));
-        ArrayList<CourseTrio> courseType4 = new ArrayList<CourseTrio>(Arrays.asList(scheduleNoPrefs[3].getCourseTrio()));
-        ArrayList<CourseTrio> courseType5 = new ArrayList<CourseTrio>(Arrays.asList(scheduleNoPrefs[4].getCourseTrio()));
-        ArrayList<CourseTrio> courseType6 = new ArrayList<CourseTrio>(Arrays.asList(scheduleNoPrefs[5].getCourseTrio()));
-
-        //Arraylist of user preferences
-        System.out.print("arraylist of user preferences being made");
-        ArrayList<UserPreferences> preferenceList = new ArrayList<UserPreferences>();
-        preferenceList.addAll(preferences.findByMondayIsTrue());
-        preferenceList.addAll(preferences.findByTuesdayIsTrue());
-        preferenceList.addAll(preferences.findByWednesdayIsTrue());
-        preferenceList.addAll(preferences.findByThursdayIsTrue());
-        preferenceList.addAll(preferences.findByFridayIsTrue());
-        System.out.println("size of prefList: " + preferenceList.size());
-        Iterator<UserPreferences> itPrefs = preferenceList.iterator();
-        Iterator<Course> itCourses = allCourses.iterator();
-
-        while (itPrefs.hasNext()) {
-            //first preference to verify
-            UserPreferences prefToVerify = itPrefs.next();
-            boolean[] prefDays = prefToVerify.getPreferenceDays();
-            while (itCourses.hasNext()) {
-                Course courseToVerify = itCourses.next();
-                System.out.println("courseToVerify is " + courseToVerify.getName());
-                boolean[] courseDays = courseToVerify.getClassDays();
-                //logic to check overlap between a preference and a course
-                boolean overlap = checkCourseForUserPreferences(prefDays, courseDays, courseToVerify, prefToVerify);
-                if (overlap) {
-                    System.out.println("Overlap identified");
-                    System.out.println("checking courseType1.  size: "  + courseType1.size());
-                    updateTrioList(courseToVerify, courseType1);
-                    if(!courseType2.isEmpty()) {
-                        System.out.println("checking courseType2");
-                        updateTrioList(courseToVerify, courseType2);
-                    }
-                    if(!courseType3.isEmpty()) {
-                        updateTrioList(courseToVerify, courseType3);
-                    }
-                    if(!courseType4.isEmpty()) {
-                        updateTrioList(courseToVerify, courseType4);
-                    }
-                    if(!courseType5.isEmpty()){
-                        updateTrioList(courseToVerify, courseType5);
-                    }
-                    if(!courseType6.isEmpty()){
-                        updateTrioList(courseToVerify, courseType6);
-                    }
-                    System.out.println("eliminated course removed in trio lists");
-                }
-            }
-        }
-        System.out.println("all conflicting courses removed");
-        System.out.println("recombining remaining courses into a new schedule");
-        //store as lists for re combination
-        System.out.println("converting ArrayList to Array");
-        CourseTrio[] c1Array = courseType1.toArray(new CourseTrio[courseType1.size()]);
-        System.out.println("courseType1 size is " + courseType1.size() + ", c1Array is length " + c1Array.length + " first value is" + c1Array[0]);
-        CourseTrio[] c2Array = courseType2.toArray(new CourseTrio[courseType2.size()]);
-        CourseTrio[] c3Array = courseType3.toArray(new CourseTrio[courseType3.size()]);
-        CourseTrio[] c4Array = courseType4.toArray(new CourseTrio[courseType4.size()]);
-        CourseTrio[] c5Array = courseType5.toArray(new CourseTrio[courseType5.size()]);
-        CourseTrio[] c6Array = courseType6.toArray(new CourseTrio[courseType6.size()]);
-
-        System.out.println("converting Array to List");
-        List<CourseTrio> c1List = Arrays.asList(c1Array);
-        System.out.println("c1List is length " + c1List.size() +  "first value is " + c1List.get(0));
-        List<CourseTrio> c2List = Arrays.asList(c2Array);
-        List<CourseTrio> c3List = Arrays.asList(c3Array);
-        List<CourseTrio> c4List = Arrays.asList(c4Array);
-        List<CourseTrio> c5List = Arrays.asList(c5Array);
-        List<CourseTrio> c6List = Arrays.asList(c6Array);
-
-        //recombine
-        System.out.println("re combining, making userPreferencesSchedule");
-        userPreferencesSchedule = new Schedule[c1List.size()];
-        for (int m = 0; m < c1List.size(); m++) {
-            userPreferencesSchedule[m] = new Schedule();
-            userPreferencesSchedule[m].insertCourse(c1List.get(m));
-        }
-        if(!c2List.isEmpty()) {
-            userPreferencesSchedule = addToSchedule(c2List, userPreferencesSchedule);
-        }
-        if(!c3List.isEmpty()) {
-            userPreferencesSchedule = addToSchedule(c3List, userPreferencesSchedule);
-        }
-        if(!c4List.isEmpty()) {
-            userPreferencesSchedule = addToSchedule(c4List, userPreferencesSchedule);
-        }
-        if(!c5List.isEmpty()) {
-            userPreferencesSchedule = addToSchedule(c5List, userPreferencesSchedule);
-        }
-        if(!c6List.isEmpty()) {
-            userPreferencesSchedule = addToSchedule(c6List, userPreferencesSchedule);
-        }
-        System.out.println("userpreferences schedule is length " + userPreferencesSchedule.length);
-        System.out.println("SUCCESS!!!!!");
-    }*/
-
-    /*
-    check schedule for the preference conflict
-     */
-
-    /*
     method to locate course to be removed
      */
     private boolean findPrefConflict(Course removed, CourseTrio[] ct){
         boolean found = false;
-        if(removed.getComponent().equalsIgnoreCase("lec") && ct[0].getLecture().getName().equals(removed.getName())) {
+        if(removed.getComponent().equalsIgnoreCase("lec")) {
             for (int l = 0; l < ct.length; l++) {
                 if (ct[l].getLecture() == null){
                     break;
@@ -598,7 +454,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
                 }
             }
         }
-        else if(removed.getComponent().equalsIgnoreCase("tut") && ct[0].getLecture().getName().equals(removed.getName())) {
+        else if(removed.getComponent().equalsIgnoreCase("tut")) {
             for (int l = 0; l < ct.length; l++) {
                 System.out.println("tutorial being checked is: " + ct[l]);
                 if (ct[l] == null){
@@ -609,7 +465,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
                 }
             }
         }
-        else if(removed.getComponent().equalsIgnoreCase("lab") && ct[0].getLecture().getName().equals(removed.getName())) {
+        else if(removed.getComponent().equalsIgnoreCase("lab")) {
             for (int l = 0; l < ct.length; l++) {
                 if (ct[l].getTutorial() == null){
                     break;
