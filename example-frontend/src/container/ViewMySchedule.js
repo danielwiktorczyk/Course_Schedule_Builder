@@ -12,11 +12,20 @@ class ViewMySchedule extends Component {
             loggedIn: true,
             loading: true,
             person: null,
-            data : [],
+            data: [],
             offset: 0,
-            size : 0,
+            size: 0,
         };
     }
+
+    // pdf() {("#scheduler").kendoScheduler({toolbar: ["pdf"]});
+    // ("#export").
+    //
+    // click(function(e) {
+    //     var scheduler = ("#scheduler").data("kendoScheduler");
+    //     scheduler.saveAsPDF();
+    // })}
+
     //
     // async componentDidMount() {
     //     const url = "https://api.randomuser.me/";
@@ -107,7 +116,6 @@ class ViewMySchedule extends Component {
 
     }
 
-
     render() {
         // if (this.state.loading) {
         //     return <div>loading...</div>;
@@ -134,14 +142,11 @@ class ViewMySchedule extends Component {
                 </Router>
                 <div className="container select-semester show-schedule">
                     <div className="table__wrapper">
-                        <div className="row">
-
-                            {/*<div>{this.state.person.name.title}</div>*/}
-                            {/*<div>{this.state.person.name.first}</div>*/}
-                        </div>
                         <div className="table_heading_wrapper">
                             <hr/>
-                            <h3 className="table_heading">Weekly Schedule</h3>
+                            <h3 className="table_heading">My Weekly Schedule</h3>
+                            <button className="col-1 btn btn-home-log" >Add</button>/
+                            <button className="col-1 btn btn-home-log" >Drop</button>
                             <hr/>
                             <button className="col-2 btn btn-home-log" onClick={this.fall}>Fall</button>
                             <button className="col-2 btn btn-home-log" onClick={this.winter}>Winter</button>

@@ -747,3 +747,13 @@ button:focus{
   outline: 0;
   box-shadow: 0 0 0 0 rgba(0,0,0,0);
 }
+button.col-2.btn.btn-home-log.new-btn {
+  position: relative;
+  left: 15%;
+}
+button.select-this-option.btn.btn-home-log {
+  width: 22%;
+  position: relative;
+  left: 38%;
+  top: -12px;
+}
