@@ -796,7 +796,6 @@ button.btn.btn-home-log.dropdown-toggle {
   outline: none;
 }
 
-
 .adding_dropping_course {
   margin-top: 2rem;
 }
@@ -825,7 +824,6 @@ button.btn.btn-home-log.dropdown-toggle {
   padding-top: 7px;
 }
 .form-group {
-  /* margin-bottom: 1rem; */
   position: relative;
   left: 4.7rem;
   top: 10px;
