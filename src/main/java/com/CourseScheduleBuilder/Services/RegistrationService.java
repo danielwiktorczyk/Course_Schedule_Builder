@@ -6,4 +6,6 @@ public interface RegistrationService {
 
     boolean validateAndRegisterNewUserRequest(User user);
 
+    User getUserProfileInfo();
+
 }

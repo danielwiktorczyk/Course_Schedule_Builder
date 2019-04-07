@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 public class RegistrationServiceImpl implements RegistrationService {
 
     @Autowired //needed to point to the same repo database
-    private UserRepo userrepo;
+    private UserRepo userRepo;
 
     public boolean validateAndRegisterNewUserRequest(User user){
-        if (userrepo.findByUsername(user.getUsername()) == null ){
+        if (userRepo.findByUsername(user.getUsername()) == null ){
             user.setEWT(false);
-            userrepo.save(user);
+            userRepo.save(user);
             return true;
         }
         else {
@@ -22,8 +22,6 @@ public class RegistrationServiceImpl implements RegistrationService {
             System.out.println(user.getUsername());
             return false;
         }
-
-
         //
         // Verification of login info against database to be added.
         // Checks include if username already exists in database.
@@ -33,8 +31,18 @@ public class RegistrationServiceImpl implements RegistrationService {
         // Prints message to console if duplicated attempted
         // Repository find method returns a null value if the search returns no result
         //
+    }
 
+    public User getUserProfileInfo() {
+        String username = userRepo.findByActive(1).get(0).getUsername();
+        User returnUser = new User();
+        try {
+            returnUser = (User) userRepo.findByUsername(username).clone();
+            returnUser.setPassword("--Redacted--");
+        } catch (CloneNotSupportedException e) {
 
+        }
+        return returnUser;
     }
 
 }
