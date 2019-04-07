@@ -34,9 +34,12 @@ public class UserPreferencesServiceImpl implements UserPreferencesService{
     preferences start new for each schedule builder session
      */
     public void destroyPreferences(){
-        ArrayList<UserPreferences> currentPrefs = getUserPreferences();
-        for (int i = 0; i < currentPrefs.size(); i++) {
-            preferencesRepo.delete(currentPrefs.get(i));
+        if(preferencesPresent()) {
+            ArrayList<UserPreferences> currentPrefs = getUserPreferences();
+            for (int i = 0; i < currentPrefs.size(); i++) {
+                currentPrefs.get(i).setAdd(false);
+                modifyUserPrefs(currentPrefs.get(i));
+            }
         }
     }
 

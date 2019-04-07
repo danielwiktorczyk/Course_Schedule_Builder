@@ -517,17 +517,21 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     }
 
 
-    public Schedule generateAndShowFirstPrefSchedule(){
-        scheduleCount = 0;
+    public Schedule generateAndShowFirstPrefSchedule() {
         System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-        return userPreferencesSchedule[scheduleCount];
+        scheduleCount = 0;
+        while (!verifyScheduleForPrefs(savedSchedules[scheduleCount])) {
+            scheduleCount++;
+        }
+        return savedSchedules[scheduleCount];
+
     }
 
     public Schedule nextPrefSchedule(){
-        if(++scheduleCount < userPreferencesSchedule.length) {
-            if(validateSchedule(userPreferencesSchedule[scheduleCount])) {
+        if(++scheduleCount < savedSchedules.length) {
+            if(verifyScheduleForPrefs(savedSchedules[scheduleCount])) {
                 System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-                return userPreferencesSchedule[scheduleCount];
+                return savedSchedules[scheduleCount];
             }
             else{
                 return nextPrefSchedule();
@@ -535,9 +539,9 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         }
         else{
             scheduleCount =0;
-            if(validateSchedule(userPreferencesSchedule[scheduleCount])) {
+            if(verifyScheduleForPrefs(savedSchedules[scheduleCount])) {
                 System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-                return userPreferencesSchedule[scheduleCount];
+                return savedSchedules[scheduleCount];
             }
             else{
                 return nextPrefSchedule();
@@ -547,20 +551,20 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
     public Schedule previousPrefSchedule(){
         if(--scheduleCount > 0) {
-            if(validateSchedule(userPreferencesSchedule[scheduleCount])) {
+            if(verifyScheduleForPrefs(savedSchedules[scheduleCount])) {
                 System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-                return userPreferencesSchedule[scheduleCount];
+                return savedSchedules[scheduleCount];
             }
             else{
                 return previousPrefSchedule();
             }
         }
         else {
-            scheduleCount = userPreferencesSchedule.length-1;
+            scheduleCount = savedSchedules.length-1;
 
-            if(validateSchedule(userPreferencesSchedule[scheduleCount])) {
+            if(validateSchedule(savedSchedules[scheduleCount])) {
                 System.out.println("PRINTING SCHEDULE : " + scheduleCount);
-                return userPreferencesSchedule[scheduleCount];
+                return savedSchedules[scheduleCount];
             }
             else{
                 return previousPrefSchedule();
@@ -569,32 +573,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     }
 
     @Override
-    public void preferredSchedule() {
-        //array of previously generated schedules
-        Schedule[] scheduleNoPrefs = savedSchedules.clone();
-        userPreferencesSchedule = savedSchedules.clone();
-
-        //arraylist of courses
-        ArrayList<Course> allCourses = new ArrayList<Course>();
-        for (int i=0; i<scheduleNoPrefs.length ;i++){
-            CourseTrio[] allTrios = scheduleNoPrefs[i].getCourseTrio();
-            for(int j=0; j < allTrios.length; j++) {
-                if(allTrios[j] == null){
-                    break;
-                }
-                else {
-                    allCourses.add(allTrios[j].getLecture());
-                }
-                allCourses.add(allTrios[j].getTutorial());
-                if (allTrios[j].isHasLab()) {
-                    allCourses.add(allTrios[j].getLab());
-                }
-            }
-        }
-
-        //turn schedule[] into an arraylist
-        ArrayList<Schedule> updatedSchedule = new ArrayList<Schedule>(Arrays.asList(userPreferencesSchedule));
-
+    public boolean verifyScheduleForPrefs(Schedule scheduleToVerify) {
         //Arraylist of user preferences
         ArrayList<UserPreferences> preferenceList = new ArrayList<UserPreferences>();
         preferenceList.addAll(preferences.findByMondayIsTrue());
@@ -603,32 +582,42 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         preferenceList.addAll(preferences.findByThursdayIsTrue());
         preferenceList.addAll(preferences.findByFridayIsTrue());
         Iterator<UserPreferences> itPrefs = preferenceList.iterator();
+
+        //arraylist of courses in schedule
+        ArrayList<Course> allCourses = new ArrayList<Course>();
+        CourseTrio[] allTrios = scheduleToVerify.getCourseTrio();
+        for (int i=0; i< allTrios.length ;i++){
+            if(allTrios[i] == null){
+                break;
+            }
+            else {
+                allCourses.add(allTrios[i].getLecture());
+                allCourses.add(allTrios[i].getTutorial());
+                if (allTrios[i].isHasLab()) {
+                    allCourses.add(allTrios[i].getLab());
+                }
+            }
+        }
         Iterator<Course> itCourses = allCourses.iterator();
 
         while (itPrefs.hasNext()) {
             //first preference to verify
             UserPreferences prefToVerify = itPrefs.next();
             boolean[] prefDays = prefToVerify.getPreferenceDays();
-            while (itCourses.hasNext()) {
+
+            while (itCourses.hasNext()){
                 Course courseToVerify = itCourses.next();
                 boolean[] courseDays = courseToVerify.getClassDays();
                 //logic to check overlap between a preference and a course
                 boolean overlap = checkCourseForUserPreferences(prefDays, courseDays, courseToVerify, prefToVerify);
                 if (overlap) {
-                    for(int p = 0; p < updatedSchedule.size(); p++){
-                        CourseTrio[] trio = updatedSchedule.get(p).getCourseTrio();
-                        for(int q = 0; q < trio.length; q++){
-                            if(findPrefConflict(courseToVerify, trio)){
-                                updatedSchedule.remove(p);
-                            }
-                        }
+                    if(findPrefConflict(courseToVerify, allTrios)){
+                        return false;
                     }
                 }
             }
         }
-        userPreferencesSchedule = updatedSchedule.toArray(new Schedule[updatedSchedule.size()]);
-        System.out.println("SUCCESS!!!!!");
+        return true;
     }
-
 
 }

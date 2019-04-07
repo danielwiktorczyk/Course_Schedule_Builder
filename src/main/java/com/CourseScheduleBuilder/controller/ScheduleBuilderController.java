@@ -44,6 +44,7 @@ public class ScheduleBuilderController {
     @ResponseBody
     public boolean clear()
     {
+        userPreferencesService.destroyPreferences();
         scheduleBuilderService.clear();
         return true;
     }
@@ -102,7 +103,6 @@ public class ScheduleBuilderController {
     {
         Schedule returnSchedule;
         if(userPreferencesService.preferencesPresent()){
-            scheduleBuilderService.preferredSchedule();
             returnSchedule = scheduleBuilderService.generateAndShowFirstPrefSchedule();
         }
         else {

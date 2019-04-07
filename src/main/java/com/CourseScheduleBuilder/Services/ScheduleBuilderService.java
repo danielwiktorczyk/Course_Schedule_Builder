@@ -16,7 +16,8 @@ public interface ScheduleBuilderService {
     public boolean enroll(String semester);
     public void clear();
     public Schedule seeUserSchedule(String semester);
-    void preferredSchedule();
+    //void preferredSchedule();
+    boolean verifyScheduleForPrefs(Schedule schedule);
     Schedule generateAndShowFirstPrefSchedule();
     Schedule nextPrefSchedule();
     Schedule previousPrefSchedule();
