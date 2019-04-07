@@ -5,11 +5,10 @@ import Header from "./Header";
 import axios from 'axios';
 import moment from "moment";
 
-
-
 class PossibleSchedules extends Component {
     constructor(props) {
         super(props);
+        this.enroll = this.enroll.bind(this);
         this.state = {
             loggedIn: true,
             loading: true,
@@ -44,7 +43,7 @@ class PossibleSchedules extends Component {
                     console.log(error)
                 })
         }
-    }
+    };
 
     // paginate with respect to previous
     previous = ()  => {
@@ -62,7 +61,7 @@ class PossibleSchedules extends Component {
                     console.log(error)
                 })
         }
-    }
+    };
 
     // get the data by default
     async componentDidMount() {
@@ -77,6 +76,45 @@ class PossibleSchedules extends Component {
 
     }
 
+    enroll(){
+        if( localStorage.getItem("a") === "FALL 2019"){
+            axios.post('http://localhost:8080/enrollFall', {
+            }).then(res => {
+                alert(res.data);
+            }, err => {
+                alert("Server rejected response: " + err);
+            });
+        }
+
+        if( localStorage.getItem("a") === "WINTER 2019"){
+            axios.post('http://localhost:8080/enrollWinter', {
+            }).then(res => {
+                alert(res.data);
+            }, err => {
+                alert("Server rejected response: " + err);
+            });
+        }
+
+        if( localStorage.getItem("a") === "SUMMER 2018"){
+            axios.post('http://localhost:8080/enrollSummer', {
+            }).then(res => {
+                alert(res.data);
+            }, err => {
+                alert("Server rejected response: " + err);
+            });
+        }
+        let path = '/ViewMySchedule';
+        this.props.history.push(path);
+        window.location.reload();
+
+
+
+    }
+
+    getLocalIt = () => {
+
+        return localStorage.getItem("a");
+    };
 
     render() {
         // if (this.state.loading) {
@@ -86,38 +124,44 @@ class PossibleSchedules extends Component {
         // if (!this.state.person) {
         //     return <div>didn't get a person</div>;
         // }
-        const {data} = this.state
+        const {data} = this.state;
         const timeTable = ['8 AM' , '9 AM' ,'10 AM' ,'11 AM' , '12 PM' , '1 PM', '2 PM' , '3 PM' , '4 PM' , '5 PM' , '6 PM' , '7 PM' , '8 PM' , '9 PM' , '10 PM' ]
         const schedule = [JSON.parse(JSON.stringify(data))]
-        const arry = []
+        const arry = [];
         schedule[0].map((item,key) => {
             return(
                 arry.push(item.lecture) &&
                 arry.push(item.lab) && arry.push(item.tutorial)
             )
-        })
+        });
         return (
 
             <div>
                 <Router>
                     <Header />
                 </Router>
-                <div className="container select-semester">
+                <div className="container select-semester show-schedule">
                     <div className="table__wrapper">
                         <div className="row">
 
                             {/*<div>{this.state.person.name.title}</div>*/}
                             {/*<div>{this.state.person.name.first}</div>*/}
                         </div>
+
                         <div className="table_heading_wrapper">
-                            <h3 className="table_heading">Weekly Schedule</h3>
-                            <p>Name:</p>
+                            <hr/>
+                            <h3 className="table_heading">WEEKLY SCHEDULE FOR {this.getLocalIt()}</h3>
+                            <hr/>
+                        </div>
+                        <div className="row">
+                            <button className="select-this-option btn btn-home-log" onClick={this.enroll}>Enroll</button>
                         </div>
                         <div className="button__wrapper">
-                            <button onClick={this.previous}>Previous</button>
+                            <button className="col-1 btn btn-home-log" onClick={this.previous}>Prev.</button>
                             /
-                            <button onClick={this.next}>Next</button>
+                            <button className="col-1 btn btn-home-log" onClick={this.next}>Next</button>
                         </div>
+
                         <table className="table">
                             <thead>
                             <tr>
@@ -141,10 +185,8 @@ class PossibleSchedules extends Component {
                                     );
                                 })
                             }
-
                             </tbody>
                         </table>
-                        <p></p>
                     </div>
                 </div>
             </div>
@@ -154,7 +196,7 @@ class PossibleSchedules extends Component {
 
 
 const createCells = ({...classDays}, name , component , startTime , endTime, time , unique, section) => {
-    var td = []
+    var td = [];
     for(let i = 0 ; i < 5 ; i++ ){
         let check  = time === moment().startOf('day').add(startTime, 'minutes').format('h A')
         check ? (
@@ -162,11 +204,11 @@ const createCells = ({...classDays}, name , component , startTime , endTime, tim
         ) : unique === 0 ? td.push(<td key={i}></td>) : td.push()
     }
     return td;
-}
+};
 const Row = ({startTime, endTime, classDays, name , component, time ,unique, section}) => (
     <tr>
         {unique === 0 ? <td><strong>{time}</strong></td> :  time === moment().startOf('day').add(startTime, 'minutes').format('h A') ? <td></td> :null }
         { name && createCells(classDays, name , component , startTime , endTime, time , unique, section) }
     </tr>
-)
+);
 export default withRouter(PossibleSchedules);

@@ -3,9 +3,6 @@ import '../css/App.css';
 import {BrowserRouter as Router, withRouter} from "react-router-dom";
 import Header from "./Header";
 import axios from "axios";
-// import signin from "./Signin";
-// import $ from 'jquery';
-// npm install jquery --save is used in case we end up using jQuery (AJAX is a better option here)
 
 
 class MyProfile extends Component {

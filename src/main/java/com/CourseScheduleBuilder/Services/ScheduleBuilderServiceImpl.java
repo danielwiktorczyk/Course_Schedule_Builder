@@ -269,7 +269,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         return false;
     }
 
-    public boolean enroll(String semester){
+    public boolean enroll(String semester) {
         User user = retriveUserInfo();
         if (user == null)
             return false;
@@ -281,6 +281,8 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             user.setWinterSchedule(savedSchedules[scheduleCount]);
         if (semester.equals("Summer"))
             user.setSummerSchedule(savedSchedules[scheduleCount]);
+        userRepo.saveAndFlush(user);
+
         return true;
     }
 
@@ -476,6 +478,44 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     /*
     The preferredSchedule version of generateAndShowFirstSchedule, previousSchedule and nextSchedule
      */
+    public String[] coursesTaken(){
+        List<String> coursesTaken = new ArrayList<>();
+        String[] courseSequence = {"COMP232","COMP248","ENGR201","ENGR213","General Elective","COMP249","ENGR233","SOEN228","SOEN287","Basic Science","COMP348","COMP352","ENCS282", "ENGR202", "Basic Science", "COMP346","ELEC275","ENGR371","SOEN331","SOEN341", "COMP335","ENGR391","SOEN342","SOEN343","SOEN384","SOEN344","SOEN345","SOEN357","SOEN390","Elective1","ENGR301","SOEN321","SOEN390","Elective2","Elective3","ENGR392","SOEN385","SOEN490","Elective4","Elective5"};
+        String[] generalElectives = {"ECON201","ECON203","ADMI201","ADMI202","PHIL201","HIST202","COMMS360","ENGL243"};
+        String[] basicScienceCourses = {"BIOL206","BIOL261","CHEM217","CHEM221","CIVI231","ELEC321","ENGR242","ENGR243","ENGR251","ENGR361","MECH221","PHYS252","PHYS284","PHYS385"};
+        String[] electiveCourses = {"COMP345","COMP353","COMP371","COMP425","COMP426","COMP428","COMP442","COMP445","COMP451","COMP465","COMP472","COMP473","COMP474","COMP478","COMP479","SOEN298","SOEN422","SOEN423", "SOEN448", "SOEN491", "SOEN498","SOEN499","ENGR411"};
+        int basicScience = 1;
+        int elective = 1;
+        List<String> currentCourses = new ArrayList<>();
+        try {
+            currentCourses = (List<String>) retriveUserInfo().getPrereqs().clone();
+        } catch (Exception e){
+
+        }
+        for(int i=0;i<currentCourses.size();i++){
+            for (int j=0;j<generalElectives.length;j++){
+                if(currentCourses.get(i).equals(generalElectives[j]))
+                    currentCourses.set(i,"General Elective");
+            }
+        }
+
+        for(int i=0;i<currentCourses.size();i++){
+            for (int j=0;j<basicScienceCourses.length;j++){
+                if(currentCourses.get(i).equals(basicScienceCourses[j]))
+                    currentCourses.set(i,"Basic Science "+(basicScience++));
+            }
+        }
+        for(int i=0;i<currentCourses.size();i++){
+            for (int j=0;j<electiveCourses.length;j++){
+                if(currentCourses.get(i).equals(electiveCourses[j]))
+                    currentCourses.set(i,"Elective "+(elective++));
+            }
+        }
+        String[] returnArray = new String[coursesTaken.size()];
+        return currentCourses.toArray(returnArray);
+
+    }
+
 
     public Schedule generateAndShowFirstPrefSchedule(){
         scheduleCount = 0;

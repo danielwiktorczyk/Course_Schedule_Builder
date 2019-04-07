@@ -78,7 +78,7 @@ input.col-12 {
   border-width: 1px;
   padding: 9px;
   margin: 0 0 19px 0;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   color: #010101;
 }
 
@@ -86,7 +86,7 @@ input.col-12 {
   color: white !important;
   text-transform: uppercase !important;
   background-color: #010101 !important;
-  border-color:#28074D !important;
+  border-color:#540E72 !important;
   border-radius: 10px !important;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
   padding: 10px;
@@ -95,15 +95,15 @@ input.col-12 {
 }
 
 .container.select-semester {
-  padding: 5rem 0;
+  padding-top: 10rem;
   text-align: center;
 }
 img.ScheduleGen {
   padding-bottom: 100px;
 }
 hr{
-  color: #28074D;
-  background-color: #28074D;
+  color: #540E72;
+  background-color: #540E72;
 }
 .select-semester-button{
   padding-top: 1rem;
@@ -117,7 +117,7 @@ div.selected-courses,
 input.col-8.course-name {
   border-radius: 10px;
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
-  border-color: #28074D;
+  border-color: #540E72;
   border-width: 1px;
   padding: 9px;
   margin: 0 0 19px 0;
@@ -127,7 +127,7 @@ input.col-8.course-name {
 }
 .theList,
 div.selected-courses{
-  border-color: #28074D;
+  border-color: #540E72;
 }
 button.col-3.btn.btn-home-log {
   position: relative;
@@ -202,11 +202,11 @@ button.close {
 input:focus,
 .btn:focus {
   outline: 0;
-  box-shadow: 0 0 0 0 rgba(0,0,0,0);
+   box-shadow: 0 0 0 0 rgba(0,0,0,0);
 }
-
+.generate-with-pref:hover,
 button.btn.btn-home-log:hover {
-  background-color: #28074D !important;
+  background-color: #540E72 !important;
 }
 
 
@@ -239,7 +239,7 @@ button.col-2.btn.btn-home-log {
 }
 .footer a:hover,
 .header a:hover {
-  background-color: #28074D;
+  background-color: #540E72;
 }
 h1{
   margin: 20px 0;
@@ -284,7 +284,7 @@ p:empty {
 }
 .header-buttons:hover{
 
-  background-color: #28074D !important;
+  background-color: #540E72 !important;
 }
 
 .header-buttons{
@@ -349,7 +349,7 @@ img.logo {
 .col-new{
   position: relative;
   left: 115px;
-  max-width: 90%;
+max-width: 90%;
 }
 p.theList {
   left: 26px;
@@ -371,7 +371,7 @@ div#student{
   border-radius: 1rem;
   -webkit-box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.5);
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.5);
-  border-color: #28074D !important;
+  border-color: #540E72 !important;
   border-width: 2px;
 }
 img.student-profile-logo {
@@ -452,22 +452,298 @@ button#dropdownMenu2 {
   text-align: center;
   padding: 8px;
 }
-th:nth-child(2) {background-color:lightblue }
-th:nth-child(3) {background-color:limegreen }
-th:nth-child(4) {background-color:yellow }
-th:nth-child(5) {background-color:lightcoral }
-th:nth-child(6) {background-color:slategray}
+/*th:nth-child(2) {background-color:lightblue }*/
+/*th:nth-child(3) {background-color:limegreen }*/
+/*th:nth-child(4) {background-color:yellow }*/
+/*th:nth-child(5) {background-color:lightcoral }*/
+/*th:nth-child(6) {background-color:slategray}*/
 
+th{
+  background-color: #540E72;
+  color:#ffffff;
+  border: 1px solid #fff !important;
+}
 .table tr , .table td {
   border: 1px solid #bdbbb6;
 }
 .button__wrapper {
-  text-align: right;
+  /*text-align: right;*/
 }
 .button__wrapper button{
-  background-color:darkcyan;
+  /*background-color:darkcyan;*/
+  background-color:#010101;
   border-radius: 5px;
   border: none;
   color: #fff;
   transition: 0.5s;
+}
+img.center-arrows.next {
+  height: 30px !important;
+  width: 40px;
+}
+img.center-arrows.prev {
+  height: 31px !important;
+  width: 40px;
+}
+.table {
+  width: 100%;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+
+
+/*///////*/
+
+.right-arrow-position{
+  position: absolute;
+  top: 64%;
+  left: 73%;
+  height: 3%;
+  width: 3%;
+}
+img.center-arrows.left-arrow-position {
+  position: absolute;
+  width: 3%;
+  height: 4.5%;
+  left: 22%;
+  top: 64%;
+}
+button.col-3.btn.btn-home-log.select-semester-options {
+  padding: 0;
+  max-width: 22.6%;
+}
+
+.newwrapper {
+  display: block;
+  position: relative;
+  padding-left: 65px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  /*font-size: 22px;*/
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.newwrapper input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 30px;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.newwrapper:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.newwrapper input:checked ~ .checkmark {
+  background-color: #540E72;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.newwrapper input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.newwrapper .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.preferences {
+  margin-left: 30px;
+  margin-top: 17px;
+}
+
+/* The container */
+.wrapping {
+  display: inline-block;
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 12px;
+  margin-right: 20px;
+  cursor: pointer;
+  /*font-size: 22px;*/
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.wrapping input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.check-mark {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  height: 17px;
+  width: 17px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.wrapping:hover input ~ .check-mark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.wrapping input:checked ~ .check-mark {
+  background-color: #540E72;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.check-mark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.preferences h6{
+  text-decoration: underline;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.wrapping input:checked ~ .check-mark:after {
+  display: inline-block;
+}
+
+/* Style the indicator (dot/circle) */
+.wrapping .check-mark:after {
+  top: 4.4px;
+  left: 5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+.choices {
+  margin-left: 5rem;
+}
+label.newwrapper {
+  font-weight: bold;
+}
+
+.show-schedule{
+  padding-top: 3rem !important;
+  padding-bottom: 6rem !important;
+
+}
+
+button.select-this-option.btn.btn-home-log {
+  width: 17%;
+  position: relative;
+  left: 41%;
+  top: -12px;
+}
+img:hover{
+  cursor: pointer;
+}
+
+/*th:nth-child(2) {background-color:lightblue }*/
+/*th:nth-child(3) {background-color:limegreen }*/
+/*th:nth-child(4) {background-color:yellow }*/
+/*th:nth-child(5) {background-color:lightcoral }*/
+/*th:nth-child(6) {background-color:slategray}*/
+
+.generate-with-pref{
+  color: white !important;
+  text-transform: uppercase !important;
+  background-color: #010101 !important;
+  border-color: #540E72 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin: 10px;
+  /* width: 93%; */
+}
+.course_seq{
+  /*text-align: center;*/
+  border-radius: 1rem;
+  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.5);
+  border-color: #28074D !important;
+  border-width: 2px;
+  padding: 20px 50px;
+  margin: 2rem 0 5rem 0;
+  /*text-align: center;*/
+}
+
+.middle{
+  text-align: center;
+}
+h4 {
+  border-radius: 0.5rem;
+  box-shadow: 0 1rem 3rem 0 rgba(0, 0, 0, 0.2);
+  border-color: #28074D !important;
+  border-width: 2px;
+  color: #540E72;
+  /* width: 62%; */
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  /* left: 19%; */
+  margin: 15px 0;
+}
+
+h3.middle{
+  color: #540E72;
+  text-align: center;
+  margin-top: 17px;
+}
+
+.add_space{
+  margin-top: 20px;
+}
+.sequence ul.b {
+  list-style-type: square;
+}
+.sequence li{
+  list-style-type: square;
+}
+.sequence ul {
+  list-style-type: none;
+  margin: 0 0 0 45%;
+  padding: 0;
+}
+.header ul{
+  margin: 0;
+}
+button:focus{
+  outline: 0;
+  box-shadow: 0 0 0 0 rgba(0,0,0,0);
 }

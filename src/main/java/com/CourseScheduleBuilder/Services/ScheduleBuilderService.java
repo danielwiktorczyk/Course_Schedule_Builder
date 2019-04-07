@@ -20,4 +20,5 @@ public interface ScheduleBuilderService {
     Schedule generateAndShowFirstPrefSchedule();
     Schedule nextPrefSchedule();
     Schedule previousPrefSchedule();
+    public String[] coursesTaken();
 }
