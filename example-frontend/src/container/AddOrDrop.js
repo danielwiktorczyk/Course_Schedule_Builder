@@ -8,9 +8,19 @@ class AddOrDrop extends Component {
 
     constructor(props) {
         super(props);
+        this.options = this.options.bind(this);
         this.state = {loggedIn: true};
 
     }
+
+    options() {
+    //Getting Value
+    var selObj = document.getElementById("selectSemesterDropAdd");
+    var selValue = selObj.options[selObj.selectedIndex].text;
+
+    //Setting Value
+    document.getElementById("textFieldTextJS").value = selValue;
+}
     render(){
         return (
             <div>
@@ -24,21 +34,21 @@ class AddOrDrop extends Component {
                     </div>
                     <div className="adding_dropping_course">
                         <div className="row sel-s">
-                            <div className="dropdown sel-s"><span>Select Semester:</span>
-                                <button className="btn btn-home-log dropdown-toggle" type="button"
-                                        data-toggle="dropdown">Semester
-                                    <span className="caret"></span></button>
-                                <ul className="dropdown-menu">
-                                    <li className="dropdown-li"><a href="#">Summer</a></li>
-                                    <li className="dropdown-li"><a href="#">Fall</a></li>
-                                    <li className="dropdown-li"><a href="#">Winter</a></li>
-                                </ul>
-                            </div>
+                            <span>Select Semester:</span>
+                            <select id="selectSemesterDropAdd" className="form-control btn btn-home-log dropdown-toggle" onChange={this.options}>
+                                <option value="summer" >Summer</option>
+                                <option value="fall" >Fall</option>
+                                <option value="winter" >Winter</option>
+                            </select>
                         </div>
+
+                        <input type="text" id="textFieldTextJS" className="form-control"
+                               placeholder="get value on option select"/>
+
                         <div className="form-group row">
                             <label className=" col-form-label">Course Name:</label>
                             <div className="col">
-                                <input type="password" className="form-control" placeholder="Ex: SOEN341"/>
+                                <input type="text" className="form-control" placeholder="Ex: SOEN341"/>
                             </div>
                         </div>
 
