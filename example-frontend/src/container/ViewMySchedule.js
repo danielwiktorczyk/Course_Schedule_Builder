@@ -8,6 +8,7 @@ import moment from 'moment';
 class ViewMySchedule extends Component {
     constructor(props) {
         super(props);
+        this.editSchedule =this.editSchedule.bind(this);
         this.state = {
             loggedIn: true,
             loading: true,
@@ -18,13 +19,6 @@ class ViewMySchedule extends Component {
         };
     }
 
-    // pdf() {("#scheduler").kendoScheduler({toolbar: ["pdf"]});
-    // ("#export").
-    //
-    // click(function(e) {
-    //     var scheduler = ("#scheduler").data("kendoScheduler");
-    //     scheduler.saveAsPDF();
-    // })}
 
     //
     // async componentDidMount() {
@@ -101,6 +95,8 @@ class ViewMySchedule extends Component {
         }
     }
 
+
+
     // get the data by default
     async componentDidMount() {
         const {offset}  = this.state
@@ -114,6 +110,11 @@ class ViewMySchedule extends Component {
                 console.log(error)
             })
 
+    }
+
+    editSchedule() {
+        let path = '/AddOrDrop';
+        this.props.history.push(path);
     }
 
     render() {
@@ -145,8 +146,7 @@ class ViewMySchedule extends Component {
                         <div className="table_heading_wrapper">
                             <hr/>
                             <h3 className="table_heading">My Weekly Schedule</h3>
-                            <button className="col-1 btn btn-home-log" >Add</button>/
-                            <button className="col-1 btn btn-home-log" >Drop</button>
+                            <button className="col-2 btn btn-home-log" onClick={this.editSchedule}>Add / Drop</button>
                             <hr/>
                             <button className="col-2 btn btn-home-log" onClick={this.fall}>Fall</button>
                             <button className="col-2 btn btn-home-log" onClick={this.winter}>Winter</button>

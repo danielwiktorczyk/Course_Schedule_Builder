@@ -15,6 +15,7 @@ import MyProfile from './container/MyProfile';
 import PlayGame from './container/PlayGame';
 import AboutUs from "./container/AboutUs";
 import SuggestedSequence from "./container/SuggestedSequence";
+import AddOrDrop from "./container/AddOrDrop";
 
 
 class App extends Component {
@@ -37,6 +38,7 @@ class App extends Component {
               <Route key={11} path="/PlayGame" component={PlayGame} />
               <Route key={12} path="/AboutUs" component={AboutUs} />
               <Route key={13} path="/SuggestedSequence" component={SuggestedSequence} />
+              <Route key={14} path="/AddOrDrop" component={AddOrDrop} />
               <Footer/>
             </div>
           </div>
