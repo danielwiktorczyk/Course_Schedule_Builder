@@ -164,6 +164,33 @@ public class ScheduleBuilderController {
 
     }
 
+    @PostMapping("/dropFall")
+    @CrossOrigin
+    @ResponseBody
+    public String dropFall(@RequestBody FEMessage request)
+    {
+        return scheduleBuilderService.dropCourse(request.getMessage(), "Fall");
+
+    }
+
+    @PostMapping("/dropWinter")
+    @CrossOrigin
+    @ResponseBody
+    public String dropWinter(@RequestBody FEMessage request)
+    {
+        return scheduleBuilderService.dropCourse(request.getMessage(), "Winter");
+
+    }
+
+    @PostMapping("/dropSummer")
+    @CrossOrigin
+    @ResponseBody
+    public String dropSummer(@RequestBody FEMessage request)
+    {
+        return scheduleBuilderService.dropCourse(request.getMessage(), "Summer");
+
+    }
+
 
 
 
