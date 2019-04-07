@@ -22,8 +22,6 @@ public class RegistrationController {
     @ResponseBody
     public boolean validateAndRegisterNewUserRequest(@RequestBody User user) {
         return registrationService.validateAndRegisterNewUserRequest(user);
-
-
         //
         // Verification of login info against database to be added.
         // Checks include if username already exists in database.
@@ -33,8 +31,13 @@ public class RegistrationController {
         // Prints message to console if duplicated attempted
         // Repository find method returns a null value if the search returns no result
         //
+    }
 
-
+    @PostMapping("/User")
+    @CrossOrigin
+    @ResponseBody
+    public User getUserProfileInfo() {
+        return this.registrationService.getUserProfileInfo();
     }
 }
 
