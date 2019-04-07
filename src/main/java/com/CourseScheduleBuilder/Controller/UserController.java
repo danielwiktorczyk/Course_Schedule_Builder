@@ -1,18 +1,19 @@
-package com.CourseScheduleBuilder.controller;
+package com.CourseScheduleBuilder.Controller;
 
 import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Model.UserFromFrontEnd;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-public class userController {
+public class UserController {
 
-    @Autowired
-    UserRepo userRepo;
+    private final UserRepo userRepo;
+
+    public UserController(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
 
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
@@ -26,14 +27,13 @@ public class userController {
     @PostMapping("/User")
     @CrossOrigin
     @ResponseBody
-    public User userInfo()
-    {
+    public User userInfo() {
         String username = userRepo.findByActive(1).get(0).getUsername();
         User returnUser = new User();
         try {
-           returnUser = (User) userRepo.findByUsername(username).clone();
-           returnUser.setPassword("--Redacted--");
-        } catch(CloneNotSupportedException e){
+            returnUser = (User) userRepo.findByUsername(username).clone();
+            returnUser.setPassword("--Redacted--");
+        } catch (CloneNotSupportedException e) {
 
         }
         return returnUser;
