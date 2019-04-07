@@ -65,7 +65,7 @@ class SuggestedSequence extends Component {
            // }
           // for (let i =0 ; i< x.length ; i++) {
                if (Compare(props.value))
-                   return <li><strike>{props.value}</strike></li>;
+                   return <li><i><b><strike>{props.value}</strike></b></i></li>;
                 else   return <li>{props.value}</li>;
           // }
         }
@@ -87,7 +87,7 @@ class SuggestedSequence extends Component {
         //array for second semester
         function ListSem2Courses(props) {
             if (Compare(props.value))
-                return <li><strike>{props.value}</strike></li>;
+                return <li><i><b><strike>{props.value}</strike></b></i></li>;
             else   return <li>{props.value}</li>;
         }
 
@@ -104,7 +104,7 @@ class SuggestedSequence extends Component {
         //array for third semester
         function ListSem3Courses(props) {
             if (Compare(props.value))
-                return <li><strike>{props.value}</strike></li>;
+                return <li><i><b><strike>{props.value}</strike></b></i></li>;
             else   return <li>{props.value}</li>;
         }
 
@@ -121,7 +121,7 @@ class SuggestedSequence extends Component {
         //array for semester 4
         function ListSem4Courses(props) {
             if (Compare(props.value))
-                return <li><strike>{props.value}</strike></li>;
+                return <li><i><b><strike>{props.value}</strike></b></i></li>;
             else   return <li>{props.value}</li>;
         }
 
@@ -138,7 +138,7 @@ class SuggestedSequence extends Component {
         //array for semester 5
         function ListSem5Courses(props) {
             if (Compare(props.value))
-                return <li><strike>{props.value}</strike></li>;
+                return <li><i><b><strike>{props.value}</strike></b></i></li>;
             else   return <li>{props.value}</li>;
         }
 
@@ -155,7 +155,7 @@ class SuggestedSequence extends Component {
         //array for semester 6
         function ListSem6Courses(props) {
             if (Compare(props.value))
-                return <li><strike>{props.value}</strike></li>;
+                return <li><i><b><strike>{props.value}</strike></b></i></li>;
             else   return <li>{props.value}</li>;
         }
 
@@ -172,7 +172,7 @@ class SuggestedSequence extends Component {
         //array for semester 7
         function ListSem7Courses(props) {
             if (Compare(props.value))
-                return <li><strike>{props.value}</strike></li>;
+                return <li><i><b><strike>{props.value}</strike></b></i></li>;
             else   return <li>{props.value}</li>;
         }
 
@@ -189,7 +189,7 @@ class SuggestedSequence extends Component {
         //array for semester 8
         function ListSem8Courses(props) {
             if (Compare(props.value))
-                return <li><strike>{props.value}</strike></li>;
+                return <li><i><b><strike>{props.value}</strike></b></i></li>;
             else   return <li>{props.value}</li>;
         }
 
