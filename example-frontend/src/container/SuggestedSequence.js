@@ -13,14 +13,14 @@ class SuggestedSequence extends Component {
             loggedIn: true,
             courseCompleted : [],
             coursesCompleted: [],
+            count: 0,
         };
     }
 
-    async componentDidMount() {
+    componentWillMount() {
         axios.post('http://localhost:8080/progression')
             .then((res) => {
                 this.setState({coursesCompleted: res.data})
-
              localStorage.setItem("bb", this.state.coursesCompleted);
 
 
@@ -37,13 +37,12 @@ class SuggestedSequence extends Component {
 
 
     render(){
-        let y = localStorage.getItem("bb");
-        let x = y.split(",");
-        localStorage.setItem("cc" , y);
-        const dummy = ["COMP232" , "COMP248", "ENGR201", "ENGR213", "COMP335"];
-        console.log("resp data ", x[0]);
-        //array for first semester
-
+            let y = localStorage.getItem("bb");
+            let x = y.split(",");
+            localStorage.setItem("cc", y);
+            const dummy = ["COMP232", "COMP248", "ENGR201", "ENGR213", "COMP335"];
+            console.log("resp data ", x[0]);
+            //array for first semester
 
 
         function Compare (value) {
