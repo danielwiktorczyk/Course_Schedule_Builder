@@ -11,7 +11,7 @@ class SelectSemester extends Component {
         const summer2018 =  "SUMMER 2018";
         const winter =  "WINTER 2019";
         const fall =  "FALL 2019";
-        const fall_win =  "FALL/WINTER 2019";
+        // const fall_win =  "FALL/WINTER 2019";
 
         return (
             <div>
@@ -27,10 +27,10 @@ class SelectSemester extends Component {
                     <h2 className="adjust-h2">Select a semester to start</h2>
                     <hr/>
                     <div className="wrapper row select-semester-button">
-                        <button className="col-2 btn btn-home-log" onClick={() => this.routeChange(summer2018)}>{summer2018}</button>
-                        <button className="col-2 btn btn-home-log" onClick={() =>this.routeChange(fall)}>{fall}</button>
-                        <button className="col-2 btn btn-home-log" onClick={() =>this.routeChange(winter)}>{}winter</button>
-                        <button className="col-2 btn btn-home-log" onClick={() =>this.routeChange(fall_win)}>{fall_win}</button>
+                        <button className="col-2 btn btn-home-log new-btn" onClick={() => this.routeChange(summer2018)}>{summer2018}</button>
+                        <button className="col-2 btn btn-home-log new-btn" onClick={() =>this.routeChange(fall)}>{fall}</button>
+                        <button className="col-2 btn btn-home-log new-btn" onClick={() =>this.routeChange(winter)}>{}winter</button>
+                        {/*<button className="col-2 btn btn-home-log" onClick={() =>this.routeChange(fall_win)}>{fall_win}</button>*/}
                 </div>
             </div>
             </div>
