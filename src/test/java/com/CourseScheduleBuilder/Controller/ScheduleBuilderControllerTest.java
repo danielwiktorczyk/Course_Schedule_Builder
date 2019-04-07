@@ -1,4 +1,4 @@
-package com.CourseScheduleBuilder.controller;
+package com.CourseScheduleBuilder.Controller;
 
 import com.CourseScheduleBuilder.Services.ScheduleBuilderService;
 import org.junit.After;

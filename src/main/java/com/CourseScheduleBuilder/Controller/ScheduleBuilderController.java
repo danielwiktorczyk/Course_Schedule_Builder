@@ -1,45 +1,43 @@
-package com.CourseScheduleBuilder.controller;
+package com.CourseScheduleBuilder.Controller;
 
 import com.CourseScheduleBuilder.Model.FEMessage;
 import com.CourseScheduleBuilder.Model.Schedule;
-import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Services.ScheduleBuilderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ScheduleBuilderController {
 
-    @Autowired
-    ScheduleBuilderService scheduleBuilderService;
+    private final ScheduleBuilderService scheduleBuilderService;
 
-    @Autowired
-    CourseRepo courseRepo;
+    public ScheduleBuilderController(ScheduleBuilderService scheduleBuilderService) {
+        this.scheduleBuilderService = scheduleBuilderService;
+    }
 
-    @PostMapping("/createSchedule") // TODO rename as needed, we can have // many mappings this controller can handle
+    @PostMapping("/createSchedule") // TODO rename as needed, we can have // many mappings this Controller can handle
     @CrossOrigin
     @ResponseBody
-    public boolean requestSchedule(/* //TODO */){
+    public boolean requestSchedule(/* //TODO */) {
         return true;
         // using scheduleBuilder here for logic
     }
+
     @PostMapping("/addCourseToWishListFall")
     @CrossOrigin
     @ResponseBody
-    public String addCourseToWishListFall(@RequestBody FEMessage courses)
-    {
+    public String addCourseToWishListFall(@RequestBody FEMessage courses) {
 
-       if(!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
-           return "Prerequisites not met";
+        if (!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
+            return "Prerequisites not met";
 
-        scheduleBuilderService.generateSchedules(courses.getMessage(),"Fall");
+        scheduleBuilderService.generateSchedules(courses.getMessage(), "Fall");
         return "Course added!";
     }
+
     @PostMapping("/clear")
     @CrossOrigin
     @ResponseBody
-    public boolean clear()
-    {
+    public boolean clear() {
         scheduleBuilderService.clear();
         return true;
     }
@@ -47,107 +45,102 @@ public class ScheduleBuilderController {
     @PostMapping("/fallSchedule")
     @CrossOrigin
     @ResponseBody
-    public Schedule seeUserScheduleFall()
-    {
+    public Schedule seeUserScheduleFall() {
         return scheduleBuilderService.seeUserSchedule("Fall");
     }
 
     @PostMapping("/WinterSchedule")
     @CrossOrigin
     @ResponseBody
-    public Schedule seeUserScheduleWinter()
-    {
+    public Schedule seeUserScheduleWinter() {
         return scheduleBuilderService.seeUserSchedule("Winter");
     }
+
     @PostMapping("/SummerSchedule")
     @CrossOrigin
     @ResponseBody
-    public Schedule seeUserScheduleSummer()
-    {
+    public Schedule seeUserScheduleSummer() {
         return scheduleBuilderService.seeUserSchedule("Summer");
     }
 
     @PostMapping("/addCourseToWishListWinter")
     @CrossOrigin
     @ResponseBody
-    public String addCourseToWishListWinter(@RequestBody FEMessage courses)
-    {
-        if(!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
+    public String addCourseToWishListWinter(@RequestBody FEMessage courses) {
+        if (!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
             return "Prerequisites not met";
 
-        scheduleBuilderService.generateSchedules(courses.getMessage(),"Winter");
+        scheduleBuilderService.generateSchedules(courses.getMessage(), "Winter");
         return "Course added!";
     }
 
     @PostMapping("/addCourseToWishListSummer")
     @CrossOrigin
     @ResponseBody
-    public String addCourseToWishListSummer(@RequestBody FEMessage courses)
-    {
-        if(!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
+    public String addCourseToWishListSummer(@RequestBody FEMessage courses) {
+        if (!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
             return "Prerequisites not met";
 
-        scheduleBuilderService.generateSchedules(courses.getMessage(),"Summer");
+        scheduleBuilderService.generateSchedules(courses.getMessage(), "Summer");
         return "Course added!";
     }
 
     @PostMapping("/generate")
     @CrossOrigin
     @ResponseBody
-    public Schedule generateSchedule()
-    {
+    public Schedule generateSchedule() {
         Schedule returnSchedule = scheduleBuilderService.generateAndShowFirstSchedule();
         returnSchedule.adjustLength();
         return returnSchedule;
 
     }
+
     @PostMapping("/next")
     @CrossOrigin
     @ResponseBody
-    public Schedule nextSchedule()
-    {
+    public Schedule nextSchedule() {
         Schedule returnSchedule = scheduleBuilderService.nextSchedule();
         returnSchedule.adjustLength();
         return returnSchedule;
 
     }
+
     @PostMapping("/previous")
     @CrossOrigin
     @ResponseBody
-    public Schedule previousSchedule()
-    {
+    public Schedule previousSchedule() {
         Schedule returnSchedule = scheduleBuilderService.previousSchedule();
         returnSchedule.adjustLength();
         return returnSchedule;
 
     }
+
     @PostMapping("/enrollFall")
     @CrossOrigin
     @ResponseBody
-    public String enrollFall()
-    {
+    public String enrollFall() {
         if (!scheduleBuilderService.validateCorequisites())
-        return "Corequisites were not met";
+            return "Corequisites were not met";
 
         scheduleBuilderService.enroll("Fall");
         return "Enrolled";
 
     }
+
     @PostMapping("/enrollWinter")
     @CrossOrigin
     @ResponseBody
-    public String enrollWinter()
-    {
+    public String enrollWinter() {
         if (!scheduleBuilderService.validateCorequisites())
             return "Corequisites were not met";
         scheduleBuilderService.enroll("Winter");
         return "Enrolled";
     }
+
     @PostMapping("/enrollSummer")
     @CrossOrigin
     @ResponseBody
-    public String enrollSummer()
-    {
+    public String enrollSummer() {
         if (!scheduleBuilderService.validateCorequisites())
             return "Corequisites were not met";
         scheduleBuilderService.enroll("Summer");
@@ -158,15 +151,10 @@ public class ScheduleBuilderController {
     @PostMapping("/progression")
     @CrossOrigin
     @ResponseBody
-    public String[] progression()
-    {
+    public String[] progression() {
         return scheduleBuilderService.coursesTaken();
 
     }
-
-
-
-
 
 
 }

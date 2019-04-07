@@ -1,26 +1,27 @@
-package com.CourseScheduleBuilder.controller;
+package com.CourseScheduleBuilder.Controller;
 
 
 import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Services.RegistrationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
+ *
  */
 @RestController
 public class RegistrationController {
 
-    @Autowired
-    private RegistrationService registrationService;
+    private final RegistrationService registrationService;
+
+    public RegistrationController(RegistrationService registrationService) {
+        this.registrationService = registrationService;
+    }
 
     @PostMapping("/registration")
     @CrossOrigin
     @ResponseBody
-    public boolean validateAndRegisterNewUserRequest(@RequestBody User user){
+    public boolean validateAndRegisterNewUserRequest(@RequestBody User user) {
         return registrationService.validateAndRegisterNewUserRequest(user);
-
-
 
 
         //

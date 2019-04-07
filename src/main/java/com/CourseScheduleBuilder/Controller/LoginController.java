@@ -1,26 +1,25 @@
-package com.CourseScheduleBuilder.controller;
+package com.CourseScheduleBuilder.Controller;
 
 import com.CourseScheduleBuilder.Model.UserFromFrontEnd;
-import com.CourseScheduleBuilder.Repositories.UserRepo;
 import com.CourseScheduleBuilder.Services.LoginService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
+ *
  */
 @RestController
 public class LoginController {
 
-    @Autowired
-    LoginService loginService;
+    private final LoginService loginService;
 
-    @Autowired
-    UserRepo userRepo;
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
+    }
 
     @PostMapping("/login")
     @CrossOrigin
     @ResponseBody
-    public boolean login(@RequestBody UserFromFrontEnd user){
+    public boolean login(@RequestBody UserFromFrontEnd user) {
         return loginService.loginUser(user);
 
     }
@@ -28,7 +27,7 @@ public class LoginController {
     @PostMapping("/logout")
     @CrossOrigin
     @ResponseBody
-    public boolean logout(){
+    public boolean logout() {
         return loginService.logOutUser();
 
     }

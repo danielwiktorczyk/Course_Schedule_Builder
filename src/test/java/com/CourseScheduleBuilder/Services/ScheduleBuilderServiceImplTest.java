@@ -2,7 +2,6 @@ package com.CourseScheduleBuilder.Services;
 
 import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
-import com.CourseScheduleBuilder.Repositories.loggedInUserRepo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -26,13 +25,11 @@ public class ScheduleBuilderServiceImplTest {
     private static CourseRepo courseRepo;
     @MockBean
     private static UserRepo userRepo;
-    @MockBean
-    private static loggedInUserRepo loginUserRepo;
     @TestConfiguration
         static class ScheduleBuilderServiceImplTestConfiguration {
         @Bean
         public ScheduleBuilderServiceImpl scheduleBuilderService() {
-            return new ScheduleBuilderServiceImpl(courseRepo,  userRepo,loginUserRepo);
+            return new ScheduleBuilderServiceImpl(courseRepo,  userRepo);
         }
     }
 
