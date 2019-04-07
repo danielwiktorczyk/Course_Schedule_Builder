@@ -763,7 +763,7 @@ button.select-this-option.btn.btn-home-log {
   box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.5);
   border-color: #28074D !important;
   border-width: 2px;
-  max-width: 22rem;
+  max-width: 26rem;
   position: relative;
   top: 8rem;
 }
@@ -791,30 +791,11 @@ button.btn.btn-home-log.dropdown-toggle {
   color: #540E72;
 
 }
-.form-control {
-  display: block;
-  width: 27%;
-  margin-right: 0;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: black;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid black;
-  border-radius: .25rem;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-  margin-top: 0;
-}
+
 .form-control:focus{
   outline: none;
 }
-.form-group {
-   /* margin-bottom: 1rem; */
-   position: relative;
-   left: 9.5rem;
-   top: 10px;
- }
+
 
 .adding_dropping_course {
   margin-top: 2rem;
@@ -822,7 +803,7 @@ button.btn.btn-home-log.dropdown-toggle {
 .form-control {
   display: block;
   height: 64%;
-  width: 52%;
+  width: 41%;
   margin-right: 0;
   font-size: 1rem;
   font-weight: 400;
@@ -846,6 +827,6 @@ button.btn.btn-home-log.dropdown-toggle {
 .form-group {
   /* margin-bottom: 1rem; */
   position: relative;
-  left: 3.7rem;
+  left: 4.7rem;
   top: 10px;
 }
