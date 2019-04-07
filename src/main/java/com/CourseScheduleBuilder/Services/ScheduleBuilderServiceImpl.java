@@ -449,6 +449,65 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     }
 
 
+    public String dropCourse(String courseName, String semester){
+        User currentUser = retriveUserInfo();
+        Schedule newSchedule = new Schedule();
+        if (semester.equals("Fall")) {
+            if(currentUser.getFallSchedule() == null)
+                return "You are not enrolled in the Fall semester";
+            Schedule currentSchedule = currentUser.getFallSchedule();
+            int scheduleCount = 0;
+            for (int i = 0; i < currentSchedule.getCourseTrio().length; i++) {
+                if (!courseName.equals(currentSchedule.getCourseTrio()[i].getLecture().getName())) {
+                    newSchedule.insertCourse(currentSchedule.getCourseTrio()[i]);
+                    scheduleCount++;
+                }
 
+            }
+            if(scheduleCount == currentSchedule.getSize())
+                return "You are not enrolled in this course";
+            newSchedule.adjustLength();
+            currentUser.setFallSchedule(newSchedule);
+            userRepo.saveAndFlush(currentUser);
+            return "Course Dropped";
+        }
+        if (semester.equals("Winter")) {
+            if(currentUser.getWinterSchedule() == null)
+                return "You are not enrolled in the Winter semester";
+            Schedule currentSchedule = currentUser.getWinterSchedule();
+            int scheduleCount = 0;
+            for (int i = 0; i < currentSchedule.getCourseTrio().length; i++) {
+                if (!courseName.equals(currentSchedule.getCourseTrio()[i].getLecture().getName())) {
+                    newSchedule.insertCourse(currentSchedule.getCourseTrio()[i]);
+                    scheduleCount++;
+                }
+            }
+
+            if(scheduleCount == currentSchedule.getSize())
+                return "You are not enrolled in this course";
+            newSchedule.adjustLength();
+            currentUser.setWinterSchedule(newSchedule);
+            userRepo.saveAndFlush(currentUser);
+            return "Course Dropped";
+        }
+        if (semester.equals("Summer")) {
+            if(currentUser.getSummerSchedule() == null)
+                return "You are not enrolled in the Summer semester";
+            Schedule currentSchedule = currentUser.getSummerSchedule();
+            for (int i = 0; i < currentSchedule.getCourseTrio().length; i++) {
+                if (!courseName.equals(currentSchedule.getCourseTrio()[i].getLecture().getName())) {
+                    newSchedule.insertCourse(currentSchedule.getCourseTrio()[i]);
+                    scheduleCount++;
+                }
+            }
+            if(scheduleCount == currentSchedule.getSize())
+                return "You are not enrolled in this course";
+            newSchedule.adjustLength();
+            currentUser.setSummerSchedule(newSchedule);
+            userRepo.saveAndFlush(currentUser);
+            return "Course Dropped";
+        }
+        return "Invalid semester selected";
+    }
 
 }
