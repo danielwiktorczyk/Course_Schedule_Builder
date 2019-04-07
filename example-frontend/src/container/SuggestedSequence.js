@@ -13,23 +13,61 @@ class SuggestedSequence extends Component {
             loggedIn: true,
             courseCompleted : [],
             coursesCompleted: [],
+            count: 0,
         };
     }
 
-    async componentDidMount() {
-        axios.post('http://localhost:8080/progression')
+    componentWillMount() {
+        axios.post('http://localhost:8080/progression' ,)
             .then((res) => {
                 this.setState({coursesCompleted: res.data})
+             localStorage.setItem("bb", this.state.coursesCompleted);
+
+
             })
             .catch((error) => {
                 console.log(error)
             })
     }
 
+
+    // COMPARE list courses with props value and return boolean
+    // if courses array contain props.value return true
+
+
+
+
     render(){
-        //array for first semester
+            let y = localStorage.getItem("bb");
+            let x = y.split(",");
+            localStorage.setItem("cc", y);
+            let z =0;
+
+            //array for first semester
+
+
+        function Compare (value) {
+            let i = 0;
+            while (value !== x[i]){
+                if (i === x.length-1)
+                    return false;
+                i++;
+
+
+            }
+            return true
+                }
+
         function ListSem1Courses(props) {
-            return <li>{props.value}</li>;
+
+           //if (compareCourses(dummy, propsValue)) {
+            //    return <li><strike>{props.value}</strike></li>;
+           // }
+          // for (let i =0 ; i< x.length ; i++) {
+               if (Compare(props.value))
+                   return <li><i><b><strike>{props.value}</strike></b></i></li>;
+                else   return <li>{props.value}</li>;
+          // }
         }
 
         function CoursesList1(props) {
@@ -43,9 +81,14 @@ class SuggestedSequence extends Component {
             );
         }
 
+
+
+
         //array for second semester
         function ListSem2Courses(props) {
-            return <li>{props.value}</li>;
+            if (Compare(props.value))
+                return <li><i><b><strike>{props.value}</strike></b></i></li>;
+            else   return <li>{props.value}</li>;
         }
 
         function CoursesList2(props) {
@@ -60,7 +103,9 @@ class SuggestedSequence extends Component {
         }
         //array for third semester
         function ListSem3Courses(props) {
-            return <li>{props.value}</li>;
+            if (Compare(props.value))
+                return <li><i><b><strike>{props.value}</strike></b></i></li>;
+            else   return <li>{props.value}</li>;
         }
 
         function CoursesList3(props) {
@@ -75,7 +120,9 @@ class SuggestedSequence extends Component {
         }
         //array for semester 4
         function ListSem4Courses(props) {
-            return <li>{props.value}</li>;
+            if (Compare(props.value))
+                return <li><i><b><strike>{props.value}</strike></b></i></li>;
+            else   return <li>{props.value}</li>;
         }
 
         function CoursesList4(props) {
@@ -90,7 +137,9 @@ class SuggestedSequence extends Component {
         }
         //array for semester 5
         function ListSem5Courses(props) {
-            return <li>{props.value}</li>;
+            if (Compare(props.value))
+                return <li><i><b><strike>{props.value}</strike></b></i></li>;
+            else   return <li>{props.value}</li>;
         }
 
         function CoursesList5(props) {
@@ -105,7 +154,9 @@ class SuggestedSequence extends Component {
         }
         //array for semester 6
         function ListSem6Courses(props) {
-            return <li>{props.value}</li>;
+            if (Compare(props.value))
+                return <li><i><b><strike>{props.value}</strike></b></i></li>;
+            else   return <li>{props.value}</li>;
         }
 
         function CoursesList6(props) {
@@ -120,7 +171,9 @@ class SuggestedSequence extends Component {
         }
         //array for semester 7
         function ListSem7Courses(props) {
-            return <li><span>{props.value}</span></li>;
+            if (Compare(props.value))
+                return <li><i><b><strike>{props.value}</strike></b></i></li>;
+            else   return <li>{props.value}</li>;
         }
 
         function CoursesList7(props) {
@@ -135,7 +188,9 @@ class SuggestedSequence extends Component {
         }
         //array for semester 8
         function ListSem8Courses(props) {
-            return <li>{props.value}</li>;
+            if (Compare(props.value))
+                return <li><i><b><strike>{props.value}</strike></b></i></li>;
+            else   return <li>{props.value}</li>;
         }
 
         function CoursesList8(props) {
@@ -149,7 +204,7 @@ class SuggestedSequence extends Component {
             );
         }
 
-        const courses1 = ["COMP232" , "COMP248", "ENGR201", "ENGR213", "General Elective"];
+        const courses1 = ["COMP248" , "COMP232", "ENGR201", "ENGR213", "General Elective"];
         const courses2= ["COMP249" , "SOEN228", "ENGR233", "SOEN287", "Basic Science 1"];
         const courses3= ["COMP384" , "COMP352", "ENCS282", "ENGR202", "Basic Science 2"];
         const courses4= ["COMP346" , "ELEC275", "ENGR371", "SOEN331", "SOEN341"];

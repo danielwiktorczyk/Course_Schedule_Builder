@@ -49,6 +49,7 @@ class Header extends Component {
         let path = '/SuggestedSequence';
         this.props.history.push(path);
         window.location.reload();
+        window.location.reload();
     }
 
     render(){
