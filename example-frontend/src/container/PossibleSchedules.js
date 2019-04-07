@@ -80,7 +80,6 @@ class PossibleSchedules extends Component {
         if( localStorage.getItem("a") === "FALL 2019"){
             axios.post('http://localhost:8080/enrollFall', {
             }).then(res => {
-                alert(res.data);
             }, err => {
                 alert("Server rejected response: " + err);
             });
@@ -89,7 +88,6 @@ class PossibleSchedules extends Component {
         if( localStorage.getItem("a") === "WINTER 2019"){
             axios.post('http://localhost:8080/enrollWinter', {
             }).then(res => {
-                alert(res.data);
             }, err => {
                 alert("Server rejected response: " + err);
             });
@@ -98,7 +96,6 @@ class PossibleSchedules extends Component {
         if( localStorage.getItem("a") === "SUMMER 2018"){
             axios.post('http://localhost:8080/enrollSummer', {
             }).then(res => {
-                alert(res.data);
             }, err => {
                 alert("Server rejected response: " + err);
             });

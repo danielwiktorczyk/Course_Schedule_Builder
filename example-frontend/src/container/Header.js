@@ -25,7 +25,6 @@ class Header extends Component {
         axios.post('http://localhost:8080/logout', {
         }).then(res => {
             this.setState({loggedIn: false});
-            alert("Successfully Logged Out");
         }, err => {
             alert("Server rejected response: " + err);
         });

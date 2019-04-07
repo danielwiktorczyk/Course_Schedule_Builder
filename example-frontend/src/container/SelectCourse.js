@@ -99,7 +99,6 @@ class SelectCourse extends Component {
 
                 }).then(res => {
                     if ("Course added!" == res.data) {
-                        alert("course added");
                     } else
                         alert(res.data);
                 }, err => {
@@ -113,7 +112,6 @@ class SelectCourse extends Component {
 
                 }).then(res => {
                     if ("Course added!" == res.data) {
-                        alert("course added");
                     } else
                         alert(res.data);
                 }, err => {
@@ -127,7 +125,6 @@ class SelectCourse extends Component {
 
                 }).then(res => {
                     if ("Course added!" == res.data) {
-                        alert("course added");
                     } else
                         alert(res.data);
                 }, err => {
