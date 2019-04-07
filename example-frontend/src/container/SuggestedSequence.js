@@ -18,7 +18,7 @@ class SuggestedSequence extends Component {
     }
 
     componentWillMount() {
-        axios.post('http://localhost:8080/progression')
+        axios.post('http://localhost:8080/progression' ,)
             .then((res) => {
                 this.setState({coursesCompleted: res.data})
              localStorage.setItem("bb", this.state.coursesCompleted);
@@ -30,6 +30,7 @@ class SuggestedSequence extends Component {
             })
     }
 
+
     // COMPARE list courses with props value and return boolean
     // if courses array contain props.value return true
 
@@ -40,8 +41,8 @@ class SuggestedSequence extends Component {
             let y = localStorage.getItem("bb");
             let x = y.split(",");
             localStorage.setItem("cc", y);
-            const dummy = ["COMP232", "COMP248", "ENGR201", "ENGR213", "COMP335"];
-            console.log("resp data ", x[0]);
+            let z =0;
+
             //array for first semester
 
 
