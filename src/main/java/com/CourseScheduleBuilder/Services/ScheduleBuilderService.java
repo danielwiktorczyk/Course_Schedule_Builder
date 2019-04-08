@@ -15,4 +15,5 @@ public interface ScheduleBuilderService {
     public Schedule seeUserSchedule(String semester);
     public String[] coursesTaken();
     public String dropCourse(String courseName, String semester);
+    public String addCourse(String course, String semester);
 }
