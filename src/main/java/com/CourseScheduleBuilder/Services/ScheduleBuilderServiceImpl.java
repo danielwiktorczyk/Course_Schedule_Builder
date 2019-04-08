@@ -3,12 +3,12 @@ package com.CourseScheduleBuilder.Services;
 import com.CourseScheduleBuilder.Model.*;
 import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -22,6 +22,8 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
         private static Schedule[] savedSchedules = new Schedule[5];
         private static int scheduleCount = 0;
+        private UserPreferencesService userPreferencesService;
+        private UserPreferences preferences;
 
     @Autowired
     public ScheduleBuilderServiceImpl(CourseRepo courseRepo, UserRepo userRepo) {
@@ -574,6 +576,182 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         }
 
         return "Invalid Semester Selected";
+    }
+
+    /*
+       The preferredSchedule version of generateAndShowFirstSchedule, previousSchedule and nextSchedule
+    */
+    public Schedule generateAndShowFirstPrefSchedule() {
+        System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+        scheduleCount = 0;
+        while (!verifyScheduleForPrefs(savedSchedules[scheduleCount])) {
+            scheduleCount++;
+        }
+        return savedSchedules[scheduleCount];
+
+    }
+
+    public Schedule nextPrefSchedule(){
+        if(++scheduleCount < savedSchedules.length) {
+            if(verifyScheduleForPrefs(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return nextPrefSchedule();
+            }
+        }
+        else{
+            scheduleCount =0;
+            if(verifyScheduleForPrefs(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return nextPrefSchedule();
+            }
+        }
+    }
+
+    public Schedule previousPrefSchedule(){
+        if(--scheduleCount > 0) {
+            if(verifyScheduleForPrefs(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return previousPrefSchedule();
+            }
+        }
+        else {
+            scheduleCount = savedSchedules.length-1;
+
+            if(validateSchedule(savedSchedules[scheduleCount])) {
+                System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                return savedSchedules[scheduleCount];
+            }
+            else{
+                return previousPrefSchedule();
+            }
+        }
+    }
+    /*
+       compares preferences and course times for a courseTrio, returns either unaltered course trio if no preference/course conflict
+       or null if there is a conflict between course and pref time
+       */
+    public boolean compareCourseAndPrefTime(Course course, int prefStart, int prefEnd){
+        //course begins before or at the same time as pref and ends after or at the same time as the pref
+        if (course.getStartTime() <= prefStart && course.getEndTime() >= prefEnd) {
+            return true;
+        }
+        //course starts after pref starts but before it ends
+        else if (course.getStartTime() > prefStart && prefEnd > course.getStartTime()) {
+            return true;
+        }
+        //course starts before pref starts but ends after it starts
+        else if (course.getStartTime() < prefStart && prefStart < course.getEndTime()) {
+            return true;
+        }
+        //course starts after pref starts and ends before pref ends
+        else if (course.getStartTime() > prefStart && prefEnd > course.getEndTime()) {
+            return true;
+        }
+        return false;
+    }
+
+        /*
+    gives specific times to booleans from fe and compares them to schedule values:
+    morning is 420-720 (7am to noon)
+    evening is 1020-1380 (5pm-11pm)
+    all day is 420-1380 (7am-11pm)
+     */
+
+    public boolean hasOverlap(Course courseToVerify, boolean[] courseDays, UserPreferences preferences) {
+        if(courseDays[0]) {
+            if (preferences.isMall() || preferences.isMe() || preferences.isMm()) {
+                int[] prefTimes = userPreferencesService.getMonday();
+                for (int i = 0; i < prefTimes.length / 2; i = i + 2) {
+                    if (compareCourseAndPrefTime(courseToVerify, prefTimes[i], prefTimes[i + 1])) {
+                        return true;
+                    }
+
+                }
+            }
+        }
+        if(courseDays[1]) {
+            if (preferences.isTall() || preferences.isTe() || preferences.isTm()) {
+                int[] prefTimes = userPreferencesService.getTuesday();
+                for (int i = 0; i < prefTimes.length / 2; i = i + 2) {
+                    if (compareCourseAndPrefTime(courseToVerify, prefTimes[i], prefTimes[i + 1])) {
+                        return true;
+                    }
+
+                }
+            }
+        }
+        if(courseDays[2]) {
+            if (preferences.isWall() || preferences.isWe() || preferences.isWm()) {
+                int[] prefTimes = userPreferencesService.getWednesday();
+                for (int i = 0; i < prefTimes.length / 2; i = i + 2) {
+                    if (compareCourseAndPrefTime(courseToVerify, prefTimes[i], prefTimes[i + 1])) {
+                        return true;
+                    }
+
+                }
+            }
+        }
+        if(courseDays[3]) {
+            if (preferences.isThall() || preferences.isThe() || preferences.isThm()) {
+                int[] prefTimes = userPreferencesService.getThursday();
+                for (int i = 0; i < prefTimes.length / 2; i = i + 2) {
+                    if (compareCourseAndPrefTime(courseToVerify, prefTimes[i], prefTimes[i + 1])) {
+                        return true;
+                    }
+
+                }
+            }
+        }
+        if(courseDays[4]) {
+            if (preferences.isFall() || preferences.isFe() || preferences.isFm()) {
+                int[] prefTimes = userPreferencesService.getFriday();
+                for (int i = 0; i < prefTimes.length / 2; i = i + 2) {
+                    if (compareCourseAndPrefTime(courseToVerify, prefTimes[i], prefTimes[i + 1])) {
+                        return true;
+                    }
+
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean verifyScheduleForPrefs(Schedule scheduleToVerify) {
+        //arraylist of courses in schedule
+        ArrayList<Course> allCourses = new ArrayList<Course>();
+        CourseTrio[] allTrios = scheduleToVerify.getCourseTrio();
+        for (int i = 0; i < allTrios.length; i++) {
+            if (allTrios[i] == null) {
+                break;
+            } else {
+                allCourses.add(allTrios[i].getLecture());
+                allCourses.add(allTrios[i].getTutorial());
+                if (allTrios[i].isHasLab()) {
+                    allCourses.add(allTrios[i].getLab());
+                }
+            }
+        }
+        Iterator<Course> itCourses = allCourses.iterator();
+        while (itCourses.hasNext()) {
+            Course courseToVerify = itCourses.next();
+            boolean[] courseDays = courseToVerify.getClassDays();
+            //logic to check overlap between a preference and a course
+            boolean overlap = hasOverlap(courseToVerify, courseDays, preferences);
+            if (overlap) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
