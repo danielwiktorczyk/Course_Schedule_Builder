@@ -180,6 +180,118 @@ class SelectCourse extends Component {
 
         return localStorage.getItem("a");
     };
+
+    applyPref = () =>{
+        let mm = false;
+        let me = false;
+        let mall = false;
+
+        let tm = false;
+        let te = false;
+        let tall = false;
+
+        let wm = false;
+        let we = false;
+        let wall = false;
+
+        let thm = false;
+        let the = false;
+        let thall = false;
+
+        let fm = false;
+        let fe = false;
+        let fall = false;
+
+        if ( document.getElementById("mm").checked)
+            mm = true ;
+        else mm = false;
+
+        if ( document.getElementById("me").checked)
+            me = true ;
+        else  me = false;
+
+        if ( document.getElementById("mall").checked)
+            mall = true ;
+        else mall = false;
+
+        if ( !document.getElementById("mm").checked&& !document.getElementById("me").checked && !document.getElementById("mall").checked)
+                mm = me = mall = false;
+
+
+        if ( document.getElementById("tm").checked)
+            tm = true ;
+        else tm =false;
+
+        if ( document.getElementById("te").checked)
+            te = true ;
+        else te =false;
+
+
+
+
+
+        if ( document.getElementById("tall").checked)
+            tall = true ;
+        else tall = false;
+
+        if ( document.getElementById("wm").checked)
+            wm = true ;
+        else wm = false;
+
+        if ( document.getElementById("we").checked)
+            we = true ;
+        else we = false;
+
+        if ( document.getElementById("wall").checked)
+            wall = true ;
+        else wall =false;
+
+        if ( document.getElementById("thm").checked)
+            thm = true ;
+        else thm = false;
+
+        if ( document.getElementById("the").checked)
+            the = true ;
+        else the = false;
+
+        if ( document.getElementById("thall").checked)
+            thall = true ;
+        else thall = false;
+
+        if ( document.getElementById("fm").checked)
+            fm = true ;
+        else fm = false;
+
+        if ( document.getElementById("fe").checked)
+            fe = true ;
+        else fe = false;
+
+        if ( document.getElementById("fall").checked)
+            fall = true ;
+        else fall =false;
+
+        if(true){
+        axios.post("http://localhost:8080/userprefrences", {
+            mm: mm , me : me , mall: mall ,
+            tm: tm , te : te , tall: tall ,
+            wm: wm , we : we , wall: wall ,
+            thm: thm , the : the , thall: thall ,
+            fm: fm , fe : fe , fall: fall
+        }).then( res=>
+        { if (res.data === "Success"){
+
+        }
+        else {
+            alert(res.data);
+        }
+
+        })
+            .catch((error) => {
+                console.log(error)
+            })
+        }
+
+    }
     
     render(){
         const errors = validate(this.state.coursename);
@@ -221,103 +333,103 @@ class SelectCourse extends Component {
                                     <input type="checkbox"/>
                                         <span className="checkmark" onClick={this._showOptionsMonday}></span>
                                 </label>
-                                { this.state.showOptionsMonday && (
+                                {/*{ this.state.showOptionsMonday && (*/}
                                     <div className="choices">
                                         <label className="wrapping radio-inline">No Mornings
-                                            <input type="radio" name="radio1"/>
+                                            <input id = "mm" type="radio" name="radio1"/>
                                                 <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">No Evenings
-                                            <input type="radio" name="radio1"/>
+                                            <input id = "me" type="radio" name="radio1"/>
                                                 <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">All Day off
-                                            <input type="radio" name="radio1"/>
+                                            <input id = "mall" type="radio" name="radio1"/>
                                             <span className="check-mark"></span>
                                         </label>
                                     </div>
-                                )}
+                                {/*// }*/}
                                 <label className="newwrapper">Tuesday
                                     <input type="checkbox"/>
                                         <span className="checkmark" onClick={this._showOptionsTuesday}></span>
                                 </label>
-                                { this.state.showOptionsTuesday && (
+                                {/*{ this.state.showOptionsTuesday && (*/}
                                     <div className="choices">
                                         <label className="wrapping radio-inline">No Mornings
-                                            <input type="radio" name="radio2"/>
+                                            <input id = "tm" type="radio" name="radio2"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">No Evenings
-                                            <input type="radio" name="radio2"/>
+                                            <input id = "te" type="radio" name="radio2"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">All Day off
-                                            <input type="radio" name="radio2"/>
+                                            <input id = "tall" type="radio" name="radio2"/>
                                             <span className="check-mark"></span>
                                         </label>
                                     </div>
-                                )}
+                                {/*// )}*/}
                                 <label className="newwrapper">Wednesday
                                     <input type="checkbox"/>
                                         <span className="checkmark" onClick={this._showOptionsWednesday}></span>
                                 </label>
-                                { this.state.showOptionsWednesday && (
+                                {/*{ this.state.showOptionsWednesday && (*/}
                                     <div className="choices">
                                         <label className="wrapping radio-inline">No Mornings
-                                            <input type="radio" name="radio3"/>
+                                            <input id = "wm" type="radio" name="radio3"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">No Evenings
-                                            <input type="radio" name="radio3"/>
+                                            <input id = "we" type="radio" name="radio3"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">All Day off
-                                            <input type="radio" name="radio3"/>
+                                            <input id = "wall" type="radio" name="radio3"/>
                                             <span className="check-mark"></span>
                                         </label>
                                     </div>
-                                )}
+                                {/*)}*/}
                                 <label className="newwrapper">Thursday
                                     <input type="checkbox"/>
                                         <span className="checkmark" onClick={this._showOptionsThursday}></span>
                                 </label>
-                                { this.state.showOptionsThursday && (
+                                {/*{ this.state.showOptionsThursday && (*/}
                                     <div className="choices">
                                         <label className="wrapping radio-inline">No Mornings
-                                            <input type="radio" name="radio4"/>
+                                            <input id = "thm" type="radio" name="radio4"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">No Evenings
-                                            <input type="radio" name="radio4"/>
+                                            <input id = "the" type="radio" name="radio4"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">All Day off
-                                            <input type="radio" name="radio4"/>
+                                            <input id = "thall" type="radio" name="radio4"/>
                                             <span className="check-mark"></span>
                                         </label>
                                     </div>
-                                )}
+                                {/*)}*/}
                                 <label className="newwrapper" >Friday
                                     <input type="checkbox"/>
                                         <span className="checkmark" onClick={this._showOptionsFriday}></span>
                                 </label>
-                                { this.state.showOptionsFriday && (
+                                {/*{ this.state.showOptionsFriday && (*/}
                                     <div className="choices">
                                         <label className="wrapping radio-inline">No Mornings
-                                            <input type="radio" name="radio5"/>
+                                            <input id = "fm" type="radio" name="radio5"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">No Evenings
-                                            <input type="radio" name="radio5"/>
+                                            <input id = "fe" type="radio" name="radio5"/>
                                             <span className="check-mark"></span>
                                         </label>
                                         <label className="wrapping radio-inline">All Day off
-                                            <input type="radio" name="radio15"/>
+                                            <input  id = "fall" type="radio" name="radio15"/>
                                             <span className="check-mark"></span>
                                         </label>
                                     </div>
-                                )}
-                                <button className="btn generate-with-pref">Generate Using Preferences</button>
+                                {/*// )}*/}
+                                <button className="btn generate-with-pref" onClick={this.applyPref}>Apply Preferences</button>
                             </div>
                         ) }
                     </div>
