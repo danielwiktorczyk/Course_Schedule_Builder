@@ -147,6 +147,7 @@ class ViewMySchedule extends Component {
                             <hr/>
                             <h3 className="table_heading">My Weekly Schedule</h3>
                             <button className="col-2 btn btn-home-log" onClick={this.editSchedule}>Add / Drop</button>
+                            <button className="col-2 btn btn-home-log">Swap</button>
                             <hr/>
                             <button className="col-2 btn btn-home-log" onClick={this.fall}>Fall</button>
                             <button className="col-2 btn btn-home-log" onClick={this.winter}>Winter</button>
