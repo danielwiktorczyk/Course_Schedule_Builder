@@ -183,5 +183,32 @@ public class ScheduleBuilderController {
 
     }
 
+    @PostMapping("/addFall")
+    @CrossOrigin
+    @ResponseBody
+    public String addFall(@RequestBody FEMessage request)
+    {
+        return scheduleBuilderService.addCourse(request.getMessage(), "Fall");
+
+    }
+
+    @PostMapping("/addWinter")
+    @CrossOrigin
+    @ResponseBody
+    public String addWinter(@RequestBody FEMessage request)
+    {
+        return scheduleBuilderService.addCourse(request.getMessage(), "Winter");
+
+    }
+
+    @PostMapping("/addSummer")
+    @CrossOrigin
+    @ResponseBody
+    public String addSummer(@RequestBody FEMessage request)
+    {
+        return scheduleBuilderService.addCourse(request.getMessage(), "Summer");
+
+    }
+
 
 }
