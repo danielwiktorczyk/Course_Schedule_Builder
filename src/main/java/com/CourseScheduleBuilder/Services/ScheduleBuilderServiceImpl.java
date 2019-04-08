@@ -464,7 +464,9 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         }
         else if(removed.getComponent().equalsIgnoreCase("lab")) {
             for (int l = 0; l < ct.length; l++) {
-                if (ct[l] == null){
+                System.out.println("ct is " + ct[1]);
+                System.out.println("ct lab is " + ct[1].getLab());
+                if(!ct[l].isHasLab()) {
                     break;
                 }
                 if (ct[l].getLab().equals(removed)) {
