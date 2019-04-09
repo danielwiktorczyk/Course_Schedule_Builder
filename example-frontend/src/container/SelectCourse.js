@@ -119,7 +119,7 @@ class SelectCourse extends Component {
                 });
             }
 
-            if( localStorage.getItem("a") === "SUMMER 2019") {
+            if( localStorage.getItem("a") === "SUMMER 2018") {
                 axios.post('http://localhost:8080/addCourseToWishListSummer', {
                     message
 
