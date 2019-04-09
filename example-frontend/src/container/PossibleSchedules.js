@@ -13,18 +13,23 @@ class PossibleSchedules extends Component {
             loggedIn: true,
             loading: true,
             person: null,
+            pref: false,
             data : [],
             offset: 0,
             size : 0,
         };
     }
-    //
-    // async componentDidMount() {
-    //     const url = "https://api.randomuser.me/";
-    //     const response = await fetch(url);
-    //     const data = await response.json();
-    //     this.setState({ person: data.results[0], loading: false });
-    // }
+    toggle = (bool) => {
+        if (this.state.pref === false){
+            this.setState({pref: true})
+
+        }else{
+            this.setState({pref: false})
+        }
+        // axios.post('http://localhost:8080/') ///not sure where to post to
+
+    };
+
 
     // paginate with respect to next
     next = ()  => {
@@ -154,9 +159,15 @@ class PossibleSchedules extends Component {
                             <button className="select-this-option btn btn-home-log" onClick={this.enroll}>Enroll in this Schedule</button>
                         </div>
                         <div className="button__wrapper">
-                            <button className="col-1 btn btn-home-log" onClick={this.previous}>Prev.</button>
-                            /
-                            <button className="col-1 btn btn-home-log" onClick={this.next}>Next</button>
+                            <div className="position_buttons">
+                                <button className="col-1 btn btn-home-log" onClick={this.previous}>Prev.</button>
+                                /
+                                <button className="col-1 btn btn-home-log" onClick={this.next}>Next</button>
+
+                                <button className="btn btn-home-log toggle-pref" onClick={this.toggle}>Toggle Preferences</button>
+
+                            </div>
+
                         </div>
 
                         <table className="table">
