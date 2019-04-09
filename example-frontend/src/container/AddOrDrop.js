@@ -13,6 +13,7 @@ class AddOrDrop extends Component {
         this.state = {loggedIn: true};
         this.drop = this.drop.bind(this);
         this.add = this.add.bind(this);
+        this.swap = this.swap.bind(this);
     }
 
     drop(){
@@ -121,6 +122,62 @@ class AddOrDrop extends Component {
         }
     }
 
+    swap(){
+
+        let course;
+        let semester;
+        course = document.getElementById('courseInput').value;
+        semester = document.getElementById("textFieldTextJS").value
+
+        if (semester === "Fall"){
+            axios.post('http://localhost:8080/SwapFall', {
+                message: course,
+            }).then(res => {
+                if ((res.data === "Success")) {
+                    this.props.history.push('/PossibleSchedules');
+                    window.location.reload();
+                } else {
+                    alert(res.data);
+                }
+
+            }, err => {
+                alert("Server rejected response: " + err);
+            });
+        }
+
+        if (semester === "Winter"){
+            axios.post('http://localhost:8080/SwapWinter', {
+                message: course,
+            }).then(res => {
+                if ((res.data === "Success")) {
+                    this.props.history.push('/PossibleSchedules');
+                    window.location.reload();
+                } else {
+                    alert(res.data);
+                }
+
+            }, err => {
+                alert("Server rejected response: " + err);
+            });
+        }
+
+        if (semester === "Summer"){
+            axios.post('http://localhost:8080/SwapSummer', {
+                message: course,
+            }).then(res => {
+                if ((res.data === "Success")) {
+                    this.props.history.push('/PossibleSchedules');
+                    window.location.reload();
+                } else {
+                    alert(res.data);
+                }
+
+            }, err => {
+                alert("Server rejected response: " + err);
+            });
+        }
+    }
+
     options() {
     //Getting Value
     var selObj = document.getElementById("selectSemesterDropAdd");
@@ -163,7 +220,7 @@ class AddOrDrop extends Component {
                         <div className="row">
                             <button className="col-3 btn btn-home-log add_button" onClick={this.add}>ADD</button>
                             <button className="col-3 btn btn-home-log add_button" onClick={this.drop}>DROP</button>
-                            <button className="col-3 btn btn-home-log swap_button">Swap</button>
+                            <button className="col-3 btn btn-home-log swap_button" onClick={this.swap}>Swap</button>
 
                         </div>
                         {/*<div className="row">*/}
