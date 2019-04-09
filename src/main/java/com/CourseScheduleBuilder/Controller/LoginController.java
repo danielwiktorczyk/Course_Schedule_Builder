@@ -1,8 +1,8 @@
 package com.CourseScheduleBuilder.Controller;
 
-import com.CourseScheduleBuilder.Model.UserFromFrontEnd;
 import com.CourseScheduleBuilder.Services.LoginService;
 import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
 /**
  *
@@ -19,7 +19,7 @@ public class LoginController {
     @PostMapping("/login")
     @CrossOrigin
     @ResponseBody
-    public boolean login(@RequestBody UserFromFrontEnd user) {
+    public boolean login(@RequestBody Map user) {
         return loginService.loginUser(user);
 
     }

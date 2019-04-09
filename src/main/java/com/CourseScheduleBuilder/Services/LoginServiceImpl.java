@@ -1,11 +1,11 @@
 package com.CourseScheduleBuilder.Services;
 
 import com.CourseScheduleBuilder.Model.User;
-import com.CourseScheduleBuilder.Model.UserFromFrontEnd;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Map;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -14,11 +14,13 @@ public class LoginServiceImpl implements LoginService {
     private UserRepo userRepo;
 
     @Override
-    public boolean loginUser(UserFromFrontEnd user) {
-        if (userRepo.findByUsername(user.getUsername()) == null){
+    public boolean loginUser(Map userLogin) {
+
+        if (userRepo.findByUsername((String)userLogin.get("username")) == null){
             return false;
         }
-        if (userRepo.findByUsername(user.getUsername()).getPassword().equals(user.getPassword())){
+        if (userRepo.findByUsername((String)userLogin.get("username")).getPassword().equals(userLogin.get("password"))){
+            User user = userRepo.findByUsername((String)userLogin.get("username"));
             logout_old_user_and_login_new(user);
             setActiveStatus(user);
             return true;
@@ -37,7 +39,7 @@ public class LoginServiceImpl implements LoginService {
          */
     }
 
-    private void setActiveStatus(UserFromFrontEnd user) {
+    private void setActiveStatus(User user) {
         User newUser = userRepo.findByUsername(user.getUsername());
         newUser.setActive(1);
         userRepo.save(newUser);
@@ -49,7 +51,7 @@ public class LoginServiceImpl implements LoginService {
          * log them out if the case and allow the new user to log in
          * @param user
          */
-        private void logout_old_user_and_login_new(UserFromFrontEnd user){
+        private void logout_old_user_and_login_new(User user){
             if(userRepo.findByActive(1).size() > 0)
             {
                 System.out.println("Logging out: "+userRepo.findByActive(1).get(0).getFirstName()+" "+userRepo.findByActive(1).get(0).getLastName());
