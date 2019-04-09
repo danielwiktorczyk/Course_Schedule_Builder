@@ -211,4 +211,46 @@ public class ScheduleBuilderController {
     }
 
 
+    @PostMapping("/SwapFall")
+    @CrossOrigin
+    @ResponseBody
+    public String SwapFall(@RequestBody FEMessage request)
+    {
+        String dropReply = scheduleBuilderService.dropCourse(request.getMessage(),"Fall");
+        if(!dropReply.equals("Course Dropped"))
+            return dropReply;
+        else{
+            return scheduleBuilderService.addCourse(request.getMessage(),"Fall");
+        }
+    }
+
+    @PostMapping("/SwapWinter")
+    @CrossOrigin
+    @ResponseBody
+    public String SwapWinter(@RequestBody FEMessage request)
+    {
+        String dropReply = scheduleBuilderService.dropCourse(request.getMessage(),"Winter");
+        if(!dropReply.equals("Course Dropped"))
+            return dropReply;
+        else{
+            return scheduleBuilderService.addCourse(request.getMessage(),"Winter");
+        }
+
+    }
+
+    @PostMapping("/SwapSummer")
+    @CrossOrigin
+    @ResponseBody
+    public String SwapSummer(@RequestBody FEMessage request)
+    {
+        String dropReply = scheduleBuilderService.dropCourse(request.getMessage(),"Summer");
+        if(!dropReply.equals("Course Dropped"))
+            return dropReply;
+        else{
+            return scheduleBuilderService.addCourse(request.getMessage(),"Summer");
+        }
+
+    }
+
+
 }
