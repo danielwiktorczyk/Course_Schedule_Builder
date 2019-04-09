@@ -154,9 +154,15 @@ class PossibleSchedules extends Component {
                             <button className="select-this-option btn btn-home-log" onClick={this.enroll}>Enroll in this Schedule</button>
                         </div>
                         <div className="button__wrapper">
-                            <button className="col-1 btn btn-home-log" onClick={this.previous}>Prev.</button>
-                            /
-                            <button className="col-1 btn btn-home-log" onClick={this.next}>Next</button>
+                            <div className="position_buttons">
+                                <button className="col-1 btn btn-home-log" onClick={this.previous}>Prev.</button>
+                                /
+                                <button className="col-1 btn btn-home-log" onClick={this.next}>Next</button>
+
+                                <button className="btn btn-home-log toggle-pref">Toggle Preferences</button>
+
+                            </div>
+
                         </div>
 
                         <table className="table">
