@@ -673,7 +673,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         if(courseDays[0]) {
             if (preferences.isMall() || preferences.isMe() || preferences.isMm()) {
                 int[] prefTimes = userPreferencesService.getMonday();
-                for (int i = 0; i < prefTimes.length / 2; i = i + 2) {
+                for (int i = 0; i < prefTimes.length; i = i + 2) {
                     if (compareCourseAndPrefTime(courseToVerify, prefTimes[i], prefTimes[i + 1])) {
                         return true;
                     }
@@ -684,7 +684,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         if(courseDays[1]) {
             if (preferences.isTall() || preferences.isTe() || preferences.isTm()) {
                 int[] prefTimes = userPreferencesService.getTuesday();
-                for (int i = 0; i < prefTimes.length / 2; i = i + 2) {
+                for (int i = 0; i < prefTimes.length; i = i + 2) {
                     if (compareCourseAndPrefTime(courseToVerify, prefTimes[i], prefTimes[i + 1])) {
                         return true;
                     }
@@ -695,7 +695,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         if(courseDays[2]) {
             if (preferences.isWall() || preferences.isWe() || preferences.isWm()) {
                 int[] prefTimes = userPreferencesService.getWednesday();
-                for (int i = 0; i < prefTimes.length / 2; i = i + 2) {
+                for (int i = 0; i < prefTimes.length; i = i + 2) {
                     if (compareCourseAndPrefTime(courseToVerify, prefTimes[i], prefTimes[i + 1])) {
                         return true;
                     }
@@ -706,7 +706,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         if(courseDays[3]) {
             if (preferences.isThall() || preferences.isThe() || preferences.isThm()) {
                 int[] prefTimes = userPreferencesService.getThursday();
-                for (int i = 0; i < prefTimes.length / 2; i = i + 2) {
+                for (int i = 0; i < prefTimes.length; i = i + 2) {
                     if (compareCourseAndPrefTime(courseToVerify, prefTimes[i], prefTimes[i + 1])) {
                         return true;
                     }
@@ -717,7 +717,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         if(courseDays[4]) {
             if (preferences.isFall() || preferences.isFe() || preferences.isFm()) {
                 int[] prefTimes = userPreferencesService.getFriday();
-                for (int i = 0; i < prefTimes.length / 2; i = i + 2) {
+                for (int i = 0; i < prefTimes.length; i = i + 2) {
                     if (compareCourseAndPrefTime(courseToVerify, prefTimes[i], prefTimes[i + 1])) {
                         return true;
                     }
