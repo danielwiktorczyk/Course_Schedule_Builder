@@ -758,25 +758,26 @@ button.select-this-option.btn.btn-home-log {
   top: -12px;
 }
 .add_drop_frame {
-  text-align: center;
-  border-radius: 1rem;
-  box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.5);
-  border-color: #28074D !important;
-  border-width: 2px;
-  max-width: 26rem;
-  position: relative;
-  top: 8rem;
+    text-align: center;
+    border-radius: 1rem;
+    box-shadow: 0 1.5rem 4rem 0 rgba(0, 0, 0, 0.5);
+    border-color: #28074D !important;
+    border-width: 2px;
+  max-width: 41rem;
+    position: relative;
+    top: 6rem;
+    padding-bottom: 1rem;
 }
-.drop_logo{
-  width: 85%;
+.drop_logo {
+  width: 55%;
   position: relative;
   top: 2rem;
-
+  right: 1rem;
 }
-.sel-s{
+.sel-s {
   text-align: center;
   position: relative;
-  left: 19%;
+  left: 25%;
 }
 
 button.btn.btn-home-log.dropdown-toggle {
@@ -794,14 +795,10 @@ button.btn.btn-home-log.dropdown-toggle {
 .form-control:focus{
   outline: none;
 }
-
-.adding_dropping_course {
-  margin-top: 2rem;
-}
 .form-control {
   display: block;
   height: 64%;
-  width: 41%;
+  width: 35%;
   margin-right: 0;
   font-size: 1rem;
   font-weight: 400;
@@ -815,12 +812,12 @@ button.btn.btn-home-log.dropdown-toggle {
   margin-top: 6px;
 }
 .add_button {
-  max-width: 33%;
-  margin-bottom: 3rem;
-  left: 38px;
-  margin-top: 1.5rem;
-  height: 2.5rem;
-  padding-top: 7px;
+    max-width: 28%;
+    margin-bottom: 3rem;
+  left: 18px;
+    margin-top: 1.5rem;
+    height: 2.5rem;
+    padding-top: 7px;
 }
 .form-group {
   position: relative;
@@ -834,4 +831,27 @@ select#selectSemesterDropAdd {
 }
 #textFieldTextJS{
   display: none;
+}
+button.btn.btn-home-log.toggle-pref {
+    max-width: 20%;
+    position: relative;
+    left: 11.5rem;
+    /*top: -61px;*/
+}
+.position_buttons {
+    position: relative;
+    left: 7rem;
+}
+button.col-3.btn.btn-home-log.swap_button {
+  position: relative;
+  top: 19px;
+
+}
+.form-group {
+  position: relative;
+  left: 9.7rem;
+  top: 10px;
+}
+.adding_dropping_course {
+  margin-top: 4rem;
 }
