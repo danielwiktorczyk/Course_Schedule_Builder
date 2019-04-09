@@ -161,13 +161,14 @@ class AddOrDrop extends Component {
                         </div>
 
                         <div className="row">
-                            <button className="col btn btn-home-log add_button" onClick={this.add}>ADD</button>
-                            <button className="col btn btn-home-log add_button" onClick={this.drop}>DROP</button>
+                            <button className="col-3 btn btn-home-log add_button" onClick={this.add}>ADD</button>
+                            <button className="col-3 btn btn-home-log add_button" onClick={this.drop}>DROP</button>
+                            <button className="col-3 btn btn-home-log swap_button">Swap</button>
 
                         </div>
-                        <div className="row">
-                            <button className="col btn btn-home-log swap_button">Swap</button>
-                        </div>
+                        {/*<div className="row">*/}
+                            {/*<button className="col btn btn-home-log swap_button">Swap</button>*/}
+                        {/*</div>*/}
                     </div>
 
                 </div>
