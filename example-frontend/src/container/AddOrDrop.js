@@ -165,6 +165,9 @@ class AddOrDrop extends Component {
                             <button className="col btn btn-home-log add_button" onClick={this.drop}>DROP</button>
 
                         </div>
+                        <div className="row">
+                            <button className="col btn btn-home-log swap_button">Swap</button>
+                        </div>
                     </div>
 
                 </div>
