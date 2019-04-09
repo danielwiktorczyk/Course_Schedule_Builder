@@ -1,4 +1,5 @@
 package com.CourseScheduleBuilder.Services;
+import com.CourseScheduleBuilder.Model.UserPreferences;
 
 public interface UserPreferencesService {
     void destroyPreferences();
@@ -9,4 +10,5 @@ public interface UserPreferencesService {
     int[] getWednesday();
     int[] getThursday();
     int[] getFriday();
+    UserPreferences getCurrentPreferences();
 }

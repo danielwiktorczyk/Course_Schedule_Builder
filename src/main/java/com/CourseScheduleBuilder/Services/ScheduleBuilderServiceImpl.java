@@ -5,6 +5,7 @@ import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.CourseScheduleBuilder.Services.UserPreferencesService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,13 +23,15 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
         private static Schedule[] savedSchedules = new Schedule[5];
         private static int scheduleCount = 0;
-        private UserPreferencesService userPreferencesService;
+        private final UserPreferencesService userPreferencesService;
         private UserPreferences preferences;
 
     @Autowired
-    public ScheduleBuilderServiceImpl(CourseRepo courseRepo, UserRepo userRepo) {
+    public ScheduleBuilderServiceImpl(CourseRepo courseRepo, UserRepo userRepo, UserPreferencesService userPreferencesService) {
         this.courseRepo = courseRepo;
         this.userRepo = userRepo;
+        this.userPreferencesService = userPreferencesService;
+
     //    this.login = login;
     }
 
@@ -746,6 +749,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             Course courseToVerify = itCourses.next();
             boolean[] courseDays = courseToVerify.getClassDays();
             //logic to check overlap between a preference and a course
+            preferences = userPreferencesService.getCurrentPreferences();
             boolean overlap = hasOverlap(courseToVerify, courseDays, preferences);
             if (overlap) {
                 return false;

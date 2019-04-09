@@ -25,11 +25,13 @@ public class ScheduleBuilderServiceImplTest {
     private static CourseRepo courseRepo;
     @MockBean
     private static UserRepo userRepo;
+    @MockBean
+    private static UserPreferencesService userPreferencesService;
     @TestConfiguration
         static class ScheduleBuilderServiceImplTestConfiguration {
         @Bean
         public ScheduleBuilderServiceImpl scheduleBuilderService() {
-            return new ScheduleBuilderServiceImpl(courseRepo,  userRepo);
+            return new ScheduleBuilderServiceImpl(courseRepo,  userRepo, userPreferencesService);
         }
     }
 

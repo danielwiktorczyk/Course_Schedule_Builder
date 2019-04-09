@@ -10,7 +10,12 @@ import java.util.List;
 public class UserPreferencesServiceImpl implements UserPreferencesService{
 
     private UserPreferences currentPreferences = new UserPreferences();
-    /*
+
+
+    public UserPreferences getCurrentPreferences(){
+        return currentPreferences;
+    }
+            /*
     creates preference object that has all the user preference information
      */
     public boolean createPreferences(boolean mm, boolean me, boolean mall, boolean tm, boolean te, boolean tall, boolean wm, boolean we, boolean wall, boolean thm, boolean the, boolean thall, boolean fm, boolean fe, boolean fall){
