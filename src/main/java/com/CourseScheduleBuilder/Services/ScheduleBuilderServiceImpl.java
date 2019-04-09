@@ -510,4 +510,70 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         return "Invalid semester selected";
     }
 
+    public String addCourse(String course, String semester){
+        User currentUser = retriveUserInfo();
+        if(semester.equals("Fall")){
+            if(currentUser.getFallSchedule() == null)
+                return "You are not enrolled in the Fall Semester";
+            savedSchedules = new Schedule[1];
+            scheduleCount = 1;
+
+            for(int i=0; i<currentUser.getFallSchedule().getCourseTrio().length;i++){
+                if (currentUser.getFallSchedule().getCourseTrio()[i].getLecture().getName().equals(course))
+                    return "You are already enrolled in this Course";
+            }
+            try {
+                savedSchedules[0] = (Schedule) currentUser.getFallSchedule().clone();
+            } catch(CloneNotSupportedException e){
+
+            }
+            if (!validatePrerequisites(course))
+                return "Pre-requisites not Met";
+            generateSchedules(course,semester);
+            return "Success";
+
+        }
+        if(semester.equals("Winter")){
+            if(currentUser.getWinterSchedule() == null)
+                return "You are not enrolled in the Winter Semester";
+            savedSchedules = new Schedule[1];
+            scheduleCount = 1;
+
+            for(int i=0; i<currentUser.getWinterSchedule().getCourseTrio().length;i++){
+                if (currentUser.getWinterSchedule().getCourseTrio()[i].getLecture().getName().equals(course))
+                    return "You are already enrolled in this Course";
+            }
+            try {
+                savedSchedules[0] = (Schedule) currentUser.getWinterSchedule().clone();
+            } catch(CloneNotSupportedException e){
+
+            }
+            if (validatePrerequisites(course))
+                return "Pre-requisites not Met";
+            generateSchedules(course,semester);
+            return "Success";
+        }
+        if(semester.equals("Summer")){
+            if(currentUser.getSummerSchedule() == null)
+                return "You are not enrolled in the Summer Semester";
+            savedSchedules = new Schedule[1];
+            scheduleCount = 1;
+            for(int i=0; i<currentUser.getSummerSchedule().getCourseTrio().length;i++){
+                if (currentUser.getSummerSchedule().getCourseTrio()[i].getLecture().getName().equals(course))
+                    return "You are already enrolled in this Course";
+            }
+            try {
+                savedSchedules[0] = (Schedule) currentUser.getSummerSchedule().clone();
+            } catch(CloneNotSupportedException e){
+
+            }
+            if (validatePrerequisites(course))
+                return "Pre-requisites not Met";
+            generateSchedules(course,semester);
+            return "Success";
+        }
+
+        return "Invalid Semester Selected";
+    }
+
 }
