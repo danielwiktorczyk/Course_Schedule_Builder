@@ -31,7 +31,6 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     }
 
 
-
     private User retriveUserInfo()
     {
         User user = null;
@@ -45,11 +44,13 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         return user;
     }
 
-    public void generateSchedules(String courseName,String semester){
+    public void generateSchedules(String courseName,String semester) {
         scheduleCount = 0;
         long startTime = System.nanoTime(); //Following this line, a list of possible lectures and one of tutorials are obtained
-        List<Course> lectureList = courseRepo.findByNameAndComponentAndTerm(courseName,"LEC",semester);
-        List<Course> tutorialList = courseRepo.findByNameAndComponentAndTerm(courseName,"TUT",semester);
+
+
+        List<Course> lectureList = courseRepo.findByNameAndComponentAndTerm(courseName, "LEC", semester);
+        List<Course> tutorialList = courseRepo.findByNameAndComponentAndTerm(courseName, "TUT", semester);
         List<Course> labList = new ArrayList();
         if (lectureList.get(0).getLabRequired().equals("TRUE")) { //If there is a lab, a list of labs is obtained.
             labList = courseRepo.findByNameAndComponentAndTerm(courseName, "LAB", semester);
@@ -57,18 +58,18 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         /*
         On this next line, the lectures, tutorials and labs are combined into all valid groupings and returned as a single list.
          */
-        List<CourseTrio> courseList = groupCourses(lectureList,tutorialList,labList);
-        if(savedSchedules[0] == null){ //This is the initial case for when a user add the first course to a schedule. It will be empty and it'll be created for the first time
+        List<CourseTrio> courseList = groupCourses(lectureList, tutorialList, labList);
+        if (savedSchedules[0] == null) { //This is the initial case for when a user add the first course to a schedule. It will be empty and it'll be created for the first time
             savedSchedules = new Schedule[courseList.size()];
-            for (int i=0;i<courseList.size();i++){
+            for (int i = 0; i < courseList.size(); i++) {
                 savedSchedules[i] = new Schedule();
                 savedSchedules[i].insertCourse(courseList.get(i));
             }
-            System.out.println("Finish Time : " + (System.nanoTime()-startTime));
+            System.out.println("Finish Time : " + (System.nanoTime() - startTime));
             return;
         }
-        savedSchedules = addToSchedule(courseList,savedSchedules); //For all courses beyond the initial one, the addToSchedule method is used to see the combinations.
-        System.out.println("Finish Time : " + (System.nanoTime()-startTime));
+        savedSchedules = addToSchedule(courseList, savedSchedules); //For all courses beyond the initial one, the addToSchedule method is used to see the combinations.
+        System.out.println("Finish Time : " + (System.nanoTime() - startTime));
     }
 
 
@@ -123,6 +124,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         return courseTrio;
 
     }
+
     public Schedule generateAndShowFirstSchedule(){
         scheduleCount = 0;
         System.out.println("PRINTING SCHEDULE : " + scheduleCount);
@@ -149,7 +151,6 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             }
         }
     }
-
     public Schedule previousSchedule(){
         if(--scheduleCount > 0) {
             if(validateSchedule(savedSchedules[scheduleCount])) {
@@ -301,6 +302,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         scheduleCount = 0;
         savedSchedules = new Schedule[5];
     }
+
     public Schedule seeUserSchedule(String semester)
     {
         User user = retriveUserInfo();
@@ -312,11 +314,17 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             return user.getSummerSchedule();
         return new Schedule();
     }
+    public  String getMissingPrerequisites() {
+        return missingPrerequisites;
+    }
+
+    private static String missingPrerequisites = null;
 
     @Override
     public boolean validatePrerequisites(String courseToValidate) {
         User user;
         user = retriveUserInfo();
+        missingPrerequisites= null;
 
         List<String> previouslyTakenCourses = user.getPrereqs();
 
@@ -330,10 +338,10 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
                 user.addToPrereqs(equivalentCourseList.get(0).getEquivalent().replaceAll("[ .()]",""));
         }
 
-        for(int i=0;i<previouslyTakenCourses.size();i++)
-        {
-            System.out.println("User has already taken: "+user.getPrereqs().get(i));
-        }
+
+//        for(int i=0;i<previouslyTakenCourses.size();i++) {
+//            System.out.println("User has already taken: "+user.getPrereqs().get(i));
+//        }
 
         Course courseToTake = null;
         try {
@@ -341,6 +349,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         }catch(Exception e)
         {
             System.out.println("Error, course not found in database");
+            missingPrerequisites = "Course does not exist";
             return false;
         }
         String coursePrereq = courseToTake.getPreReq();
@@ -349,10 +358,9 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
         String[] coursePrerequArray = coursePrereq.replaceAll("[ .()]","").split(",");
 
-
-        for (int i = 0; i < coursePrerequArray.length; i++) {
-            System.out.println("The prerequisiste for "+courseToValidate+" is "+coursePrerequArray[i]);
-        }
+//        for (int i = 0; i < coursePrerequArray.length; i++) {
+//            System.out.println("The prerequisistes for "+courseToValidate+" is "+coursePrerequArray[i]);
+//        }
         ArrayList<String> missingPrereqList = new ArrayList<>();
 
         for (int i = 0; i < coursePrerequArray.length; i++) {
@@ -361,10 +369,12 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         }
         if(missingPrereqList.size()>0)
         {
-            System.out.println("Prerequisistes missing: ");
-            for (int i = 0; i < missingPrereqList.size(); i++) {
-                System.out.println(missingPrereqList.get(i));
-            }
+            missingPrerequisites = "You are missing some prerequisites: ";
+            missingPrerequisites += Arrays.toString(missingPrereqList.toArray());
+//            System.out.println("Prerequisistes missing: ");
+//            for (int i = 0; i < missingPrereqList.size(); i++) {
+//                System.out.println(missingPrereqList.get(i));
+//            }
             return false;
         }
 
@@ -553,7 +563,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
             }
             if (!validatePrerequisites(course))
-                return "Pre-requisites not Met";
+                return getMissingPrerequisites();
             generateSchedules(course,semester);
             return "Success";
 
@@ -574,7 +584,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
             }
             if (!validatePrerequisites(course))
-                return "Pre-requisites not Met";
+                return getMissingPrerequisites();
             generateSchedules(course,semester);
             return "Success";
         }
@@ -593,7 +603,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
             }
             if (!validatePrerequisites(course))
-                return "Pre-requisites not Met";
+                return getMissingPrerequisites();
             generateSchedules(course,semester);
             return "Success";
         }

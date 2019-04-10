@@ -28,7 +28,7 @@ public class ScheduleBuilderController {
     public String addCourseToWishListFall(@RequestBody FEMessage courses) {
 
         if (!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
-            return "Prerequisites not met";
+            return scheduleBuilderService.getMissingPrerequisites();
 
         scheduleBuilderService.generateSchedules(courses.getMessage(), "Fall");
         return "Course added!";
@@ -68,7 +68,7 @@ public class ScheduleBuilderController {
     @ResponseBody
     public String addCourseToWishListWinter(@RequestBody FEMessage courses) {
         if (!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
-            return "Prerequisites not met";
+            return scheduleBuilderService.getMissingPrerequisites();
 
         scheduleBuilderService.generateSchedules(courses.getMessage(), "Winter");
         return "Course added!";
@@ -79,7 +79,7 @@ public class ScheduleBuilderController {
     @ResponseBody
     public String addCourseToWishListSummer(@RequestBody FEMessage courses) {
         if (!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
-            return "Prerequisites not met";
+            return scheduleBuilderService.getMissingPrerequisites();
 
         scheduleBuilderService.generateSchedules(courses.getMessage(), "Summer");
         return "Course added!";
