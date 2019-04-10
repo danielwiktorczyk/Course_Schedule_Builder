@@ -177,19 +177,10 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     private boolean validateSchedule(Schedule schedule){
         int individualCourses = schedule.getSize()*2 + schedule.labCount();
         Course[] courses = new Course[individualCourses]; //New array where all the course objects will be stored as equals
-        int l=0;
-        for (int j=0; j<schedule.getSize();j++){ //This loop turns the different courseTrios back into courses
-                 courses[l] = schedule.getCourseTrio()[j].getLecture();
-                l++;
-                courses[l] = schedule.getCourseTrio()[j].getTutorial();
-                l++;
-                if (schedule.getCourseTrio()[j].isHasLab())
-                {
-                    courses[l] = schedule.getCourseTrio()[j].getLab();
-                    l++;
-                }
 
-        } //If the starttime or endtime of a class falls between the start and endtime of another AND on the same day, this returns a false boolean showing that the schedule is invalid
+        //If the starttime or endtime of a class falls between the start and endtime of another AND on the same day, this returns a false boolean showing that the schedule is invalid
+        courses = turnCourseTrioToCourses(courses, schedule, schedule.getSize());
+
         for (int i=0; i<individualCourses;i++){
             for(int j=0; j<individualCourses;j++){
                 if (j==i)
@@ -214,24 +205,10 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         int individualCourses = (schedule.getSize()-1)*2 + schedule.labCount()-labCount;
         Course[] courses = new Course[individualCourses]; //New array where all the course objects will be stored as equals
         Course[] courses2 = new Course[2+labCount];
-        int l=0;
-        int m=0;
-        for (int j=0; j<schedule.getSize()-1;j++){ //This loop turns the different courseTrios back into courses
-            courses[l] = schedule.getCourseTrio()[j].getLecture();
-            l++;
-            courses[l] = schedule.getCourseTrio()[j].getTutorial();
-            l++;
-            if (schedule.getCourseTrio()[j].isHasLab())
-            {
-                courses[l] = schedule.getCourseTrio()[j].getLab();
-                l++;
-            }
-        }
 
-        courses2[m++] = schedule.getCourseTrio()[schedule.getSize()-1].getLecture();
-        courses2[m++] = schedule.getCourseTrio()[schedule.getSize()-1].getTutorial();
-        if(schedule.getCourseTrio()[schedule.getSize()-1].isHasLab())
-        courses2[m++] = schedule.getCourseTrio()[schedule.getSize()-1].getLab();
+        courses = turnCourseTrioToCourses(courses, schedule, schedule.getSize()-1);
+
+        courses2 = turnCourseTrioToCourses2(courses2, schedule);
 
 
         //If the starttime or endtime of a class falls between the start and endtime of another AND on the same day, this returns a false boolean showing that the schedule is invalid
@@ -247,6 +224,32 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         }
         return true;
     }
+
+    private Course[] turnCourseTrioToCourses2(Course[] courses2, Schedule schedule) {
+        int m=0;
+        courses2[m++] = schedule.getCourseTrio()[schedule.getSize()-1].getLecture();
+        courses2[m++] = schedule.getCourseTrio()[schedule.getSize()-1].getTutorial();
+        if(schedule.getCourseTrio()[schedule.getSize()-1].isHasLab())
+            courses2[m++] = schedule.getCourseTrio()[schedule.getSize()-1].getLab();
+
+        return courses2;
+    }
+
+    private Course[] turnCourseTrioToCourses(Course[] courses, Schedule schedule, int scheduleSize) {
+        int l = 0;
+        for (int j = 0; j < scheduleSize; j++) { //This loop turns the different courseTrios back into courses
+            courses[l] = schedule.getCourseTrio()[j].getLecture();
+            l++;
+            courses[l] = schedule.getCourseTrio()[j].getTutorial();
+            l++;
+            if (schedule.getCourseTrio()[j].isHasLab()) {
+                courses[l] = schedule.getCourseTrio()[j].getLab();
+                l++;
+            }
+        }
+        return courses;
+    }
+
 
     private boolean isClassOnTheSameDay(Course[] courses, int i, int j) {
         for(int k=0; k<5; k++) {
