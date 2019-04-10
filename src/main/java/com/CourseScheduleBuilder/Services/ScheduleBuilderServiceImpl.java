@@ -618,12 +618,15 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
                 return savedSchedules[scheduleCount];
             }
             else{
-                if(savedSchedules.length < numberOfChecks){
+                if(savedSchedules.length == numberOfChecks){
+                    System.out.println("saved schedules = number of checks");
                     numberOfChecks = 0;
                     return null;
                 }
                 numberOfChecks++;
+                System.out.println("number of checks is " + numberOfChecks);
                 if(!preferences.compare(lastCheckedPrefs)){
+                    System.out.println("preferences have changed");
                     numberOfChecks = 0;
                     lastCheckedPrefs = preferences;
                 }
@@ -804,7 +807,6 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
                 }
             }
         }
-        System.out.println("all courses length is " + allCourses.size());
         Iterator<Course> itCourses = allCourses.iterator();
         while (itCourses.hasNext()) {
             Course courseToVerify = itCourses.next();
