@@ -74,7 +74,13 @@ public class User implements Cloneable{
     }
 
     public void addToPrereqs(String prereq){
-        this.prereqs.add(prereq);
+        int notPrereqCount =0;
+        for(int i=0; i<this.prereqs.size();i++){
+            if (!(this.prereqs.get(i).equals(prereq)))
+                notPrereqCount++;
+        }
+        if(notPrereqCount == this.prereqs.size())
+            this.prereqs.add(prereq);
     }
 
     public ArrayList<String> getPrereqs() {
