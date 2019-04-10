@@ -86,12 +86,33 @@ class SelectCourse extends Component {
     }
 
     addItem(e) {
+        function checkoutInputCourse(course) {
+            if(course == null) {
+                alert("Please enter Something");
+                return false;
+            }
+            course = course.toUpperCase().replace(/ /g, "");
+            if(course.match(/^\w\w\w\w\d\d\d$/)) {
+                return true;
+            }
+            else {
+                alert("please enter the course name (e.g COMP) and number (e.g 248) COMP248");
+                return false;
+            }
+        }
+        function parseStringCourse(course) {
+
+            return course.toUpperCase().replace(/ /g, "");
+        }
+
         if (this._inputElement.value !== "") {
             let newItem = {
                 text: this._inputElement.value,
                 key: Date.now()
             };
-            let message = this._inputElement.value;
+
+            checkoutInputCourse(this._inputElement.value);
+            let message = parseStringCourse(this._inputElement.value);
 
             if( localStorage.getItem("a") === "FALL 2019") {
                 axios.post('http://localhost:8080/addCourseToWishListFall', {
