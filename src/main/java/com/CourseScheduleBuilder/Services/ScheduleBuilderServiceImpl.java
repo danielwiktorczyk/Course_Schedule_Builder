@@ -272,15 +272,25 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             return false;
         if (semester.equals("Fall")) {
             user.setFallSchedule(savedSchedules[scheduleCount]);
+            for(int i=0;i<savedSchedules[scheduleCount].getSize();i++){
+                user.addToPrereqs(savedSchedules[scheduleCount].getCourseTrio()[i].getLecture().getName());
+            }
             userRepo.saveAndFlush(user);
         }
         if (semester.equals("Winter")) {
             user.setWinterSchedule(savedSchedules[scheduleCount]);
+            for(int i=0;i<savedSchedules[scheduleCount].getSize();i++){
+                user.addToPrereqs(savedSchedules[scheduleCount].getCourseTrio()[i].getLecture().getName());
+            }
             userRepo.saveAndFlush(user);
+
         }
         userRepo.saveAndFlush(user);
         if (semester.equals("Summer")) {
             user.setSummerSchedule(savedSchedules[scheduleCount]);
+            for(int i=0;i<savedSchedules[scheduleCount].getSize();i++){
+                user.addToPrereqs(savedSchedules[scheduleCount].getCourseTrio()[i].getLecture().getName());
+            }
             userRepo.saveAndFlush(user);
         }
         return true;
@@ -466,6 +476,11 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             }
             if(scheduleCount == currentSchedule.getSize())
                 return "You are not enrolled in this course";
+            for (int i=0;i<currentUser.getPrereqs().size();i++){
+                if (currentUser.getPrereqs().get(i).equals(courseName)){
+                    currentUser.getPrereqs().remove(i);
+                }
+            }
             newSchedule.adjustLength();
             currentUser.setFallSchedule(newSchedule);
             userRepo.saveAndFlush(currentUser);
@@ -485,6 +500,11 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
             if(scheduleCount == currentSchedule.getSize())
                 return "You are not enrolled in this course";
+            for (int i=0;i<currentUser.getPrereqs().size();i++){
+                if (currentUser.getPrereqs().get(i).equals(courseName)){
+                    currentUser.getPrereqs().remove(i);
+                }
+            }
             newSchedule.adjustLength();
             currentUser.setWinterSchedule(newSchedule);
             userRepo.saveAndFlush(currentUser);
@@ -502,6 +522,11 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             }
             if(scheduleCount == currentSchedule.getSize())
                 return "You are not enrolled in this course";
+            for (int i=0;i<currentUser.getPrereqs().size();i++){
+                if (currentUser.getPrereqs().get(i).equals(courseName)){
+                    currentUser.getPrereqs().remove(i);
+                }
+            }
             newSchedule.adjustLength();
             currentUser.setSummerSchedule(newSchedule);
             userRepo.saveAndFlush(currentUser);
@@ -548,7 +573,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             } catch(CloneNotSupportedException e){
 
             }
-            if (validatePrerequisites(course))
+            if (!validatePrerequisites(course))
                 return "Pre-requisites not Met";
             generateSchedules(course,semester);
             return "Success";
@@ -567,7 +592,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             } catch(CloneNotSupportedException e){
 
             }
-            if (validatePrerequisites(course))
+            if (!validatePrerequisites(course))
                 return "Pre-requisites not Met";
             generateSchedules(course,semester);
             return "Success";
