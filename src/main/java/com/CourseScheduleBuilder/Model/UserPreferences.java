@@ -158,4 +158,16 @@ public class UserPreferences {
     public void setFall(boolean fall) {
         this.fall = fall;
     }
+
+    public boolean compare(UserPreferences prefToCompare){
+        if(me == prefToCompare.me && mm == prefToCompare.mm && mall == prefToCompare.mall && tm == prefToCompare.tm && te == prefToCompare.te && tall == prefToCompare.tall
+                && wm == prefToCompare.wm && we == prefToCompare.we && wall == prefToCompare.wall && the == prefToCompare.the && thm == prefToCompare.thm && thall == prefToCompare.thall
+                && fm == prefToCompare.fm && fe == prefToCompare.fe && fall == prefToCompare.fall){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 }

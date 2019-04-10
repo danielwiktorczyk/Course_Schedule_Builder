@@ -25,6 +25,8 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         private static int scheduleCount = 0;
         private final UserPreferencesService userPreferencesService;
         private UserPreferences preferences;
+        private UserPreferences lastCheckedPrefs = new UserPreferences();
+        private static int numberOfChecks = 0;
 
     @Autowired
     public ScheduleBuilderServiceImpl(CourseRepo courseRepo, UserRepo userRepo, UserPreferencesService userPreferencesService) {
@@ -52,6 +54,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
     public void generateSchedules(String courseName,String semester){
         scheduleCount = 0;
+        numberOfChecks = 0;
         long startTime = System.nanoTime(); //Following this line, a list of possible lectures and one of tutorials are obtained
         List<Course> lectureList = courseRepo.findByNameAndComponentAndTerm(courseName,"LEC",semester);
         List<Course> tutorialList = courseRepo.findByNameAndComponentAndTerm(courseName,"TUT",semester);
@@ -294,8 +297,11 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     public void clear()
     {
         scheduleCount = 0;
+        numberOfChecks = 0;
         savedSchedules = new Schedule[5];
+        preferences = new UserPreferences();
     }
+
     public Schedule seeUserSchedule(String semester)
     {
         User user = retriveUserInfo();
@@ -587,8 +593,18 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
     public Schedule generateAndShowFirstPrefSchedule() {
         System.out.println("PRINTING SCHEDULE : " + scheduleCount);
         scheduleCount = 0;
+
         while (!verifyScheduleForPrefs(savedSchedules[scheduleCount])) {
             scheduleCount++;
+            numberOfChecks++;
+            if(!preferences.compare(lastCheckedPrefs)){
+                numberOfChecks = 0;
+                lastCheckedPrefs = preferences;
+            }
+            if(savedSchedules.length == numberOfChecks){
+                numberOfChecks = 0;
+                return null;
+            }
         }
         return savedSchedules[scheduleCount];
 
@@ -598,9 +614,19 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         if(++scheduleCount < savedSchedules.length) {
             if(verifyScheduleForPrefs(savedSchedules[scheduleCount])) {
                 System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                numberOfChecks = 0;
                 return savedSchedules[scheduleCount];
             }
             else{
+                if(savedSchedules.length < numberOfChecks){
+                    numberOfChecks = 0;
+                    return null;
+                }
+                numberOfChecks++;
+                if(!preferences.compare(lastCheckedPrefs)){
+                    numberOfChecks = 0;
+                    lastCheckedPrefs = preferences;
+                }
                 return nextPrefSchedule();
             }
         }
@@ -608,10 +634,22 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             scheduleCount =0;
             if(verifyScheduleForPrefs(savedSchedules[scheduleCount])) {
                 System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                numberOfChecks = 0;
                 return savedSchedules[scheduleCount];
             }
             else{
-                return nextPrefSchedule();
+                if (savedSchedules.length > numberOfChecks) {
+                    numberOfChecks++;
+                    if(!preferences.compare(lastCheckedPrefs)){
+                        numberOfChecks = 0;
+                        lastCheckedPrefs = preferences;
+                    }
+                    return nextPrefSchedule();
+                }
+                else{
+                    numberOfChecks = 0;
+                    return null;
+                }
             }
         }
     }
@@ -620,9 +658,19 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         if(--scheduleCount > 0) {
             if(verifyScheduleForPrefs(savedSchedules[scheduleCount])) {
                 System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                numberOfChecks = 0;
                 return savedSchedules[scheduleCount];
             }
             else{
+                if(savedSchedules.length < numberOfChecks){
+                    numberOfChecks = 0;
+                    return null;
+                }
+                numberOfChecks++;
+                if(!preferences.compare(lastCheckedPrefs)){
+                    numberOfChecks = 0;
+                    lastCheckedPrefs = preferences;
+                }
                 return previousPrefSchedule();
             }
         }
@@ -631,10 +679,22 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
             if(validateSchedule(savedSchedules[scheduleCount])) {
                 System.out.println("PRINTING SCHEDULE : " + scheduleCount);
+                numberOfChecks = 0;
                 return savedSchedules[scheduleCount];
             }
             else{
-                return previousPrefSchedule();
+                if (savedSchedules.length > numberOfChecks) {
+                    numberOfChecks++;
+                    if(!preferences.compare(lastCheckedPrefs)){
+                        numberOfChecks = 0;
+                        lastCheckedPrefs = preferences;
+                    }
+                    return previousPrefSchedule();
+                }
+                else{
+                    numberOfChecks = 0;
+                    return null;
+                }
             }
         }
     }
@@ -744,6 +804,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
                 }
             }
         }
+        System.out.println("all courses length is " + allCourses.size());
         Iterator<Course> itCourses = allCourses.iterator();
         while (itCourses.hasNext()) {
             Course courseToVerify = itCourses.next();

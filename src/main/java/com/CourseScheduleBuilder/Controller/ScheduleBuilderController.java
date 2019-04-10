@@ -99,9 +99,11 @@ public class ScheduleBuilderController {
         Schedule returnSchedule;
         if(userPreferencesService.preferencesPresent()){
             returnSchedule = scheduleBuilderService.generateAndShowFirstPrefSchedule();
+            System.out.println("pref schedule generate");
         }
         else {
             returnSchedule = scheduleBuilderService.generateAndShowFirstSchedule();
+            System.out.println("regular schedule generate");
         }
         returnSchedule.adjustLength();
         return returnSchedule;
