@@ -29,7 +29,7 @@ class SelectSemester extends Component {
                     <div className="wrapper row select-semester-button">
                         <button className="col-2 btn btn-home-log new-btn" onClick={() => this.routeChange(summer2018)}>{summer2018}</button>
                         <button className="col-2 btn btn-home-log new-btn" onClick={() =>this.routeChange(fall)}>{fall}</button>
-                        <button className="col-2 btn btn-home-log new-btn" onClick={() =>this.routeChange(winter)}>{}winter</button>
+                        <button className="col-2 btn btn-home-log new-btn" onClick={() =>this.routeChange(winter)}>{winter}</button>
                         {/*<button className="col-2 btn btn-home-log" onClick={() =>this.routeChange(fall_win)}>{fall_win}</button>*/}
                 </div>
             </div>

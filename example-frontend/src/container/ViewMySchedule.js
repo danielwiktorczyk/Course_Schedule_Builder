@@ -145,7 +145,7 @@ class ViewMySchedule extends Component {
                     <div className="table__wrapper">
                         <div className="table_heading_wrapper">
                             <hr/>
-                            <h3 className="table_heading">My Weekly Schedule</h3>
+                            <h3 className="table_heading">My Weekly Schedule {localStorage.getItem("a")}</h3>
                             <button className="col-2 btn btn-home-log" onClick={this.editSchedule}>Add / Drop</button>
                             <hr/>
                             <button className="col-2 btn btn-home-log" onClick={this.fall}>Fall</button>
