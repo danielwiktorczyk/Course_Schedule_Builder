@@ -2,16 +2,20 @@ package com.CourseScheduleBuilder.Controller;
 
 import com.CourseScheduleBuilder.Model.FEMessage;
 import com.CourseScheduleBuilder.Model.Schedule;
+import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Services.ScheduleBuilderService;
+import com.CourseScheduleBuilder.Services.UserPreferencesService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ScheduleBuilderController {
 
     private final ScheduleBuilderService scheduleBuilderService;
+    private final UserPreferencesService userPreferencesService;
 
-    public ScheduleBuilderController(ScheduleBuilderService scheduleBuilderService) {
+    public ScheduleBuilderController(ScheduleBuilderService scheduleBuilderService, UserPreferencesService userPreferencesService) {
         this.scheduleBuilderService = scheduleBuilderService;
+        this.userPreferencesService = userPreferencesService;
     }
 
     @PostMapping("/createSchedule") // TODO rename as needed, we can have // many mappings this Controller can handle
@@ -37,7 +41,9 @@ public class ScheduleBuilderController {
     @PostMapping("/clear")
     @CrossOrigin
     @ResponseBody
-    public boolean clear() {
+    public boolean clear()
+    {
+        userPreferencesService.destroyPreferences();
         scheduleBuilderService.clear();
         return true;
     }
@@ -88,8 +94,17 @@ public class ScheduleBuilderController {
     @PostMapping("/generate")
     @CrossOrigin
     @ResponseBody
-    public Schedule generateSchedule() {
-        Schedule returnSchedule = scheduleBuilderService.generateAndShowFirstSchedule();
+    public Schedule generateSchedule()
+    {
+        Schedule returnSchedule;
+        if(userPreferencesService.preferencesPresent()){
+            returnSchedule = scheduleBuilderService.generateAndShowFirstPrefSchedule();
+            System.out.println("pref schedule generate");
+        }
+        else {
+            returnSchedule = scheduleBuilderService.generateAndShowFirstSchedule();
+            System.out.println("regular schedule generate");
+        }
         returnSchedule.adjustLength();
         return returnSchedule;
 
@@ -98,8 +113,15 @@ public class ScheduleBuilderController {
     @PostMapping("/next")
     @CrossOrigin
     @ResponseBody
-    public Schedule nextSchedule() {
-        Schedule returnSchedule = scheduleBuilderService.nextSchedule();
+    public Schedule nextSchedule()
+    {
+        Schedule returnSchedule;
+        if(userPreferencesService.preferencesPresent()){
+            returnSchedule = scheduleBuilderService.nextPrefSchedule();
+        }
+        else {
+            returnSchedule = scheduleBuilderService.nextSchedule();
+        }
         returnSchedule.adjustLength();
         return returnSchedule;
 
@@ -108,8 +130,15 @@ public class ScheduleBuilderController {
     @PostMapping("/previous")
     @CrossOrigin
     @ResponseBody
-    public Schedule previousSchedule() {
-        Schedule returnSchedule = scheduleBuilderService.previousSchedule();
+    public Schedule previousSchedule()
+    {
+        Schedule returnSchedule;
+        if(userPreferencesService.preferencesPresent()){
+            returnSchedule = scheduleBuilderService.nextPrefSchedule();
+        }
+        else{
+            returnSchedule = scheduleBuilderService.previousSchedule();
+    }
         returnSchedule.adjustLength();
         return returnSchedule;
 
