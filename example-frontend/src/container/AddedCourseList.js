@@ -13,9 +13,13 @@ class AddedCourseList extends Component {
 
     createTasks(item) {
 
-        return<p className="theList" key={item.key}> {item.text}
-            {/*<button onClick={() => this.delete(item.key)} className="col-1 close btn btn-home-log"> </button>*/}
-        </p>
+
+        if (item.text.toUpperCase().replace(/ /g, "").match(/^\w\w\w\w\d\d\d$/)) {
+            item.text = item.text.toUpperCase().replace(/ /g, "");
+            return <p className="theList" key={item.key}> {item.text}
+                {/*<button onClick={() => this.delete(item.key)} className="col-1 close btn btn-home-log"> </button>*/}
+            </p>
+        }
     }
 
     render() {

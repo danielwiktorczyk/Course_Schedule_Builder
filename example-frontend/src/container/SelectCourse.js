@@ -86,12 +86,18 @@ class SelectCourse extends Component {
     }
 
     addItem(e) {
+        function parseStringCourse(course) {
+
+            return course.toUpperCase().replace(/ /g, "");
+        }
+
         if (this._inputElement.value !== "") {
             let newItem = {
                 text: this._inputElement.value,
                 key: Date.now()
             };
-            let message = this._inputElement.value;
+
+            let message = parseStringCourse(this._inputElement.value);
 
             if( localStorage.getItem("a") === "FALL 2019") {
                 axios.post('http://localhost:8080/addCourseToWishListFall', {
