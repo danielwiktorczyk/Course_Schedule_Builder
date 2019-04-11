@@ -19,7 +19,24 @@ class PossibleSchedules extends Component {
             size : 0,
         };
     }
+
     toggle = () => {
+
+    //     var button = document.getElementById("pref"),
+    //         toggle = false;
+    //
+    //     button.onclick = () => {
+    //     toggle = !toggle;   // invert toggle
+    //     button.style.background = toggle ? "#ff0077 !important" : "#ff7700 !important";
+    // }
+    //     button.style.background = "#ff7700 !important";
+
+        // if ( window.getComputedStyle(this.state.pref).backgroundColor === "rgb(255, 119, 0)") {
+        //     this.state.pref.style.backgroundColor = "rgb(255, 0, 119)";
+        // } else {
+        //     this.state.pref.style.backgroundColor = "rgb(255, 119, 0)";
+        // }
+
         axios.post('http://localhost:8080/togglePreferences')
             .then((res) => {
                 this.generate();
@@ -161,12 +178,6 @@ class PossibleSchedules extends Component {
                 </Router>
                 <div className="container select-semester show-schedule">
                     <div className="table__wrapper">
-                        <div className="row">
-
-                            {/*<div>{this.state.person.name.title}</div>*/}
-                            {/*<div>{this.state.person.name.first}</div>*/}
-                        </div>
-
                         <div className="table_heading_wrapper">
                             <hr/>
                             <h3 className="table_heading">WEEKLY SCHEDULE FOR {this.getLocalIt()}</h3>
@@ -181,7 +192,7 @@ class PossibleSchedules extends Component {
                                 /
                                 <button className="col-1 btn btn-home-log" onClick={this.next}>Next</button>
 
-                                <button className="btn btn-home-log toggle-pref" onClick={this.toggle}>Toggle Preferences</button>
+                                <button id = "pref" className="btn btn-home-log toggle-pref" onClick={this.toggle}>Toggle Preferences</button>
 
                             </div>
 

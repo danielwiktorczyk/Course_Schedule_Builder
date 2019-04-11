@@ -855,3 +855,6 @@ button.col-3.btn.btn-home-log.swap_button {
 .adding_dropping_course {
   margin-top: 4rem;
 }
+/*#pref:focus{*/
+    /*background:darkgreen !important;*/
+/*}*/
