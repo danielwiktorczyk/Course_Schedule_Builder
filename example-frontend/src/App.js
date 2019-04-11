@@ -12,7 +12,7 @@ import SelectCourse from "./container/SelectCourse";
 import PossibleSchedules from "./container/PossibleSchedules";
 import ViewMySchedule from './container/ViewMySchedule';
 import MyProfile from './container/MyProfile';
-import PlayGame from './container/PlayGame';
+//import PlayGame from './container/PlayGame';
 import AboutUs from "./container/AboutUs";
 import SuggestedSequence from "./container/SuggestedSequence";
 import AddOrDrop from "./container/AddOrDrop";
@@ -35,7 +35,7 @@ class App extends Component {
               <Route key={8} path="/Header" component={Header} />
               <Route key={9} path="/ViewMySchedule" component={ViewMySchedule} />
               <Route key={10} path="/MyProfile" component={MyProfile} />
-              <Route key={11} path="/PlayGame" component={PlayGame} />
+              {/*<Route key={11} path="/PlayGame" component={PlayGame} />*/}
               <Route key={12} path="/AboutUs" component={AboutUs} />
               <Route key={13} path="/SuggestedSequence" component={SuggestedSequence} />
               <Route key={14} path="/AddOrDrop" component={AddOrDrop} />
