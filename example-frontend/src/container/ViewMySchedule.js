@@ -19,6 +19,17 @@ class ViewMySchedule extends Component {
         };
     }
 
+    // print=()=>{
+    //     window.print();
+    // }
+
+    componentDidMount() {
+
+        console.log('PrintThisComponent mounted!')
+
+    }
+
+
 
     //
     // async componentDidMount() {
@@ -135,6 +146,8 @@ class ViewMySchedule extends Component {
                 arry.push(item.lab) && arry.push(item.tutorial)
             )
         })
+
+
         return (
 
             <div>
@@ -144,13 +157,18 @@ class ViewMySchedule extends Component {
                 <div className="container select-semester show-schedule">
                     <div className="table__wrapper">
                         <div className="table_heading_wrapper">
+
+
                             <hr/>
                             <h3 className="table_heading">My Weekly Schedule {localStorage.getItem("a")}</h3>
-                            <button className="col-2 btn btn-home-log" onClick={this.editSchedule}>Add / Drop</button>
+                            <button id="add-drop" className="col-2 btn btn-home-log" onClick={this.editSchedule}>Add / Drop</button>
+                            <button className="col-1 btn btn-home-log print" onClick={() => window.print()}  >
+                                <i className="fa fa-print" ></i></button>
                             <hr/>
                             <button className="col-2 btn btn-home-log" onClick={this.fall}>Fall</button>
                             <button className="col-2 btn btn-home-log" onClick={this.winter}>Winter</button>
                             <button className="col-2 btn btn-home-log" onClick={this.summer}>Summer</button>
+
                         </div>
                         <table className="table">
                             <thead>

@@ -855,3 +855,43 @@ button.col-3.btn.btn-home-log.swap_button {
 .adding_dropping_course {
   margin-top: 4rem;
 }
+.fa-print {
+  font-size: 35px;
+  color: #fff;
+  position: relative;
+}
+button.btn.btn-home-log.col-1.print {
+  height: 48px;
+  width: 59px;
+  padding: 0;
+  float: right;
+}
+button#add-drop {
+  margin: 10px -47px 10px 37px;
+}
+/*CSS for printing the schedules*/
+@media print {
+
+  table{
+    width: 100% !important;
+    zoom: 130% !important;
+  }
+  button,
+  .header,
+  .footer{
+    display: none !important;
+
+  }
+  body {
+    zoom: 200%
+  }
+  table {
+    page-break-inside: avoid;
+  }
+  th{
+    background-color: #540E72;
+    color: #000000;
+    border: 1px solid #010101 !important;
+  }
+}
+
