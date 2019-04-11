@@ -5,7 +5,6 @@ import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.CourseScheduleBuilder.Services.UserPreferencesService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,35 +51,48 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         return user;
     }
 
-    public void generateSchedules(String courseName,String semester){
+    public String generateSchedules(String courseName,String semester){
         scheduleCount = 0;
         numberOfChecks = 0;
         long startTime = System.nanoTime(); //Following this line, a list of possible lectures and one of tutorials are obtained
         List<Course> lectureList = courseRepo.findByNameAndComponentAndTerm(courseName,"LEC",semester);
         List<Course> tutorialList = courseRepo.findByNameAndComponentAndTerm(courseName,"TUT",semester);
         List<Course> labList = new ArrayList();
-        if (lectureList.get(0).getLabRequired().equals("TRUE")) { //If there is a lab, a list of labs is obtained.
-            labList = courseRepo.findByNameAndComponentAndTerm(courseName, "LAB", semester);
+        try {
+            if (lectureList.get(0).getLabRequired().equals("TRUE")) { //If there is a lab, a list of labs is obtained.
+                labList = courseRepo.findByNameAndComponentAndTerm(courseName, "LAB", semester);
+            }
+        }catch(Exception e){
+            return "This course is not offered in this semester";
         }
         /*
         On this next line, the lectures, tutorials and labs are combined into all valid groupings and returned as a single list.
          */
         List<CourseTrio> courseList = groupCourses(lectureList,tutorialList,labList);
-        if(savedSchedules[0] == null){ //This is the initial case for when a user add the first course to a schedule. It will be empty and it'll be created for the first time
-            savedSchedules = new Schedule[courseList.size()];
-            for (int i=0;i<courseList.size();i++){
-                savedSchedules[i] = new Schedule();
-                savedSchedules[i].insertCourse(courseList.get(i));
+        try {
+            if (savedSchedules[0] == null) { //This is the initial case for when a user add the first course to a schedule. It will be empty and it'll be created for the first time
+                savedSchedules = new Schedule[courseList.size()];
+                for (int i = 0; i < courseList.size(); i++) {
+                    savedSchedules[i] = new Schedule();
+                    savedSchedules[i].insertCourse(courseList.get(i));
+                }
+                System.out.println("Finish Time : " + (System.nanoTime() - startTime));
+                return "Course added!";
             }
-            System.out.println("Finish Time : " + (System.nanoTime()-startTime));
-            return;
+        }catch(Exception e){
+                return "No valid Schedule options with this combination. Clear your selections and retry!";
         }
-        savedSchedules = addToSchedule(courseList,savedSchedules); //For all courses beyond the initial one, the addToSchedule method is used to see the combinations.
+        try {
+            savedSchedules = addToSchedule(courseList, savedSchedules); //For all courses beyond the initial one, the addToSchedule method is used to see the combinations.
+        } catch(Exception e){
+            return "No valid Schedule options with this combination. Clear your selections and retry!";
+        }
         System.out.println("Finish Time : " + (System.nanoTime()-startTime));
+        return "Course added!";
     }
 
 
-    private Schedule[] addToSchedule(List<CourseTrio> courseList, Schedule[] schedules){
+    private Schedule[] addToSchedule(List<CourseTrio> courseList, Schedule[] schedules) throws Exception{
         List<Schedule> scheduleList = new ArrayList<>(); //List that will hold all new schedules objects as they are built
         Schedule newSchedule; //Temporary schedule object where schedules are built.
         for (Schedule schedule : schedules) {   //Each existing schedule will be added to each of the options available in courseList, these are the new courses to be added

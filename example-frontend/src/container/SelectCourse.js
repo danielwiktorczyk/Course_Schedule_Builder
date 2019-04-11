@@ -108,7 +108,7 @@ class SelectCourse extends Component {
                     } else
                         alert(res.data);
                 }, err => {
-                    alert("Server rejected response: COURSE INFO NOT RECEIVED");
+                    alert("No valid Schedule options with this combination. Clear your selections and retry!");
                 });
             }
 
@@ -121,7 +121,7 @@ class SelectCourse extends Component {
                     } else
                         alert(res.data);
                 }, err => {
-                    alert("Server rejected response: COURSE INFO NOT RECEIVED");
+                    alert("No valid Schedule options with this combination. Clear your selections and retry!");
                 });
             }
 
@@ -134,7 +134,7 @@ class SelectCourse extends Component {
                     } else
                         alert(res.data);
                 }, err => {
-                    alert("Server rejected response: COURSE INFO NOT RECEIVED");
+                    alert("No valid Schedule options with this combination. Clear your selections and retry!");
                 });
             }
 
