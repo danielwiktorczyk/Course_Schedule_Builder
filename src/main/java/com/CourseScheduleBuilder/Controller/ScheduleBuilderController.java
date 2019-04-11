@@ -97,7 +97,7 @@ public class ScheduleBuilderController {
     public Schedule generateSchedule()
     {
         Schedule returnSchedule;
-        if(userPreferencesService.preferencesPresent()){
+        if(userPreferencesService.preferencesPresent() && userPreferencesService.isToggle()){
             returnSchedule = scheduleBuilderService.generateAndShowFirstPrefSchedule();
             System.out.println("pref schedule generate");
         }
@@ -116,7 +116,7 @@ public class ScheduleBuilderController {
     public Schedule nextSchedule()
     {
         Schedule returnSchedule;
-        if(userPreferencesService.preferencesPresent()){
+        if(userPreferencesService.preferencesPresent() && userPreferencesService.isToggle()){
             returnSchedule = scheduleBuilderService.nextPrefSchedule();
         }
         else {
@@ -133,7 +133,7 @@ public class ScheduleBuilderController {
     public Schedule previousSchedule()
     {
         Schedule returnSchedule;
-        if(userPreferencesService.preferencesPresent()){
+        if(userPreferencesService.preferencesPresent() && userPreferencesService.isToggle()){
             returnSchedule = scheduleBuilderService.nextPrefSchedule();
         }
         else{
