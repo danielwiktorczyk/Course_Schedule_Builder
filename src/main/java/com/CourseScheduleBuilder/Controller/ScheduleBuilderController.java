@@ -2,7 +2,6 @@ package com.CourseScheduleBuilder.Controller;
 
 import com.CourseScheduleBuilder.Model.FEMessage;
 import com.CourseScheduleBuilder.Model.Schedule;
-import com.CourseScheduleBuilder.Model.User;
 import com.CourseScheduleBuilder.Services.ScheduleBuilderService;
 import com.CourseScheduleBuilder.Services.UserPreferencesService;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +44,7 @@ public class ScheduleBuilderController {
     {
         userPreferencesService.destroyPreferences();
         scheduleBuilderService.clear();
+        userPreferencesService.setToggle(false);
         return true;
     }
 
