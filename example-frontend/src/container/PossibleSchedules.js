@@ -19,14 +19,14 @@ class PossibleSchedules extends Component {
             size : 0,
         };
     }
-    toggle = (bool) => {
-        if (this.state.pref === false){
-            this.setState({pref: true})
-
-        }else{
-            this.setState({pref: false})
-        }
-        // axios.post('http://localhost:8080/') ///not sure where to post to
+    toggle = () => {
+        axios.post('http://localhost:8080/togglePreferences')
+            .then((res) => {
+                this.generate();
+            })
+            .catch((error) => {
+                console.log(error)
+            })
 
     };
 
@@ -54,6 +54,23 @@ class PossibleSchedules extends Component {
     previous = ()  => {
         if(true){
             axios.post('http://localhost:8080/previous')
+                .then((res) => {
+                    this.setState(prevState =>{
+                        return{
+                            offset : prevState.offset -1,
+                            data : res.data.courseTrio,
+                        }
+                    })
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+    };
+
+    generate = ()  => {
+        if(true){
+            axios.post('http://localhost:8080/generate')
                 .then((res) => {
                     this.setState(prevState =>{
                         return{
