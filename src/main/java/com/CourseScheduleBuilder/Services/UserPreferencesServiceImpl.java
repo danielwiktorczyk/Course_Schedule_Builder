@@ -10,7 +10,16 @@ import java.util.List;
 public class UserPreferencesServiceImpl implements UserPreferencesService{
 
     private UserPreferences currentPreferences = new UserPreferences();
+    private boolean toggle = false;
 
+
+    public boolean isToggle() {
+        return toggle;
+    }
+
+    public void setToggle(boolean toggle) {
+        this.toggle = toggle;
+    }
 
     public UserPreferences getCurrentPreferences(){
         return currentPreferences;

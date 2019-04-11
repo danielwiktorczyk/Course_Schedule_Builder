@@ -28,4 +28,17 @@ public class UserPreferencesController {
         }
 
     }
+
+    @PostMapping("/togglePreferences")
+    @CrossOrigin
+    @ResponseBody
+    public boolean togglePreferences(){
+        if(userPreferencesService.isToggle()){
+            userPreferencesService.setToggle(false);
+        }
+        else{
+            userPreferencesService.setToggle(true);
+        }
+        return true;
+    }
 }

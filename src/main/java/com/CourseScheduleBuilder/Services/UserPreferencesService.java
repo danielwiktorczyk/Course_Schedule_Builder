@@ -11,4 +11,6 @@ public interface UserPreferencesService {
     int[] getThursday();
     int[] getFriday();
     UserPreferences getCurrentPreferences();
+    boolean isToggle();
+    void setToggle(boolean toggle);
 }
