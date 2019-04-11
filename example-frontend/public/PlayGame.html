@@ -2,19 +2,31 @@
 
 <!DOCTYPE html>
 <html>
-<head><title>Air Hockey</title></head>
+<head><title>Air Hockey</title>
+
+<style>
+    html, body {
+        width:  100%;
+        height: 100%;
+        margin: 0;
+    }
+</style>
+
+</head>
 
 <body>
-<canvas id="gameCanvas" width="800" height="600"></canvas>
+<canvas id="gameCanvas"></canvas>
 <script>
 
-    const WINNING_SCORE=3, CANVAS_WIDTH=800, CANVAS_HEIGHT=600, PADDLE_HEIGHT = 100, PADDLE_THICKNESS = 10;
+    const WINNING_SCORE=3, CANVAS_WIDTH=window.innerWidth, CANVAS_HEIGHT=window.innerHeight, PADDLE_HEIGHT = 100, PADDLE_THICKNESS = 10;
     var canvas, CanvasContext, playerScore=0, paddleScore=0, playerY=0, paddleY=0, paddleSpeed=3, showWin=false;
     var ballX=(CANVAS_WIDTH/2), ballY=(CANVAS_HEIGHT/2), ballSpeedX=5*1.3, ballSpeedY=3;
 
     window.onload = function(){
         var fps= 60;
         canvas = document.getElementById('gameCanvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         canvasContext = canvas.getContext('2d');
         setInterval(function(){moveEverything();drawEverything();}, 1000/fps);
         canvas.addEventListener('mousemove', function(evt){
@@ -97,7 +109,7 @@
         return {x:mouseX, y:mouseY};
     }
     function drawEverything(){
-        colorRect(0,0,canvas.width,canvas.height,'black');				//draws area of game
+        colorRect(0,0,canvas.width,canvas.height,'#540E72');				//draws area of game
 
         if(showWin){
             canvasContext.fillStyle='red';
@@ -113,8 +125,8 @@
             return;}
         colorRect(0,playerY,PADDLE_THICKNESS,PADDLE_HEIGHT,'white');			//draws player of the game
         colorRect(canvas.width-PADDLE_THICKNESS,paddleY,PADDLE_THICKNESS,100,'white');//draws the opponent
-        colorCircle	(ballX, ballY, 7, 'red');				//draws the ball of game
-        canvasContext.fillText(playerScore,100,100);
+        colorCircle	(ballX, ballY, 7, 'white');				//draws the ball of game
+        canvasContext.fillText(playerScore,100,100,500);
         canvasContext.fillText(paddleScore,CANVAS_WIDTH-100,100);
     }
     function colorCircle(centerX, centerY, radius, drawColor){
@@ -130,3 +142,7 @@
 </script>
 </body>
 </html>
+
+
+
+
