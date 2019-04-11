@@ -321,7 +321,6 @@ class SelectCourse extends Component {
                             </div>
                         </form>
                         <AddedCourseList entries={this.state.items} />
-                        {/*delete={this.deleteItem}*/}
                     </div>
 
                     <div>
@@ -336,7 +335,6 @@ class SelectCourse extends Component {
                                     <input type="checkbox"/>
                                         <span className="checkmark" onClick={this._showOptionsMonday}></span>
                                 </label>
-                                {/*{ this.state.showOptionsMonday && (*/}
                                     <div className="choices">
                                         <label className="wrapping radio-inline">No Mornings
                                             <input id = "mm" type="radio" name="radio1"/>
@@ -351,12 +349,10 @@ class SelectCourse extends Component {
                                             <span className="check-mark"></span>
                                         </label>
                                     </div>
-                                {/*// }*/}
                                 <label className="newwrapper">Tuesday
                                     <input type="checkbox"/>
                                         <span className="checkmark" onClick={this._showOptionsTuesday}></span>
                                 </label>
-                                {/*{ this.state.showOptionsTuesday && (*/}
                                     <div className="choices">
                                         <label className="wrapping radio-inline">No Mornings
                                             <input id = "tm" type="radio" name="radio2"/>
@@ -371,12 +367,10 @@ class SelectCourse extends Component {
                                             <span className="check-mark"></span>
                                         </label>
                                     </div>
-                                {/*// )}*/}
                                 <label className="newwrapper">Wednesday
                                     <input type="checkbox"/>
                                         <span className="checkmark" onClick={this._showOptionsWednesday}></span>
                                 </label>
-                                {/*{ this.state.showOptionsWednesday && (*/}
                                     <div className="choices">
                                         <label className="wrapping radio-inline">No Mornings
                                             <input id = "wm" type="radio" name="radio3"/>
@@ -391,12 +385,10 @@ class SelectCourse extends Component {
                                             <span className="check-mark"></span>
                                         </label>
                                     </div>
-                                {/*)}*/}
                                 <label className="newwrapper">Thursday
                                     <input type="checkbox"/>
                                         <span className="checkmark" onClick={this._showOptionsThursday}></span>
                                 </label>
-                                {/*{ this.state.showOptionsThursday && (*/}
                                     <div className="choices">
                                         <label className="wrapping radio-inline">No Mornings
                                             <input id = "thm" type="radio" name="radio4"/>
@@ -411,12 +403,10 @@ class SelectCourse extends Component {
                                             <span className="check-mark"></span>
                                         </label>
                                     </div>
-                                {/*)}*/}
                                 <label className="newwrapper" >Friday
                                     <input type="checkbox"/>
                                         <span className="checkmark" onClick={this._showOptionsFriday}></span>
                                 </label>
-                                {/*{ this.state.showOptionsFriday && (*/}
                                     <div className="choices">
                                         <label className="wrapping radio-inline">No Mornings
                                             <input id = "fm" type="radio" name="radio5"/>
@@ -431,8 +421,7 @@ class SelectCourse extends Component {
                                             <span className="check-mark"></span>
                                         </label>
                                     </div>
-                                {/*// )}*/}
-                                <button className="btn generate-with-pref" onClick={this.applyPref}>Apply Preferences</button>
+                                <button id="save_changes" className="btn generate-with-pref" onClick={this.applyPref}>Apply Preferences</button>
                             </div>
                         ) }
                     </div>

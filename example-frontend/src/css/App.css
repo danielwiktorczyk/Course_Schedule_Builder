@@ -543,13 +543,13 @@ button.col-3.btn.btn-home-log.select-semester-options {
   left: 30px;
   height: 25px;
   width: 25px;
-  background-color: #eee;
+  background-color: #540E72;
 }
 
 /* On mouse-over, add a grey background color */
-.newwrapper:hover input ~ .checkmark {
-  background-color: #ccc;
-}
+/*.newwrapper:hover input ~ .checkmark {*/
+  /*background-color: #ccc;*/
+/*}*/
 
 /* When the checkbox is checked, add a blue background */
 .newwrapper input:checked ~ .checkmark {
@@ -838,10 +838,10 @@ button.btn.btn-home-log.toggle-pref {
     left: 11.5rem;
     /*top: -61px;*/
 }
-.position_buttons {
-    position: relative;
-    left: 7rem;
-}
+/*.position_buttons {*/
+    /*position: relative;*/
+    /*left: 7rem;*/
+/*}*/
 button.col-3.btn.btn-home-log.swap_button {
   position: relative;
   top: 19px;
@@ -854,4 +854,18 @@ button.col-3.btn.btn-home-log.swap_button {
 }
 .adding_dropping_course {
   margin-top: 4rem;
+}
+#save_changes:focus{
+    background:darkgreen !important;
+}
+.togglePref {
+    float: right;
+    position: relative;
+    top: -60px;
+    /*left: -4%;*/
+}
+h6.h6-toggle {
+    margin-bottom: 12px;
+    position: relative;
+    left: -3rem;
 }
