@@ -274,7 +274,7 @@ class SelectCourse extends Component {
         else fall =false;
 
         if(true){
-        axios.post("http://localhost:8080/userprefrences", {
+        axios.post("http://localhost:8080/userPreferences", {
             mm: mm , me : me , mall: mall ,
             tm: tm , te : te , tall: tall ,
             wm: wm , we : we , wall: wall ,
