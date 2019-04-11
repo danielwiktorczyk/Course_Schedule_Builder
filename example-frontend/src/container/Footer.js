@@ -9,9 +9,12 @@ class Footer extends Component {
         this.goToAboutUs = this.goToAboutUs.bind(this);
     }
 
+
     goToPlayGame() {
-        let path = '/PlayGame';
+
+        let path = 'PlayGame.html';
         this.props.history.push(path);
+
     }
 
     goToAboutUs(){
@@ -26,7 +29,8 @@ class Footer extends Component {
                 <div className="footer">
                     <div className="">
                         <a onClick={this.goToAboutUs}>About Us</a>
-                        <a onClick={this.goToPlayGame}>Play a Game!</a>
+                        <a href='PlayGame.html' target='_blank'>Play A Game!</a> /* the target blank opens it in a new tab (we can remove it) */
+
                     </div>
                 </div>
             </footer>
