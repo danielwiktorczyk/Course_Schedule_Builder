@@ -4,6 +4,9 @@ import {BrowserRouter as Router, withRouter} from "react-router-dom";
 import Header from "./Header";
 import axios from 'axios';
 import moment from "moment";
+import ToggleButton from 'react-toggle-button';
+
+
 
 class PossibleSchedules extends Component {
     constructor(props) {
@@ -21,21 +24,6 @@ class PossibleSchedules extends Component {
     }
 
     toggle = () => {
-
-    //     var button = document.getElementById("pref"),
-    //         toggle = false;
-    //
-    //     button.onclick = () => {
-    //     toggle = !toggle;   // invert toggle
-    //     button.style.background = toggle ? "#ff0077 !important" : "#ff7700 !important";
-    // }
-    //     button.style.background = "#ff7700 !important";
-
-        // if ( window.getComputedStyle(this.state.pref).backgroundColor === "rgb(255, 119, 0)") {
-        //     this.state.pref.style.backgroundColor = "rgb(255, 0, 119)";
-        // } else {
-        //     this.state.pref.style.backgroundColor = "rgb(255, 119, 0)";
-        // }
 
         axios.post('http://localhost:8080/togglePreferences')
             .then((res) => {
@@ -153,13 +141,7 @@ class PossibleSchedules extends Component {
     };
 
     render() {
-        // if (this.state.loading) {
-        //     return <div>loading...</div>;
-        // }
-        //
-        // if (!this.state.person) {
-        //     return <div>didn't get a person</div>;
-        // }
+
         const {data} = this.state;
         const timeTable = ['8 AM' , '9 AM' ,'10 AM' ,'11 AM' , '12 PM' , '1 PM', '2 PM' , '3 PM' , '4 PM' , '5 PM' , '6 PM' , '7 PM' , '8 PM' , '9 PM' , '10 PM' ]
         const schedule = [JSON.parse(JSON.stringify(data))]
@@ -170,6 +152,8 @@ class PossibleSchedules extends Component {
                 arry.push(item.lab) && arry.push(item.tutorial)
             )
         });
+
+        var self = this;
         return (
 
             <div>
@@ -192,8 +176,19 @@ class PossibleSchedules extends Component {
                                 /
                                 <button className="col-1 btn btn-home-log" onClick={this.next}>Next</button>
 
-                                <button id = "pref" className="btn btn-home-log toggle-pref" onClick={this.toggle}>Toggle Preferences</button>
+                                {/*<button id = "pref" className="btn btn-home-log toggle-pref" onClick={this.toggle} >Toggle Preferences</button>*/}
 
+                            </div>
+                            <div className="togglePref">
+                                <h6 className="h6-toggle">Toggle Preferences:</h6>
+                                <ToggleButton
+                                    onClick={this.toggle}
+                                    value={ self.state.value || false }
+                                    onToggle={(value) => {
+                                        self.setState({
+                                            value: !value,
+                                        })
+                                    }} />
                             </div>
 
                         </div>
