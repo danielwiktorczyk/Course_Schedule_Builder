@@ -323,11 +323,17 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             return user.getSummerSchedule();
         return new Schedule();
     }
+    public  String getMissingPrerequisites() {
+        return missingPrerequisites;
+    }
+
+    private static String missingPrerequisites = null;
 
     @Override
     public boolean validatePrerequisites(String courseToValidate) {
         User user;
         user = retriveUserInfo();
+        missingPrerequisites= null;
 
         List<String> previouslyTakenCourses = user.getPrereqs();
 
@@ -341,10 +347,10 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
                 user.addToPrereqs(equivalentCourseList.get(0).getEquivalent().replaceAll("[ .()]",""));
         }
 
-        for(int i=0;i<previouslyTakenCourses.size();i++)
-        {
-            System.out.println("User has already taken: "+user.getPrereqs().get(i));
-        }
+
+//        for(int i=0;i<previouslyTakenCourses.size();i++) {
+//            System.out.println("User has already taken: "+user.getPrereqs().get(i));
+//        }
 
         Course courseToTake = null;
         try {
@@ -352,6 +358,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         }catch(Exception e)
         {
             System.out.println("Error, course not found in database");
+            missingPrerequisites = "Course does not exist";
             return false;
         }
         String coursePrereq = courseToTake.getPreReq();
@@ -360,10 +367,9 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
         String[] coursePrerequArray = coursePrereq.replaceAll("[ .()]","").split(",");
 
-
-        for (int i = 0; i < coursePrerequArray.length; i++) {
-            System.out.println("The prerequisiste for "+courseToValidate+" is "+coursePrerequArray[i]);
-        }
+//        for (int i = 0; i < coursePrerequArray.length; i++) {
+//            System.out.println("The prerequisistes for "+courseToValidate+" is "+coursePrerequArray[i]);
+//        }
         ArrayList<String> missingPrereqList = new ArrayList<>();
 
         for (int i = 0; i < coursePrerequArray.length; i++) {
@@ -372,10 +378,12 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         }
         if(missingPrereqList.size()>0)
         {
-            System.out.println("Prerequisistes missing: ");
-            for (int i = 0; i < missingPrereqList.size(); i++) {
-                System.out.println(missingPrereqList.get(i));
-            }
+            missingPrerequisites = "You are missing some prerequisites: ";
+            missingPrerequisites += Arrays.toString(missingPrereqList.toArray());
+//            System.out.println("Prerequisistes missing: ");
+//            for (int i = 0; i < missingPrereqList.size(); i++) {
+//                System.out.println(missingPrereqList.get(i));
+//            }
             return false;
         }
 
@@ -564,7 +572,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
             }
             if (!validatePrerequisites(course))
-                return "Pre-requisites not Met";
+                return getMissingPrerequisites();
             generateSchedules(course,semester);
             return "Success";
 
@@ -585,7 +593,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
             }
             if (!validatePrerequisites(course))
-                return "Pre-requisites not Met";
+                return getMissingPrerequisites();
             generateSchedules(course,semester);
             return "Success";
         }
@@ -604,7 +612,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
             }
             if (!validatePrerequisites(course))
-                return "Pre-requisites not Met";
+                return getMissingPrerequisites();
             generateSchedules(course,semester);
             return "Success";
         }

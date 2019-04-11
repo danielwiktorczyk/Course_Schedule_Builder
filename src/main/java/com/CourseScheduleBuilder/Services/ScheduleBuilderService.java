@@ -6,6 +6,7 @@ import com.CourseScheduleBuilder.Model.Schedule;
 import com.CourseScheduleBuilder.Model.UserPreferences;
 
 public interface ScheduleBuilderService {
+    String  getMissingPrerequisites();
     boolean validatePrerequisites(String course);
     boolean validateCorequisites();
     //Schedule[] addToSchedule(Schedule[] schedule, List<Course> lectures,List<Course> tutorial, List<Course> labs ,int possibilities);
