@@ -33,8 +33,8 @@ public class ScheduleBuilderController {
         if (!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
             return scheduleBuilderService.getMissingPrerequisites();
 
-        scheduleBuilderService.generateSchedules(courses.getMessage(), "Fall");
-        return "Course added!";
+        return scheduleBuilderService.generateSchedules(courses.getMessage(), "Fall");
+
     }
 
     @PostMapping("/clear")
@@ -76,8 +76,8 @@ public class ScheduleBuilderController {
         if (!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
             return scheduleBuilderService.getMissingPrerequisites();
 
-        scheduleBuilderService.generateSchedules(courses.getMessage(), "Winter");
-        return "Course added!";
+        return scheduleBuilderService.generateSchedules(courses.getMessage(), "Winter");
+
     }
 
     @PostMapping("/addCourseToWishListSummer")
@@ -87,8 +87,8 @@ public class ScheduleBuilderController {
         if (!scheduleBuilderService.validatePrerequisites(courses.getMessage()))
             return scheduleBuilderService.getMissingPrerequisites();
 
-        scheduleBuilderService.generateSchedules(courses.getMessage(), "Summer");
-        return "Course added!";
+        return scheduleBuilderService.generateSchedules(courses.getMessage(), "Summer");
+
     }
 
     @PostMapping("/generate")

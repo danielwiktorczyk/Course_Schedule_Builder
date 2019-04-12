@@ -5,7 +5,6 @@ import com.CourseScheduleBuilder.Repositories.CourseRepo;
 import com.CourseScheduleBuilder.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.CourseScheduleBuilder.Services.UserPreferencesService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,35 +51,49 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         return user;
     }
 
-    public void generateSchedules(String courseName,String semester){
+    public String generateSchedules(String courseName,String semester){
         scheduleCount = 0;
         numberOfChecks = 0;
         long startTime = System.nanoTime(); //Following this line, a list of possible lectures and one of tutorials are obtained
         List<Course> lectureList = courseRepo.findByNameAndComponentAndTerm(courseName,"LEC",semester);
         List<Course> tutorialList = courseRepo.findByNameAndComponentAndTerm(courseName,"TUT",semester);
         List<Course> labList = new ArrayList();
-        if (lectureList.get(0).getLabRequired().equals("TRUE")) { //If there is a lab, a list of labs is obtained.
-            labList = courseRepo.findByNameAndComponentAndTerm(courseName, "LAB", semester);
+        try {
+            if (lectureList.get(0).getLabRequired().equals("TRUE")) { //If there is a lab, a list of labs is obtained.
+                labList = courseRepo.findByNameAndComponentAndTerm(courseName, "LAB", semester);
+            }
+        }catch(Exception e){
+            return "This course is not offered in this semester";
         }
         /*
         On this next line, the lectures, tutorials and labs are combined into all valid groupings and returned as a single list.
          */
         List<CourseTrio> courseList = groupCourses(lectureList,tutorialList,labList);
-        if(savedSchedules[0] == null){ //This is the initial case for when a user add the first course to a schedule. It will be empty and it'll be created for the first time
-            savedSchedules = new Schedule[courseList.size()];
-            for (int i=0;i<courseList.size();i++){
-                savedSchedules[i] = new Schedule();
-                savedSchedules[i].insertCourse(courseList.get(i));
+        try {
+            boolean test = savedSchedules[0] == null;
+        } catch(Exception e){
+                return "No valid Schedule options with this combination. Clear your selections and retry!";
             }
-            System.out.println("Finish Time : " + (System.nanoTime()-startTime));
-            return;
+            if (savedSchedules[0] == null) { //This is the initial case for when a user add the first course to a schedule. It will be empty and it'll be created for the first time
+                savedSchedules = new Schedule[courseList.size()];
+                for (int i = 0; i < courseList.size(); i++) {
+                    savedSchedules[i] = new Schedule();
+                    savedSchedules[i].insertCourse(courseList.get(i));
+                }
+                System.out.println("Finish Time : " + (System.nanoTime() - startTime));
+                return "Course added!";
+            }
+        try {
+            savedSchedules = addToSchedule(courseList, savedSchedules); //For all courses beyond the initial one, the addToSchedule method is used to see the combinations.
+        } catch(Exception e){
+            return "No valid Schedule options with this combination. Clear your selections and retry!";
         }
-        savedSchedules = addToSchedule(courseList,savedSchedules); //For all courses beyond the initial one, the addToSchedule method is used to see the combinations.
         System.out.println("Finish Time : " + (System.nanoTime()-startTime));
+        return "Course added!";
     }
 
 
-    private Schedule[] addToSchedule(List<CourseTrio> courseList, Schedule[] schedules){
+    private Schedule[] addToSchedule(List<CourseTrio> courseList, Schedule[] schedules) throws Exception{
         List<Schedule> scheduleList = new ArrayList<>(); //List that will hold all new schedules objects as they are built
         Schedule newSchedule; //Temporary schedule object where schedules are built.
         for (Schedule schedule : schedules) {   //Each existing schedule will be added to each of the options available in courseList, these are the new courses to be added
@@ -337,14 +350,18 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
         List<String> previouslyTakenCourses = user.getPrereqs();
 
-
-
         for(int i=0;i<previouslyTakenCourses.size();i++)
         {
+            System.out.println("-------------------------");
+            System.out.println(previouslyTakenCourses.get(i));
+            System.out.println("-------------------------");
             List<Course> equivalentCourseList = courseRepo.findByNameAndComponent(previouslyTakenCourses.get(i), "LEC");
 
-            if (equivalentCourseList.size() > 0 && i < equivalentCourseList.size() && equivalentCourseList.get(i).getEquivalent() != null)
-                user.addToPrereqs(equivalentCourseList.get(0).getEquivalent().replaceAll("[ .()]",""));
+            if (equivalentCourseList.size() > 0  && equivalentCourseList.get(0).getEquivalent() != null) {
+                user.addToPrereqs(equivalentCourseList.get(0).getEquivalent().replaceAll("[ .()]", ""));
+                System.out.println(equivalentCourseList.get(0).getName());
+                System.out.println(equivalentCourseList.get(0).getEquivalent().replaceAll("[ .()]", ""));
+            }
         }
 
 
@@ -365,7 +382,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         if(coursePrereq == null)
             return true;
 
-        String[] coursePrerequArray = coursePrereq.replaceAll("[ .()]","").split(",");
+        String[] coursePrerequArray = coursePrereq.replaceAll("[ .()]","").replaceAll(";",",").split(",");
 
 //        for (int i = 0; i < coursePrerequArray.length; i++) {
 //            System.out.println("The prerequisistes for "+courseToValidate+" is "+coursePrerequArray[i]);

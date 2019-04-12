@@ -42,26 +42,74 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+
+
+        try {
+            Server server = Server.createTcpServer(args).start();
+            server = Server.createTcpServer("-tcpAllowOthers").start();
+            Class.forName("org.h2.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/DB", "sa", "");
+
+
+            Statement statement = conn.createStatement();
+            statement.execute("DROP TABLE COURSE");
+            statement.execute("CREATE TABLE COURSE AS SELECT * FROM CSVREAD('./Course_Database_Table.csv')");
+            statement.execute("ALTER TABLE USER ALTER COLUMN FALL_SCHEDULE LONGTEXT");
+            statement.execute("ALTER TABLE USER ALTER COLUMN WINTER_SCHEDULE LONGTEXT");
+            statement.execute("ALTER TABLE USER ALTER COLUMN SUMMER_SCHEDULE LONGTEXT");
+            statement.execute("ALTER TABLE USER ALTER COLUMN PREREQS LONGTEXT");
+            statement.close();
+
+            conn.close();
+            server.stop();
+        } catch (Exception e) {
+            System.out.println("Something wrong with starting h2");
+            e.printStackTrace();
+        }
+
+
         User user1 = new User();
         user1.setFirstName("Moataz");
         user1.setLastName("Fawzy");
-        user1.setPassword("aaa");
+        user1.setPassword("abcdef");
         user1.setEmail("moataz_fawzy@live.com");
-        user1.setUsername("aaa");
+        user1.setUsername("MoatazF");
         user1.setEWT(false);
-        user1.addToPrereqs("COMP348");
-        user1.addToPrereqs("COMP352");
-        user1.addToPrereqs("SOEN391");
         user1.addToPrereqs("COMP248");
+        user1.addToPrereqs("COMP232");
+        user1.addToPrereqs("ENGR213");
+        user1.addToPrereqs("ENGR201");
+        user1.addToPrereqs("ECON201");
+        user1.addToPrereqs("SOEN228");
+        user1.addToPrereqs("COMP249");
+        user1.addToPrereqs("SOEN287");
+        user1.addToPrereqs("ENGR233");
+        user1.addToPrereqs("BIOL206");
+        user1.addToPrereqs("COMP352");
+        user1.addToPrereqs("COMP348");
+        user1.addToPrereqs("ENGR202");
+        user1.addToPrereqs("ENCS272");
+        user1.addToPrereqs("ENCS282");
+        user1.addToPrereqs("ELEC275");
+        user1.addToPrereqs("COMP346");
+        user1.addToPrereqs("MECH221");
+        user1.addToPrereqs("ENGR371");
+        user1.addToPrereqs("SOEN341");
+        user1.addToPrereqs("SOEN331");
+        user1.addToPrereqs("COMP335");
+        user1.addToPrereqs("SOEN384");
+        user1.addToPrereqs("ENGR391");
+        user1.addToPrereqs("SOEN342");
+        user1.addToPrereqs("SOEN343");
 
         userRepo.save(user1);
 
         User user2 = new User();
-        user2.setFirstName("Terrill");
-        user2.setLastName("Fancott");
+        user2.setFirstName("Harry");
+        user2.setLastName("Potter");
         user2.setEmail("SuperMan@live.com");
-        user2.setUsername("TerrillF");
-        user2.setPassword("aaa");
+        user2.setUsername("HarryP");
+        user2.setPassword("PotterAcc");
         user2.setEWT(false);
         user2.addToPrereqs("COMP248");
         user2.addToPrereqs("COMP232");
@@ -79,16 +127,18 @@ public class Application implements CommandLineRunner {
         user3.setLastName("Baggins");
         user3.setEmail("Bilbro@live.com");
         user3.setUsername("BobB");
-        user3.setPassword("aaa");
+        user3.setPassword("1234567");
         user3.setEWT(false);
         user3.addToPrereqs("COMP248");
         user3.addToPrereqs("COMP232");
         user3.addToPrereqs("ENGR213");
         user3.addToPrereqs("ENGR201");
+        user3.addToPrereqs("ECON201");
         user3.addToPrereqs("SOEN228");
         user3.addToPrereqs("COMP249");
         user3.addToPrereqs("SOEN287");
         user3.addToPrereqs("ENGR233");
+        user3.addToPrereqs("BIOL206");
 
         userRepo.save(user3);
 
@@ -97,21 +147,26 @@ public class Application implements CommandLineRunner {
         user4.setLastName("Baggins");
         user4.setEmail("OmarB@live.com");
         user4.setUsername("OmarB");
-        user4.setPassword("aaa");
+        user4.setPassword("OmarPassword");
         user4.setEWT(false);
         user4.addToPrereqs("COMP248");
         user4.addToPrereqs("COMP232");
         user4.addToPrereqs("ENGR213");
         user4.addToPrereqs("ENGR201");
+        user4.addToPrereqs("ECON201");
         user4.addToPrereqs("SOEN228");
         user4.addToPrereqs("COMP249");
         user4.addToPrereqs("SOEN287");
         user4.addToPrereqs("ENGR233");
-        user4.addToPrereqs("ECON201");
         user4.addToPrereqs("BIOL206");
-        user4.addToPrereqs("ENGR251");
-        user4.addToPrereqs("COMP345");
-        user4.addToPrereqs("COMP353");
+        user4.addToPrereqs("COMP352");
+        user4.addToPrereqs("COMP348");
+        user4.addToPrereqs("ENGR202");
+        user4.addToPrereqs("ENCS272");
+        user4.addToPrereqs("ENCS282");
+        user4.addToPrereqs("ELEC275");
+
+
 
         userRepo.save(user4);
 
@@ -137,27 +192,7 @@ public class Application implements CommandLineRunner {
          * 4 - click on  the '+' above all the maven libraries and click on Java
          * 5 - It is in the Modules directory ( [..]/Course_Schedule_Builder/Modules/ )
          */
-        try {
-            Server server = Server.createTcpServer(args).start();
-            server = Server.createTcpServer("-tcpAllowOthers").start();
-            Class.forName("org.h2.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/DB", "sa", "");
 
-
-            Statement statement = conn.createStatement();
-            statement.execute("DROP TABLE COURSE");
-            statement.execute("CREATE TABLE COURSE AS SELECT * FROM CSVREAD('./Course_Database_Table.csv')");
-            statement.execute("ALTER TABLE USER ALTER COLUMN FALL_SCHEDULE LONGTEXT");
-            statement.execute("ALTER TABLE USER ALTER COLUMN WINTER_SCHEDULE LONGTEXT");
-            statement.execute("ALTER TABLE USER ALTER COLUMN SUMMER_SCHEDULE LONGTEXT");
-            statement.close();
-
-            conn.close();
-            server.stop();
-        } catch (Exception e) {
-            System.out.println("Something wrong with starting h2");
-            e.printStackTrace();
-        }
 
 
     }
