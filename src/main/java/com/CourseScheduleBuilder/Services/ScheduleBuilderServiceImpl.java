@@ -70,6 +70,10 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
          */
         List<CourseTrio> courseList = groupCourses(lectureList,tutorialList,labList);
         try {
+            boolean test = savedSchedules[0] == null;
+        } catch(Exception e){
+                return "No valid Schedule options with this combination. Clear your selections and retry!";
+            }
             if (savedSchedules[0] == null) { //This is the initial case for when a user add the first course to a schedule. It will be empty and it'll be created for the first time
                 savedSchedules = new Schedule[courseList.size()];
                 for (int i = 0; i < courseList.size(); i++) {
@@ -79,9 +83,6 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
                 System.out.println("Finish Time : " + (System.nanoTime() - startTime));
                 return "Course added!";
             }
-        }catch(Exception e){
-                return "No valid Schedule options with this combination. Clear your selections and retry!";
-        }
         try {
             savedSchedules = addToSchedule(courseList, savedSchedules); //For all courses beyond the initial one, the addToSchedule method is used to see the combinations.
         } catch(Exception e){
@@ -349,14 +350,18 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
         List<String> previouslyTakenCourses = user.getPrereqs();
 
-
-
         for(int i=0;i<previouslyTakenCourses.size();i++)
         {
+            System.out.println("-------------------------");
+            System.out.println(previouslyTakenCourses.get(i));
+            System.out.println("-------------------------");
             List<Course> equivalentCourseList = courseRepo.findByNameAndComponent(previouslyTakenCourses.get(i), "LEC");
 
-            if (equivalentCourseList.size() > 0 && i < equivalentCourseList.size() && equivalentCourseList.get(i).getEquivalent() != null)
-                user.addToPrereqs(equivalentCourseList.get(0).getEquivalent().replaceAll("[ .()]",""));
+            if (equivalentCourseList.size() > 0  && equivalentCourseList.get(0).getEquivalent() != null) {
+                user.addToPrereqs(equivalentCourseList.get(0).getEquivalent().replaceAll("[ .()]", ""));
+                System.out.println(equivalentCourseList.get(0).getName());
+                System.out.println(equivalentCourseList.get(0).getEquivalent().replaceAll("[ .()]", ""));
+            }
         }
 
 
@@ -377,7 +382,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
         if(coursePrereq == null)
             return true;
 
-        String[] coursePrerequArray = coursePrereq.replaceAll("[ .()]","").split(",");
+        String[] coursePrerequArray = coursePrereq.replaceAll("[ .()]","").replaceAll(";",",").split(",");
 
 //        for (int i = 0; i < coursePrerequArray.length; i++) {
 //            System.out.println("The prerequisistes for "+courseToValidate+" is "+coursePrerequArray[i]);
