@@ -17,6 +17,8 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.List;
 
+import static org.h2.expression.Function.CSVWRITE;
+
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
@@ -170,11 +172,69 @@ public class Application implements CommandLineRunner {
 
         userRepo.save(user4);
 
-        List<User> userData = userRepo.findAll();
-        for (User User : userData) {
-            LOG.info("Course found :" + User.toString());
 
-        }
+        User user5 = new User();
+        user5.setFirstName("Lazlo");
+        user5.setLastName("SomeGuy");
+        user5.setEmail("SomeGuy@live.com");
+        user5.setUsername("LazloS");
+        user5.setPassword("LazloPassword");
+        user5.setEWT(false);
+        user5.addToPrereqs("COMP248");
+        user5.addToPrereqs("COMP232");
+        user5.addToPrereqs("ENGR213");
+        user5.addToPrereqs("ENGR201");
+        user5.addToPrereqs("ECON201");
+        user5.addToPrereqs("SOEN228");
+        user5.addToPrereqs("COMP249");
+        user5.addToPrereqs("SOEN287");
+        user5.addToPrereqs("ENGR233");
+        user5.addToPrereqs("BIOL206");
+        user5.addToPrereqs("COMP352");
+        user5.addToPrereqs("COMP348");
+        user5.addToPrereqs("ENGR202");
+        user5.addToPrereqs("ENCS272");
+        user5.addToPrereqs("ENCS282");
+        user5.addToPrereqs("ELEC275");
+        user5.addToPrereqs("COMP346");
+        user5.addToPrereqs("MECH221");
+        user5.addToPrereqs("ENGR371");
+        user5.addToPrereqs("SOEN341");
+        user5.addToPrereqs("SOEN331");
+        user5.addToPrereqs("COMP335");
+        user5.addToPrereqs("SOEN384");
+        user5.addToPrereqs("ENGR391");
+        user5.addToPrereqs("SOEN342");
+        user5.addToPrereqs("SOEN343");
+        user5.addToPrereqs("SOEN344");
+        user5.addToPrereqs("SOEN390");
+        user5.addToPrereqs("SOEN345");
+        user5.addToPrereqs("SOEN357");
+        user5.addToPrereqs("COMP353");
+
+
+        userRepo.save(user5);
+
+        User user6 = new User();
+        user6.setFirstName("Ben");
+        user6.setLastName("LastName");
+        user6.setEmail("Benjamin@live.com");
+        user6.setUsername("BenF");
+        user6.setPassword("BensPassword");
+        user6.setEWT(false);
+        user6.addToPrereqs("COMP248");
+        user6.addToPrereqs("COMP232");
+        user6.addToPrereqs("ENGR213");
+        user6.addToPrereqs("ENGR201");
+        user6.addToPrereqs("ECON201");
+        user6.addToPrereqs("SOEN228");
+        user6.addToPrereqs("COMP249");
+        user6.addToPrereqs("SOEN287");
+        user6.addToPrereqs("ENGR233");
+        user6.addToPrereqs("BIOL206");
+
+        userRepo.save(user6);
+
 
 
         List<User> results = userRepo.findByUsernameAndPassword("SuperMan@live.com", "20BONUSPOINTS");
@@ -182,7 +242,6 @@ public class Application implements CommandLineRunner {
         for (User User : results) {
             LOG.info("Matching results are : " + User.toString());
         }
-
 
         /**
          * This will create the h2 databse server, then start it

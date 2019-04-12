@@ -359,8 +359,6 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
             if (equivalentCourseList.size() > 0  && equivalentCourseList.get(0).getEquivalent() != null) {
                 user.addToPrereqs(equivalentCourseList.get(0).getEquivalent().replaceAll("[ .()]", ""));
-                System.out.println(equivalentCourseList.get(0).getName());
-                System.out.println(equivalentCourseList.get(0).getEquivalent().replaceAll("[ .()]", ""));
             }
         }
 
@@ -427,11 +425,14 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
 
                if(savedSchedules[0].getCourseTrio()[i].getLecture().getCoReq() != null)
                {
-                   String[] coreqs = savedSchedules[0].getCourseTrio()[i].getLecture().getCoReq().replaceAll("[ .()]","").split(",");
+                   String[] coreqs = savedSchedules[0].getCourseTrio()[i].getLecture().getCoReq().replaceAll("[ .;()]","").split(",");
                    coReqList.addAll(Arrays.asList(coreqs));
                }
            }
-
+        for(int i=0;i<previouslyTakenCourses.size();i++){
+            System.out.println(previouslyTakenCourses.get(i));
+        }
+        System.out.println();
         /*
          * checks if the courses user has and is taking are enough
          * to take the new courses.
@@ -446,7 +447,7 @@ public class ScheduleBuilderServiceImpl implements ScheduleBuilderService {
             }
         }
 
-        if(success == coReqList.size()) {
+        if(success > coReqList.size() -1) {
             System.out.println("Success");
             return true;
         }
