@@ -1,15 +1,23 @@
 This repository was initialized based on Liuben10's Sprint/React initialization repo. This can be viewed at https://github.com/liuben10/spring-boot-react-js-example.
 
-Please Check the Wiki for further information.
+# Concordia_Course_Builder
+Group Assignment for SOEN 341, where we make a much better version of the course builder!
 
+## Contributing and Making Branches 
+- Members of The Procrastinators team have collaboration rights. We follow the below version control system:
 
-The Course_Database_Table.csv file should be used to populate the Course repository with SOEN, ENGR, ENCS, COMP and ELEC 275 classes.
+### Master (master) branch
+- Requires at least 1 reviewer to merge into. This is for version releases.
 
-Most of the data is pretty self explainatory just a couple of notes:
-association is a unique 4 digit integer that a course shares with it's associated tutorials, labs are not associated with particular classes so any lad for that class in that semester will do
-requireEngineer has three possible values "NOENG" indicates a course that does not have to be taught by an engineer, 
-"Y" indicates a course that does have to be taught by an engineer and is taught by one, 
-"N" indicates a course that does have to be taught by an engineer and is not. 
-startTime and endTime are an integer in minutes from midnight at which the course starts and ends
+### Feature Branches
+- The work associated with a user story should at first be uniquely tied to a feature branch containing its ID number. This makes it much easier to tie PRs to a feature 
+
+## Issue Tracking for Project Management
+- Work is done through assigning team members to issues, that can be either Issues (non-code related items) or UserStories (code-related items). The assigned member should take ownership of the issue they are assigned to, and either complete the issue, or pass the assignee-ownership to other members after contributing. 
+- Projects track the current Sprint, and the current status of Issues (either To-Do, In-Progress, or Done). 
+
+## Project Wiki
+- For information such as the team member contact information, tools used, guides, and other fun stuff, please refer to this project's wiki on Github
+
 
 
